@@ -200,19 +200,73 @@ export const OrderConfirmationPage: React.FC = () => {
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-[#5B1E22]" />
               <h3 className="font-serif text-base font-bold text-[#292522]">
-                Order Notifications & Communications
+                Order Notifications & Email Dispatch Hub
               </h3>
             </div>
             <button
               onClick={handleResendEmails}
               disabled={isResending}
-              className="text-[11px] text-[#5B1E22] hover:text-[#421417] flex items-center gap-1 font-semibold transition-colors disabled:opacity-50"
+              className="text-[11px] text-[#5B1E22] hover:text-[#421417] flex items-center gap-1 font-semibold transition-colors disabled:opacity-50 cursor-pointer"
               title="Resend email notifications"
             >
               <RefreshCw className={`w-3 h-3 ${isResending ? 'animate-spin' : ''}`} />
-              <span>{isResending ? 'Sending...' : 'Resend Email Alerts'}</span>
+              <span>{isResending ? 'Dispatching...' : 'Resend Email Alerts'}</span>
             </button>
           </div>
+
+          {/* Real vs Simulated Status Banner */}
+          {isSimulated ? (
+            <div className="p-3.5 bg-amber-50/80 border border-amber-300 text-xs rounded-xs space-y-2">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <div className="flex items-center gap-1.5 font-bold text-amber-900">
+                  <AlertCircle className="w-4 h-4 text-amber-700 shrink-0" />
+                  <span>Automated Background Email Requires Gmail App Password</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowSmtpSetup(!showSmtpSetup)}
+                  className="text-[11px] font-bold text-[#5B1E22] underline hover:text-[#421417] cursor-pointer"
+                >
+                  {showSmtpSetup ? 'Close Setup' : '⚡ Activate Live Gmail Delivery (2 Min)'}
+                </button>
+              </div>
+              <p className="text-[11px] text-amber-800 leading-relaxed">
+                Google protects <strong>aadahhouse@gmail.com</strong> from unauthorized third-party scripts. In the meantime, use the <strong>"Open in Gmail & Send"</strong> or <strong>WhatsApp</strong> buttons below to deliver the email with 1 click!
+              </p>
+
+              {/* In-Page App Password Configurator */}
+              {showSmtpSetup && (
+                <form onSubmit={handleSaveAppPassword} className="pt-2.5 border-t border-amber-200 space-y-2">
+                  <p className="text-[11px] font-medium text-amber-900">
+                    <strong>Quick Setup:</strong> 1. Open <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener noreferrer" className="underline font-bold text-[#5B1E22]">myaccount.google.com/apppasswords</a> with aadahhouse@gmail.com &bull; 2. Generate a 16-letter App Password and paste it below:
+                  </p>
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                    <input
+                      type="password"
+                      value={appPasswordInput}
+                      onChange={(e) => setAppPasswordInput(e.target.value)}
+                      placeholder="Paste 16-letter App Password (e.g. abcd efgh ijkl mnop)"
+                      className="flex-1 bg-white border border-amber-300 p-2 text-xs font-mono outline-none focus:border-[#5B1E22]"
+                    />
+                    <button
+                      type="submit"
+                      disabled={isSavingSmtp || !appPasswordInput.trim()}
+                      className="px-4 py-2 bg-[#5B1E22] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#421417] disabled:opacity-50 cursor-pointer transition-colors shadow-xs"
+                    >
+                      {isSavingSmtp ? 'Saving...' : 'Save & Send Live Emails'}
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
+          ) : (
+            <div className="p-3 bg-[#7A8061]/15 border border-[#7A8061]/40 text-xs text-[#292522] rounded-xs flex items-center gap-2">
+              <Check className="w-4 h-4 text-[#7A8061] shrink-0" />
+              <span>
+                <strong>Live Delivery Active:</strong> Automated emails have been dispatched directly via Gmail SMTP to both <strong>{BRAND_CONFIG.contact.email}</strong> and <strong>{lastOrder.shippingAddress.email}</strong>.
+              </span>
+            </div>
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
             {/* Owner Email Notification Box */}
@@ -221,8 +275,12 @@ export const OrderConfirmationPage: React.FC = () => {
                 <span className="font-semibold text-[#5B1E22] uppercase tracking-wider text-[11px] flex items-center gap-1">
                   <span>🏪 Official Owner Alert</span>
                 </span>
-                <span className="px-2 py-0.5 text-[10px] bg-[#7A8061]/15 text-[#7A8061] font-semibold rounded-xs">
-                  {emailStatus === 'sending' ? 'Dispatching...' : 'Sent / Prepared'}
+                <span className={`px-2 py-0.5 text-[10px] font-semibold rounded-xs ${
+                  isSimulated
+                    ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                    : 'bg-[#7A8061]/15 text-[#7A8061]'
+                }`}>
+                  {isSimulated ? 'Pending App Password' : '✓ Delivered to Inbox'}
                 </span>
               </div>
               <p className="text-[#292522]/80 leading-relaxed text-[12px]">
@@ -230,13 +288,22 @@ export const OrderConfirmationPage: React.FC = () => {
                 <br />
                 <strong className="text-[#292522]">{BRAND_CONFIG.contact.email}</strong>
               </p>
-              <div className="pt-1 flex flex-wrap items-center gap-2">
+              <div className="pt-2 flex flex-wrap items-center gap-2">
+                <a
+                  href={ownerGmailWeb}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#5B1E22] hover:bg-[#421417] text-white text-[11px] font-semibold rounded-xs shadow-xs transition-colors"
+                >
+                  <Send className="w-3 h-3 text-[#C9A76A]" />
+                  <span>Open in Gmail & Send</span>
+                </a>
                 <a
                   href={ownerMailto}
                   className="inline-flex items-center gap-1 text-[11px] text-[#5B1E22] hover:underline font-semibold"
                 >
                   <Mail className="w-3 h-3" />
-                  <span>Open Owner Email Draft</span>
+                  <span>Mail App</span>
                 </a>
                 <span className="text-[#9E897A]">·</span>
                 <a
@@ -246,7 +313,7 @@ export const OrderConfirmationPage: React.FC = () => {
                   className="inline-flex items-center gap-1 text-[11px] text-[#25D366] hover:underline font-semibold"
                 >
                   <MessageCircle className="w-3 h-3" />
-                  <span>Owner WhatsApp Alert</span>
+                  <span>WhatsApp Alert</span>
                 </a>
               </div>
             </div>
@@ -257,8 +324,12 @@ export const OrderConfirmationPage: React.FC = () => {
                 <span className="font-semibold text-[#5B1E22] uppercase tracking-wider text-[11px] flex items-center gap-1">
                   <span>✉️ Customer Receipt</span>
                 </span>
-                <span className="px-2 py-0.5 text-[10px] bg-[#7A8061]/15 text-[#7A8061] font-semibold rounded-xs">
-                  {emailStatus === 'sending' ? 'Dispatching...' : 'Sent / Prepared'}
+                <span className={`px-2 py-0.5 text-[10px] font-semibold rounded-xs ${
+                  isSimulated
+                    ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                    : 'bg-[#7A8061]/15 text-[#7A8061]'
+                }`}>
+                  {isSimulated ? 'Pending App Password' : '✓ Delivered to Inbox'}
                 </span>
               </div>
               <p className="text-[#292522]/80 leading-relaxed text-[12px]">
@@ -266,13 +337,22 @@ export const OrderConfirmationPage: React.FC = () => {
                 <br />
                 <strong className="text-[#292522]">{lastOrder.shippingAddress.email}</strong>
               </p>
-              <div className="pt-1 flex flex-wrap items-center gap-2">
+              <div className="pt-2 flex flex-wrap items-center gap-2">
+                <a
+                  href={customerGmailWeb}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#5B1E22] hover:bg-[#421417] text-white text-[11px] font-semibold rounded-xs shadow-xs transition-colors"
+                >
+                  <Send className="w-3 h-3 text-[#C9A76A]" />
+                  <span>Open in Gmail & Send</span>
+                </a>
                 <a
                   href={customerMailto}
                   className="inline-flex items-center gap-1 text-[11px] text-[#5B1E22] hover:underline font-semibold"
                 >
                   <Mail className="w-3 h-3" />
-                  <span>Open Customer Email Copy</span>
+                  <span>Mail App</span>
                 </a>
                 <span className="text-[#9E897A]">·</span>
                 <a
@@ -282,19 +362,9 @@ export const OrderConfirmationPage: React.FC = () => {
                   className="inline-flex items-center gap-1 text-[11px] text-[#25D366] hover:underline font-semibold"
                 >
                   <MessageCircle className="w-3 h-3" />
-                  <span>Send Customer WhatsApp</span>
+                  <span>Customer WhatsApp</span>
                 </a>
               </div>
-            </div>
-          </div>
-
-          <div className="p-3 bg-[#F7EFE3]/80 border border-[#C9A76A]/40 text-[11px] text-[#292522]/80 flex items-start gap-2">
-            <span className="text-[#C9A76A] font-bold text-sm leading-none mt-0.5">✦</span>
-            <div>
-              <span>
-                Both <strong>Owner ({BRAND_CONFIG.contact.email})</strong> and <strong>Customer ({lastOrder.shippingAddress.email})</strong> notifications are tracked. 
-                You can also send an instant WhatsApp order receipt with 1 click below.
-              </span>
             </div>
           </div>
         </div>
