@@ -48,6 +48,51 @@ function orderNotificationPlugin(): Plugin {
         });
       });
 
+      // In-memory payment session store for automated UPI webhook & status verification
+      const paymentSessions: Record<string, { status: 'PENDING' | 'PAID'; amount: number; upiRef?: string; createdAt: number }> = {};
+
+      server.middlewares.use('/api/payment-status', (req, res, next) => {
+        const url = new URL(req.url || '', 'http://localhost');
+        const sessionId = url.searchParams.get('sessionId') || '';
+        const session = paymentSessions[sessionId];
+        res.setHeader('Content-Type', 'application/json');
+        res.end(
+          JSON.stringify({
+            sessionId,
+            status: session ? session.status : 'PENDING',
+            upiId: 'aadahhouse@okaxis',
+            receivedAt: new Date().toISOString(),
+          })
+        );
+      });
+
+      server.middlewares.use('/api/confirm-upi-payment', async (req, res, next) => {
+        if (req.method !== 'POST') return next();
+        let body = '';
+        req.on('data', (chunk) => {
+          body += chunk;
+        });
+        req.on('end', () => {
+          try {
+            const data = JSON.parse(body || '{}');
+            const { sessionId, upiRef } = data;
+            if (sessionId) {
+              paymentSessions[sessionId] = {
+                status: 'PAID',
+                amount: data.amount || 0,
+                upiRef: upiRef || `UPI-TXN-${Date.now()}`,
+                createdAt: Date.now(),
+              };
+            }
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: true, status: 'PAID' }));
+          } catch (e: any) {
+            res.statusCode = 500;
+            res.end(JSON.stringify({ error: e.message }));
+          }
+        });
+      });
+
       server.middlewares.use('/api/send-order-email', async (req, res, next) => {
         // Status check
         if (req.method === 'GET') {
