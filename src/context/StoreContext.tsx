@@ -50,8 +50,12 @@ interface StoreContextType {
   
   // Wishlist
   wishlist: string[];
+  wishlistProducts: Product[];
   toggleWishlist: (productId: string) => void;
   isInWishlist: (productId: string) => boolean;
+  clearWishlist: () => void;
+  isWishlistOpen: boolean;
+  setIsWishlistOpen: (open: boolean) => void;
   
   // Coupon & Pricing
   activeCoupon: Coupon | null;
@@ -162,6 +166,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Modals
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
   const [isOwnerLoginModalOpen, setIsOwnerLoginModalOpen] = useState(false);
@@ -574,6 +579,13 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const isInWishlist = (productId: string) => wishlist.includes(productId);
 
+  const clearWishlist = () => {
+    setWishlist([]);
+    showToast('Wishlist cleared');
+  };
+
+  const wishlistProducts = products.filter((p) => wishlist.includes(p.id));
+
   // Product Details Modal
   const openProductDetails = (product: Product) => {
     setSelectedProduct(product);
@@ -701,9 +713,13 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         cartSubtotal,
         isCartOpen,
         setIsCartOpen,
+        isWishlistOpen,
+        setIsWishlistOpen,
         wishlist,
+        wishlistProducts,
         toggleWishlist,
         isInWishlist,
+        clearWishlist,
         activeCoupon,
         couponError,
         applyCoupon,

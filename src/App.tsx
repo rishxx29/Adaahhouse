@@ -12,6 +12,7 @@ import { OrderConfirmationPage } from './pages/OrderConfirmationPage';
 import { AdminProductManager } from './components/AdminProductManager';
 import { ProductDetailsModal } from './components/ProductDetailsModal';
 import { CartDrawer } from './components/CartDrawer';
+import { WishlistDrawer } from './components/WishlistDrawer';
 import { CheckoutModal } from './components/CheckoutModal';
 import { SizeGuideModal } from './components/SizeGuideModal';
 import { OwnerLoginModal } from './components/OwnerLoginModal';
@@ -91,6 +92,7 @@ const MainLayout: React.FC = () => {
       {/* 4. Global Modals & Drawers */}
       <ProductDetailsModal />
       <CartDrawer />
+      <WishlistDrawer />
       <CheckoutModal />
       <SizeGuideModal />
       <OwnerLoginModal />

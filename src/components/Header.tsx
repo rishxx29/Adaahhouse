@@ -23,6 +23,7 @@ export const Header: React.FC = () => {
     cartCount,
     wishlist,
     setIsCartOpen,
+    setIsWishlistOpen,
     searchQuery,
     setSearchQuery,
     isOwnerLoggedIn,
@@ -167,14 +168,14 @@ export const Header: React.FC = () => {
 
           {/* Wishlist Icon */}
           <button
-            onClick={() => handleNavClick('shop')}
+            onClick={() => setIsWishlistOpen(true)}
             className="relative p-2 text-[#292522] hover:text-[#5B1E22] transition-colors"
-            title="Wishlist"
+            title="View Wishlist"
             aria-label="Wishlist"
           >
             <Heart className="w-5 h-5 stroke-[1.75]" />
             {wishlist.length > 0 && (
-              <span className="absolute top-1 right-1 w-4 h-4 bg-[#5B1E22] text-white text-[10px] font-semibold rounded-full flex items-center justify-center">
+              <span className="absolute top-1 right-1 w-4 h-4 bg-[#5B1E22] text-white text-[10px] font-semibold rounded-full flex items-center justify-center animate-in zoom-in-75 duration-150">
                 {wishlist.length}
               </span>
             )}
@@ -337,6 +338,23 @@ export const Header: React.FC = () => {
             >
               <span>My Orders</span>
               <Package className="w-4 h-4 text-[#5B1E22]" />
+            </button>
+            <button
+              onClick={() => {
+                setIsWishlistOpen(true);
+                setIsMobileMenuOpen(false);
+              }}
+              className="text-left py-1.5 border-b border-[#E8DED2]/50 flex items-center justify-between"
+            >
+              <div className="flex items-center gap-2">
+                <span>My Wishlist</span>
+                {wishlist.length > 0 && (
+                  <span className="px-1.5 py-0.5 bg-[#5B1E22] text-white text-[10px] font-semibold rounded-full leading-none">
+                    {wishlist.length}
+                  </span>
+                )}
+              </div>
+              <Heart className="w-4 h-4 text-[#5B1E22]" />
             </button>
             <button
               onClick={() => handleNavClick('about')}

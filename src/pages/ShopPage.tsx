@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Filter, SlidersHorizontal, ArrowUpDown, X, Search } from 'lucide-react';
+import { Filter, SlidersHorizontal, ArrowUpDown, X, Search, Heart } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { ProductCard } from '../components/ProductCard';
 import { KurtiSize, ProductCollection } from '../types';
@@ -11,6 +11,7 @@ export const ShopPage: React.FC = () => {
     setSelectedCollectionFilter,
     searchQuery,
     setSearchQuery,
+    wishlist,
   } = useStore();
 
   const [selectedSizeFilter, setSelectedSizeFilter] = useState<KurtiSize | 'all'>('all');
@@ -20,8 +21,9 @@ export const ShopPage: React.FC = () => {
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
   // Collections list
-  const collections: { id: string; label: string }[] = [
+  const collections: { id: string; label: string; isWishlist?: boolean }[] = [
     { id: 'all', label: 'All Collections' },
+    { id: 'wishlist', label: `My Wishlist (${wishlist.length})`, isWishlist: true },
     { id: 'Everyday Elegance', label: 'Everyday Elegance' },
     { id: 'Festive Edit', label: 'Festive Edit' },
     { id: 'Office & College Wear', label: 'Office & College Wear' },
@@ -34,8 +36,10 @@ export const ShopPage: React.FC = () => {
   const filteredProducts = useMemo(() => {
     return products
       .filter((p) => {
-        // Collection filter
-        if (selectedCollectionFilter !== 'all' && p.collection !== selectedCollectionFilter) {
+        // Wishlist / Collection filter
+        if (selectedCollectionFilter === 'wishlist') {
+          if (!wishlist.includes(p.id)) return false;
+        } else if (selectedCollectionFilter !== 'all' && p.collection !== selectedCollectionFilter) {
           return false;
         }
         // Category filter
@@ -102,10 +106,16 @@ export const ShopPage: React.FC = () => {
           Curated Catalog
         </span>
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#292522]">
-          {selectedCollectionFilter === 'all' ? 'All Kurtis & Sets' : selectedCollectionFilter}
+          {selectedCollectionFilter === 'wishlist'
+            ? 'My Saved Wishlist'
+            : selectedCollectionFilter === 'all'
+            ? 'All Kurtis & Sets'
+            : selectedCollectionFilter}
         </h1>
         <p className="text-xs sm:text-sm text-[#292522]/80 font-normal">
-          Handpicked silhouette cuts, authentic hand-block prints, and breathable fabrics tailored for effortless grace.
+          {selectedCollectionFilter === 'wishlist'
+            ? 'Your shortlisted silhouettes and kurti sets saved to revisit, customize, and add to your bag.'
+            : 'Handpicked silhouette cuts, authentic hand-block prints, and breathable fabrics tailored for effortless grace.'}
         </p>
       </div>
 
@@ -117,13 +127,16 @@ export const ShopPage: React.FC = () => {
             <button
               key={col.id}
               onClick={() => setSelectedCollectionFilter(col.id)}
-              className={`px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all ${
+              className={`inline-flex items-center gap-1.5 px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all ${
                 isActive
                   ? 'bg-[#5B1E22] text-[#FAF7F2] shadow-xs'
                   : 'text-[#292522]/80 hover:text-[#5B1E22] hover:bg-white/60'
               }`}
             >
-              {col.label}
+              {col.isWishlist && (
+                <Heart className={`w-3.5 h-3.5 ${isActive ? 'fill-current' : 'text-[#5B1E22]'}`} />
+              )}
+              <span>{col.label}</span>
             </button>
           );
         })}
@@ -274,18 +287,38 @@ export const ShopPage: React.FC = () => {
         {/* Product Cards Grid (3 Columns on Desktop) */}
         <div className="lg:col-span-3">
           {filteredProducts.length === 0 ? (
-            <div className="bg-white border border-[#E8DED2] p-12 text-center space-y-3">
-              <p className="font-serif text-xl font-bold text-[#292522]">No kurtis matched your filters</p>
-              <p className="text-xs text-[#9E897A]">
-                Try resetting your filters or adjusting your size and price criteria.
-              </p>
-              <button
-                onClick={clearAllFilters}
-                className="px-6 py-2.5 bg-[#5B1E22] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#421417]"
-              >
-                Reset All Filters
-              </button>
-            </div>
+            selectedCollectionFilter === 'wishlist' ? (
+              <div className="bg-white border border-[#E8DED2] p-12 text-center space-y-4">
+                <div className="w-16 h-16 rounded-full bg-[#FAF7F2] border border-[#E8DED2] flex items-center justify-center mx-auto text-[#5B1E22]">
+                  <Heart className="w-7 h-7 stroke-[1.5]" />
+                </div>
+                <div>
+                  <p className="font-serif text-xl font-bold text-[#292522]">Your Wishlist is Empty</p>
+                  <p className="text-xs text-[#9E897A] mt-1.5 max-w-md mx-auto">
+                    You haven't saved any kurtis yet. Click the heart icon on any product in our collections to curate your personal wardrobe shortlist!
+                  </p>
+                </div>
+                <button
+                  onClick={() => setSelectedCollectionFilter('all')}
+                  className="px-6 py-2.5 bg-[#5B1E22] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#421417] transition-colors"
+                >
+                  Explore All Kurtis
+                </button>
+              </div>
+            ) : (
+              <div className="bg-white border border-[#E8DED2] p-12 text-center space-y-3">
+                <p className="font-serif text-xl font-bold text-[#292522]">No kurtis matched your filters</p>
+                <p className="text-xs text-[#9E897A]">
+                  Try resetting your filters or adjusting your size and price criteria.
+                </p>
+                <button
+                  onClick={clearAllFilters}
+                  className="px-6 py-2.5 bg-[#5B1E22] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#421417]"
+                >
+                  Reset All Filters
+                </button>
+              </div>
+            )
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProducts.map((product) => (

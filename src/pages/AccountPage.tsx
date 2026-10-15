@@ -11,6 +11,7 @@ import {
   ChevronRight,
   ShieldCheck,
   ShoppingBag,
+  Heart,
 } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { BRAND_CONFIG } from '../config/brand';
@@ -24,6 +25,8 @@ export const AccountPage: React.FC = () => {
     setIsAuthModalOpen,
     setAuthModalMode,
     getCustomerOrders,
+    wishlist,
+    setIsWishlistOpen,
   } = useStore();
 
   const [fullName, setFullName] = useState(currentUser?.fullName || '');
@@ -112,6 +115,13 @@ export const AccountPage: React.FC = () => {
             >
               <Package className="w-4 h-4" />
               <span>My Orders ({userOrdersCount})</span>
+            </button>
+            <button
+              onClick={() => setIsWishlistOpen(true)}
+              className="px-4 py-2 bg-[#FAF7F2] border border-[#E8DED2] hover:border-[#5B1E22] text-xs font-semibold text-[#5B1E22] flex items-center gap-1.5 transition-colors"
+            >
+              <Heart className="w-4 h-4 text-[#5B1E22]" />
+              <span>Wishlist ({wishlist.length})</span>
             </button>
             <button
               onClick={logoutCustomer}
