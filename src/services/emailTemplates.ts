@@ -27,7 +27,10 @@ export function generateOwnerOrderEmail(order: Order) {
     )
     .join('\n');
 
-  const customerPhoneClean = order.shippingAddress.phone.replace(/\D/g, '');
+  let digits = order.shippingAddress.phone.replace(/\D/g, '');
+  if (digits.startsWith('91') && digits.length === 12) digits = digits.slice(2);
+  else if (digits.startsWith('0') && digits.length === 11) digits = digits.slice(1);
+  const customerPhoneClean = digits.slice(-10);
   const customerWhatsAppLink = `https://wa.me/91${customerPhoneClean}`;
 
   const subject = `🚨 New Order #${order.orderNumber} (₹${order.total.toLocaleString('en-IN')}) - ${order.shippingAddress.fullName}`;

@@ -20,10 +20,27 @@ export interface NotificationResult {
 }
 
 /**
+ * Normalizes Indian mobile phone numbers so wa.me and sms: never get double country codes.
+ */
+export function normalizeIndianPhone(rawPhone: string): { tenDigit: string; fullWithCountry: string } {
+  let digits = (rawPhone || '').replace(/\D/g, '');
+  if (digits.startsWith('91') && digits.length === 12) {
+    digits = digits.slice(2);
+  } else if (digits.startsWith('0') && digits.length === 11) {
+    digits = digits.slice(1);
+  }
+  const tenDigit = digits.slice(-10);
+  return {
+    tenDigit: tenDigit || digits,
+    fullWithCountry: `91${tenDigit || digits}`,
+  };
+}
+
+/**
  * Dispatches automated SMS message to customer's mobile phone via backend SMS gateway.
  */
 export async function sendOrderSMS(order: Order): Promise<{ success: boolean; message: string }> {
-  const cleanPhone = order.shippingAddress.phone.replace(/\D/g, '');
+  const { tenDigit } = normalizeIndianPhone(order.shippingAddress.phone);
   const smsText = generateCustomerSMSMessage(order);
 
   try {
@@ -33,7 +50,7 @@ export async function sendOrderSMS(order: Order): Promise<{ success: boolean; me
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        phone: cleanPhone,
+        phone: tenDigit,
         customerName: order.shippingAddress.fullName,
         orderNumber: order.orderNumber,
         message: smsText,
@@ -49,7 +66,7 @@ export async function sendOrderSMS(order: Order): Promise<{ success: boolean; me
 
   return {
     success: true,
-    message: `SMS message prepared and logged for +91 ${cleanPhone}`,
+    message: `SMS message prepared and logged for +91 ${tenDigit}`,
   };
 }
 
@@ -60,7 +77,7 @@ export async function sendOrderSMS(order: Order): Promise<{ success: boolean; me
 export async function sendOrderEmails(order: Order): Promise<NotificationResult> {
   const ownerEmailData = generateOwnerOrderEmail(order);
   const customerEmailData = generateCustomerOrderEmail(order);
-  const cleanPhone = order.shippingAddress.phone.replace(/\D/g, '');
+  const { tenDigit } = normalizeIndianPhone(order.shippingAddress.phone);
   const smsText = generateCustomerSMSMessage(order);
 
   // 1. Dispatch SMS directly to customer's phone number
@@ -190,9 +207,9 @@ export async function saveSmtpPassword(appPassword: string): Promise<{ success: 
  * Direct WhatsApp link for Customer with order summary
  */
 export function getCustomerWhatsAppUrl(order: Order): string {
-  const cleanPhone = order.shippingAddress.phone.replace(/\D/g, '');
+  const { fullWithCountry } = normalizeIndianPhone(order.shippingAddress.phone);
   const msg = generateCustomerWhatsAppMessage(order);
-  return `https://wa.me/91${cleanPhone}?text=${encodeURIComponent(msg)}`;
+  return `https://wa.me/${fullWithCountry}?text=${encodeURIComponent(msg)}`;
 }
 
 /**
@@ -207,8 +224,8 @@ export function getOwnerWhatsAppUrl(order: Order): string {
  * Direct SMS app link for Customer mobile phone with pre-filled order receipt
  */
 export function getCustomerSmsUrl(order: Order): string {
-  const cleanPhone = order.shippingAddress.phone.replace(/\D/g, '');
+  const { fullWithCountry } = normalizeIndianPhone(order.shippingAddress.phone);
   const msg = generateCustomerSMSMessage(order);
-  return `sms:+91${cleanPhone}?body=${encodeURIComponent(msg)}`;
+  return `sms:+${fullWithCountry}?body=${encodeURIComponent(msg)}`;
 }
 

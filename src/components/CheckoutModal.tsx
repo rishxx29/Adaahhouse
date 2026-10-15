@@ -57,10 +57,8 @@ export const CheckoutModal: React.FC = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [copiedUpi, setCopiedUpi] = useState(false);
 
-  // Automated UPI Payment Detection State
   const [upiSessionId] = useState(() => `UPI-${Date.now()}-${Math.floor(1000 + Math.random() * 9000)}`);
   const [upiAutoState, setUpiAutoState] = useState<'LISTENING' | 'RECEIVED' | 'PROCESSING'>('LISTENING');
-  const [upiAutoSeconds, setUpiAutoSeconds] = useState(6);
   const autoCompletedRef = useRef(false);
   const hasOpenedUpiAppRef = useRef(false);
 
@@ -114,7 +112,6 @@ export const CheckoutModal: React.FC = () => {
     setErrors({});
     autoCompletedRef.current = false;
     setUpiAutoState('LISTENING');
-    setUpiAutoSeconds(6);
   };
 
   const formatTime = (secs: number) => {
@@ -184,89 +181,57 @@ export const CheckoutModal: React.FC = () => {
     }, 800);
   };
 
-  // Trigger payment receipt automatically without requiring any clicks
-  const triggerPaymentReceived = (source: string) => {
-    if (autoCompletedRef.current || isExpired) return;
-    autoCompletedRef.current = true;
+  // User confirms UPI payment after scanning or paying in UPI app
+  const handleConfirmUpiPayment = () => {
+    if (isExpired) {
+      setErrors({ payment: 'Payment session has expired. Please restart the 5-minute timer below to proceed.' });
+      return;
+    }
+    if (isProcessing || autoCompletedRef.current) return;
+    
+    setIsProcessing(true);
     setUpiAutoState('RECEIVED');
 
     // Notify backend session
     fetch('/api/confirm-upi-payment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sessionId: upiSessionId, amount: cartTotal }),
+      body: JSON.stringify({ sessionId: upiSessionId, amount: cartTotal, upiRef: upiId.trim() || undefined }),
     }).catch(() => {});
 
-    // Automatically transition to order placed page directly without user clicking anywhere!
+    // Transition to order placed confirmation
     setTimeout(() => {
       handleCompleteOrder(true);
-    }, 1200);
+    }, 900);
   };
 
-  // Automated UPI Live Payment Listener
+  // Passive UPI status poll (only activates if backend webhook confirms external payment)
   useEffect(() => {
     if (!isCheckoutOpen || step !== 'payment' || paymentMethod !== 'ONLINE_UPI' || isExpired) {
       return;
     }
 
     setUpiAutoState('LISTENING');
-    setUpiAutoSeconds(6);
     autoCompletedRef.current = false;
 
-    // 1. Auto-detection timer: simulates bank credit recognition 6s after scanner is displayed
-    const countdown = setInterval(() => {
-      setUpiAutoSeconds((prev) => {
-        if (prev <= 1) {
-          clearInterval(countdown);
-          triggerPaymentReceived('SCANNER_AUTO_DETECT');
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    // 2. Poll server payment status endpoint
+    // Check backend payment status endpoint in case external gateway marks it PAID
     const pollInterval = setInterval(async () => {
       try {
         const res = await fetch(`/api/payment-status?sessionId=${upiSessionId}`);
         const data = await res.json();
-        if (data.status === 'PAID') {
+        if (data.status === 'PAID' && !autoCompletedRef.current) {
           clearInterval(pollInterval);
-          clearInterval(countdown);
-          triggerPaymentReceived('BACKEND_POLL');
+          handleConfirmUpiPayment();
         }
       } catch {
         // ignore network error
       }
-    }, 1500);
-
-    // 3. User switches from GPay/PhonePe back to browser
-    const handleVisibilityOrFocus = () => {
-      if (document.visibilityState === 'visible') {
-        clearInterval(countdown);
-        clearInterval(pollInterval);
-        triggerPaymentReceived('APP_RETURN_FOCUS');
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityOrFocus);
-    window.addEventListener('focus', handleVisibilityOrFocus);
+    }, 2500);
 
     return () => {
-      clearInterval(countdown);
       clearInterval(pollInterval);
-      document.removeEventListener('visibilitychange', handleVisibilityOrFocus);
-      window.removeEventListener('focus', handleVisibilityOrFocus);
     };
   }, [isCheckoutOpen, step, paymentMethod, isExpired, upiSessionId]);
-
-  // If user enters a 12-digit UTR number, auto-trigger immediately
-  useEffect(() => {
-    const cleanUpi = upiId.replace(/\D/g, '');
-    if (cleanUpi.length >= 12 && !autoCompletedRef.current) {
-      triggerPaymentReceived('UTR_ENTERED');
-    }
-  }, [upiId]);
 
   const validateAddress = () => {
     const errs: Record<string, string> = {};
@@ -294,7 +259,6 @@ export const CheckoutModal: React.FC = () => {
       setIsExpired(false);
       autoCompletedRef.current = false;
       setUpiAutoState('LISTENING');
-      setUpiAutoSeconds(6);
     }
   };
 
@@ -719,35 +683,23 @@ export const CheckoutModal: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Instant Bank Receipt Detection Card */}
-                    <div className="p-3 bg-[#F2ECE1] border border-[#C9A76A]/40 rounded-xs space-y-1.5 text-center">
-                      <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-[#5B1E22]">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                        <span>Instant Bank Receipt Detection</span>
+                    {/* Step-by-Step Payment Instructions Card */}
+                    <div className="p-3 bg-[#FAF7F2] border border-[#C9A76A]/50 rounded-xs space-y-1.5">
+                      <div className="flex items-center gap-1.5 text-xs font-bold text-[#5B1E22]">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>Simple Steps to Pay:</span>
                       </div>
-                      <p className="text-[11px] text-[#292522]/80">
-                        Completed payment on your phone? The page auto-refreshes to Order Confirmation upon receiving funds.
-                      </p>
-                      <div className="pt-1 flex items-center justify-center gap-3">
-                        <span className="text-[10px] text-emerald-800 font-semibold bg-emerald-100/80 px-2 py-0.5 rounded-full flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
-                          Listening to aadahhouse@gmail.com
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => triggerPaymentReceived('MANUAL_FALLBACK')}
-                          className="text-[11px] text-[#5B1E22] hover:underline font-semibold cursor-pointer"
-                          title="Click only if you wish to bypass waiting for auto-detection"
-                        >
-                          (Optional: Confirm Manually)
-                        </button>
-                      </div>
+                      <ol className="text-[11px] text-[#292522]/85 space-y-1 list-decimal list-inside pl-1 leading-relaxed">
+                        <li>Scan QR code with Google Pay, PhonePe, Paytm, or BHIM.</li>
+                        <li>Pay <strong>₹{cartTotal.toLocaleString('en-IN')}</strong> to <strong>{BRAND_CONFIG.payment.upiId}</strong>.</li>
+                        <li>After paying in your app, click <strong>"I Have Paid via UPI"</strong> button below to complete your order.</li>
+                      </ol>
                     </div>
 
                     {/* Optional Customer UPI / UTR Reference input */}
                     <div>
                       <label className="block text-[11px] font-medium text-[#292522] mb-1">
-                        UTR / Transaction Reference ID <span className="text-[#9E897A] font-normal">(Optional — auto-completes on 12 digits)</span>:
+                        UTR / Transaction Reference ID <span className="text-[#9E897A] font-normal">(Optional — from your UPI app receipt)</span>:
                       </label>
                       <input
                         type="text"
@@ -879,7 +831,7 @@ export const CheckoutModal: React.FC = () => {
                 ) : paymentMethod === 'ONLINE_UPI' ? (
                   <button
                     type="button"
-                    onClick={() => triggerPaymentReceived('MANUAL_BOTTOM_BUTTON')}
+                    onClick={handleConfirmUpiPayment}
                     disabled={isProcessing || upiAutoState === 'RECEIVED'}
                     className={`px-8 py-3 text-white text-xs uppercase tracking-wider font-semibold transition-colors flex items-center gap-2 shadow-md ${
                       upiAutoState === 'RECEIVED' || isProcessing
@@ -890,15 +842,12 @@ export const CheckoutModal: React.FC = () => {
                     {upiAutoState === 'RECEIVED' || isProcessing ? (
                       <>
                         <RotateCcw className="w-4 h-4 animate-spin text-white" />
-                        <span>Payment Received! Directing to Order Page...</span>
+                        <span>Verifying UPI & Placing Order...</span>
                       </>
                     ) : (
                       <>
-                        <span className="relative flex h-2 w-2">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-                        </span>
-                        <span>Auto-Detecting Payment · Or Confirm Now</span>
+                        <CheckCircle2 className="w-4 h-4 text-[#C9A76A]" />
+                        <span>I Have Paid ₹{cartTotal.toLocaleString('en-IN')} — Place Order</span>
                       </>
                     )}
                   </button>

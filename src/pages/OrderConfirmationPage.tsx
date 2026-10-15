@@ -45,8 +45,9 @@ export const OrderConfirmationPage: React.FC = () => {
   const [isSavingSmtp, setIsSavingSmtp] = useState(false);
   const [copiedPhoneMsg, setCopiedPhoneMsg] = useState(false);
   const dispatchAttempted = useRef<string | null>(null);
+  const hasAutoOpenedWhatsAppRef = useRef(false);
 
-  // Automatically dispatch notification emails when landing on confirmation page
+  // Automatically dispatch notification emails and attempt WhatsApp launch when landing on confirmation page
   useEffect(() => {
     if (lastOrder && dispatchAttempted.current !== lastOrder.id) {
       dispatchAttempted.current = lastOrder.id;
@@ -60,6 +61,18 @@ export const OrderConfirmationPage: React.FC = () => {
           console.error('Failed to dispatch notifications:', err);
           setEmailStatus('error');
         });
+
+      // Automatically launch WhatsApp with the customer's order receipt
+      if (!hasAutoOpenedWhatsAppRef.current) {
+        hasAutoOpenedWhatsAppRef.current = true;
+        try {
+          const waUrl = getCustomerWhatsAppUrl(lastOrder);
+          const w = window.open(waUrl, '_blank');
+          if (w) w.focus();
+        } catch {
+          // Popup blocker prevented auto-opening
+        }
+      }
     }
   }, [lastOrder]);
 
