@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Search,
   ShoppingBag,
@@ -46,6 +47,18 @@ export const Header: React.FC = () => {
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
+  // Prevent background scrolling when side navigation drawer is open
+  useEffect(() => {
+    if (isSideNavOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isSideNavOpen]);
+
   const handleNavClick = (page: ActivePage, collectionFilter?: string) => {
     setActivePage(page);
     if (collectionFilter) {
@@ -58,7 +71,7 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#E8DED2]/80 transition-all">
+    <header className="sticky top-0 z-40 bg-[#FAF7F2] border-b border-[#E8DED2]/80 transition-all shadow-xs">
       {/* Search Bar Slide-Down Overlay */}
       {isSearchOpen && (
         <div className="bg-[#FAF7F2] border-b border-[#E8DED2] px-4 py-3 animate-in fade-in slide-in-from-top-2 duration-200">
@@ -256,9 +269,9 @@ export const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Luxury Side Navigation Drawer */}
-      {isSideNavOpen && (
-        <div className="fixed inset-0 z-50 flex animate-in fade-in duration-200">
+      {/* Luxury Side Navigation Drawer (Rendered via Portal to ensure full viewport visibility & escape header containing block) */}
+      {isSideNavOpen && typeof document !== 'undefined' && createPortal(
+        <div className="fixed inset-0 z-[9999] flex animate-in fade-in duration-200">
           {/* Backdrop Overlay */}
           <div
             onClick={() => setIsSideNavOpen(false)}
@@ -272,7 +285,7 @@ export const Header: React.FC = () => {
             <div className="p-5 border-b border-[#E8DED2] flex items-center justify-between bg-white shrink-0">
               <button
                 onClick={() => handleNavClick('home')}
-                className="flex items-center gap-3 text-left focus:outline-none"
+                className="flex items-center gap-3 text-left focus:outline-none cursor-pointer"
               >
                 <div className="w-9 h-9 rounded-full bg-[#5B1E22]/10 flex items-center justify-center text-[#5B1E22] border border-[#C9A76A]/40">
                   <span className="font-serif font-bold text-sm text-[#5B1E22]">AH</span>
@@ -339,7 +352,7 @@ export const Header: React.FC = () => {
               )}
             </div>
 
-            {/* Drawer Navigation Links */}
+            {/* Drawer Navigation Links & Tabs */}
             <div className="flex-1 px-5 py-4 space-y-6 overflow-y-auto text-xs">
               {/* Category 1: Kurti Collections */}
               <div className="space-y-1">
@@ -563,7 +576,8 @@ export const Header: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </header>
   );
