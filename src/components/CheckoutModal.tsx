@@ -298,6 +298,8 @@ export const CheckoutModal: React.FC = () => {
     }
   };
 
+  if (!isCheckoutOpen) return null;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
       <div className="bg-[#FAF7F2] max-w-4xl w-full max-h-[92vh] overflow-y-auto border border-[#E8DED2] shadow-2xl flex flex-col md:flex-row">
