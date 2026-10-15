@@ -59,7 +59,6 @@ export const CheckoutModal: React.FC = () => {
 
   const [upiSessionId] = useState(() => `UPI-${Date.now()}-${Math.floor(1000 + Math.random() * 9000)}`);
   const [upiAutoState, setUpiAutoState] = useState<'LISTENING' | 'RECEIVED' | 'PROCESSING'>('LISTENING');
-  const [upiAutoSeconds, setUpiAutoSeconds] = useState(16);
   const autoCompletedRef = useRef(false);
   const hasOpenedUpiAppRef = useRef(false);
 
@@ -266,62 +265,31 @@ export const CheckoutModal: React.FC = () => {
     }
   };
 
-  // Automated UPI Bank Recognition Listener (Myntra / Ajio style)
+  // Automated UPI Bank Recognition Listener (Passive polling only - NO automatic timer!)
   useEffect(() => {
     if (!isCheckoutOpen || step !== 'payment' || paymentMethod !== 'ONLINE_UPI' || isExpired) {
       return;
     }
 
     setUpiAutoState('LISTENING');
-    setUpiAutoSeconds(16);
     autoCompletedRef.current = false;
 
-    // 1. Realistic bank recognition timer (16s gives customer realistic time to scan & enter PIN)
-    const countdown = setInterval(() => {
-      setUpiAutoSeconds((prev) => {
-        if (prev <= 1) {
-          clearInterval(countdown);
-          handleConfirmUpiPayment();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    // 2. Poll server payment status endpoint for real-time external bank callbacks
+    // Poll server payment status endpoint in case external gateway marks it PAID
     const pollInterval = setInterval(async () => {
       try {
         const res = await fetch(`/api/payment-status?sessionId=${upiSessionId}`);
         const data = await res.json();
         if (data.status === 'PAID' && !autoCompletedRef.current) {
           clearInterval(pollInterval);
-          clearInterval(countdown);
           handleConfirmUpiPayment();
         }
       } catch {
         // ignore network error
       }
-    }, 1500);
-
-    // 3. User clicked "Open UPI App on Phone", completed transfer in GPay/PhonePe, and returned
-    const handleVisibilityOrFocus = () => {
-      if (document.visibilityState === 'visible' && hasOpenedUpiAppRef.current && !autoCompletedRef.current) {
-        clearInterval(countdown);
-        clearInterval(pollInterval);
-        setTimeout(() => {
-          handleConfirmUpiPayment();
-        }, 1200);
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityOrFocus);
-    window.addEventListener('focus', handleVisibilityOrFocus);
+    }, 2000);
 
     return () => {
-      clearInterval(countdown);
       clearInterval(pollInterval);
-      document.removeEventListener('visibilitychange', handleVisibilityOrFocus);
-      window.removeEventListener('focus', handleVisibilityOrFocus);
     };
   }, [isCheckoutOpen, step, paymentMethod, isExpired, upiSessionId]);
 
@@ -689,38 +657,28 @@ export const CheckoutModal: React.FC = () => {
                             </span>
                             <span className="font-bold text-xs uppercase tracking-wider text-emerald-900 flex items-center gap-1.5">
                               <Zap className="w-3.5 h-3.5 text-amber-600 fill-amber-500" />
-                              Live Bank Payment Recognition (Myntra & Ajio Style)
+                              Live Bank Payment Recognition Active
                             </span>
                           </div>
-                          <span className="text-[10px] font-mono font-bold text-emerald-800 bg-white px-2 py-0.5 border border-emerald-200 rounded-full">
-                            {upiAutoSeconds > 0 ? `Auto-redirects in ${upiAutoSeconds}s` : 'Redirecting...'}
+                          <span className="text-[10px] font-mono font-bold text-emerald-800 bg-white px-2.5 py-0.5 border border-emerald-200 rounded-full shadow-2xs">
+                            Awaiting Payment
                           </span>
                         </div>
-                        <p className="text-[11px] text-emerald-800 leading-relaxed">
-                          ✨ <strong>Hands-Free Auto-Redirect:</strong> Pay using your UPI scanner or mobile app. As soon as the transfer is received, this screen will <strong>instantly open your Order Placed page automatically</strong> — you don't need to click anything!
+                        <p className="text-[11px] text-emerald-900 leading-relaxed">
+                          Scan the QR code with your UPI app or click <strong>Pay via Razorpay Modal</strong> below. As soon as your bank confirms payment, this page will <strong>automatically redirect straight to your Order Confirmation page</strong> without clicking anywhere!
                         </p>
-                        {/* Progress line */}
-                        <div className="w-full bg-emerald-200/60 h-1.5 rounded-full overflow-hidden">
-                          <div
-                            className="h-full bg-emerald-600 transition-all duration-1000"
-                            style={{ width: `${Math.min(100, Math.max(8, ((16 - upiAutoSeconds) / 16) * 100))}%` }}
-                          />
-                        </div>
-                        <div className="flex items-center justify-between text-[10px] text-emerald-800 pt-0.5">
-                          <span>
-                            {upiAutoSeconds > 10
-                              ? '📡 Listening to UPI Banking Switch & NPCI...'
-                              : upiAutoSeconds > 4
-                              ? '💳 Verifying transaction with your UPI app...'
-                              : '✅ Credit verified! Auto-opening Order page...'}
+                        <div className="flex items-center justify-between text-[10px] text-emerald-800 pt-0.5 border-t border-emerald-200">
+                          <span className="flex items-center gap-1.5 font-medium">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
+                            Listening to UPI Switch ({BRAND_CONFIG.payment.upiId})
                           </span>
                           <button
                             type="button"
                             onClick={() => handleConfirmUpiPayment()}
                             className="text-[10px] font-bold text-[#5B1E22] hover:underline cursor-pointer bg-amber-100/90 px-2 py-0.5 rounded-xs"
-                            title="Simulate instant bank webhook response for testing"
+                            title="Simulate instant payment for testing"
                           >
-                            ⚡ Test: Trigger Now
+                            ⚡ Demo: Simulate Payment Done
                           </button>
                         </div>
                       </div>
@@ -944,35 +902,31 @@ export const CheckoutModal: React.FC = () => {
                       type="button"
                       onClick={handlePayWithRazorpay}
                       disabled={isProcessing || upiAutoState === 'RECEIVED'}
-                      className="px-5 py-3 bg-white hover:bg-[#FAF7F2] border border-[#5B1E22] text-[#5B1E22] text-xs uppercase tracking-wider font-semibold transition-all flex items-center gap-2 cursor-pointer shadow-xs hover:scale-[1.01]"
+                      className="px-6 py-3 bg-[#5B1E22] hover:bg-[#421417] text-white text-xs uppercase tracking-wider font-semibold transition-all flex items-center gap-2 cursor-pointer shadow-md hover:scale-[1.01]"
                     >
-                      <Sparkles className="w-3.5 h-3.5 text-[#C9A76A]" />
-                      <span>Razorpay Modal (Myntra/Ajio)</span>
-                    </button>
-
-                    {/* Live Hands-Free Status Indicator */}
-                    <div
-                      className={`px-5 py-3 text-white text-xs uppercase tracking-wider font-semibold flex items-center gap-2 shadow-md rounded-xs ${
-                        upiAutoState === 'RECEIVED' || isProcessing
-                          ? 'bg-emerald-700'
-                          : 'bg-[#5B1E22]'
-                      }`}
-                    >
-                      {upiAutoState === 'RECEIVED' || isProcessing ? (
+                      {isProcessing ? (
                         <>
                           <RotateCcw className="w-4 h-4 animate-spin text-[#C9A76A]" />
-                          <span>Bank Credit Confirmed! Opening Order...</span>
+                          <span>Verifying Payment...</span>
                         </>
                       ) : (
                         <>
-                          <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-                          </span>
-                          <span>Auto-Directing On Payment ({upiAutoSeconds}s)</span>
+                          <Sparkles className="w-4 h-4 text-[#C9A76A]" />
+                          <span>Pay via Razorpay Modal (Myntra/Ajio)</span>
                         </>
                       )}
-                    </div>
+                    </button>
+
+                    {/* QR Code Paid Confirmation button (only when user deliberately clicks after scanning) */}
+                    <button
+                      type="button"
+                      onClick={() => handleConfirmUpiPayment()}
+                      disabled={isProcessing || upiAutoState === 'RECEIVED'}
+                      className="px-5 py-3 bg-white hover:bg-[#FAF7F2] border border-[#5B1E22] text-[#5B1E22] text-xs uppercase tracking-wider font-semibold transition-all flex items-center gap-2 cursor-pointer shadow-xs"
+                    >
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                      <span>Confirm QR Payment Paid</span>
+                    </button>
                   </div>
                 ) : (
                   <button
