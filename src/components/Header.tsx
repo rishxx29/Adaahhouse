@@ -11,14 +11,22 @@ import {
   Package,
   ChevronDown,
   LogOut,
+  Home,
+  Sparkles,
+  Info,
+  Phone,
+  ShieldCheck,
+  ChevronRight,
+  MessageCircle,
 } from 'lucide-react';
-import { AdaahLogo } from './AdaahLogo';
 import { useStore, ActivePage } from '../context/StoreContext';
+import { BRAND_CONFIG } from '../config/brand';
 
 export const Header: React.FC = () => {
   const {
     activePage,
     setActivePage,
+    selectedCollectionFilter,
     setSelectedCollectionFilter,
     cartCount,
     wishlist,
@@ -27,16 +35,15 @@ export const Header: React.FC = () => {
     searchQuery,
     setSearchQuery,
     isOwnerLoggedIn,
-    setIsOwnerLoginModalOpen,
     logoutOwner,
     currentUser,
     setIsAuthModalOpen,
     setAuthModalMode,
     logoutCustomer,
+    orders,
   } = useStore();
 
-
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSideNavOpen, setIsSideNavOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const handleNavClick = (page: ActivePage, collectionFilter?: string) => {
@@ -46,7 +53,7 @@ export const Header: React.FC = () => {
     } else if (page === 'shop') {
       setSelectedCollectionFilter('all');
     }
-    setIsMobileMenuOpen(false);
+    setIsSideNavOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -87,79 +94,52 @@ export const Header: React.FC = () => {
         </div>
       )}
 
-      {/* Main Header Bar adhering to 3-Zone Top Bar Contract */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-8">
-        {/* Zone 1: Brand Wordmark & Official Lotus Mark */}
-        <button
-          onClick={() => handleNavClick('home')}
-          className="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#5B1E22] shrink-0 text-left"
-          aria-label="ADAAH HOUSE Home"
-        >
-          <AdaahLogo variant="horizontal" showTagline={true} />
-        </button>
+      {/* Main Header Bar: Corner Menu | Middle Website Name | Corner Utility Icons */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        {/* Left Corner: Elegant Menu Button */}
+        <div className="w-1/4 sm:w-1/3 flex items-center justify-start">
+          <button
+            onClick={() => setIsSideNavOpen(true)}
+            className="flex items-center gap-2.5 p-1.5 -ml-2 text-[#292522] hover:text-[#5B1E22] transition-colors group cursor-pointer"
+            aria-label="Open Navigation Menu"
+            title="Explore all sections & collections"
+          >
+            <div className="w-10 h-10 rounded-full bg-white border border-[#E8DED2] group-hover:border-[#5B1E22] group-hover:bg-[#5B1E22]/5 flex items-center justify-center transition-all shadow-2xs">
+              <Menu className="w-5 h-5 text-[#292522] group-hover:text-[#5B1E22] stroke-[1.8]" />
+            </div>
+            <span className="hidden sm:inline font-serif uppercase tracking-[0.24em] text-xs font-semibold text-[#292522] group-hover:text-[#5B1E22]">
+              Menu
+            </span>
+          </button>
+        </div>
 
-        {/* Zone 2: 4–5 Clean single-line text links */}
-        <nav className="hidden lg:flex items-center gap-8 text-[13px] tracking-wide uppercase font-medium text-[#292522]">
+        {/* Center: ONLY the Name of the Website */}
+        <div className="flex-1 flex flex-col items-center justify-center text-center px-2">
           <button
             onClick={() => handleNavClick('home')}
-            className={`transition-colors hover:text-[#5B1E22] whitespace-nowrap shrink-0 ${
-              activePage === 'home' ? 'text-[#5B1E22] font-semibold border-b border-[#5B1E22] pb-0.5' : 'text-[#292522]/80'
-            }`}
+            className="inline-flex flex-col items-center justify-center text-center group cursor-pointer focus-visible:outline-none"
+            aria-label="ADAAH HOUSE Home"
           >
-            Home
+            <div className="flex items-baseline justify-center gap-1.5 sm:gap-2.5">
+              <span className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold tracking-[0.22em] text-[#5B1E22] leading-none transition-colors group-hover:text-[#421417]">
+                ADAAH
+              </span>
+              <span className="font-serif text-lg sm:text-2xl lg:text-3xl font-light tracking-[0.3em] text-[#C9A76A]">
+                HOUSE
+              </span>
+            </div>
+            <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.34em] text-[#651F32] font-semibold mt-1">
+              Grace in every thread
+            </span>
           </button>
-          <button
-            onClick={() => handleNavClick('shop', 'all')}
-            className={`transition-colors hover:text-[#5B1E22] whitespace-nowrap shrink-0 ${
-              activePage === 'shop' ? 'text-[#5B1E22] font-semibold border-b border-[#5B1E22] pb-0.5' : 'text-[#292522]/80'
-            }`}
-          >
-            Shop All
-          </button>
-          <button
-            onClick={() => handleNavClick('shop', 'Everyday Elegance')}
-            className="transition-colors hover:text-[#5B1E22] text-[#292522]/80 whitespace-nowrap shrink-0"
-          >
-            Everyday Wear
-          </button>
-          <button
-            onClick={() => handleNavClick('shop', 'Festive Edit')}
-            className="transition-colors hover:text-[#5B1E22] text-[#292522]/80 whitespace-nowrap shrink-0"
-          >
-            Festive Edit
-          </button>
-          <button
-            onClick={() => handleNavClick('orders')}
-            className={`transition-colors hover:text-[#5B1E22] whitespace-nowrap shrink-0 ${
-              activePage === 'orders' ? 'text-[#5B1E22] font-semibold border-b border-[#5B1E22] pb-0.5' : 'text-[#292522]/80'
-            }`}
-          >
-            My Orders
-          </button>
-          <button
-            onClick={() => handleNavClick('about')}
-            className={`transition-colors hover:text-[#5B1E22] whitespace-nowrap shrink-0 ${
-              activePage === 'about' ? 'text-[#5B1E22] font-semibold border-b border-[#5B1E22] pb-0.5' : 'text-[#292522]/80'
-            }`}
-          >
-            About Us
-          </button>
-          <button
-            onClick={() => handleNavClick('contact')}
-            className={`transition-colors hover:text-[#5B1E22] whitespace-nowrap shrink-0 ${
-              activePage === 'contact' ? 'text-[#5B1E22] font-semibold border-b border-[#5B1E22] pb-0.5' : 'text-[#292522]/80'
-            }`}
-          >
-            Contact
-          </button>
-        </nav>
+        </div>
 
-        {/* Zone 3: Utility Actions (Search, Wishlist, Bag, Customer Account & Owner Studio) */}
-        <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+        {/* Right Corner: Utility Actions (Search, Wishlist, Bag, Account, Admin) */}
+        <div className="w-1/4 sm:w-1/3 flex items-center justify-end gap-1.5 sm:gap-2.5">
           {/* Search Trigger */}
           <button
             onClick={() => setIsSearchOpen(!isSearchOpen)}
-            className="p-2 text-[#292522] hover:text-[#5B1E22] transition-colors"
+            className="p-2 text-[#292522] hover:text-[#5B1E22] transition-colors cursor-pointer"
             title="Search Products"
             aria-label="Search"
           >
@@ -169,7 +149,7 @@ export const Header: React.FC = () => {
           {/* Wishlist Icon */}
           <button
             onClick={() => setIsWishlistOpen(true)}
-            className="relative p-2 text-[#292522] hover:text-[#5B1E22] transition-colors"
+            className="relative p-2 text-[#292522] hover:text-[#5B1E22] transition-colors cursor-pointer"
             title="View Wishlist"
             aria-label="Wishlist"
           >
@@ -184,7 +164,7 @@ export const Header: React.FC = () => {
           {/* Shopping Bag Button */}
           <button
             onClick={() => setIsCartOpen(true)}
-            className="relative p-2 text-[#292522] hover:text-[#5B1E22] transition-colors"
+            className="relative p-2 text-[#292522] hover:text-[#5B1E22] transition-colors cursor-pointer"
             title="Shopping Bag"
             aria-label="Shopping Bag"
           >
@@ -198,16 +178,16 @@ export const Header: React.FC = () => {
 
           {/* Customer Account Trigger */}
           {currentUser ? (
-            <div className="relative group">
+            <div className="relative group hidden sm:block">
               <button
                 onClick={() => handleNavClick('account')}
-                className="flex items-center gap-1.5 p-1.5 px-2 sm:px-2.5 bg-white border border-[#E8DED2] hover:border-[#5B1E22] text-xs font-semibold text-[#5B1E22] transition-colors rounded-xs shadow-2xs"
+                className="flex items-center gap-1.5 p-1 px-2 bg-white border border-[#E8DED2] hover:border-[#5B1E22] text-xs font-semibold text-[#5B1E22] transition-colors rounded-xs shadow-2xs cursor-pointer"
                 title={`Signed in as ${currentUser.fullName}`}
               >
                 <div className="w-5 h-5 rounded-full bg-[#5B1E22] text-[#FAF7F2] flex items-center justify-center text-[10px] font-bold">
                   {currentUser.fullName.charAt(0)}
                 </div>
-                <span className="hidden sm:inline max-w-[80px] truncate text-[11px]">
+                <span className="max-w-[70px] truncate text-[11px]">
                   {currentUser.fullName.split(' ')[0]}
                 </span>
                 <ChevronDown className="w-3 h-3 text-[#9E897A]" />
@@ -248,210 +228,344 @@ export const Header: React.FC = () => {
                 setAuthModalMode('login');
                 setIsAuthModalOpen(true);
               }}
-              className="flex items-center gap-1.5 p-1.5 px-2.5 bg-white border border-[#E8DED2] hover:border-[#5B1E22] text-xs font-semibold text-[#292522] hover:text-[#5B1E22] transition-colors rounded-xs shadow-2xs"
+              className="hidden sm:flex items-center gap-1.5 p-1.5 px-2.5 bg-white border border-[#E8DED2] hover:border-[#5B1E22] text-xs font-semibold text-[#292522] hover:text-[#5B1E22] transition-colors rounded-xs shadow-2xs cursor-pointer"
               title="Customer Sign In / Register"
             >
               <User className="w-4 h-4 text-[#5B1E22]" />
-              <span className="hidden sm:inline">Sign In</span>
+              <span className="text-[11px]">Sign In</span>
             </button>
           )}
 
-          {/* Owner Studio Button */}
-          {isOwnerLoggedIn ? (
-            <div className="hidden sm:inline-flex items-center gap-2 px-2.5 py-1 bg-[#5B1E22] text-[#FAF7F2] rounded-xs text-xs font-medium shadow-xs">
-              <button
-                onClick={() => handleNavClick('admin')}
-                className="flex items-center gap-1.5 hover:text-[#C9A76A] transition-colors"
-                title="Manage kurti images, sizes, and customer orders"
-              >
-                <SlidersHorizontal className="w-3.5 h-3.5 text-[#C9A76A]" />
-                <span>Admin Studio</span>
-              </button>
-              <span className="text-[#C9A76A]/50">·</span>
-              <button
-                onClick={logoutOwner}
-                className="text-[10px] text-[#E8DED2] hover:text-white uppercase tracking-wider"
-                title="Log out of admin mode"
-              >
-                Exit
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={() => handleNavClick('admin')}
-              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-[#5B1E22] bg-[#F2ECE1] hover:bg-[#5B1E22] hover:text-white border border-[#C9A76A]/60 rounded-xs transition-colors shadow-2xs group"
-              title="ADAAH HOUSE Owner & Admin Portal"
-            >
-              <Lock className="w-3.5 h-3.5 text-[#C9A76A] group-hover:text-[#FAF7F2] transition-colors" />
-              <span>Admin Portal</span>
-            </button>
-          )}
-
-          {/* Mobile Menu Hamburger */}
+          {/* Admin Lock / Studio Trigger */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 text-[#292522] hover:text-[#5B1E22]"
-            aria-label="Toggle mobile menu"
+            onClick={() => handleNavClick('admin')}
+            className={`p-2 rounded-xs transition-colors cursor-pointer ${
+              isOwnerLoggedIn
+                ? 'bg-[#5B1E22] text-[#FAF7F2] hover:bg-[#421417]'
+                : 'text-[#9E897A] hover:text-[#5B1E22]'
+            }`}
+            title={isOwnerLoggedIn ? 'Admin Studio Active' : 'Owner & Admin Portal'}
+            aria-label="Admin Portal"
           >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isOwnerLoggedIn ? (
+              <SlidersHorizontal className="w-4 h-4 text-[#C9A76A]" />
+            ) : (
+              <Lock className="w-4 h-4" />
+            )}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Navigation */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden bg-[#FAF7F2] border-b border-[#E8DED2] px-6 py-6 animate-in slide-in-from-top duration-200">
-          <nav className="flex flex-col gap-3.5 text-sm font-medium tracking-wider uppercase text-[#292522]">
-            <button
-              onClick={() => handleNavClick('home')}
-              className={`text-left py-1.5 border-b border-[#E8DED2]/50 ${
-                activePage === 'home' ? 'text-[#5B1E22] font-semibold' : ''
-              }`}
-            >
-              Home
-            </button>
-            <button
-              onClick={() => handleNavClick('shop', 'all')}
-              className={`text-left py-1.5 border-b border-[#E8DED2]/50 ${
-                activePage === 'shop' ? 'text-[#5B1E22] font-semibold' : ''
-              }`}
-            >
-              Shop All Kurtis
-            </button>
-            <button
-              onClick={() => handleNavClick('shop', 'Everyday Elegance')}
-              className="text-left py-1.5 border-b border-[#E8DED2]/50"
-            >
-              Everyday Wear
-            </button>
-            <button
-              onClick={() => handleNavClick('shop', 'Festive Edit')}
-              className="text-left py-1.5 border-b border-[#E8DED2]/50"
-            >
-              Festive Edit
-            </button>
-            <button
-              onClick={() => handleNavClick('orders')}
-              className={`text-left py-1.5 border-b border-[#E8DED2]/50 flex items-center justify-between ${
-                activePage === 'orders' ? 'text-[#5B1E22] font-semibold' : ''
-              }`}
-            >
-              <span>My Orders</span>
-              <Package className="w-4 h-4 text-[#5B1E22]" />
-            </button>
-            <button
-              onClick={() => {
-                setIsWishlistOpen(true);
-                setIsMobileMenuOpen(false);
-              }}
-              className="text-left py-1.5 border-b border-[#E8DED2]/50 flex items-center justify-between"
-            >
-              <div className="flex items-center gap-2">
-                <span>My Wishlist</span>
-                {wishlist.length > 0 && (
-                  <span className="px-1.5 py-0.5 bg-[#5B1E22] text-white text-[10px] font-semibold rounded-full leading-none">
-                    {wishlist.length}
-                  </span>
-                )}
-              </div>
-              <Heart className="w-4 h-4 text-[#5B1E22]" />
-            </button>
-            <button
-              onClick={() => handleNavClick('about')}
-              className={`text-left py-1.5 border-b border-[#E8DED2]/50 ${
-                activePage === 'about' ? 'text-[#5B1E22] font-semibold' : ''
-              }`}
-            >
-              About ADAAH HOUSE
-            </button>
-            <button
-              onClick={() => handleNavClick('contact')}
-              className={`text-left py-1.5 border-b border-[#E8DED2]/50 ${
-                activePage === 'contact' ? 'text-[#5B1E22] font-semibold' : ''
-              }`}
-            >
-              Contact Us
-            </button>
+      {/* Luxury Side Navigation Drawer */}
+      {isSideNavOpen && (
+        <div className="fixed inset-0 z-50 flex animate-in fade-in duration-200">
+          {/* Backdrop Overlay */}
+          <div
+            onClick={() => setIsSideNavOpen(false)}
+            className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity cursor-pointer"
+            aria-hidden="true"
+          />
 
-            {/* Customer Account Strip in Mobile */}
-            <div className="pt-2 border-t border-[#E8DED2]">
+          {/* Side Drawer Panel */}
+          <div className="relative w-full max-w-sm sm:max-w-md bg-[#FAF7F2] h-full shadow-2xl flex flex-col justify-between border-r border-[#E8DED2] overflow-y-auto animate-in slide-in-from-left duration-300 z-10">
+            {/* Top Header of Drawer */}
+            <div className="p-5 border-b border-[#E8DED2] flex items-center justify-between bg-white shrink-0">
+              <button
+                onClick={() => handleNavClick('home')}
+                className="flex items-center gap-3 text-left focus:outline-none"
+              >
+                <div className="w-9 h-9 rounded-full bg-[#5B1E22]/10 flex items-center justify-center text-[#5B1E22] border border-[#C9A76A]/40">
+                  <span className="font-serif font-bold text-sm text-[#5B1E22]">AH</span>
+                </div>
+                <div>
+                  <h3 className="font-serif text-lg font-bold text-[#5B1E22] tracking-wider leading-none">
+                    ADAAH HOUSE
+                  </h3>
+                  <p className="text-[9px] uppercase tracking-[0.24em] text-[#C9A76A] font-semibold mt-0.5">
+                    Grace in every thread
+                  </p>
+                </div>
+              </button>
+
+              <button
+                onClick={() => setIsSideNavOpen(false)}
+                className="w-8 h-8 rounded-full border border-[#E8DED2] flex items-center justify-center text-[#292522] hover:text-[#5B1E22] hover:border-[#5B1E22] transition-colors cursor-pointer"
+                aria-label="Close Navigation"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Customer Greeting / Auth Strip */}
+            <div className="px-5 py-3.5 bg-[#F2ECE1] border-b border-[#E8DED2] flex items-center justify-between shrink-0">
               {currentUser ? (
-                <div className="p-3 bg-white border border-[#E8DED2] rounded-xs space-y-2">
-                  <div className="flex items-center justify-between text-xs font-semibold text-[#292522]">
-                    <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded-full bg-[#5B1E22] text-white flex items-center justify-center text-xs">
-                        {currentUser.fullName.charAt(0)}
-                      </div>
-                      <span>{currentUser.fullName}</span>
+                <div className="flex items-center justify-between w-full text-xs">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-full bg-[#5B1E22] text-[#FAF7F2] flex items-center justify-center font-bold text-xs shadow-xs">
+                      {currentUser.fullName.charAt(0)}
                     </div>
-                    <button
-                      onClick={() => {
-                        logoutCustomer();
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="text-red-700 text-[11px] underline"
-                    >
-                      Sign Out
-                    </button>
+                    <div>
+                      <p className="font-semibold text-[#292522]">{currentUser.fullName}</p>
+                      <p className="text-[10px] text-[#9E897A] truncate max-w-[170px]">{currentUser.email}</p>
+                    </div>
                   </div>
                   <button
-                    onClick={() => handleNavClick('account')}
-                    className="w-full text-left text-xs text-[#5B1E22] font-semibold flex items-center gap-1 pt-1"
+                    onClick={() => {
+                      logoutCustomer();
+                      setIsSideNavOpen(false);
+                    }}
+                    className="text-[11px] text-red-700 hover:underline font-semibold cursor-pointer"
                   >
-                    <User className="w-3.5 h-3.5" />
-                    <span>View / Edit Profile</span>
+                    Sign Out
                   </button>
                 </div>
               ) : (
+                <div className="flex items-center justify-between w-full">
+                  <div>
+                    <p className="font-serif font-bold text-xs text-[#292522]">Welcome to ADAAH HOUSE</p>
+                    <p className="text-[10px] text-[#9E897A]">Sign in for order tracking & saved address</p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setIsSideNavOpen(false);
+                      setAuthModalMode('login');
+                      setIsAuthModalOpen(true);
+                    }}
+                    className="px-3.5 py-1.5 bg-[#5B1E22] text-white text-[11px] font-semibold uppercase tracking-wider rounded-xs shadow-xs hover:bg-[#421417] cursor-pointer"
+                  >
+                    Sign In
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Drawer Navigation Links */}
+            <div className="flex-1 px-5 py-4 space-y-6 overflow-y-auto text-xs">
+              {/* Category 1: Kurti Collections */}
+              <div className="space-y-1">
+                <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#C9A76A] block px-2 pb-1">
+                  Boutique Collections & Tabs
+                </span>
+
+                <button
+                  onClick={() => handleNavClick('home')}
+                  className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                    activePage === 'home'
+                      ? 'bg-[#5B1E22] text-white font-semibold'
+                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Home className="w-4 h-4 text-[#C9A76A]" />
+                    <span className="text-[13px] uppercase tracking-wider">Home</span>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 opacity-60" />
+                </button>
+
+                <button
+                  onClick={() => handleNavClick('shop', 'all')}
+                  className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                    activePage === 'shop' && selectedCollectionFilter === 'all'
+                      ? 'bg-[#5B1E22] text-white font-semibold'
+                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <ShoppingBag className="w-4 h-4 text-[#C9A76A]" />
+                    <span className="text-[13px] uppercase tracking-wider">Shop All Kurtis</span>
+                  </div>
+                  <span className="text-[10px] px-2 py-0.5 bg-[#C9A76A]/20 text-[#5B1E22] rounded-full font-bold">
+                    All
+                  </span>
+                </button>
+
+                <button
+                  onClick={() => handleNavClick('shop', 'Everyday Elegance')}
+                  className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                    activePage === 'shop' && selectedCollectionFilter === 'Everyday Elegance'
+                      ? 'bg-[#5B1E22] text-white font-semibold'
+                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Sparkles className="w-4 h-4 text-[#C9A76A]" />
+                    <span className="text-[13px] uppercase tracking-wider">Everyday Wear (Casual/Office)</span>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 opacity-60" />
+                </button>
+
+                <button
+                  onClick={() => handleNavClick('shop', 'Festive Edit')}
+                  className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                    activePage === 'shop' && selectedCollectionFilter === 'Festive Edit'
+                      ? 'bg-[#5B1E22] text-white font-semibold'
+                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Sparkles className="w-4 h-4 text-[#C9A76A]" />
+                    <span className="text-[13px] uppercase tracking-wider">Festive & Wedding Edit</span>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 opacity-60" />
+                </button>
+              </div>
+
+              {/* Category 2: Customer Section */}
+              <div className="space-y-1 pt-2 border-t border-[#E8DED2]">
+                <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#C9A76A] block px-2 pb-1">
+                  Customer Dashboard
+                </span>
+
+                <button
+                  onClick={() => handleNavClick('orders')}
+                  className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                    activePage === 'orders'
+                      ? 'bg-[#5B1E22] text-white font-semibold'
+                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Package className="w-4 h-4 text-[#5B1E22]" />
+                    <span className="text-[13px] uppercase tracking-wider font-semibold">My Orders</span>
+                  </div>
+                  <span className="px-2 py-0.5 bg-[#FAF7F2] border border-[#E8DED2] text-[#5B1E22] text-[10px] font-bold rounded-xs">
+                    {orders.length} Placed
+                  </span>
+                </button>
+
                 <button
                   onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    setAuthModalMode('login');
-                    setIsAuthModalOpen(true);
+                    setIsSideNavOpen(false);
+                    setIsWishlistOpen(true);
                   }}
-                  className="w-full py-2.5 px-3 bg-white border border-[#5B1E22] text-[#5B1E22] rounded-xs font-semibold text-xs flex items-center justify-center gap-2"
+                  className="w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between text-[#292522] hover:bg-white hover:text-[#5B1E22] transition-colors cursor-pointer"
                 >
-                  <User className="w-4 h-4" />
-                  <span>Customer Sign In / Register</span>
+                  <div className="flex items-center gap-2.5">
+                    <Heart className="w-4 h-4 text-[#5B1E22]" />
+                    <span className="text-[13px] uppercase tracking-wider">My Wishlist</span>
+                  </div>
+                  {wishlist.length > 0 && (
+                    <span className="px-1.5 py-0.5 bg-[#5B1E22] text-white text-[10px] rounded-full leading-none">
+                      {wishlist.length}
+                    </span>
+                  )}
                 </button>
-              )}
-            </div>
 
-            {/* Mobile Admin Portal Strip */}
-            <div className="pt-1">
-              {isOwnerLoggedIn ? (
-                <div className="flex items-center justify-between py-2 px-3 bg-[#5B1E22] text-[#FAF7F2] rounded-xs font-semibold text-xs">
-                  <button
-                    onClick={() => handleNavClick('admin')}
-                    className="flex items-center gap-2 text-xs"
-                  >
-                    <SlidersHorizontal className="w-4 h-4 text-[#C9A76A]" />
-                    <span>Admin Studio (Active)</span>
-                  </button>
-                  <button
-                    onClick={logoutOwner}
-                    className="text-[11px] text-[#E8DED2] underline font-normal"
-                  >
-                    Exit
-                  </button>
-                </div>
-              ) : (
+                <button
+                  onClick={() => handleNavClick('account')}
+                  className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                    activePage === 'account'
+                      ? 'bg-[#5B1E22] text-white font-semibold'
+                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <User className="w-4 h-4 text-[#5B1E22]" />
+                    <span className="text-[13px] uppercase tracking-wider">Customer Profile & Addresses</span>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 opacity-60" />
+                </button>
+              </div>
+
+              {/* Category 3: Brand & Heritage */}
+              <div className="space-y-1 pt-2 border-t border-[#E8DED2]">
+                <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#C9A76A] block px-2 pb-1">
+                  Brand & Heritage
+                </span>
+
+                <button
+                  onClick={() => handleNavClick('about')}
+                  className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                    activePage === 'about'
+                      ? 'bg-[#5B1E22] text-white font-semibold'
+                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Info className="w-4 h-4 text-[#9E897A]" />
+                    <span className="text-[13px] uppercase tracking-wider">About ADAAH HOUSE</span>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 opacity-60" />
+                </button>
+
+                <button
+                  onClick={() => handleNavClick('contact')}
+                  className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                    activePage === 'contact'
+                      ? 'bg-[#5B1E22] text-white font-semibold'
+                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Phone className="w-4 h-4 text-[#9E897A]" />
+                    <span className="text-[13px] uppercase tracking-wider">Contact & Concierge</span>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 opacity-60" />
+                </button>
+
+                <button
+                  onClick={() => handleNavClick('policies')}
+                  className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                    activePage === 'policies'
+                      ? 'bg-[#5B1E22] text-white font-semibold'
+                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <ShieldCheck className="w-4 h-4 text-[#9E897A]" />
+                    <span className="text-[13px] uppercase tracking-wider">Policies & Exchange</span>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 opacity-60" />
+                </button>
+              </div>
+
+              {/* Category 4: Admin Portal */}
+              <div className="pt-2 border-t border-[#E8DED2]">
                 <button
                   onClick={() => handleNavClick('admin')}
-                  className="flex items-center justify-between w-full py-2.5 px-3 bg-[#F2ECE1] border border-[#C9A76A]/40 rounded-xs text-xs font-semibold text-[#5B1E22]"
+                  className={`w-full text-left p-3 rounded-xs border flex items-center justify-between transition-colors cursor-pointer ${
+                    isOwnerLoggedIn
+                      ? 'bg-[#5B1E22] text-white border-[#C9A76A]'
+                      : 'bg-[#F2ECE1] text-[#5B1E22] border-[#C9A76A]/50 hover:bg-[#5B1E22] hover:text-white'
+                  }`}
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2.5">
                     <Lock className="w-4 h-4 text-[#C9A76A]" />
-                    <span>Admin Portal</span>
+                    <div>
+                      <p className="font-bold text-xs uppercase tracking-wider">
+                        {isOwnerLoggedIn ? 'Admin Studio (Active)' : 'Admin & Owner Portal'}
+                      </p>
+                      <p className="text-[10px] text-inherit opacity-80">Manage Orders, Inventory & PIN</p>
+                    </div>
                   </div>
-                  <span className="text-[10px] text-[#9E897A] font-normal uppercase tracking-wider">Passcode Access</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 bg-black/10 rounded-xs">
+                    Alt + O
+                  </span>
                 </button>
-              )}
+              </div>
             </div>
-          </nav>
+
+            {/* Bottom Contact / Concierge Strip */}
+            <div className="p-5 border-t border-[#E8DED2] bg-white space-y-3 shrink-0">
+              <a
+                href={BRAND_CONFIG.social.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-2.5 px-3 bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-semibold uppercase tracking-wider rounded-xs flex items-center justify-center gap-2 transition-colors shadow-xs"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>Chat on WhatsApp</span>
+              </a>
+
+              <div className="text-[11px] text-[#9E897A] text-center space-y-0.5">
+                <p>Official Boutique: {BRAND_CONFIG.contact.email}</p>
+                <p>Phone: {BRAND_CONFIG.contact.phone}</p>
+              </div>
+            </div>
+          </div>
         </div>
       )}
-
     </header>
   );
 };
+
