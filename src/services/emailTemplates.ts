@@ -427,3 +427,22 @@ ${itemsText}
 
 Official Email Alert dispatched to *${BRAND_CONFIG.contact.email}*`;
 }
+
+/**
+ * Generate formatted SMS message for Customer mobile phone
+ */
+export function generateCustomerSMSMessage(order: Order): string {
+  const itemsText = order.items
+    .map((item) => `${item.product.name} (${item.selectedSize} x ${item.quantity})`)
+    .join(', ');
+
+  const paymentDesc =
+    order.paymentMethod === 'COD'
+      ? 'Cash on Delivery (Pending)'
+      : order.paymentMethod === 'ONLINE_UPI'
+      ? 'Prepaid via Online UPI'
+      : 'Prepaid via Card';
+
+  return `ADAAH HOUSE: Order #${order.orderNumber} confirmed! Total: Rs.${order.total.toLocaleString('en-IN')} (${paymentDesc}). Items: ${itemsText}. Est. Delivery: ${order.estimatedDeliveryDate} to ${order.shippingAddress.addressLine}, ${order.shippingAddress.city} - ${order.shippingAddress.pincode}. Thank you for choosing ADAAH HOUSE! Helpline/WhatsApp: +91 ${BRAND_CONFIG.contact.phone}.`;
+}
+

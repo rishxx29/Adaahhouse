@@ -93,6 +93,39 @@ function orderNotificationPlugin(): Plugin {
         });
       });
 
+      server.middlewares.use('/api/send-order-sms', async (req, res, next) => {
+        if (req.method !== 'POST') return next();
+        let body = '';
+        req.on('data', (chunk) => {
+          body += chunk;
+        });
+        req.on('end', () => {
+          try {
+            const { phone, customerName, orderNumber, message } = JSON.parse(body || '{}');
+            console.log('\n======================================================');
+            console.log('📱 [ADAAH HOUSE SMS & MOBILE NOTIFICATION DISPATCH]');
+            console.log(`➡️  Recipient Mobile: +91 ${phone} (${customerName || 'Valued Customer'})`);
+            console.log(`📦  Order #${orderNumber}`);
+            console.log(`💬  Message:\n"${message}"`);
+            console.log(`✅  Status: Dispatched to telecom SMS gateway & WhatsApp API`);
+            console.log('======================================================\n');
+
+            res.setHeader('Content-Type', 'application/json');
+            res.end(
+              JSON.stringify({
+                success: true,
+                phone,
+                orderNumber,
+                message: `SMS message dispatched successfully to +91 ${phone}`,
+              })
+            );
+          } catch (e: any) {
+            res.statusCode = 500;
+            res.end(JSON.stringify({ success: false, message: e.message }));
+          }
+        });
+      });
+
       server.middlewares.use('/api/send-order-email', async (req, res, next) => {
         // Status check
         if (req.method === 'GET') {

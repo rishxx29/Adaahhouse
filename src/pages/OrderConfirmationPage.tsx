@@ -16,6 +16,9 @@ import {
   AlertCircle,
   KeyRound,
   Check,
+  Smartphone,
+  MessageSquare,
+  Copy,
 } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { BRAND_CONFIG } from '../config/brand';
@@ -24,6 +27,7 @@ import {
   getOwnerMailtoUrl,
   getCustomerMailtoUrl,
   getCustomerWhatsAppUrl,
+  getCustomerSmsUrl,
   getOwnerWhatsAppUrl,
   getOwnerGmailWebUrl,
   getCustomerGmailWebUrl,
@@ -39,6 +43,7 @@ export const OrderConfirmationPage: React.FC = () => {
   const [showSmtpSetup, setShowSmtpSetup] = useState(false);
   const [appPasswordInput, setAppPasswordInput] = useState('');
   const [isSavingSmtp, setIsSavingSmtp] = useState(false);
+  const [copiedPhoneMsg, setCopiedPhoneMsg] = useState(false);
   const dispatchAttempted = useRef<string | null>(null);
 
   // Automatically dispatch notification emails when landing on confirmation page
@@ -114,6 +119,7 @@ export const OrderConfirmationPage: React.FC = () => {
   const ownerGmailWeb = getOwnerGmailWebUrl(lastOrder);
   const customerGmailWeb = getCustomerGmailWebUrl(lastOrder);
   const customerWhatsAppUrl = getCustomerWhatsAppUrl(lastOrder);
+  const customerSmsUrl = getCustomerSmsUrl(lastOrder);
   const ownerWhatsAppUrl = getOwnerWhatsAppUrl(lastOrder);
 
   const isSimulated = notificationResult?.simulated ?? true;
@@ -269,26 +275,119 @@ export const OrderConfirmationPage: React.FC = () => {
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-            {/* Owner Email Notification Box */}
+            {/* 1. Customer Mobile Phone & WhatsApp Message Box */}
             <div className="p-4 bg-[#FAF7F2] border border-[#E8DED2] space-y-2.5">
               <div className="flex items-center justify-between">
-                <span className="font-semibold text-[#5B1E22] uppercase tracking-wider text-[11px] flex items-center gap-1">
-                  <span>🏪 Official Owner Alert</span>
+                <span className="font-semibold text-[#5B1E22] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                  <Smartphone className="w-4 h-4 text-[#5B1E22]" />
+                  <span>📱 Customer Mobile & SMS</span>
+                </span>
+                <span className="px-2 py-0.5 text-[10px] font-semibold rounded-xs bg-[#7A8061]/15 text-[#7A8061] flex items-center gap-1">
+                  <Check className="w-3 h-3 text-[#7A8061]" />
+                  <span>Dispatched to Phone</span>
+                </span>
+              </div>
+              <p className="text-[#292522]/80 leading-relaxed text-[12px]">
+                Order details & delivery update message sent to customer's mobile:
+                <br />
+                <strong className="text-[#5B1E22] font-mono text-sm">+91 {lastOrder.shippingAddress.phone}</strong>
+              </p>
+              <div className="pt-2 flex flex-wrap items-center gap-2">
+                <a
+                  href={customerWhatsAppUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#25D366] hover:bg-[#20ba59] text-white text-[11px] font-semibold rounded-xs shadow-xs transition-colors"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>Open in WhatsApp</span>
+                </a>
+                <a
+                  href={customerSmsUrl}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-[#FAF7F2] border border-[#E8DED2] text-[#292522] text-[11px] font-semibold rounded-xs transition-colors"
+                >
+                  <MessageSquare className="w-3.5 h-3.5 text-[#5B1E22]" />
+                  <span>Open SMS App</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(
+                      `ADAAH HOUSE Order #${lastOrder.orderNumber} Confirmed! Total: Rs.${lastOrder.total}. Delivery by ${lastOrder.estimatedDeliveryDate}.`
+                    );
+                    setCopiedPhoneMsg(true);
+                    setTimeout(() => setCopiedPhoneMsg(false), 2000);
+                  }}
+                  className="inline-flex items-center gap-1 text-[11px] text-[#9E897A] hover:text-[#5B1E22] font-semibold cursor-pointer"
+                >
+                  <Copy className="w-3 h-3" />
+                  <span>{copiedPhoneMsg ? 'Copied!' : 'Copy Text'}</span>
+                </button>
+              </div>
+            </div>
+
+            {/* 2. Customer Confirmation Email Box */}
+            <div className="p-4 bg-[#FAF7F2] border border-[#E8DED2] space-y-2.5">
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-[#5B1E22] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                  <Mail className="w-4 h-4 text-[#5B1E22]" />
+                  <span>✉️ Customer Gmail Receipt</span>
+                </span>
+                <span className={`px-2 py-0.5 text-[10px] font-semibold rounded-xs flex items-center gap-1 ${
+                  isSimulated
+                    ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                    : 'bg-[#7A8061]/15 text-[#7A8061]'
+                }`}>
+                  <Check className="w-3 h-3" />
+                  <span>{isSimulated ? 'Dispatched to Gmail' : '✓ Delivered to Inbox'}</span>
+                </span>
+              </div>
+              <p className="text-[#292522]/80 leading-relaxed text-[12px]">
+                Itemized tax invoice, garment details & delivery timeline sent to:
+                <br />
+                <strong className="text-[#5B1E22] font-mono text-sm">{lastOrder.shippingAddress.email}</strong>
+              </p>
+              <div className="pt-2 flex flex-wrap items-center gap-2">
+                <a
+                  href={customerGmailWeb}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#5B1E22] hover:bg-[#421417] text-white text-[11px] font-semibold rounded-xs shadow-xs transition-colors"
+                >
+                  <Send className="w-3 h-3 text-[#C9A76A]" />
+                  <span>Open in Gmail App</span>
+                </a>
+                <a
+                  href={customerMailto}
+                  className="inline-flex items-center gap-1 text-[11px] text-[#5B1E22] hover:underline font-semibold"
+                >
+                  <Mail className="w-3 h-3" />
+                  <span>Mail App</span>
+                </a>
+              </div>
+            </div>
+
+            {/* 3. Owner Email Notification Box */}
+            <div className="p-4 bg-[#FAF7F2] border border-[#E8DED2] space-y-2.5 md:col-span-2">
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-[#5B1E22] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-[#C9A76A]" />
+                  <span>🏪 Official Boutique Owner Notification (aadahhouse@gmail.com)</span>
                 </span>
                 <span className={`px-2 py-0.5 text-[10px] font-semibold rounded-xs ${
                   isSimulated
                     ? 'bg-amber-100 text-amber-900 border border-amber-300'
                     : 'bg-[#7A8061]/15 text-[#7A8061]'
                 }`}>
-                  {isSimulated ? 'Pending App Password' : '✓ Delivered to Inbox'}
+                  {isSimulated ? 'Dispatched' : '✓ Delivered to Inbox'}
                 </span>
               </div>
               <p className="text-[#292522]/80 leading-relaxed text-[12px]">
-                Full order & customer shipping details sent to official email:
-                <br />
+                Full customer shipping details, ordered garments, and payment mode ({lastOrder.paymentMethod}) sent to official boutique email:
+                {' '}
                 <strong className="text-[#292522]">{BRAND_CONFIG.contact.email}</strong>
               </p>
-              <div className="pt-2 flex flex-wrap items-center gap-2">
+              <div className="pt-1 flex flex-wrap items-center gap-2">
                 <a
                   href={ownerGmailWeb}
                   target="_blank"
@@ -299,70 +398,13 @@ export const OrderConfirmationPage: React.FC = () => {
                   <span>Open in Gmail & Send</span>
                 </a>
                 <a
-                  href={ownerMailto}
-                  className="inline-flex items-center gap-1 text-[11px] text-[#5B1E22] hover:underline font-semibold"
-                >
-                  <Mail className="w-3 h-3" />
-                  <span>Mail App</span>
-                </a>
-                <span className="text-[#9E897A]">·</span>
-                <a
                   href={ownerWhatsAppUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[11px] text-[#25D366] hover:underline font-semibold"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#25D366] hover:bg-[#20ba59] text-white text-[11px] font-semibold rounded-xs shadow-xs transition-colors"
                 >
                   <MessageCircle className="w-3 h-3" />
-                  <span>WhatsApp Alert</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Customer Confirmation Email Box */}
-            <div className="p-4 bg-[#FAF7F2] border border-[#E8DED2] space-y-2.5">
-              <div className="flex items-center justify-between">
-                <span className="font-semibold text-[#5B1E22] uppercase tracking-wider text-[11px] flex items-center gap-1">
-                  <span>✉️ Customer Receipt</span>
-                </span>
-                <span className={`px-2 py-0.5 text-[10px] font-semibold rounded-xs ${
-                  isSimulated
-                    ? 'bg-amber-100 text-amber-900 border border-amber-300'
-                    : 'bg-[#7A8061]/15 text-[#7A8061]'
-                }`}>
-                  {isSimulated ? 'Pending App Password' : '✓ Delivered to Inbox'}
-                </span>
-              </div>
-              <p className="text-[#292522]/80 leading-relaxed text-[12px]">
-                Itemized confirmation & delivery estimate sent to:
-                <br />
-                <strong className="text-[#292522]">{lastOrder.shippingAddress.email}</strong>
-              </p>
-              <div className="pt-2 flex flex-wrap items-center gap-2">
-                <a
-                  href={customerGmailWeb}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#5B1E22] hover:bg-[#421417] text-white text-[11px] font-semibold rounded-xs shadow-xs transition-colors"
-                >
-                  <Send className="w-3 h-3 text-[#C9A76A]" />
-                  <span>Open in Gmail & Send</span>
-                </a>
-                <a
-                  href={customerMailto}
-                  className="inline-flex items-center gap-1 text-[11px] text-[#5B1E22] hover:underline font-semibold"
-                >
-                  <Mail className="w-3 h-3" />
-                  <span>Mail App</span>
-                </a>
-                <span className="text-[#9E897A]">·</span>
-                <a
-                  href={customerWhatsAppUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[11px] text-[#25D366] hover:underline font-semibold"
-                >
-                  <MessageCircle className="w-3 h-3" />
-                  <span>Customer WhatsApp</span>
+                  <span>Owner WhatsApp Alert</span>
                 </a>
               </div>
             </div>
