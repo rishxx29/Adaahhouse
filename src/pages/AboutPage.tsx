@@ -311,7 +311,7 @@ export const AboutPage: React.FC = () => {
           >
             <div className="aspect-[3/3.6] overflow-hidden bg-white border border-[#D5C2D7]/70 shadow-xs">
               <img
-                src="/about_col_kurti_sets_hd.jpg"
+                src="/about_col_kurti_sets_hd.jpg?v=5"
                 alt="Kurti Sets"
                 className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
               />
@@ -333,7 +333,7 @@ export const AboutPage: React.FC = () => {
           >
             <div className="aspect-[3/3.6] overflow-hidden bg-white border border-[#D5C2D7]/70 shadow-xs">
               <img
-                src="/about_col_coord_sets_hd.jpg"
+                src="/about_col_coord_sets_hd.jpg?v=5"
                 alt="Co-ord Sets"
                 className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
               />
@@ -355,7 +355,7 @@ export const AboutPage: React.FC = () => {
           >
             <div className="aspect-[3/3.6] overflow-hidden bg-white border border-[#D5C2D7]/70 shadow-xs">
               <img
-                src="/about_col_anarkali_suits_hd.jpg"
+                src="/about_col_anarkali_suits_hd.jpg?v=5"
                 alt="Anarkali Suits"
                 className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
               />
@@ -377,7 +377,7 @@ export const AboutPage: React.FC = () => {
           >
             <div className="aspect-[3/3.6] overflow-hidden bg-white border border-[#D5C2D7]/70 shadow-xs">
               <img
-                src="/about_col_straight_suits_hd.jpg"
+                src="/about_col_straight_suits_hd.jpg?v=5"
                 alt="Straight Suit Sets"
                 className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
               />
@@ -399,7 +399,7 @@ export const AboutPage: React.FC = () => {
           >
             <div className="aspect-[3/3.6] overflow-hidden bg-white border border-[#D5C2D7]/70 shadow-xs">
               <img
-                src="/about_col_festive_wear_hd.jpg"
+                src="/about_col_festive_wear_hd.jpg?v=5"
                 alt="Festive Wear"
                 className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
               />
