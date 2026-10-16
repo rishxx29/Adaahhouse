@@ -57,10 +57,10 @@ export const AboutPage: React.FC = () => {
       {/* =========================================================================
           SECTION 1: HERO — "More Than A Brand"
           ========================================================================= */}
-      <section className="relative max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-14 sm:py-16">
+      <section className="relative max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 pt-6 pb-12 sm:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Hero Content */}
-          <div className="lg:col-span-6 relative z-10 space-y-4 sm:space-y-6">
+          <div className="lg:col-span-6 relative z-10 space-y-3.5 sm:space-y-6">
             {/* Subtle botanical line art decoration background */}
             <div className="absolute -left-6 -top-10 w-32 h-44 opacity-25 pointer-events-none hidden sm:block">
               <svg viewBox="0 0 100 140" fill="none" stroke="#8C5A7D" strokeWidth="1.2">
@@ -72,17 +72,17 @@ export const AboutPage: React.FC = () => {
             </div>
 
             <div className="inline-block">
-              <span className="text-[11px] sm:text-xs uppercase tracking-[0.28em] font-semibold text-[#8C5A7D]">
+              <span className="text-[10.5px] sm:text-xs uppercase tracking-[0.24em] sm:tracking-[0.28em] font-semibold text-[#8C5A7D]">
                 ABOUT US
               </span>
             </div>
 
-            <h1 className="font-serif text-3xl sm:text-5xl lg:text-[56px] text-[#554052] font-normal leading-[1.12]">
+            <h1 className="font-serif text-2xl min-[360px]:text-3xl sm:text-5xl lg:text-[56px] text-[#554052] font-normal leading-[1.12]">
               More Than <br className="hidden sm:inline" />
               A Brand
             </h1>
 
-            <p className="font-cursive text-3xl sm:text-4xl lg:text-[42px] text-[#8C5A7D] leading-snug pt-1">
+            <p className="font-cursive text-2xl min-[360px]:text-3xl sm:text-4xl lg:text-[42px] text-[#8C5A7D] leading-snug pt-1">
               It's a dream of fashion, freedom and self-expression.
             </p>
 
@@ -97,7 +97,7 @@ export const AboutPage: React.FC = () => {
             <div className="pt-2">
               <button
                 onClick={scrollToStory}
-                className="inline-flex items-center gap-2 bg-[#7D4E68] hover:bg-[#554052] text-white text-[11px] sm:text-xs uppercase tracking-[0.22em] font-medium px-7 py-3 transition shadow-xs cursor-pointer group"
+                className="inline-flex items-center gap-2 bg-[#7D4E68] hover:bg-[#554052] text-white text-[10.5px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.22em] font-medium px-6 sm:px-7 py-2.5 sm:py-3 transition shadow-xs cursor-pointer group"
               >
                 <span>OUR STORY</span>
                 <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -207,9 +207,9 @@ export const AboutPage: React.FC = () => {
       {/* =========================================================================
           SECTION 3: WHY HOUSE OF RII? — 5 Pillars with Dividers
           ========================================================================= */}
-      <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 border-t border-b border-[#D5C2D7]/70">
-        <div className="text-center max-w-xl mx-auto space-y-1 mb-10">
-          <h2 className="text-xs sm:text-[13px] uppercase tracking-[0.3em] font-semibold text-[#7D4E68]">
+      <section className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-14 border-t border-b border-[#D5C2D7]/70">
+        <div className="text-center max-w-xl mx-auto space-y-1 mb-8 sm:mb-10">
+          <h2 className="text-xs sm:text-[13px] uppercase tracking-[0.24em] sm:tracking-[0.3em] font-semibold text-[#7D4E68]">
             WHY HOUSE OF RII?
           </h2>
           <div className="w-20 mx-auto">
@@ -218,9 +218,9 @@ export const AboutPage: React.FC = () => {
         </div>
 
         {/* 5 Pillars Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-[#D5C2D7]">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-[#D5C2D7]">
           {/* Pillar 1: Affordable Elegance */}
-          <div className="text-center px-3 sm:px-4 py-4 md:py-0 flex flex-col items-center space-y-2">
+          <div className="text-center px-2 sm:px-4 py-3 md:py-0 flex flex-col items-center space-y-1.5 sm:space-y-2">
             <div className="h-10 flex items-center justify-center">
               <HouseOfRiiLotus size={28} />
             </div>
@@ -233,7 +233,7 @@ export const AboutPage: React.FC = () => {
           </div>
 
           {/* Pillar 2: Curated Collections */}
-          <div className="text-center px-3 sm:px-4 py-4 md:py-0 flex flex-col items-center space-y-2">
+          <div className="text-center px-2 sm:px-4 py-3 md:py-0 flex flex-col items-center space-y-1.5 sm:space-y-2">
             <div className="h-10 flex items-center justify-center text-[#8C5A7D]">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M9 3 L15 3 L18 8 L16 11 L19 21 L5 21 L8 11 L6 8 Z" />
@@ -249,7 +249,7 @@ export const AboutPage: React.FC = () => {
           </div>
 
           {/* Pillar 3: Traditional with a Modern Touch */}
-          <div className="text-center px-3 sm:px-4 py-4 md:py-0 flex flex-col items-center space-y-2">
+          <div className="text-center px-2 sm:px-4 py-3 md:py-0 flex flex-col items-center space-y-1.5 sm:space-y-2">
             <div className="h-10 flex items-center justify-center text-[#8C5A7D]">
               <Leaf className="w-5 h-5 stroke-[1.6]" />
             </div>
@@ -262,7 +262,7 @@ export const AboutPage: React.FC = () => {
           </div>
 
           {/* Pillar 4: Everyday & Festive Wear */}
-          <div className="text-center px-3 sm:px-4 py-4 md:py-0 flex flex-col items-center space-y-2">
+          <div className="text-center px-2 sm:px-4 py-3 md:py-0 flex flex-col items-center space-y-1.5 sm:space-y-2">
             <div className="h-10 flex items-center justify-center text-[#8C5A7D]">
               <Heart className="w-5 h-5 stroke-[1.6]" />
             </div>
@@ -275,7 +275,7 @@ export const AboutPage: React.FC = () => {
           </div>
 
           {/* Pillar 5: Comfort & Versatility */}
-          <div className="text-center px-3 sm:px-4 py-4 md:py-0 flex flex-col items-center space-y-2 col-span-2 md:col-span-1">
+          <div className="text-center px-2 sm:px-4 py-3 md:py-0 flex flex-col items-center space-y-1.5 sm:space-y-2 col-span-2 md:col-span-1">
             <div className="h-10 flex items-center justify-center text-[#8C5A7D]">
               <Sparkles className="w-5 h-5 stroke-[1.6]" />
             </div>
@@ -292,9 +292,9 @@ export const AboutPage: React.FC = () => {
       {/* =========================================================================
           SECTION 4: PIECES WE LOVE — 5 Image Tiles + Explore Button
           ========================================================================= */}
-      <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
-        <div className="text-center max-w-xl mx-auto space-y-1 mb-10">
-          <h2 className="text-xs sm:text-[13px] uppercase tracking-[0.3em] font-semibold text-[#7D4E68]">
+      <section className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 py-10 sm:py-16">
+        <div className="text-center max-w-xl mx-auto space-y-1 mb-8 sm:mb-10">
+          <h2 className="text-xs sm:text-[13px] uppercase tracking-[0.24em] sm:tracking-[0.3em] font-semibold text-[#7D4E68]">
             PIECES WE LOVE
           </h2>
           <div className="w-20 mx-auto">
@@ -303,7 +303,7 @@ export const AboutPage: React.FC = () => {
         </div>
 
         {/* 5 Category Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-6">
           {/* Card 1: Kurti Sets */}
           <div
             onClick={() => handleCategoryClick('Kurti Sets')}
@@ -430,7 +430,7 @@ export const AboutPage: React.FC = () => {
       {/* =========================================================================
           SECTION 5: MY VISION — "Creating a Brand That Feels Like Me"
           ========================================================================= */}
-      <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <section className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 py-10 sm:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Column: Portrait Photo */}
           <div className="lg:col-span-6 relative aspect-[3/3.8] sm:aspect-[4/4.8] max-h-[560px] overflow-hidden border border-[#D5C2D7]/60 shadow-xs bg-white">
@@ -442,7 +442,7 @@ export const AboutPage: React.FC = () => {
           </div>
 
           {/* Right Column: Vision Narrative */}
-          <div className="lg:col-span-6 space-y-5 relative">
+          <div className="lg:col-span-6 space-y-4 sm:space-y-5 relative">
             {/* Top Right Botanical Branch */}
             <div className="absolute top-0 right-0 w-24 h-24 opacity-25 pointer-events-none hidden sm:block">
               <svg viewBox="0 0 80 80" fill="none" stroke="#8C5A7D" strokeWidth="1.2">
@@ -453,16 +453,16 @@ export const AboutPage: React.FC = () => {
             </div>
 
             <div>
-              <span className="text-[11px] uppercase tracking-[0.28em] font-semibold text-[#8C5A7D]">
+              <span className="text-[10.5px] sm:text-[11px] uppercase tracking-[0.24em] sm:tracking-[0.28em] font-semibold text-[#8C5A7D]">
                 MY VISION
               </span>
-              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl text-[#554052] font-normal leading-tight mt-1.5">
+              <h2 className="font-display text-2xl min-[360px]:text-3xl lg:text-4xl text-[#554052] font-normal leading-tight mt-1">
                 Creating a Brand <br />
                 That Feels Like Me
               </h2>
             </div>
 
-            <div className="space-y-3 text-xs sm:text-[13px] text-[#554052]/90 leading-relaxed font-body">
+            <div className="space-y-2.5 sm:space-y-3 text-xs sm:text-[13px] text-[#554052]/90 leading-relaxed font-body">
               <p>
                 I want HOUSE OF RII to be a place where every girl finds outfits that make her feel confident, comfortable and beautiful.
               </p>
@@ -475,11 +475,11 @@ export const AboutPage: React.FC = () => {
             </div>
 
             {/* Signature Block */}
-            <div className="pt-4 space-y-1">
-              <p className="font-signature text-4xl sm:text-5xl lg:text-[54px] text-[#8C5A7D] select-none leading-none tracking-normal font-normal">
+            <div className="pt-3 sm:pt-4 space-y-1">
+              <p className="font-signature text-3xl min-[360px]:text-4xl sm:text-5xl lg:text-[54px] text-[#8C5A7D] select-none leading-none tracking-normal font-normal">
                 ~ Rishika Jain
               </p>
-              <p className="text-[10.5px] uppercase tracking-[0.25em] text-[#554052]/80 font-medium font-sans pt-1">
+              <p className="text-[10px] sm:text-[10.5px] uppercase tracking-[0.22em] sm:tracking-[0.25em] text-[#554052]/80 font-medium font-sans pt-1">
                 Founder, HOUSE OF RII
               </p>
             </div>
@@ -490,14 +490,14 @@ export const AboutPage: React.FC = () => {
       {/* =========================================================================
           SECTION 6: OUR PROCESS — "Thoughtfully Curated for You"
           ========================================================================= */}
-      <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 border-t border-[#D5C2D7]/70">
+      <section className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 py-10 sm:py-16 border-t border-[#D5C2D7]/70">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left: Lead text */}
-          <div className="lg:col-span-5 space-y-3">
-            <span className="text-[11px] uppercase tracking-[0.28em] font-semibold text-[#8C5A7D]">
+          <div className="lg:col-span-5 space-y-2.5 sm:space-y-3">
+            <span className="text-[10.5px] sm:text-[11px] uppercase tracking-[0.24em] sm:tracking-[0.28em] font-semibold text-[#8C5A7D]">
               OUR PROCESS
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-[#554052] font-normal leading-tight">
+            <h2 className="font-serif text-2xl min-[360px]:text-3xl lg:text-4xl text-[#554052] font-normal leading-tight">
               Thoughtfully <br className="hidden sm:inline" />
               Curated for You
             </h2>
@@ -507,56 +507,56 @@ export const AboutPage: React.FC = () => {
           </div>
 
           {/* Right: 4-Step Process Flow with Connecting Arrows */}
-          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-4 items-center">
+          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 items-center">
             {/* Step 1: We Discover */}
-            <div className="text-center space-y-1.5 p-2">
-              <div className="w-10 h-10 mx-auto rounded-full flex items-center justify-center text-[#8C5A7D]">
-                <Search className="w-5 h-5 stroke-[1.6]" />
+            <div className="text-center space-y-1 sm:space-y-1.5 p-1.5 sm:p-2">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 mx-auto rounded-full flex items-center justify-center text-[#8C5A7D]">
+                <Search className="w-4 h-4 sm:w-5 sm:h-5 stroke-[1.6]" />
               </div>
               <h4 className="font-serif text-xs sm:text-sm font-semibold text-[#554052]">
                 We Discover
               </h4>
-              <p className="text-[11px] text-[#554052]/80 leading-snug font-body">
+              <p className="text-[10.5px] sm:text-[11px] text-[#554052]/80 leading-snug font-body">
                 Explore trends and unique styles
               </p>
             </div>
 
             {/* Step 2: We Curate */}
-            <div className="text-center space-y-1.5 p-2 relative">
-              <div className="w-10 h-10 mx-auto rounded-full flex items-center justify-center text-[#8C5A7D]">
-                <Heart className="w-5 h-5 stroke-[1.6]" />
+            <div className="text-center space-y-1 sm:space-y-1.5 p-1.5 sm:p-2 relative">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 mx-auto rounded-full flex items-center justify-center text-[#8C5A7D]">
+                <Heart className="w-4 h-4 sm:w-5 sm:h-5 stroke-[1.6]" />
               </div>
               <h4 className="font-serif text-xs sm:text-sm font-semibold text-[#554052]">
                 We Curate
               </h4>
-              <p className="text-[11px] text-[#554052]/80 leading-snug font-body">
+              <p className="text-[10.5px] sm:text-[11px] text-[#554052]/80 leading-snug font-body">
                 Select pieces that fit our vision
               </p>
             </div>
 
             {/* Step 3: We Check */}
-            <div className="text-center space-y-1.5 p-2 relative">
-              <div className="w-10 h-10 mx-auto rounded-full flex items-center justify-center text-[#8C5A7D]">
-                <ShieldCheck className="w-5 h-5 stroke-[1.6]" />
+            <div className="text-center space-y-1 sm:space-y-1.5 p-1.5 sm:p-2 relative">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 mx-auto rounded-full flex items-center justify-center text-[#8C5A7D]">
+                <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 stroke-[1.6]" />
               </div>
               <h4 className="font-serif text-xs sm:text-sm font-semibold text-[#554052]">
                 We Check
               </h4>
-              <p className="text-[11px] text-[#554052]/80 leading-snug font-body">
+              <p className="text-[10.5px] sm:text-[11px] text-[#554052]/80 leading-snug font-body">
                 Focus on style, comfort and finish
               </p>
             </div>
 
             {/* Step 4: We Deliver */}
-            <div className="text-center space-y-1.5 p-2">
-              <div className="w-10 h-10 mx-auto rounded-full flex items-center justify-center text-[#8C5A7D]">
-                <Package className="w-5 h-5 stroke-[1.6]" />
+            <div className="text-center space-y-1 sm:space-y-1.5 p-1.5 sm:p-2">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 mx-auto rounded-full flex items-center justify-center text-[#8C5A7D]">
+                <Package className="w-4 h-4 sm:w-5 sm:h-5 stroke-[1.6]" />
               </div>
               <h4 className="font-serif text-xs sm:text-sm font-semibold text-[#554052]">
                 We Deliver
               </h4>
-              <p className="text-[11px] text-[#554052]/80 leading-snug font-body">
-                Bring them to you with minimal, eco-conscious packaging.
+              <p className="text-[10.5px] sm:text-[11px] text-[#554052]/80 leading-snug font-body">
+                Bring them to you with minimal packaging.
               </p>
             </div>
           </div>
@@ -566,20 +566,20 @@ export const AboutPage: React.FC = () => {
       {/* =========================================================================
           SECTION 7: PROMOTIONAL PLUM BANNER & TRUST STRIP
           ========================================================================= */}
-      <section className="bg-[#7D4E68] text-white py-10 sm:py-12 relative overflow-hidden">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+      <section className="bg-[#7D4E68] text-white py-8 sm:py-12 relative overflow-hidden">
+        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-5 sm:gap-6 relative z-10">
           <div className="hidden md:block w-32" />
 
           {/* Centered Master Logo in Light Theme */}
           <div className="text-center">
-            <HouseOfRiiLogo variant="primary" theme="dark" showTagline={true} className="max-w-[240px] sm:max-w-[280px]" />
+            <HouseOfRiiLogo variant="primary" theme="dark" showTagline={true} className="max-w-[210px] sm:max-w-[280px]" />
           </div>
 
           {/* Right CTA Button */}
           <div className="shrink-0">
             <button
               onClick={handleShopNowClick}
-              className="inline-flex items-center gap-2 border border-white/80 hover:bg-white hover:text-[#7D4E68] text-white px-7 py-3 uppercase text-[11px] tracking-[0.22em] font-medium transition cursor-pointer"
+              className="inline-flex items-center gap-2 border border-white/80 hover:bg-white hover:text-[#7D4E68] text-white px-6 sm:px-7 py-2.5 sm:py-3 uppercase text-[10.5px] sm:text-[11px] tracking-[0.2em] sm:tracking-[0.22em] font-medium transition cursor-pointer"
             >
               <span>SHOP NOW</span>
               <span>→</span>
@@ -591,17 +591,17 @@ export const AboutPage: React.FC = () => {
       {/* =========================================================================
           SECTION 8: 5 TRUST MARKERS STRIP
           ========================================================================= */}
-      <section className="bg-[#F3E9EB] border-b border-[#D5C2D7] py-8 sm:py-10">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-0 divide-y sm:divide-y-0 lg:divide-x divide-[#D5C2D7]/80">
+      <section className="bg-[#F3E9EB] border-b border-[#D5C2D7] py-6 sm:py-10">
+        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-0 divide-y sm:divide-y-0 lg:divide-x divide-[#D5C2D7]/80">
             {/* Marker 1: Based in Jaipur */}
-            <div className="flex items-center gap-3 px-3 sm:px-4 py-2 sm:py-0">
-              <MapPin className="w-5 h-5 text-[#8C5A7D] shrink-0" />
+            <div className="flex items-center gap-2.5 sm:gap-3 px-2 sm:px-4 py-2 sm:py-0">
+              <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[#8C5A7D] shrink-0" />
               <div>
                 <h4 className="font-serif text-xs sm:text-sm font-semibold text-[#554052]">
                   Based in Jaipur
                 </h4>
-                <p className="text-[11px] text-[#554052]/80 mt-0.5">Rajasthan, India</p>
+                <p className="text-[10.5px] sm:text-[11px] text-[#554052]/80 mt-0.5">Rajasthan, India</p>
               </div>
             </div>
 

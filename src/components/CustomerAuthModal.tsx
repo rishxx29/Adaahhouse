@@ -254,13 +254,13 @@ export const CustomerAuthModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-[#F3E9EB] max-w-md w-full border border-[#D5C2D7] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 max-h-[92vh] flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
+      <div className="bg-[#F3E9EB] max-w-md w-full border border-[#D5C2D7] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 max-h-[92dvh] sm:max-h-[90vh] flex flex-col">
         {/* Modal Header */}
-        <div className="px-6 py-4 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F3E9EB]">
+        <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F3E9EB]">
           <div className="flex items-center gap-2">
             <User className="w-4 h-4 text-[#8C5A7D]" />
-            <h3 className="font-serif text-lg font-bold text-[#554052]">
+            <h3 className="font-serif text-base sm:text-lg font-bold text-[#554052]">
               {authModalMode === 'login' && 'Customer Sign In'}
               {authModalMode === 'register' && 'Create Customer Account'}
               {authModalMode === 'forgot' && 'Reset Password with OTP'}
@@ -334,7 +334,7 @@ export const CustomerAuthModal: React.FC = () => {
         )}
 
         {/* Modal Scrollable Body */}
-        <div className="p-6 overflow-y-auto space-y-5 text-xs text-[#554052]">
+        <div className="p-4 sm:p-6 overflow-y-auto space-y-4 sm:space-y-5 text-xs text-[#554052] [webkit-overflow-scrolling:touch]">
           {/* Brand Logo */}
           <div className="text-center flex justify-center py-1">
             <AdaahLogo variant="primary" showTagline={true} className="mx-auto max-w-[210px]" />

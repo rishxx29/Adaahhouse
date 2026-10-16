@@ -35,13 +35,13 @@ export const OwnerLoginModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-[#F3E9EB] max-w-md w-full border border-[#D5C2D7] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
+      <div className="bg-[#F3E9EB] max-w-md w-full border border-[#D5C2D7] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 max-h-[92dvh] overflow-y-auto">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F3E9EB]">
+        <div className="px-4 sm:px-6 py-3.5 sm:py-4 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F3E9EB]">
           <div className="flex items-center gap-2">
             <Lock className="w-4 h-4 text-[#8C5A7D]" />
-            <h3 className="font-serif text-lg font-bold text-[#554052]">
+            <h3 className="font-serif text-base sm:text-lg font-bold text-[#554052]">
               HOUSE OF RII Owner Access
             </h3>
           </div>
@@ -51,7 +51,7 @@ export const OwnerLoginModal: React.FC = () => {
               setError(null);
               setPin('');
             }}
-            className="p-1 text-[#554052] hover:text-[#8C5A7D]"
+            className="p-1 text-[#554052] hover:text-[#8C5A7D] cursor-pointer"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -59,7 +59,7 @@ export const OwnerLoginModal: React.FC = () => {
         </div>
 
         {/* Content */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4">
           <div className="space-y-1.5 text-center pb-2">
             <div className="w-12 h-12 rounded-full bg-[#8C5A7D]/10 text-[#8C5A7D] flex items-center justify-center mx-auto mb-2">
               <KeyRound className="w-6 h-6 text-[#A185A4]" />

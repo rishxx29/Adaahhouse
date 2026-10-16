@@ -355,14 +355,14 @@ export const CheckoutModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-[#F3E9EB] max-w-4xl w-full max-h-[92vh] overflow-y-auto border border-[#D5C2D7] shadow-2xl flex flex-col md:flex-row">
+      <div className="bg-[#F3E9EB] max-w-4xl w-full max-h-[92dvh] sm:max-h-[90vh] overflow-y-auto border border-[#D5C2D7] shadow-2xl flex flex-col md:flex-row [webkit-overflow-scrolling:touch]">
         {/* Left Column: Form Steps */}
-        <div className="md:w-7/12 p-6 sm:p-8 border-b md:border-b-0 md:border-r border-[#D5C2D7]">
+        <div className="md:w-7/12 p-4 sm:p-6 md:p-8 border-b md:border-b-0 md:border-r border-[#D5C2D7]">
           {/* Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-[#D5C2D7]">
+          <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-[#D5C2D7]">
             <div className="flex items-center gap-2">
               <Lock className="w-4 h-4 text-[#8C5A7D]" />
-              <h3 className="font-serif text-xl font-bold text-[#554052]">
+              <h3 className="font-serif text-lg sm:text-xl font-bold text-[#554052]">
                 HOUSE OF RII — Secure Checkout
               </h3>
             </div>
@@ -516,7 +516,7 @@ export const CheckoutModal: React.FC = () => {
                 {errors.addressLine && <p className="text-[11px] text-red-600 mt-1">{errors.addressLine}</p>}
               </div>
 
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <label className="block text-xs font-medium text-[#554052] mb-1">
                     PIN Code *
@@ -1037,9 +1037,9 @@ export const CheckoutModal: React.FC = () => {
         </div>
 
         {/* Right Column: Order Summary */}
-        <div className="md:w-5/12 p-6 sm:p-8 bg-[#F3E9EB] flex flex-col justify-between">
+        <div className="md:w-5/12 p-4 sm:p-6 md:p-8 bg-[#F3E9EB] flex flex-col justify-between">
           <div>
-            <h4 className="font-serif text-lg font-bold text-[#554052] pb-3 border-b border-[#D5C2D7]">
+            <h4 className="font-serif text-base sm:text-lg font-bold text-[#554052] pb-3 border-b border-[#D5C2D7]">
               Order Summary ({cart.length} items)
             </h4>
 

@@ -116,13 +116,13 @@ export const Header: React.FC = () => {
       )}
 
       {/* Main Header Bar matching visual reference: Left Logo | Center Nav Links | Right Search + Icons */}
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 h-20 sm:h-[88px] flex items-center justify-between gap-3 lg:gap-6">
+      <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 xl:px-10 h-16 sm:h-20 lg:h-[88px] flex items-center justify-between gap-2 sm:gap-4 lg:gap-6">
         {/* Left: Stacked HOUSE OF RII Logo from official visual reference */}
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           {/* Mobile Menu Hamburger */}
           <button
             onClick={() => setIsSideNavOpen(true)}
-            className="lg:hidden p-2 -ml-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
+            className="lg:hidden p-1.5 sm:p-2 -ml-1 sm:-ml-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
             aria-label="Open Navigation Menu"
           >
             <Menu className="w-5 h-5" />
@@ -133,7 +133,7 @@ export const Header: React.FC = () => {
             className="inline-flex items-center text-left group cursor-pointer focus-visible:outline-none py-1"
             aria-label="HOUSE OF RII Home"
           >
-            <HouseOfRiiLogo variant="header" className="h-14 sm:h-16 w-auto" />
+            <HouseOfRiiLogo variant="header" className="h-11 sm:h-14 lg:h-16 w-auto" />
           </button>
         </div>
 
@@ -184,9 +184,9 @@ export const Header: React.FC = () => {
         </nav>
 
         {/* Right Corner: Search Input Pill + Wishlist + Bag + Account */}
-        <div className="flex items-center justify-end gap-2 sm:gap-3 shrink-0">
+        <div className="flex items-center justify-end gap-1 sm:gap-2.5 md:gap-3 shrink-0">
           {/* Desktop Search Input Pill */}
-          <div className="hidden md:flex items-center relative w-48 lg:w-56 xl:w-64">
+          <div className="hidden md:flex items-center relative w-44 lg:w-56 xl:w-64">
             <Search className="w-3.5 h-3.5 text-[#554052] absolute left-3 pointer-events-none" />
             <input
               type="text"
@@ -203,7 +203,7 @@ export const Header: React.FC = () => {
           {/* Mobile Search Toggle */}
           <button
             onClick={() => setIsSearchOpen(!isSearchOpen)}
-            className="md:hidden p-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
+            className="md:hidden p-1.5 sm:p-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
             title="Search Products"
             aria-label="Search"
           >
@@ -215,7 +215,7 @@ export const Header: React.FC = () => {
             <div className="relative group">
               <button
                 onClick={() => handleNavClick('account')}
-                className="flex items-center gap-1.5 p-1 px-2 bg-[#F6ECEF] border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] transition-colors rounded-full shadow-2xs cursor-pointer"
+                className="flex items-center gap-1.5 p-1 px-1.5 sm:px-2 bg-[#F6ECEF] border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] transition-colors rounded-full shadow-2xs cursor-pointer"
                 title={`Signed in as ${currentUser.fullName}`}
               >
                 <div className="w-4 h-4 rounded-full bg-[#8C5A7D] text-[#F6F0F4] flex items-center justify-center text-[9px] font-bold">
@@ -309,15 +309,15 @@ export const Header: React.FC = () => {
           />
 
           {/* Side Drawer Panel */}
-          <div className="relative w-full max-w-sm sm:max-w-md bg-[#F3E9EB] h-full shadow-2xl flex flex-col justify-between border-r border-[#D5C2D7] overflow-y-auto animate-in slide-in-from-left duration-300 z-10">
+          <div className="relative w-[88vw] max-w-sm sm:max-w-md bg-[#F3E9EB] h-full shadow-2xl flex flex-col justify-between border-r border-[#D5C2D7] overflow-y-auto animate-in slide-in-from-left duration-300 z-10 [webkit-overflow-scrolling:touch]">
             {/* Top Header of Drawer */}
-            <div className="p-5 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F3E9EB] shrink-0">
+            <div className="p-4 sm:p-5 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F3E9EB] shrink-0">
               <button
                 onClick={() => handleNavClick('home')}
                 className="flex items-center text-left focus:outline-none cursor-pointer"
                 aria-label="HOUSE OF RII Home"
               >
-                <HouseOfRiiLogo variant="header" className="h-12 w-auto" />
+                <HouseOfRiiLogo variant="header" className="h-11 sm:h-12 w-auto" />
               </button>
 
               <button

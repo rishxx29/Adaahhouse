@@ -47,15 +47,15 @@ export const WishlistDrawer: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-[#F3E9EB] w-full max-w-md h-full shadow-2xl flex flex-col border-l border-[#D5C2D7] animate-in slide-in-from-right duration-300">
+      <div className="bg-[#F3E9EB] w-full max-w-full sm:max-w-md h-full shadow-2xl flex flex-col border-l border-[#D5C2D7] animate-in slide-in-from-right duration-300">
         {/* Drawer Header */}
-        <div className="p-5 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F3E9EB]">
+        <div className="p-4 sm:p-5 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F3E9EB]">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-[#8C5A7D]/10 flex items-center justify-center text-[#8C5A7D]">
               <Heart className="w-4 h-4 fill-[#8C5A7D]" />
             </div>
             <div>
-              <h3 className="font-serif text-lg font-bold text-[#554052] leading-tight">
+              <h3 className="font-serif text-base sm:text-lg font-bold text-[#554052] leading-tight">
                 My Wishlist
               </h3>
               <span className="text-[11px] text-[#A185A4]">
@@ -90,7 +90,7 @@ export const WishlistDrawer: React.FC = () => {
         )}
 
         {/* Wishlist Items List */}
-        <div className="flex-1 overflow-y-auto p-5 divide-y divide-[#D5C2D7]">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-5 divide-y divide-[#D5C2D7]">
           {wishlistProducts.length === 0 ? (
             <div className="py-20 text-center space-y-4">
               <div className="w-16 h-16 rounded-full bg-[#D5C2D7]/40 flex items-center justify-center mx-auto text-[#8C5A7D]">
@@ -213,7 +213,7 @@ export const WishlistDrawer: React.FC = () => {
 
         {/* Drawer Footer Actions */}
         {wishlistProducts.length > 0 && (
-          <div className="p-5 border-t border-[#D5C2D7] bg-[#F3E9EB] space-y-2.5">
+          <div className="p-4 sm:p-5 border-t border-[#D5C2D7] bg-[#F3E9EB] space-y-2.5">
             <button
               onClick={handleMoveAllToBag}
               className="w-full py-3 bg-[#8C5A7D] text-[#F6F0F4] text-xs uppercase tracking-widest font-semibold hover:bg-[#554052] transition-all flex items-center justify-center gap-2 shadow-sm"

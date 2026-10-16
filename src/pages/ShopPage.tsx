@@ -175,13 +175,13 @@ export const ShopPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 animate-in fade-in duration-200">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-12 space-y-6 sm:space-y-8 animate-in fade-in duration-200">
       {/* Editorial Header */}
-      <div className="text-center max-w-2xl mx-auto space-y-2">
-        <span className="text-xs uppercase tracking-[0.25em] text-[#8C5A7D] font-semibold">
+      <div className="text-center max-w-2xl mx-auto space-y-2 px-1">
+        <span className="text-[10.5px] sm:text-xs uppercase tracking-[0.25em] text-[#8C5A7D] font-semibold">
           Curated Catalog
         </span>
-        <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#554052]">
+        <h1 className="font-serif text-2xl min-[360px]:text-3xl sm:text-4xl lg:text-5xl font-normal text-[#554052]">
           {selectedCollectionFilter === 'wishlist'
             ? 'My Saved Wishlist'
             : selectedCollectionFilter === 'bestseller'
@@ -205,14 +205,14 @@ export const ShopPage: React.FC = () => {
 
       {/* Primary Collections Tabs */}
       <div className="space-y-3">
-        <div className="flex items-center justify-center gap-1.5 flex-wrap p-1.5 bg-[#F3E9EB] rounded-xs max-w-3xl mx-auto border border-[#D5C2D7]">
+        <div className="flex items-center justify-center gap-1 sm:gap-1.5 flex-wrap p-1 sm:p-1.5 bg-[#F3E9EB] rounded-xs max-w-3xl mx-auto border border-[#D5C2D7]">
           {collections.map((col) => {
             const isActive = selectedCollectionFilter === col.id;
             return (
               <button
                 key={col.id}
                 onClick={() => handleCollectionSelect(col.id)}
-                className={`inline-flex items-center gap-1.5 px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all cursor-pointer ${
+                className={`inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-4 py-1.5 sm:py-2 text-[10.5px] sm:text-xs uppercase tracking-wider font-semibold transition-all cursor-pointer ${
                   isActive
                     ? 'bg-[#8C5A7D] text-[#FAF7F2] shadow-xs'
                     : 'text-[#554052]/80 hover:text-[#8C5A7D] hover:bg-white/60'
@@ -430,7 +430,7 @@ export const ShopPage: React.FC = () => {
               </div>
             )
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
               {filteredProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}

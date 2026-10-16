@@ -31,10 +31,10 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-[#554052] text-[#FAF7F2] border-t border-[#A185A4]/40 pt-16 pb-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <footer className="bg-[#554052] text-[#FAF7F2] border-t border-[#A185A4]/40 pt-10 sm:pt-16 pb-8 sm:pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-12">
         {/* Top 3 Trust Markers Strip */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-12 border-b border-white/10 text-xs">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 pb-8 sm:pb-12 border-b border-white/10 text-xs">
           <div className="flex items-start gap-3">
             <Truck className="w-5 h-5 text-[#D5C2D7] shrink-0 mt-0.5" />
             <div>
@@ -67,9 +67,9 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Main Footer Links & Brand Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Info */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="sm:col-span-2 lg:col-span-2 space-y-4">
             <HouseOfRiiLogo variant="primary" theme="dark" showTagline={true} className="items-start max-w-[210px]" />
             <p className="text-xs text-[#D5C2D7]/85 leading-relaxed max-w-sm mt-3 font-body">
               HOUSE OF RII celebrates everyday Indian dressing with curated ready-made kurtas, sets, and festive ensembles. Tradition, styled your way.
@@ -263,8 +263,8 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Copyright & Disclaimer */}
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#D5C2D7]/60">
-          <p className="flex items-center gap-2">
+        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#D5C2D7]/60 text-center sm:text-left">
+          <p className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
             <span>© {new Date().getFullYear()} HOUSE OF RII. All rights reserved. Tradition, Styled Your Way.</span>
             <button
               onClick={() => {

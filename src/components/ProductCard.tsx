@@ -89,10 +89,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
 
       {/* Card Content & Details */}
-      <div className="p-3.5 sm:p-4 flex flex-col flex-1 justify-between bg-[#F3E9EB]">
+      <div className="p-2.5 sm:p-4 flex flex-col flex-1 justify-between bg-[#F3E9EB]">
         <div>
           {/* Collection & Category */}
-          <div className="flex items-center gap-2 text-[10px] sm:text-[11px] text-[#A185A4] uppercase tracking-wider font-medium">
+          <div className="flex items-center gap-1.5 text-[9.5px] sm:text-[11px] text-[#A185A4] uppercase tracking-wider font-medium truncate">
             <span>{product.collection}</span>
             <span aria-hidden="true">·</span>
             <span>{product.category}</span>
@@ -101,19 +101,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {/* Product Title */}
           <h3
             onClick={() => openProductDetails(product)}
-            className="font-serif text-sm sm:text-base text-[#554052] font-semibold mt-1 leading-snug line-clamp-2 hover:text-[#8C5A7D] cursor-pointer transition-colors"
+            className="font-serif text-xs min-[360px]:text-[13px] sm:text-base text-[#554052] font-semibold mt-1 leading-snug line-clamp-2 hover:text-[#8C5A7D] cursor-pointer transition-colors"
           >
             {product.name}
           </h3>
 
           {/* Fabric Note */}
-          <p className="text-[11px] sm:text-xs text-[#554052]/70 mt-1 line-clamp-1 italic font-serif">
+          <p className="text-[10px] sm:text-xs text-[#554052]/70 mt-0.5 sm:mt-1 line-clamp-1 italic font-serif">
             {product.fabric}
           </p>
 
           {/* Available Sizes List */}
-          <div className="mt-2.5 flex items-center gap-1 sm:gap-1.5 flex-wrap">
-            <span className="text-[10px] uppercase tracking-wider text-[#A185A4] mr-0.5 font-medium">Sizes:</span>
+          <div className="mt-2 sm:mt-2.5 flex items-center gap-1 sm:gap-1.5 flex-wrap">
+            <span className="text-[9px] sm:text-[10px] uppercase tracking-wider text-[#A185A4] mr-0.5 font-medium">Sizes:</span>
             {product.sizes.map((size) => (
               <button
                 key={size}
@@ -122,7 +122,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                   e.stopPropagation();
                   setSelectedQuickSize(size);
                 }}
-                className={`text-[10px] font-semibold w-6 h-6 flex items-center justify-center transition-colors border cursor-pointer ${
+                className={`text-[9px] sm:text-[10px] font-semibold w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center transition-colors border cursor-pointer ${
                   selectedQuickSize === size
                     ? 'border-[#8C5A7D] bg-[#8C5A7D] text-white shadow-2xs'
                     : 'border-[#D5C2D7] text-[#554052] hover:border-[#8C5A7D] bg-white/70'
@@ -136,14 +136,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
 
         {/* Pricing & Add to Bag Footer */}
-        <div className="mt-3.5 pt-2.5 border-t border-[#D5C2D7]/80 flex items-center justify-between gap-2">
+        <div className="mt-2.5 sm:mt-3.5 pt-2 sm:pt-2.5 border-t border-[#D5C2D7]/80 flex flex-col min-[380px]:flex-row min-[380px]:items-center justify-between gap-1.5 min-[380px]:gap-2">
           {/* Price with Tabular Numerals */}
-          <div className="flex items-baseline gap-1.5 sm:gap-2">
-            <span className="font-mono text-sm sm:text-base font-semibold text-[#8C5A7D] tabular-nums">
+          <div className="flex items-baseline gap-1 sm:gap-2">
+            <span className="font-mono text-xs min-[360px]:text-sm sm:text-base font-semibold text-[#8C5A7D] tabular-nums">
               ₹{product.price.toLocaleString('en-IN')}
             </span>
             {product.originalPrice && product.originalPrice > product.price && (
-              <span className="font-mono text-[11px] sm:text-xs text-[#A185A4] line-through tabular-nums">
+              <span className="font-mono text-[10px] sm:text-xs text-[#A185A4] line-through tabular-nums">
                 ₹{product.originalPrice.toLocaleString('en-IN')}
               </span>
             )}
@@ -152,10 +152,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {/* Quick Add Button */}
           <button
             onClick={() => addToCart(product, selectedQuickSize, 1)}
-            className="px-2.5 sm:px-3 py-1.5 bg-[#8C5A7D] hover:bg-[#554052] text-white text-[10.5px] sm:text-xs uppercase tracking-wider font-semibold transition-all duration-200 flex items-center gap-1.5 cursor-pointer shadow-xs whitespace-nowrap shrink-0"
+            className="w-full min-[380px]:w-auto px-2 py-1.5 sm:px-3 bg-[#8C5A7D] hover:bg-[#554052] text-white text-[10px] sm:text-xs uppercase tracking-wider font-semibold transition-all duration-200 flex items-center justify-center gap-1 sm:gap-1.5 cursor-pointer shadow-xs whitespace-nowrap shrink-0"
             title={`Add size ${selectedQuickSize} to bag`}
           >
-            <ShoppingBag className="w-3.5 h-3.5 text-white shrink-0" />
+            <ShoppingBag className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white shrink-0" />
             <span className="whitespace-nowrap font-medium">Add to Bag</span>
           </button>
         </div>

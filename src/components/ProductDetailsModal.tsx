@@ -97,18 +97,18 @@ export const ProductDetailsModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-[#F3E9EB] max-w-4xl w-full max-h-[92vh] overflow-y-auto border border-[#D5C2D7] shadow-2xl relative flex flex-col md:flex-row">
+      <div className="bg-[#F3E9EB] max-w-4xl w-full max-h-[92dvh] sm:max-h-[90vh] overflow-y-auto border border-[#D5C2D7] shadow-2xl relative flex flex-col md:flex-row [webkit-overflow-scrolling:touch]">
         {/* Close Button */}
         <button
           onClick={closeProductDetails}
-          className="absolute top-4 right-4 z-10 p-2 bg-[#F3E9EB]/90 rounded-full text-[#554052] hover:text-[#8C5A7D] hover:bg-white shadow-xs transition-colors cursor-pointer"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 p-2 bg-[#F3E9EB]/90 rounded-full text-[#554052] hover:text-[#8C5A7D] hover:bg-white shadow-xs transition-colors cursor-pointer"
           aria-label="Close details"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Left Column: Image Gallery */}
-        <div className="md:w-1/2 p-6 flex flex-col justify-between bg-[#F3E9EB] border-b md:border-b-0 md:border-r border-[#D5C2D7]">
+        <div className="md:w-1/2 p-4 sm:p-6 flex flex-col justify-between bg-[#F3E9EB] border-b md:border-b-0 md:border-r border-[#D5C2D7]">
           {/* Main Selected Image */}
           <div className="relative aspect-[3/4] bg-[#F3E9EB] overflow-hidden rounded-xs border border-[#D5C2D7]/60">
             <img
@@ -126,13 +126,13 @@ export const ProductDetailsModal: React.FC = () => {
 
           {/* Thumbnails row */}
           {selectedProduct.images.length > 1 && (
-            <div className="flex items-center gap-3 mt-4 overflow-x-auto pb-1">
+            <div className="flex items-center gap-2 sm:gap-3 mt-3 sm:mt-4 overflow-x-auto pb-1">
               {selectedProduct.images.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveImageIdx(idx)}
-                  className={`relative w-16 h-20 shrink-0 overflow-hidden border-2 transition-all ${
-                    activeImageIdx === idx ? 'border-[#5B1E22] opacity-100' : 'border-transparent opacity-60 hover:opacity-100'
+                  className={`relative w-14 h-18 sm:w-16 sm:h-20 shrink-0 overflow-hidden border-2 transition-all cursor-pointer ${
+                    activeImageIdx === idx ? 'border-[#8C5A7D] opacity-100' : 'border-transparent opacity-60 hover:opacity-100'
                   }`}
                 >
                   <img src={img} alt="" className="w-full h-full object-cover" />
@@ -143,7 +143,7 @@ export const ProductDetailsModal: React.FC = () => {
         </div>
 
         {/* Right Column: Contiguous Purchase Module */}
-        <div className="md:w-1/2 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+        <div className="md:w-1/2 p-4 sm:p-6 md:p-8 flex flex-col justify-between space-y-5 sm:space-y-6">
           <div className="space-y-4">
             {/* Collection & SKU */}
             <div className="flex items-center justify-between text-xs text-[#A185A4] uppercase tracking-wider font-medium">
@@ -259,27 +259,27 @@ export const ProductDetailsModal: React.FC = () => {
             </div>
 
             {/* Action Buttons: Add to Bag & Buy Now */}
-            <div className="space-y-2.5 pt-3">
-              <div className="flex items-center gap-3">
+            <div className="space-y-2.5 pt-2 sm:pt-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <button
                   type="button"
                   onClick={handleAddToCart}
-                  className="flex-1 py-3 bg-[#F3E9EB] hover:bg-[#EFE7ED] text-[#8C5A7D] border border-[#8C5A7D] text-xs uppercase tracking-[0.16em] font-bold flex items-center justify-center gap-2 transition-colors shadow-xs cursor-pointer"
+                  className="flex-1 py-2.5 sm:py-3 bg-[#F3E9EB] hover:bg-[#EFE7ED] text-[#8C5A7D] border border-[#8C5A7D] text-[11px] sm:text-xs uppercase tracking-[0.12em] sm:tracking-[0.16em] font-bold flex items-center justify-center gap-1.5 sm:gap-2 transition-colors shadow-xs cursor-pointer"
                 >
-                  <ShoppingBag className="w-4 h-4 text-[#8C5A7D]" />
+                  <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8C5A7D] shrink-0" />
                   <span>Add to Bag</span>
                 </button>
                 <button
                   type="button"
                   onClick={handleBuyNow}
-                  className="flex-1 py-3 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs uppercase tracking-[0.16em] font-bold transition-colors shadow-xs cursor-pointer"
+                  className="flex-1 py-2.5 sm:py-3 bg-[#8C5A7D] hover:bg-[#554052] text-white text-[11px] sm:text-xs uppercase tracking-[0.12em] sm:tracking-[0.16em] font-bold transition-colors shadow-xs cursor-pointer"
                 >
                   Buy Now
                 </button>
                 <button
                   type="button"
                   onClick={() => toggleWishlist(selectedProduct.id)}
-                  className={`p-3 border transition-colors cursor-pointer ${
+                  className={`p-2.5 sm:p-3 border transition-colors cursor-pointer shrink-0 ${
                     inWishlist
                       ? 'border-[#8C5A7D] bg-[#8C5A7D] text-white'
                       : 'border-[#D5C2D7] bg-white text-[#554052] hover:border-[#8C5A7D]'
@@ -294,10 +294,10 @@ export const ProductDetailsModal: React.FC = () => {
               <button
                 type="button"
                 onClick={handleWhatsAppOrder}
-                className="w-full py-2.5 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/40 text-[#128C7E] text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                className="w-full py-2.5 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/40 text-[#128C7E] text-[11px] sm:text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-1.5 sm:gap-2 transition-colors cursor-pointer"
               >
-                <MessageCircle className="w-4 h-4 text-[#25D366]" />
-                <span>Order via WhatsApp ({BRAND_CONFIG.contact.phone})</span>
+                <MessageCircle className="w-4 h-4 text-[#25D366] shrink-0" />
+                <span className="truncate">Order via WhatsApp ({BRAND_CONFIG.contact.phone})</span>
               </button>
             </div>
 
