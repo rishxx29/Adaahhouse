@@ -131,7 +131,7 @@ export const HomePage: React.FC = () => {
   // Customer Reviews
   const verifiedReviews = [
     {
-      name: 'Pooja Singhal',
+      name: 'Krati Sharma',
       city: 'Jaipur',
       text: 'The mauve Chanderi kurti set looks even more graceful in person than on screen! The stitching is so neat, and the S size fit was true to measurement.',
       product: 'Shahi Mauve Silk Kurta Set',
