@@ -69,7 +69,7 @@ const MainLayout: React.FC = () => {
   }, [isOwnerLoggedIn, setActivePage, setIsOwnerLoginModalOpen, openAuthModal]);
 
   return (
-    <div className="min-h-screen w-full max-w-full overflow-x-hidden flex flex-col bg-[#F3E9EB] text-[#554052]">
+    <div className="min-h-screen flex flex-col bg-[#F3E9EB] text-[#554052]">
       {/* 1. Slim Announcement Bar */}
       <AnnouncementBar />
 
@@ -77,7 +77,7 @@ const MainLayout: React.FC = () => {
       <Header />
 
       {/* 3. Main View Router */}
-      <main className="flex-1 w-full max-w-full">
+      <main className="flex-1">
         {activePage === 'home' && <HomePage />}
         {activePage === 'shop' && <ShopPage />}
         {activePage === 'about' && <AboutPage />}
@@ -103,11 +103,11 @@ const MainLayout: React.FC = () => {
         href={BRAND_CONFIG.social.whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-30 p-3 sm:p-3.5 bg-[#25D366] text-white rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 flex items-center gap-2 group"
+        className="fixed bottom-6 right-6 z-30 p-3.5 bg-[#25D366] text-white rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 flex items-center gap-2 group"
         aria-label="Order or Chat on WhatsApp"
         title="Chat with HOUSE OF RII on WhatsApp"
       >
-        <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
+        <MessageCircle className="w-5 h-5 fill-current" />
         <span className="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out text-xs font-semibold pr-1">
           Chat on WhatsApp
         </span>
@@ -115,9 +115,9 @@ const MainLayout: React.FC = () => {
 
       {/* 6. Subtle Feedback Toast */}
       {toast && (
-        <div className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-50 max-w-[calc(100vw-32px)] sm:max-w-md bg-[#554052] text-[#F6F0F4] px-4 py-3 rounded-xs shadow-lg border border-[#D5C2D7] text-xs font-medium flex items-center gap-2 animate-in slide-in-from-bottom-2 duration-200">
-          <Check className="w-4 h-4 text-[#D5C2D7] shrink-0" />
-          <span className="truncate">{toast}</span>
+        <div className="fixed bottom-6 left-6 z-50 bg-[#554052] text-[#F6F0F4] px-4 py-3 rounded-xs shadow-lg border border-[#D5C2D7] text-xs font-medium flex items-center gap-2 animate-in slide-in-from-bottom-2 duration-200">
+          <Check className="w-4 h-4 text-[#D5C2D7]" />
+          <span>{toast}</span>
         </div>
       )}
 

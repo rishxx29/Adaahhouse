@@ -15,19 +15,19 @@ export const SizeGuideModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-[#F3E9EB] max-w-2xl w-full border border-[#D5C2D7] shadow-xl overflow-hidden animate-in zoom-in-95 duration-200 max-h-[92dvh] sm:max-h-[90vh] flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
+      <div className="bg-[#F3E9EB] max-w-2xl w-full border border-[#D5C2D7] shadow-xl overflow-hidden animate-in zoom-in-95 duration-200 max-h-[90vh] flex flex-col">
         {/* Modal Header */}
-        <div className="px-4 sm:px-6 py-3.5 sm:py-4 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F3E9EB]">
+        <div className="px-6 py-4 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F3E9EB]">
           <div className="flex items-center gap-2">
             <Ruler className="w-5 h-5 text-[#8C5A7D]" />
-            <h3 className="font-serif text-base sm:text-xl font-bold text-[#554052]">
+            <h3 className="font-serif text-xl font-bold text-[#554052]">
               HOUSE OF RII — Kurti Sizing Chart
             </h3>
           </div>
           <button
             onClick={() => setIsSizeGuideOpen(false)}
-            className="p-1 text-[#554052] hover:text-[#8C5A7D] cursor-pointer"
+            className="p-1 text-[#554052] hover:text-[#8C5A7D]"
             aria-label="Close size guide"
           >
             <X className="w-5 h-5" />
@@ -35,9 +35,9 @@ export const SizeGuideModal: React.FC = () => {
         </div>
 
         {/* Modal Content */}
-        <div className="p-4 sm:p-6 overflow-y-auto space-y-5 sm:space-y-6 text-sm">
+        <div className="p-6 overflow-y-auto space-y-6 text-sm">
           {/* Unit Switcher */}
-          <div className="flex flex-col min-[420px]:flex-row min-[420px]:items-center justify-between gap-2.5 sm:gap-3">
+          <div className="flex items-center justify-between">
             <p className="text-xs text-[#554052]/80">
               Garment measurements are taken flat across the garment.
             </p>

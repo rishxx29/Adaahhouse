@@ -27,7 +27,7 @@ export const PoliciesPage: React.FC = () => {
         <div className="flex items-center justify-center gap-1 sm:gap-2 flex-wrap p-1 bg-[#F3E9EB] border border-[#D5C2D7]">
           <button
             onClick={() => setActiveTab('shipping')}
-            className={`px-2.5 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all ${
+            className={`px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all ${
               activeTab === 'shipping'
                 ? 'bg-[#8C5A7D] text-white shadow-xs'
                 : 'text-[#554052] hover:text-[#8C5A7D]'
@@ -37,7 +37,7 @@ export const PoliciesPage: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('returns')}
-            className={`px-2.5 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all ${
+            className={`px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all ${
               activeTab === 'returns'
                 ? 'bg-[#8C5A7D] text-white shadow-xs'
                 : 'text-[#554052] hover:text-[#8C5A7D]'
@@ -47,7 +47,7 @@ export const PoliciesPage: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('cancellation')}
-            className={`px-2.5 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all ${
+            className={`px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all ${
               activeTab === 'cancellation'
                 ? 'bg-[#8C5A7D] text-white shadow-xs'
                 : 'text-[#554052] hover:text-[#8C5A7D]'
@@ -57,7 +57,7 @@ export const PoliciesPage: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('terms')}
-            className={`px-2.5 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all ${
+            className={`px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all ${
               activeTab === 'terms'
                 ? 'bg-[#8C5A7D] text-white shadow-xs'
                 : 'text-[#554052] hover:text-[#8C5A7D]'

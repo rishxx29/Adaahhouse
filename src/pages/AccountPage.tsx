@@ -108,24 +108,24 @@ export const AccountPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-2">
             <button
               onClick={() => setActivePage('orders')}
-              className="px-3 sm:px-4 py-2 bg-[#F3E9EB] border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="px-4 py-2 bg-[#F3E9EB] border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] flex items-center gap-1.5 transition-colors"
             >
               <Package className="w-4 h-4" />
               <span>My Orders ({userOrdersCount})</span>
             </button>
             <button
               onClick={() => setIsWishlistOpen(true)}
-              className="px-3 sm:px-4 py-2 bg-[#F3E9EB] border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="px-4 py-2 bg-[#F3E9EB] border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] flex items-center gap-1.5 transition-colors"
             >
               <Heart className="w-4 h-4 text-[#8C5A7D]" />
               <span>Wishlist ({wishlist.length})</span>
             </button>
             <button
               onClick={logoutCustomer}
-              className="px-3 sm:px-3.5 py-2 border border-red-200 text-red-700 hover:bg-red-50 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="px-3.5 py-2 border border-red-200 text-red-700 hover:bg-red-50 text-xs font-semibold flex items-center gap-1.5 transition-colors"
               title="Sign out of your account"
             >
               <LogOut className="w-3.5 h-3.5" />
