@@ -290,12 +290,12 @@ export const AboutPage: React.FC = () => {
       </section>
 
       {/* =========================================================================
-          SECTION 4: OUR COLLECTIONS — 5 Image Tiles + Explore Button
+          SECTION 4: PIECES WE LOVE — 5 Image Tiles + Explore Button
           ========================================================================= */}
       <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
         <div className="text-center max-w-xl mx-auto space-y-1 mb-10">
           <h2 className="text-xs sm:text-[13px] uppercase tracking-[0.3em] font-semibold text-[#7D4E68]">
-            OUR COLLECTIONS
+            PIECES WE LOVE
           </h2>
           <div className="w-20 mx-auto">
             <HouseOfRiiDivider color="#A185A4" />
@@ -421,7 +421,7 @@ export const AboutPage: React.FC = () => {
             onClick={handleShopNowClick}
             className="inline-flex items-center gap-2 border border-[#7D4E68] text-[#7D4E68] hover:bg-[#7D4E68] hover:text-white px-8 py-3 uppercase text-[11px] tracking-[0.22em] font-medium transition cursor-pointer"
           >
-            <span>EXPLORE COLLECTIONS</span>
+            <span>EXPLORE PIECES WE LOVE</span>
             <span>→</span>
           </button>
         </div>
