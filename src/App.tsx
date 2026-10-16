@@ -127,10 +127,61 @@ const MainLayout: React.FC = () => {
   );
 };
 
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error?: Error;
+}
+
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('App Error caught by boundary:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-[#F3E9EB] text-[#554052] flex flex-col items-center justify-center p-6 text-center">
+          <div className="max-w-md bg-white p-8 border border-[#D5C2D7] shadow-sm space-y-4">
+            <h2 className="font-serif text-2xl text-[#8C5A7D]">HOUSE OF RII</h2>
+            <p className="text-sm text-[#554052]/80">
+              Something went wrong while loading this page.
+            </p>
+            <button
+              onClick={() => {
+                this.setState({ hasError: false });
+                window.location.reload();
+              }}
+              className="px-5 py-2.5 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer"
+            >
+              Reload Page
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 export default function App() {
   return (
-    <StoreProvider>
-      <MainLayout />
-    </StoreProvider>
+    <ErrorBoundary>
+      <StoreProvider>
+        <MainLayout />
+      </StoreProvider>
+    </ErrorBoundary>
   );
 }

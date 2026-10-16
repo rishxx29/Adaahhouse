@@ -78,6 +78,7 @@ export async function sendOrderEmails(order: Order): Promise<NotificationResult>
   const ownerEmailData = generateOwnerOrderEmail(order);
   const customerEmailData = generateCustomerOrderEmail(order);
   const { tenDigit } = normalizeIndianPhone(order.shippingAddress.phone);
+  const cleanPhone = tenDigit;
   const smsText = generateCustomerSMSMessage(order);
 
   // 1. Dispatch SMS directly to customer's phone number

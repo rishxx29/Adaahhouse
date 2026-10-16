@@ -60,13 +60,13 @@ export const HomePage: React.FC = () => {
       return true;
     }
     if (activeMainTab === 'festive') {
-      const isFestive = product.collection === 'Festive & Wedding Edits' || product.collection === 'Festive Glamour';
+      const isFestive = product.collection === 'Festive & Wedding Edits' || product.collection === 'Festive Edit';
       if (!isFestive) return false;
       if (activeSubTab === 'ALL') return true;
-      if (activeSubTab === 'SUIT_SETS') return product.category === 'Suit Set' || product.category === 'Kurti Set';
-      if (activeSubTab === 'KURTA_SETS') return product.category === 'Kurti Set';
-      if (activeSubTab === 'COORD_SETS') return product.category === 'Coord Set';
-      if (activeSubTab === 'SHARARA_SETS') return product.category === 'Sharara Set';
+      if (activeSubTab === 'SUIT_SETS') return product.category === 'Suit Sets' || product.category === 'Kurti Set';
+      if (activeSubTab === 'KURTA_SETS') return product.category === 'Kurti Set' || product.category === 'Kurta Sets';
+      if (activeSubTab === 'COORD_SETS') return product.category === 'Coord Set' || product.category === 'Coord Sets';
+      if (activeSubTab === 'SHARARA_SETS') return product.category === 'Sharara Sets';
       return true;
     }
     return true;

@@ -1,4 +1,4 @@
-import { Instagram, Megaphone, MessageCircle } from 'lucide-react';
+import { Instagram, Megaphone, MessageCircle, Headphones } from 'lucide-react';
 import { BRAND_CONFIG } from '../config/brand';
 import { useStore } from '../context/StoreContext';
 
