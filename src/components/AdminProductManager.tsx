@@ -14,7 +14,6 @@ import {
   Lock,
   KeyRound,
   LogOut,
-  Key,
   Package,
   ShoppingBag,
   Phone,
@@ -341,21 +340,9 @@ export const AdminProductManager: React.FC = () => {
             </div>
 
             <div>
-              <div className="flex items-center justify-between mb-1">
-                <label className="block text-xs font-semibold text-[#554052]">
-                  Admin Passcode
-                </label>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setGatePasscode('rii2026');
-                    setAdminIdentifier('aadahhouse@gmail.com');
-                  }}
-                  className="text-[10px] text-[#8C5A7D] font-semibold underline hover:text-[#554052] cursor-pointer"
-                >
-                  Fill default (rii2026)
-                </button>
-              </div>
+              <label className="block text-xs font-semibold text-[#554052] mb-1">
+                Admin Passcode
+              </label>
               <div className="relative">
                 <input
                   type={showGatePasscode ? 'text' : 'password'}
@@ -387,17 +374,6 @@ export const AdminProductManager: React.FC = () => {
               Verify & Access Studio
             </button>
           </form>
-
-          <div className="p-3 bg-[#F6F0F4] border border-[#D5C2D7] rounded-xs space-y-1 text-[11px] text-[#554052]/80">
-            <p className="font-semibold text-[#8C5A7D] flex items-center gap-1">
-              <Key className="w-3 h-3 text-[#8C5A7D]" /> Credentials Guide
-            </p>
-            <p>• Admin ID: <strong className="font-mono text-[#554052]">aadahhouse@gmail.com</strong></p>
-            <p>• Default Passcode: <strong className="font-mono text-[#8C5A7D]">rii2026</strong></p>
-            <p className="text-[10px] text-[#A185A4] pt-0.5">
-              You can update this passcode anytime inside the studio via PIN Settings.
-            </p>
-          </div>
 
           <div className="pt-4 border-t border-[#D5C2D7] flex items-center justify-between text-xs">
             <button

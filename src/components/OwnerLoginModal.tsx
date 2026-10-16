@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Lock, Eye, EyeOff, ShieldCheck, KeyRound } from 'lucide-react';
+import { X, Lock, Eye, EyeOff, KeyRound } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 
 export const OwnerLoginModal: React.FC = () => {
@@ -97,26 +97,6 @@ export const OwnerLoginModal: React.FC = () => {
             {error && <p className="text-[11px] text-red-600 font-medium mt-1.5">{error}</p>}
           </div>
 
-          <div className="p-3 bg-white border border-[#D5C2D7] text-[11px] text-[#A185A4] space-y-1.5">
-            <div className="flex items-center justify-between">
-              <p className="flex items-center gap-1.5 text-[#8C5A7D] font-semibold">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#8C5A7D]" />
-                <span>Owner Passcode:</span>
-              </p>
-              <button
-                type="button"
-                onClick={() => setPin('rii2026')}
-                className="text-[10px] text-[#8C5A7D] font-semibold bg-[#F6F0F4] hover:bg-[#8C5A7D] hover:text-white px-2 py-0.5 rounded-xs transition-colors"
-                title="Click to fill default passcode"
-              >
-                Auto-fill rii2026
-              </button>
-            </div>
-            <p>
-              Default owner passcode is <strong className="font-mono text-[#554052]">rii2026</strong>. Only you (the owner) know this passcode, preventing other visitors from updating products or prices.
-            </p>
-          </div>
-
           <div className="pt-2 flex items-center justify-end gap-3">
             <button
               type="button"
@@ -125,7 +105,7 @@ export const OwnerLoginModal: React.FC = () => {
                 setError(null);
                 setPin('');
               }}
-              className="px-4 py-2 text-xs font-medium text-[#554052] hover:bg-white"
+              className="px-4 py-2 text-xs font-medium text-[#554052] hover:bg-[#FAF5F8] transition-colors"
             >
               Cancel
             </button>
