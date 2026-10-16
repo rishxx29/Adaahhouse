@@ -82,7 +82,7 @@ export const AboutPage: React.FC = () => {
               A Brand
             </h1>
 
-            <p className="font-cursive text-2xl sm:text-3xl lg:text-4xl text-[#8C5A7D] leading-tight pt-1">
+            <p className="font-cursive text-3xl sm:text-4xl lg:text-[42px] text-[#8C5A7D] leading-snug pt-1">
               It's a dream of fashion, freedom and self-expression.
             </p>
 
@@ -116,7 +116,7 @@ export const AboutPage: React.FC = () => {
 
               {/* Editorial script caption overlay on top right */}
               <div className="absolute top-6 right-6 text-right select-none pointer-events-none">
-                <p className="font-cursive text-2xl sm:text-3xl text-[#554052] drop-shadow-xs">
+                <p className="font-cursive text-3xl sm:text-4xl text-[#554052] drop-shadow-xs leading-tight">
                   Tradition, <br />
                   Styled Your Way.
                 </p>
@@ -179,11 +179,11 @@ export const AboutPage: React.FC = () => {
               </div>
 
               {/* Quote */}
-              <p className="font-serif italic text-lg sm:text-xl text-[#7D4E68] leading-snug max-w-[180px]">
-                One girl, <br />
+              <p className="font-display italic text-2xl sm:text-[26px] text-[#7D4E68] leading-snug max-w-[200px] tracking-wide font-normal">
+                “One girl, <br />
                 one dream, <br />
                 one fashion <br />
-                brand.
+                brand.”
               </p>
 
               <div className="w-16 my-4">
@@ -456,7 +456,7 @@ export const AboutPage: React.FC = () => {
               <span className="text-[11px] uppercase tracking-[0.28em] font-semibold text-[#8C5A7D]">
                 MY VISION
               </span>
-              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-[#554052] font-normal leading-tight mt-1.5">
+              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl text-[#554052] font-normal leading-tight mt-1.5">
                 Creating a Brand <br />
                 That Feels Like Me
               </h2>
@@ -475,11 +475,11 @@ export const AboutPage: React.FC = () => {
             </div>
 
             {/* Signature Block */}
-            <div className="pt-2">
-              <p className="font-cursive text-3xl sm:text-4xl text-[#8C5A7D] tracking-wide select-none">
+            <div className="pt-4 space-y-1">
+              <p className="font-signature text-4xl sm:text-5xl lg:text-[54px] text-[#8C5A7D] select-none leading-none tracking-normal font-normal">
                 ~ Rishika Jain
               </p>
-              <p className="text-[10px] uppercase tracking-[0.25em] text-[#554052]/80 font-medium mt-1">
+              <p className="text-[10.5px] uppercase tracking-[0.25em] text-[#554052]/80 font-medium font-sans pt-1">
                 Founder, HOUSE OF RII
               </p>
             </div>
@@ -567,16 +567,6 @@ export const AboutPage: React.FC = () => {
           SECTION 7: PROMOTIONAL PLUM BANNER & TRUST STRIP
           ========================================================================= */}
       <section className="bg-[#7D4E68] text-white py-10 sm:py-12 relative overflow-hidden">
-        {/* Left Botanical SVG Branch */}
-        <div className="absolute left-0 top-0 bottom-0 w-40 sm:w-64 opacity-20 pointer-events-none flex items-center">
-          <svg viewBox="0 0 200 120" fill="none" stroke="#FFFFFF" strokeWidth="1.2" className="w-full h-auto">
-            <path d="M0 100 C60 80 120 60 180 20" />
-            <path d="M50 75 C60 55 80 60 85 70 C75 80 60 80 50 75 Z" fill="#FFFFFF" fillOpacity="0.1" />
-            <path d="M100 55 C115 35 135 40 140 50 C128 62 110 60 100 55 Z" fill="#FFFFFF" fillOpacity="0.1" />
-            <path d="M140 38 C155 18 175 22 180 32 C170 42 150 42 140 38 Z" fill="#FFFFFF" fillOpacity="0.1" />
-          </svg>
-        </div>
-
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
           <div className="hidden md:block w-32" />
 

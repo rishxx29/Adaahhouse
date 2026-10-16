@@ -13,8 +13,12 @@
 
 @theme {
   --font-serif: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
   --font-sans: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-body: "Lora", Georgia, serif;
+  --font-cursive: "Alex Brush", "Great Vibes", "Parisienne", cursive;
+  --font-signature: "Great Vibes", "Italianno", "Alex Brush", cursive;
+  --font-script: "Parisienne", "Alex Brush", cursive;
   
   /* Exact House of Rii Mauve, Beige & Plum Palette */
   --color-bg-warm: #F3E9EB;
@@ -86,6 +90,20 @@
 }
 
 .font-cursive {
-  font-family: 'Alex Brush', 'Great Vibes', cursive;
+  font-family: "Alex Brush", "Great Vibes", "Parisienne", cursive !important;
+}
+
+.font-signature {
+  font-family: "Great Vibes", "Italianno", "Alex Brush", cursive !important;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.font-script {
+  font-family: "Parisienne", "Alex Brush", cursive !important;
+}
+
+.font-display {
+  font-family: "Cormorant Garamond", "Playfair Display", Georgia, serif !important;
 }
 
