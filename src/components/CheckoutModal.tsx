@@ -34,6 +34,8 @@ export const CheckoutModal: React.FC = () => {
     setIsCheckoutOpen,
     placeOrder,
     currentUser,
+    openAuthModal,
+    showToast,
   } = useStore();
 
   const [step, setStep] = useState<'address' | 'payment'>('address');
@@ -132,6 +134,13 @@ export const CheckoutModal: React.FC = () => {
   )}`;
 
   const handleCompleteOrder = (isAutoUpi: boolean = false, customTxnRef?: string) => {
+    if (!currentUser) {
+      setErrors({ payment: 'Please sign in with your mobile number or email before placing your order.' });
+      showToast('Please log in with your mobile number or email to place an order.');
+      openAuthModal('login', 'checkout', 'Please log in with your mobile number or email to complete your order.');
+      return;
+    }
+
     if (isExpired) {
       setErrors({ payment: 'Payment session has expired. Please restart the 5-minute timer below to proceed.' });
       return;
@@ -183,6 +192,13 @@ export const CheckoutModal: React.FC = () => {
 
   // Automated UPI Payment Completion Trigger (like Myntra & Ajio)
   const handleConfirmUpiPayment = (customTxnRef?: string) => {
+    if (!currentUser) {
+      setErrors({ payment: 'Please sign in with your mobile number or email before placing your order.' });
+      showToast('Please log in with your mobile number or email to place an order.');
+      openAuthModal('login', 'checkout', 'Please log in with your mobile number or email to complete your order.');
+      return;
+    }
+
     if (isExpired) {
       setErrors({ payment: 'Payment session has expired. Please restart the 5-minute timer below to proceed.' });
       return;
@@ -207,6 +223,13 @@ export const CheckoutModal: React.FC = () => {
 
   // Razorpay Gateway Launch (Exact Myntra/Ajio Official Checkout Modal)
   const handlePayWithRazorpay = () => {
+    if (!currentUser) {
+      setErrors({ payment: 'Please sign in with your mobile number or email before placing your order.' });
+      showToast('Please log in with your mobile number or email to place an order.');
+      openAuthModal('login', 'checkout', 'Please log in with your mobile number or email to complete your order.');
+      return;
+    }
+
     if (isExpired) {
       setErrors({ payment: 'Session expired. Please restart the timer.' });
       return;
@@ -313,6 +336,12 @@ export const CheckoutModal: React.FC = () => {
 
   const handleProceedToPayment = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!currentUser) {
+      setErrors({ fullName: 'Please sign in with your mobile number or email before continuing.' });
+      showToast('Please log in with your phone or email to place an order.');
+      openAuthModal('login', 'checkout', 'Please log in with your mobile number or email to complete your order.');
+      return;
+    }
     if (validateAddress()) {
       setStep('payment');
       setSecondsLeft(PAYMENT_TIMEOUT_SECONDS);
@@ -362,6 +391,44 @@ export const CheckoutModal: React.FC = () => {
             </div>
           </div>
 
+          {/* Customer Authentication Status Banner */}
+          {!currentUser ? (
+            <div className="my-3 p-3.5 bg-amber-50 border border-amber-300 rounded-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+              <div className="flex items-start sm:items-center gap-2.5 text-amber-900 text-xs">
+                <AlertTriangle className="w-5 h-5 text-amber-700 shrink-0 mt-0.5 sm:mt-0" />
+                <div>
+                  <span className="font-bold block">Login Required to Place Order</span>
+                  <span className="text-[11px] text-amber-800">
+                    Sign in instantly with your mobile or email. No account creation needed!
+                  </span>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => openAuthModal('login', 'checkout', 'Please log in with your mobile number or email to place your order.')}
+                className="px-3.5 py-1.5 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs font-semibold uppercase tracking-wider shrink-0 transition-colors flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Instant Login (5s)</span>
+              </button>
+            </div>
+          ) : (
+            <div className="my-3 px-3 py-2 bg-[#FAF7F5] border border-[#D5C2D7] text-xs flex items-center justify-between">
+              <div className="flex items-center gap-2 text-[#554052]">
+                <CheckCircle2 className="w-4 h-4 text-[#8C5A7D] shrink-0" />
+                <span>
+                  Logged in as: <strong>{currentUser.fullName}</strong> ({currentUser.phone || currentUser.email})
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => openAuthModal('login', 'checkout')}
+                className="text-[11px] text-[#8C5A7D] hover:underline font-semibold"
+              >
+                Switch Account
+              </button>
+            </div>
+          )}
 
           {/* Stepper Tabs */}
           <div className="flex items-center gap-4 py-4 text-xs tracking-wider uppercase font-medium">
@@ -491,13 +558,30 @@ export const CheckoutModal: React.FC = () => {
                 </div>
               </div>
 
-              <div className="pt-4 flex justify-end">
-                <button
-                  type="submit"
-                  className="px-8 py-3 bg-[#8C5A7D] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#554052] transition-colors"
-                >
-                  Continue to Payment →
-                </button>
+              <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+                {!currentUser ? (
+                  <>
+                    <span className="text-[11px] text-amber-800 font-medium flex items-center gap-1.5">
+                      <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                      <span>Instant login required to place order</span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => openAuthModal('login', 'checkout', 'Please log in with your mobile number or email to complete your order.')}
+                      className="w-full sm:w-auto px-6 py-3 bg-[#8C5A7D] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#554052] transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                    >
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>Instant Login to Continue →</span>
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    type="submit"
+                    className="ml-auto px-8 py-3 bg-[#8C5A7D] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#554052] transition-colors cursor-pointer"
+                  >
+                    Continue to Payment →
+                  </button>
+                )}
               </div>
             </form>
           ) : (

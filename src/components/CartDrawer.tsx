@@ -21,6 +21,9 @@ export const CartDrawer: React.FC = () => {
     cartTotal,
     setIsCheckoutOpen,
     setActivePage,
+    currentUser,
+    openAuthModal,
+    showToast,
   } = useStore();
 
   const [couponInput, setCouponInput] = useState('');
@@ -35,6 +38,11 @@ export const CartDrawer: React.FC = () => {
   };
 
   const handleProceedToCheckout = () => {
+    if (!currentUser) {
+      showToast('Please log in with your mobile number or email to checkout');
+      openAuthModal('login', 'checkout', 'Please log in with your mobile number or email to complete your order.');
+      return;
+    }
     setIsCartOpen(false);
     setIsCheckoutOpen(true);
   };
@@ -231,7 +239,7 @@ export const CartDrawer: React.FC = () => {
               onClick={handleProceedToCheckout}
               className="w-full py-3.5 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs uppercase tracking-[0.2em] font-semibold flex items-center justify-center gap-2 transition-colors shadow-xs"
             >
-              <span>Proceed to Checkout</span>
+              <span>{currentUser ? 'Proceed to Checkout' : 'Login to Checkout'}</span>
               <ArrowRight className="w-4 h-4 text-[#D5C2D7]" />
             </button>
           </div>

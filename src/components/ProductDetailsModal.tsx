@@ -13,6 +13,9 @@ export const ProductDetailsModal: React.FC = () => {
     toggleWishlist,
     setIsSizeGuideOpen,
     setIsCheckoutOpen,
+    currentUser,
+    openAuthModal,
+    showToast,
   } = useStore();
 
   const [activeImageIdx, setActiveImageIdx] = useState(0);
@@ -76,6 +79,11 @@ export const ProductDetailsModal: React.FC = () => {
     setValidationError(null);
     addToCart(selectedProduct, currentSize, quantity);
     closeProductDetails();
+    if (!currentUser) {
+      showToast('Please log in with your mobile number or email to checkout');
+      openAuthModal('login', 'checkout', 'Please log in with your mobile number or email to complete your order.');
+      return;
+    }
     setIsCheckoutOpen(true);
   };
 

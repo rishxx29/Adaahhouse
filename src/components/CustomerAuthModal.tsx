@@ -24,6 +24,8 @@ export const CustomerAuthModal: React.FC = () => {
     setAuthModalMode,
     loginCustomer,
     registerCustomer,
+    authNoticeMessage,
+    setAuthNoticeMessage,
     setActivePage,
   } = useStore();
 
@@ -31,6 +33,7 @@ export const CustomerAuthModal: React.FC = () => {
   const [loginIdentifier, setLoginIdentifier] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [showLoginPassword, setShowLoginPassword] = useState(false);
+  const [usePasswordLogin, setUsePasswordLogin] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
 
   // Register form state
@@ -51,21 +54,19 @@ export const CustomerAuthModal: React.FC = () => {
     e.preventDefault();
     setLoginError(null);
 
-    if (!loginIdentifier.trim()) {
-      setLoginError('Please enter your email address or mobile number');
-      return;
-    }
-    if (!loginPassword.trim()) {
-      setLoginError('Please enter your password');
+    const clean = loginIdentifier.trim();
+    if (!clean) {
+      setLoginError('Please enter your 10-digit mobile number or email address');
       return;
     }
 
-    const res = loginCustomer(loginIdentifier, loginPassword);
+    const res = loginCustomer(clean, usePasswordLogin ? loginPassword : undefined);
     if (!res.success) {
       setLoginError(res.message);
     } else {
       setLoginIdentifier('');
       setLoginPassword('');
+      setUsePasswordLogin(false);
     }
   };
 
@@ -118,6 +119,7 @@ export const CustomerAuthModal: React.FC = () => {
   const fillDemoCredentials = () => {
     setLoginIdentifier('ananya.sharma@example.com');
     setLoginPassword('password123');
+    setUsePasswordLogin(true);
     setLoginError(null);
   };
 
@@ -129,12 +131,13 @@ export const CustomerAuthModal: React.FC = () => {
           <div className="flex items-center gap-2">
             <User className="w-4 h-4 text-[#8C5A7D]" />
             <h3 className="font-serif text-lg font-bold text-[#554052]">
-              {authModalMode === 'login' ? 'Customer Sign In' : 'Create Customer Account'}
+              {authModalMode === 'login' ? 'Instant Sign In' : 'Create Customer Account'}
             </h3>
           </div>
           <button
             onClick={() => {
               setIsAuthModalOpen(false);
+              setAuthNoticeMessage(null);
               setLoginError(null);
               setRegError(null);
             }}
@@ -158,7 +161,7 @@ export const CustomerAuthModal: React.FC = () => {
                 : 'text-[#A185A4] hover:text-[#554052]'
             }`}
           >
-            Sign In
+            ⚡ Instant Login
           </button>
           <button
             onClick={() => {
@@ -171,9 +174,17 @@ export const CustomerAuthModal: React.FC = () => {
                 : 'text-[#A185A4] hover:text-[#554052]'
             }`}
           >
-            New User? Register
+            Full Profile (Optional)
           </button>
         </div>
+
+        {/* Notice Message if prompted from checkout / cart */}
+        {authNoticeMessage && (
+          <div className="px-5 py-2.5 bg-amber-50 border-b border-amber-200 text-amber-900 text-xs flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-amber-700 shrink-0" />
+            <span className="font-medium text-[11px] sm:text-xs">{authNoticeMessage}</span>
+          </div>
+        )}
 
         {/* Modal Scrollable Body */}
         <div className="p-6 overflow-y-auto space-y-5 text-xs text-[#554052]">
@@ -182,9 +193,20 @@ export const CustomerAuthModal: React.FC = () => {
             <AdaahLogo variant="primary" showTagline={true} className="mx-auto max-w-[210px]" />
           </div>
 
-          {/* VIEW A: SIGN IN FORM */}
+          {/* VIEW A: INSTANT SIGN IN FORM */}
           {authModalMode === 'login' ? (
             <form onSubmit={handleLoginSubmit} className="space-y-4">
+              {/* Frictionless Login Hero Banner */}
+              <div className="p-3 bg-white/80 border border-[#D5C2D7] rounded-xs space-y-1">
+                <div className="flex items-center gap-1.5 text-[#8C5A7D] font-semibold text-xs">
+                  <Sparkles className="w-3.5 h-3.5 text-[#8C5A7D]" />
+                  <span>No Account Creation Needed</span>
+                </div>
+                <p className="text-[11px] text-[#554052] leading-relaxed">
+                  Enter your mobile number or email. You will be logged in immediately. If you are new to HOUSE OF RII, your account is automatically created in 1 second!
+                </p>
+              </div>
+
               {loginError && (
                 <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xs">
                   {loginError}
@@ -194,82 +216,94 @@ export const CustomerAuthModal: React.FC = () => {
               {/* Email or Phone Field */}
               <div>
                 <label className="block font-medium text-[#554052] mb-1">
-                  Email ID or Mobile Number *
+                  Mobile Number or Email ID *
                 </label>
                 <div className="relative">
                   <input
                     type="text"
                     value={loginIdentifier}
                     onChange={(e) => setLoginIdentifier(e.target.value)}
-                    placeholder="Enter email or 10-digit mobile number"
+                    placeholder="Enter 10-digit mobile number or email"
                     className="w-full bg-white border border-[#D5C2D7] pl-9 pr-3 py-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                     autoFocus
                   />
-                  <Mail className="w-3.5 h-3.5 text-[#A185A4] absolute left-3 top-3.5" />
+                  <Phone className="w-3.5 h-3.5 text-[#A185A4] absolute left-3 top-3.5" />
                 </div>
-                <span className="text-[10px] text-[#A185A4] mt-1 block">
-                  e.g. ananya.sharma@example.com or 9829012345
-                </span>
-              </div>
-
-              {/* Password Field */}
-              <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="font-medium text-[#554052]">Password *</label>
-                  <button
-                    type="button"
-                    onClick={() => fillDemoCredentials()}
-                    className="text-[10px] text-[#8C5A7D] hover:underline font-semibold"
-                  >
-                    Use Demo Credentials
-                  </button>
-                </div>
-                <div className="relative">
-                  <input
-                    type={showLoginPassword ? 'text' : 'password'}
-                    value={loginPassword}
-                    onChange={(e) => setLoginPassword(e.target.value)}
-                    placeholder="Enter your account password"
-                    className="w-full bg-white border border-[#D5C2D7] pl-9 pr-9 py-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
-                  />
-                  <Lock className="w-3.5 h-3.5 text-[#A185A4] absolute left-3 top-3.5" />
-                  <button
-                    type="button"
-                    onClick={() => setShowLoginPassword(!showLoginPassword)}
-                    className="absolute right-3 top-3 text-[#A185A4] hover:text-[#554052]"
-                  >
-                    {showLoginPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                  </button>
+                <div className="flex items-center justify-between mt-1 text-[10px] text-[#A185A4]">
+                  <span>e.g. 9829012345 or ananya@example.com</span>
+                  {!usePasswordLogin && (
+                    <button
+                      type="button"
+                      onClick={() => setUsePasswordLogin(true)}
+                      className="text-[#8C5A7D] hover:underline font-semibold"
+                    >
+                      Login with password?
+                    </button>
+                  )}
                 </div>
               </div>
 
-              {/* Submit Button */}
+              {/* Optional Password Field (if requested) */}
+              {usePasswordLogin && (
+                <div className="animate-in fade-in duration-200">
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="font-medium text-[#554052]">Password (Optional)</label>
+                    <button
+                      type="button"
+                      onClick={() => fillDemoCredentials()}
+                      className="text-[10px] text-[#8C5A7D] hover:underline font-semibold"
+                    >
+                      Use Demo Credentials
+                    </button>
+                  </div>
+                  <div className="relative">
+                    <input
+                      type={showLoginPassword ? 'text' : 'password'}
+                      value={loginPassword}
+                      onChange={(e) => setLoginPassword(e.target.value)}
+                      placeholder="Enter account password (if set)"
+                      className="w-full bg-white border border-[#D5C2D7] pl-9 pr-9 py-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
+                    />
+                    <Lock className="w-3.5 h-3.5 text-[#A185A4] absolute left-3 top-3.5" />
+                    <button
+                      type="button"
+                      onClick={() => setShowLoginPassword(!showLoginPassword)}
+                      className="absolute right-3 top-3 text-[#A185A4] hover:text-[#554052]"
+                    >
+                      {showLoginPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Primary Instant Login Button */}
               <button
                 type="submit"
-                className="w-full py-3 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs uppercase tracking-wider font-semibold transition-colors flex items-center justify-center gap-2 shadow-xs"
+                className="w-full py-3 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs uppercase tracking-wider font-semibold transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer"
               >
-                <span>Sign In to Your Account</span>
+                <Sparkles className="w-3.5 h-3.5 text-[#D5C2D7]" />
+                <span>Instant Login & Continue</span>
                 <ArrowRight className="w-3.5 h-3.5 text-[#D5C2D7]" />
               </button>
 
               {/* Fast Demo Account helper */}
-              <div className="p-3 bg-[#F3E9EB] border border-[#D5C2D7] text-[11px] space-y-1">
-                <span className="font-semibold text-[#8C5A7D] block">Testing customer account?</span>
-                <p className="text-[#A185A4]">
-                  Click below to fill sample account details:
-                </p>
+              <div className="p-2.5 bg-white/60 border border-[#D5C2D7] text-[11px] flex items-center justify-between">
+                <span className="text-[#A185A4]">Want to test with sample data?</span>
                 <button
                   type="button"
                   onClick={fillDemoCredentials}
-                  className="mt-1 text-[11px] text-[#8C5A7D] font-semibold underline"
+                  className="text-[11px] text-[#8C5A7D] font-semibold hover:underline"
                 >
-                  Fill Demo: ananya.sharma@example.com / password123
+                  Fill Demo Account
                 </button>
               </div>
             </form>
           ) : (
             /* VIEW B: CREATE ACCOUNT (REGISTER) FORM */
             <form onSubmit={handleRegisterSubmit} className="space-y-3.5">
+              <div className="p-2.5 bg-[#FAF7F5] border border-[#D5C2D7] text-[11px] text-[#554052]">
+                💡 <strong>Tip:</strong> You don't need to register! You can sign in instantly with just your phone number on the <strong>Instant Login</strong> tab.
+              </div>
               {regError && (
                 <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xs">
                   {regError}

@@ -101,7 +101,15 @@ interface StoreContextType {
   setIsAuthModalOpen: (open: boolean) => void;
   authModalMode: 'login' | 'register';
   setAuthModalMode: (mode: 'login' | 'register') => void;
-  openAuthModal: (mode?: 'login' | 'register') => void;
+  openAuthModal: (
+    mode?: 'login' | 'register',
+    pendingAction?: 'checkout' | null,
+    noticeMsg?: string | null
+  ) => void;
+  pendingAuthAction: 'checkout' | null;
+  setPendingAuthAction: (action: 'checkout' | null) => void;
+  authNoticeMessage: string | null;
+  setAuthNoticeMessage: (msg: string | null) => void;
 
   // Owner / Admin Authentication
   isOwnerLoggedIn: boolean;
@@ -225,6 +233,8 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<'login' | 'register'>('login');
+  const [pendingAuthAction, setPendingAuthAction] = useState<'checkout' | null>(null);
+  const [authNoticeMessage, setAuthNoticeMessage] = useState<string | null>(null);
 
   const registerCustomer = (userData: {
     fullName: string;
@@ -276,7 +286,15 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setUsers((prev) => [newUser, ...prev]);
     setCurrentUser(newUser);
     setIsAuthModalOpen(false);
+    setAuthNoticeMessage(null);
     showToast(`Welcome to HOUSE OF RII, ${newUser.fullName}!`);
+
+    if (pendingAuthAction === 'checkout') {
+      setPendingAuthAction(null);
+      setIsCartOpen(false);
+      setIsCheckoutOpen(true);
+    }
+
     return { success: true, message: 'Account created successfully' };
   };
 
@@ -287,34 +305,79 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const cleanId = identifier.trim().toLowerCase();
     const cleanDigits = identifier.replace(/\D/g, '');
 
-    const found = users.find((u) => {
+    if (!cleanId && !cleanDigits) {
+      return {
+        success: false,
+        message: 'Please enter your mobile number or email address',
+      };
+    }
+
+    let found = users.find((u) => {
       // Match email
-      if (u.email.toLowerCase() === cleanId) return true;
+      if (cleanId && u.email.toLowerCase() === cleanId) return true;
       // Match phone
       const uPhoneDigits = u.phone.replace(/\D/g, '');
-      if (cleanDigits && (uPhoneDigits === cleanDigits || uPhoneDigits.endsWith(cleanDigits) || cleanDigits.endsWith(uPhoneDigits))) {
+      if (cleanDigits && cleanDigits.length >= 10 && (uPhoneDigits === cleanDigits || uPhoneDigits.endsWith(cleanDigits) || cleanDigits.endsWith(uPhoneDigits))) {
         return true;
       }
       return false;
     });
 
+    // "WITHOUT CREATING ACCOUNT USER SHOULD BE ABLE TO LOGIN"
+    // If not found in existing users, automatically create a new customer account on the fly!
     if (!found) {
-      return {
-        success: false,
-        message: 'No account found with this email or mobile number. Please register.',
-      };
-    }
+      const isEmail = cleanId.includes('@');
+      let derivedFullName = 'Valued Customer';
+      let derivedEmail = '';
+      let derivedPhone = '';
 
-    if (password && found.password && password !== found.password) {
+      if (isEmail) {
+        derivedEmail = cleanId;
+        const namePart = cleanId.split('@')[0].replace(/[._-]/g, ' ').trim();
+        if (namePart) {
+          derivedFullName = namePart
+            .split(' ')
+            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+            .join(' ');
+        }
+        derivedPhone = cleanDigits.slice(-10) || '9876543210';
+      } else {
+        const phone10 = cleanDigits.slice(-10) || '9876543210';
+        derivedPhone = phone10;
+        derivedEmail = `customer.${phone10}@houseofrii.in`;
+        derivedFullName = `Customer ${phone10.slice(-4)}`;
+      }
+
+      const newUser: CustomerUser = {
+        id: `usr-${Date.now()}`,
+        fullName: derivedFullName,
+        email: derivedEmail,
+        phone: derivedPhone,
+        password: password || 'instant_login',
+        createdAt: new Date().toISOString(),
+      };
+
+      setUsers((prev) => [newUser, ...prev]);
+      found = newUser;
+    } else if (password && found.password && password !== found.password && password !== 'instant_login') {
       return {
         success: false,
-        message: 'Incorrect password. Please verify your credentials.',
+        message: 'Incorrect password. You can also sign in instantly without password!',
       };
     }
 
     setCurrentUser(found);
     setIsAuthModalOpen(false);
+    setAuthNoticeMessage(null);
     showToast(`Welcome back, ${found.fullName}!`);
+
+    // If checkout was requested before logging in, proceed to checkout now
+    if (pendingAuthAction === 'checkout') {
+      setPendingAuthAction(null);
+      setIsCartOpen(false);
+      setIsCheckoutOpen(true);
+    }
+
     return { success: true, message: `Welcome back, ${found.fullName}!` };
   };
 
@@ -640,12 +703,18 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   // Order Placement
   const placeOrder = (orderData: Omit<Order, 'id' | 'orderNumber' | 'createdAt'>): Order => {
+    if (!currentUser) {
+      showToast('Please log in with your phone or email to place an order.');
+      openAuthModal('login', 'checkout', 'Please log in with your mobile number or email to complete your order.');
+      throw new Error('User must be logged in to place an order.');
+    }
+
     const orderNumber = `ADH-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
     const newOrder: Order = {
       ...orderData,
       id: `ord-${Date.now()}`,
       orderNumber,
-      userId: currentUser?.id,
+      userId: currentUser.id,
       createdAt: new Date().toISOString(),
     };
     setOrders((prev) => [newOrder, ...prev]);
@@ -694,8 +763,14 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
   };
 
-  const openAuthModal = (mode: 'login' | 'register' = 'login') => {
+  const openAuthModal = (
+    mode: 'login' | 'register' = 'login',
+    pendingAction: 'checkout' | null = null,
+    noticeMsg: string | null = null
+  ) => {
     setAuthModalMode(mode);
+    setPendingAuthAction(pendingAction);
+    setAuthNoticeMessage(noticeMsg);
     setIsAuthModalOpen(true);
   };
 
@@ -761,6 +836,10 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         authModalMode,
         setAuthModalMode,
         openAuthModal,
+        pendingAuthAction,
+        setPendingAuthAction,
+        authNoticeMessage,
+        setAuthNoticeMessage,
         isOwnerLoggedIn,
         isOwnerLoginModalOpen,
         setIsOwnerLoginModalOpen,
