@@ -100,9 +100,6 @@ export const HomePage: React.FC = () => {
     } else if (type === 'PRINTED EDIT') {
       setSelectedCollectionFilter('Everyday Wear');
       setSelectedCategoryFilter('all');
-    } else if (type === 'ACCESSORIES') {
-      showToast('Styling accessories and jewelry dropping soon in The Rii Edit!');
-      return;
     }
     setActivePage('shop');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -118,7 +115,7 @@ export const HomePage: React.FC = () => {
     showToast('Welcome to the House of Rii Circle! Use code RII10 for 10% off.');
   };
 
-  // 10 Circular Category Tiles matching Reference Image 1
+  // Circular Category Tiles
   const categoryCircles = [
     { name: 'KURTAS', img: '/categories/kurtas.jpg' },
     { name: 'KURTA SETS', img: '/categories/kurta_sets.jpg' },
@@ -129,7 +126,6 @@ export const HomePage: React.FC = () => {
     { name: 'COTTON WEAR', img: '/categories/cotton_wear.jpg' },
     { name: 'CHIKANKARI', img: '/categories/chikankari.jpg' },
     { name: 'PRINTED EDIT', img: '/categories/printed_edit.jpg' },
-    { name: 'ACCESSORIES', img: '/categories/accessories.jpg' },
   ];
 
   // Customer Reviews
