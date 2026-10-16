@@ -168,7 +168,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'Coord Set',
     price: 1799,
     originalPrice: 2399,
-    images: [sageKurtiImg, ivoryKurtiImg],
+    images: ['/products/prod_sage_linen_coord.jpg', sageKurtiImg],
     description:
       'Modern Indian aesthetic meets urban comfort. High-low tunic kurti with side welt pockets and coordinating cropped culottes in breathable natural flax linen blend. Effortless elegance for meetings, campus, and weekend brunches.',
     fabric: 'Natural Linen & Viscose Blend',
@@ -347,7 +347,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'Kurta Sets',
     price: 2199,
     originalPrice: 2999,
-    images: [dustyRoseKurtiImg, maroonKurtiImg],
+    images: ['/products/prod_dusty_rose_festive_kurta.jpg', dustyRoseKurtiImg],
     description:
       'A romantic dusty rose festive kurta set framed with authentic Rajasthani gotta-patti lace along the neckline, side slits, and cuff hems. Cut from soft cotton-silk that keeps you comfortable throughout day-long rituals.',
     fabric: 'Soft Cotton-Silk Blend',
@@ -459,7 +459,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'Sharara Sets',
     price: 3199,
     originalPrice: 4299,
-    images: [editorialHeroImg, maroonKurtiImg],
+    images: ['/products/prod_maroon_bridal_sharara.jpg', maroonKurtiImg],
     description:
       'A showstopper three-piece festive set featuring a short kurti with heavy mirror and sequin-embellished yoke, tiered voluminous georgette sharara pants, and an ombre organza dupatta with golden tassels. Crafted for sangeets and wedding ceremonies.',
     fabric: 'Faux Georgette with Butter Crepe Lining & Organza Dupatta',

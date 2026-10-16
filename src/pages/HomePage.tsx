@@ -425,21 +425,21 @@ export const HomePage: React.FC = () => {
               title: 'The Daytime Linen Story',
               desc: 'Airy, breathable silhouettes and soft pastels crafted for sunny brunches and casual workdays.',
               tag: 'Everyday Styling',
-              img: ivoryImg,
+              img: '/products/prod_sage_linen_coord.jpg',
               target: 'Everyday Wear',
             },
             {
               title: 'Subtle Zardozi & Organza',
               desc: 'The art of quiet festive luxury: delicate gold embroidery on handloom Chanderi silks.',
               tag: 'Festive Notes',
-              img: maroonImg,
+              img: '/products/prod_lavender_anarkali.jpg',
               target: 'Festive & Wedding Edits',
             },
             {
               title: 'Modern Traditional Co-ords',
               desc: 'Effortless two-piece sets that bridge heritage craftsmanship with contemporary comfort.',
               tag: 'Trend Edit',
-              img: sageImg,
+              img: '/products/prod_plum_velvet_coord.jpg',
               target: 'Everyday Wear',
             },
           ].map((edit, idx) => (
@@ -537,10 +537,10 @@ export const HomePage: React.FC = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {[
-            { img: heroPinkSuit, title: 'Mauve Silk Floral' },
-            { img: ivoryImg, title: 'Noor Mulmul' },
-            { img: sageImg, title: 'Rooh Everyday' },
-            { img: dustyRoseImg, title: 'Mehr Gotta Patti' },
+            { img: '/products/prod_dusty_mauve_kurta.jpg', title: 'Mauve Silk Floral' },
+            { img: '/products/prod_lilac_cotton_kurta.jpg', title: 'Noor Mulmul' },
+            { img: '/products/prod_rose_pink_coord.jpg', title: 'Rooh Everyday' },
+            { img: '/products/prod_dusty_rose_festive_kurta.jpg', title: 'Mehr Gotta Patti' },
           ].map((item, idx) => (
             <a
               key={idx}

@@ -150,7 +150,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Products (Persisted in LocalStorage with version check)
   const [products, setProducts] = useState<Product[]>(() => {
     try {
-      const CATALOG_VERSION = 'v5_house_of_rii_visual_ref';
+      const CATALOG_VERSION = 'v6_unique_photoshoot_assets';
       const savedVersion = localStorage.getItem('adaah_products_version');
       if (savedVersion === CATALOG_VERSION) {
         const saved = localStorage.getItem('adaah_products');
