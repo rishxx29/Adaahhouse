@@ -302,36 +302,36 @@ export const AdminProductManager: React.FC = () => {
       <div className="max-w-5xl mx-auto px-4 py-10 sm:py-16 animate-in fade-in duration-300">
         {/* Top Header */}
         <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#5B1E22]/10 border border-[#C9A76A]/40 text-[#5B1E22] text-xs font-semibold uppercase tracking-widest rounded-full">
-            <ShieldCheck className="w-3.5 h-3.5 text-[#C9A76A]" />
-            <span>ADAAH HOUSE · Admin & Owner Portal</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#8C5A7D]/10 border border-[#D5C2D7] text-[#8C5A7D] text-xs font-semibold uppercase tracking-widest rounded-full">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#8C5A7D]" />
+            <span>HOUSE OF RII · Owner Studio & Management</span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#292522]">
-            Store Administration & Management
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#554052]">
+            Store Administration & Operations
           </h1>
-          <p className="text-xs sm:text-sm text-[#9E897A] leading-relaxed">
-            Welcome to the centralized operations studio. Log in to manage incoming customer orders, update kurti collections, inspect UPI payments, and review notifications.
+          <p className="text-xs sm:text-sm text-[#A185A4] leading-relaxed">
+            Welcome to the centralized operations studio. Log in to manage incoming customer orders, update ethnic wear collections, inspect UPI payments, and review notifications.
           </p>
         </div>
 
         {/* 2-Column Portal Card */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 bg-white border border-[#E8DED2] shadow-md overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-12 bg-white border border-[#D5C2D7] shadow-md overflow-hidden">
           {/* Left Column: Admin Login Form (5 cols) */}
-          <div className="lg:col-span-5 p-6 sm:p-8 bg-[#FAF7F2] border-b lg:border-b-0 lg:border-r border-[#E8DED2] flex flex-col justify-between space-y-6">
+          <div className="lg:col-span-5 p-6 sm:p-8 bg-[#F6F0F4] border-b lg:border-b-0 lg:border-r border-[#D5C2D7] flex flex-col justify-between space-y-6">
             <div>
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-11 h-11 rounded-full bg-[#5B1E22] text-[#FAF7F2] flex items-center justify-center shadow-xs">
-                  <Lock className="w-5 h-5 text-[#C9A76A]" />
+                <div className="w-11 h-11 rounded-full bg-[#8C5A7D] text-[#F6F0F4] flex items-center justify-center shadow-xs">
+                  <Lock className="w-5 h-5 text-[#D5C2D7]" />
                 </div>
                 <div>
-                  <h2 className="font-serif text-lg font-bold text-[#292522]">Admin Sign In</h2>
-                  <p className="text-[11px] text-[#9E897A]">Enter your credentials to enter Studio</p>
+                  <h2 className="font-serif text-lg font-bold text-[#554052]">Owner Sign In</h2>
+                  <p className="text-[11px] text-[#A185A4]">Enter your credentials to enter Studio</p>
                 </div>
               </div>
 
               <form onSubmit={handleGateSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-[#292522] mb-1">
+                  <label className="block text-xs font-semibold text-[#554052] mb-1">
                     Official Admin Email / User ID
                   </label>
                   <input
@@ -339,24 +339,24 @@ export const AdminProductManager: React.FC = () => {
                     value={adminIdentifier}
                     onChange={(e) => setAdminIdentifier(e.target.value)}
                     placeholder="aadahhouse@gmail.com"
-                    className="w-full bg-white border border-[#E8DED2] p-2.5 text-xs text-[#292522] outline-none focus:border-[#5B1E22]"
+                    className="w-full bg-white border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                   />
                 </div>
 
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="block text-xs font-semibold text-[#292522]">
+                    <label className="block text-xs font-semibold text-[#554052]">
                       Admin Passcode
                     </label>
                     <button
                       type="button"
                       onClick={() => {
-                        setGatePasscode('adaah2026');
+                        setGatePasscode('rii2026');
                         setAdminIdentifier('aadahhouse@gmail.com');
                       }}
-                      className="text-[10px] text-[#5B1E22] font-semibold underline hover:text-[#C9A76A]"
+                      className="text-[10px] text-[#8C5A7D] font-semibold underline hover:text-[#554052]"
                     >
-                      Fill default (adaah2026)
+                      Fill default (rii2026)
                     </button>
                   </div>
                   <div className="relative">
@@ -366,12 +366,12 @@ export const AdminProductManager: React.FC = () => {
                       onChange={(e) => setGatePasscode(e.target.value)}
                       placeholder="Enter owner passcode"
                       autoFocus
-                      className="w-full bg-white border border-[#E8DED2] p-2.5 pr-10 text-xs text-[#292522] outline-none focus:border-[#5B1E22] font-mono tracking-wider"
+                      className="w-full bg-white border border-[#D5C2D7] p-2.5 pr-10 text-xs text-[#554052] outline-none focus:border-[#8C5A7D] font-mono tracking-wider"
                     />
                     <button
                       type="button"
                       onClick={() => setShowGatePasscode(!showGatePasscode)}
-                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#9E897A] hover:text-[#292522]"
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#A185A4] hover:text-[#554052]"
                     >
                       {showGatePasscode ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
@@ -385,34 +385,34 @@ export const AdminProductManager: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="w-full py-3 bg-[#5B1E22] hover:bg-[#421417] text-white text-xs uppercase tracking-widest font-semibold transition-colors shadow-sm"
+                  className="w-full py-3 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs uppercase tracking-widest font-semibold transition-colors shadow-sm"
                 >
                   Verify & Access Studio
                 </button>
               </form>
 
-              <div className="mt-4 p-3 bg-white border border-[#E8DED2] rounded-xs space-y-1 text-[11px] text-[#292522]/80">
-                <p className="font-semibold text-[#5B1E22] flex items-center gap-1">
-                  <Key className="w-3 h-3 text-[#C9A76A]" /> Credentials Guide
+              <div className="mt-4 p-3 bg-white border border-[#D5C2D7] rounded-xs space-y-1 text-[11px] text-[#554052]/80">
+                <p className="font-semibold text-[#8C5A7D] flex items-center gap-1">
+                  <Key className="w-3 h-3 text-[#8C5A7D]" /> Credentials Guide
                 </p>
-                <p>• Admin ID: <strong className="font-mono text-[#292522]">aadahhouse@gmail.com</strong></p>
-                <p>• Default Passcode: <strong className="font-mono text-[#5B1E22]">adaah2026</strong></p>
-                <p className="text-[10px] text-[#9E897A] pt-0.5">
+                <p>• Admin ID: <strong className="font-mono text-[#554052]">aadahhouse@gmail.com</strong></p>
+                <p>• Default Passcode: <strong className="font-mono text-[#8C5A7D]">rii2026</strong></p>
+                <p className="text-[10px] text-[#A185A4] pt-0.5">
                   You can update this passcode anytime inside the studio via PIN Settings.
                 </p>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-[#E8DED2] flex items-center justify-between text-xs">
+            <div className="pt-4 border-t border-[#D5C2D7] flex items-center justify-between text-xs">
               <button
                 onClick={() => setActivePage('home')}
-                className="text-[#9E897A] hover:text-[#5B1E22] flex items-center gap-1 transition-colors"
+                className="text-[#A185A4] hover:text-[#8C5A7D] flex items-center gap-1 transition-colors"
               >
                 ← Return to Boutique Storefront
               </button>
               <button
                 onClick={() => setActivePage('orders')}
-                className="text-[#5B1E22] font-medium hover:underline"
+                className="text-[#8C5A7D] font-medium hover:underline"
               >
                 Customer Orders Portal
               </button>
@@ -422,85 +422,85 @@ export const AdminProductManager: React.FC = () => {
           {/* Right Column: Studio Capabilities & Feature Overview (7 cols) */}
           <div className="lg:col-span-7 p-6 sm:p-8 bg-white space-y-5">
             <div>
-              <span className="text-[10px] uppercase font-bold tracking-widest text-[#C9A76A]">
+              <span className="text-[10px] uppercase font-bold tracking-widest text-[#8C5A7D]">
                 Included in Owner Studio
               </span>
-              <h3 className="font-serif text-xl font-bold text-[#292522] mt-0.5">
+              <h3 className="font-serif text-xl font-bold text-[#554052] mt-0.5">
                 Complete Boutique Command Center
               </h3>
-              <p className="text-xs text-[#292522]/70 mt-1 leading-relaxed">
+              <p className="text-xs text-[#554052]/70 mt-1 leading-relaxed">
                 Once authenticated, the Owner Studio grants full access to manage store operations, orders, and products:
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               {/* Feature 1 */}
-              <div className="p-3.5 bg-[#FAF7F2] border border-[#E8DED2] space-y-1.5">
+              <div className="p-3.5 bg-[#F6F0F4] border border-[#D5C2D7] space-y-1.5">
                 <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-full bg-[#5B1E22]/10 flex items-center justify-center text-[#5B1E22]">
+                  <div className="w-7 h-7 rounded-full bg-[#8C5A7D]/10 flex items-center justify-center text-[#8C5A7D]">
                     <Package className="w-3.5 h-3.5" />
                   </div>
-                  <h4 className="font-bold text-xs text-[#292522]">Customer Orders Hub</h4>
+                  <h4 className="font-bold text-xs text-[#554052]">Customer Orders Hub</h4>
                 </div>
-                <p className="text-[11px] text-[#292522]/80 leading-relaxed">
+                <p className="text-[11px] text-[#554052]/80 leading-relaxed">
                   Real-time table of customer orders with delivery address, phone, item breakdown, size selections (S–XXL), and tracking status updates.
                 </p>
               </div>
 
               {/* Feature 2 */}
-              <div className="p-3.5 bg-[#FAF7F2] border border-[#E8DED2] space-y-1.5">
+              <div className="p-3.5 bg-[#F6F0F4] border border-[#D5C2D7] space-y-1.5">
                 <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-full bg-[#5B1E22]/10 flex items-center justify-center text-[#5B1E22]">
+                  <div className="w-7 h-7 rounded-full bg-[#8C5A7D]/10 flex items-center justify-center text-[#8C5A7D]">
                     <ShoppingBag className="w-3.5 h-3.5" />
                   </div>
-                  <h4 className="font-bold text-xs text-[#292522]">Kurti Catalogue & Photos</h4>
+                  <h4 className="font-bold text-xs text-[#554052]">Garment Catalogue & Photos</h4>
                 </div>
-                <p className="text-[11px] text-[#292522]/80 leading-relaxed">
-                  Add new kurtis, upload multiple high-res product photos, configure stock counts, collections, and set prices with min. ₹1 guarantee.
+                <p className="text-[11px] text-[#554052]/80 leading-relaxed">
+                  Add new kurtis, suit sets and co-ords, upload multiple high-res product photos, configure stock counts, collections, and set prices with min. ₹1 guarantee.
                 </p>
               </div>
 
               {/* Feature 3 */}
-              <div className="p-3.5 bg-[#FAF7F2] border border-[#E8DED2] space-y-1.5">
+              <div className="p-3.5 bg-[#F6F0F4] border border-[#D5C2D7] space-y-1.5">
                 <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-full bg-[#5B1E22]/10 flex items-center justify-center text-[#5B1E22]">
+                  <div className="w-7 h-7 rounded-full bg-[#8C5A7D]/10 flex items-center justify-center text-[#8C5A7D]">
                     <Mail className="w-3.5 h-3.5" />
                   </div>
-                  <h4 className="font-bold text-xs text-[#292522]">Dual Email Notifications</h4>
+                  <h4 className="font-bold text-xs text-[#554052]">Dual Email Notifications</h4>
                 </div>
-                <p className="text-[11px] text-[#292522]/80 leading-relaxed">
+                <p className="text-[11px] text-[#554052]/80 leading-relaxed">
                   Automated email alerts dispatched to <strong>{BRAND_CONFIG.contact.email}</strong>, while customers get receipts and WhatsApp updates.
                 </p>
               </div>
 
               {/* Feature 4 */}
-              <div className="p-3.5 bg-[#FAF7F2] border border-[#E8DED2] space-y-1.5">
+              <div className="p-3.5 bg-[#F6F0F4] border border-[#D5C2D7] space-y-1.5">
                 <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-full bg-[#5B1E22]/10 flex items-center justify-center text-[#5B1E22]">
+                  <div className="w-7 h-7 rounded-full bg-[#8C5A7D]/10 flex items-center justify-center text-[#8C5A7D]">
                     <Printer className="w-3.5 h-3.5" />
                   </div>
-                  <h4 className="font-bold text-xs text-[#292522]">Invoices & Packing Slips</h4>
+                  <h4 className="font-bold text-xs text-[#554052]">Invoices & Packing Slips</h4>
                 </div>
-                <p className="text-[11px] text-[#292522]/80 leading-relaxed">
+                <p className="text-[11px] text-[#554052]/80 leading-relaxed">
                   Generate professional printable shipping slips with buyer addresses, garment barcodes, UPI transaction references, and totals.
                 </p>
               </div>
             </div>
 
             {/* Live Store Stats Strip */}
-            <div className="p-3.5 bg-[#5B1E22] text-[#FAF7F2] border border-[#C9A76A]/40 flex items-center justify-between flex-wrap gap-2 text-xs">
+            <div className="p-3.5 bg-[#8C5A7D] text-[#F6F0F4] border border-[#D5C2D7] flex items-center justify-between flex-wrap gap-2 text-xs">
               <div>
-                <span className="text-[#C9A76A] font-semibold">Live Inventory: </span>
+                <span className="text-[#D5C2D7] font-semibold">Live Inventory: </span>
                 <span>{products.length} Designs Active</span>
               </div>
               <div className="hidden sm:block text-white/30">|</div>
               <div>
-                <span className="text-[#C9A76A] font-semibold">Recorded Orders: </span>
+                <span className="text-[#D5C2D7] font-semibold">Recorded Orders: </span>
                 <span>{orders.length} Orders</span>
               </div>
               <div className="hidden sm:block text-white/30">|</div>
               <div>
-                <span className="text-[#C9A76A] font-semibold">Receiver UPI: </span>
+                <span className="text-[#D5C2D7] font-semibold">Receiver UPI: </span>
                 <span className="font-mono">{BRAND_CONFIG.payment.upiId}</span>
               </div>
             </div>
@@ -513,17 +513,17 @@ export const AdminProductManager: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 animate-in fade-in duration-300">
       {/* Owner Session Active Status Banner */}
-      <div className="bg-[#5B1E22] text-[#FAF7F2] p-3 px-4 flex flex-wrap items-center justify-between gap-3 text-xs border border-[#C9A76A]/40 shadow-xs">
+      <div className="bg-[#8C5A7D] text-[#F6F0F4] p-3 px-4 flex flex-wrap items-center justify-between gap-3 text-xs border border-[#D5C2D7] shadow-xs">
         <div className="flex items-center gap-2">
-          <KeyRound className="w-4 h-4 text-[#C9A76A]" />
+          <KeyRound className="w-4 h-4 text-[#D5C2D7]" />
           <span>
-            <strong>Owner Session Active:</strong> You are authorized to add/remove kurti images, set sizes S–XXL, and update prices.
+            <strong>Owner Session Active:</strong> You are authorized to add/remove garment images, set sizes S–XXL, and update prices.
           </span>
         </div>
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsChangingPin(!isChangingPin)}
-            className="text-xs underline hover:text-[#C9A76A] transition-colors"
+            className="text-xs underline hover:text-[#D5C2D7] transition-colors"
           >
             {isChangingPin ? 'Close PIN Settings' : 'Change Passcode'}
           </button>
@@ -542,27 +542,27 @@ export const AdminProductManager: React.FC = () => {
       {isChangingPin && (
         <form
           onSubmit={handleChangePinSubmit}
-          className="bg-white p-5 border border-[#C9A76A]/50 shadow-sm max-w-md space-y-3 text-xs animate-in slide-in-from-top-2 duration-200"
+          className="bg-white p-5 border border-[#D5C2D7] shadow-sm max-w-md space-y-3 text-xs animate-in slide-in-from-top-2 duration-200"
         >
-          <h4 className="font-serif text-sm font-bold text-[#5B1E22]">Change Owner Passcode</h4>
+          <h4 className="font-serif text-sm font-bold text-[#8C5A7D]">Change Owner Passcode</h4>
           <div>
-            <label className="block text-xs font-medium text-[#292522] mb-1">Current Passcode</label>
+            <label className="block text-xs font-medium text-[#554052] mb-1">Current Passcode</label>
             <input
               type="password"
               value={currentPinInput}
               onChange={(e) => setCurrentPinInput(e.target.value)}
               placeholder="Enter current passcode"
-              className="w-full bg-[#FAF7F2] border border-[#E8DED2] p-2 text-xs font-mono outline-none"
+              className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2 text-xs font-mono outline-none focus:border-[#8C5A7D]"
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-[#292522] mb-1">New Passcode</label>
+            <label className="block text-xs font-medium text-[#554052] mb-1">New Passcode</label>
             <input
               type="password"
               value={newPinInput}
               onChange={(e) => setNewPinInput(e.target.value)}
               placeholder="Enter your new secret passcode"
-              className="w-full bg-[#FAF7F2] border border-[#E8DED2] p-2 text-xs font-mono outline-none"
+              className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2 text-xs font-mono outline-none focus:border-[#8C5A7D]"
             />
           </div>
           {changePinError && <p className="text-red-600 text-[11px]">{changePinError}</p>}
@@ -570,13 +570,13 @@ export const AdminProductManager: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsChangingPin(false)}
-              className="px-3 py-1.5 border border-[#E8DED2] text-xs"
+              className="px-3 py-1.5 border border-[#D5C2D7] text-xs text-[#554052] hover:bg-[#F6F0F4]"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-1.5 bg-[#5B1E22] text-white text-xs font-semibold hover:bg-[#421417]"
+              className="px-4 py-1.5 bg-[#8C5A7D] text-white text-xs font-semibold hover:bg-[#554052]"
             >
               Update Passcode
             </button>
@@ -585,18 +585,18 @@ export const AdminProductManager: React.FC = () => {
       )}
 
       {/* Studio Navigation Tabs (Orders vs Kurti Catalogue) */}
-      <div className="flex items-center gap-2 border-b border-[#E8DED2] pb-1">
+      <div className="flex items-center gap-2 border-b border-[#D5C2D7] pb-1">
         <button
           onClick={() => setActiveStudioTab('orders')}
           className={`flex items-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all border-b-2 -mb-[5px] ${
             activeStudioTab === 'orders'
-              ? 'border-[#5B1E22] text-[#5B1E22] bg-white'
-              : 'border-transparent text-[#9E897A] hover:text-[#292522]'
+              ? 'border-[#8C5A7D] text-[#8C5A7D] bg-white'
+              : 'border-transparent text-[#A185A4] hover:text-[#554052]'
           }`}
         >
-          <Package className="w-4 h-4 text-[#C9A76A]" />
+          <Package className="w-4 h-4 text-[#8C5A7D]" />
           <span>Customer Orders</span>
-          <span className="ml-1 px-1.5 py-0.2 bg-[#5B1E22] text-white text-[10px] rounded-full">
+          <span className="ml-1 px-1.5 py-0.2 bg-[#8C5A7D] text-white text-[10px] rounded-full">
             {orders.length}
           </span>
         </button>
@@ -605,13 +605,13 @@ export const AdminProductManager: React.FC = () => {
           onClick={() => setActiveStudioTab('catalog')}
           className={`flex items-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all border-b-2 -mb-[5px] ${
             activeStudioTab === 'catalog'
-              ? 'border-[#5B1E22] text-[#5B1E22] bg-white'
-              : 'border-transparent text-[#9E897A] hover:text-[#292522]'
+              ? 'border-[#8C5A7D] text-[#8C5A7D] bg-white'
+              : 'border-transparent text-[#A185A4] hover:text-[#554052]'
           }`}
         >
-          <ShoppingBag className="w-4 h-4 text-[#C9A76A]" />
-          <span>Kurti Catalogue & Photos</span>
-          <span className="ml-1 px-1.5 py-0.2 bg-[#E8DED2] text-[#292522] text-[10px] rounded-full">
+          <ShoppingBag className="w-4 h-4 text-[#8C5A7D]" />
+          <span>Garment Catalogue & Photos</span>
+          <span className="ml-1 px-1.5 py-0.2 bg-[#D5C2D7] text-[#554052] text-[10px] rounded-full">
             {products.length}
           </span>
         </button>
@@ -621,10 +621,10 @@ export const AdminProductManager: React.FC = () => {
       {activeStudioTab === 'orders' && (
         <div className="space-y-6 animate-in fade-in duration-200">
           {/* Owner Quick Guidance Card */}
-          <div className="bg-white border border-[#C9A76A]/60 p-4 sm:p-5 shadow-xs space-y-2">
+          <div className="bg-white border border-[#8C5A7D]/60 p-4 sm:p-5 shadow-xs space-y-2">
             <div className="flex items-center justify-between flex-wrap gap-2">
               <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 bg-[#5B1E22] text-[#FAF7F2] text-[10px] font-bold uppercase tracking-wider rounded-xs">
+                <span className="px-2 py-0.5 bg-[#8C5A7D] text-[#F6F0F4] text-[10px] font-bold uppercase tracking-wider rounded-xs">
                   Owner Confidential Portal
                 </span>
                 <span className="text-xs text-[#7A8061] font-semibold flex items-center gap-1">
@@ -632,13 +632,13 @@ export const AdminProductManager: React.FC = () => {
                   <span>Passcode Protected</span>
                 </span>
               </div>
-              <span className="text-xs text-[#9E897A]">
-                Receiver UPI: <strong className="font-mono text-[#5B1E22]">{BRAND_CONFIG.payment.upiId}</strong>
+              <span className="text-xs text-[#A185A4]">
+                Receiver UPI: <strong className="font-mono text-[#8C5A7D]">{BRAND_CONFIG.payment.upiId}</strong>
               </span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1 text-xs text-[#292522]/85">
-              <div className="p-3 bg-[#FAF7F2] border border-[#E8DED2] space-y-1">
-                <p className="font-bold text-[#5B1E22] flex items-center gap-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1 text-xs text-[#554052]/85">
+              <div className="p-3 bg-[#F6F0F4] border border-[#D5C2D7] space-y-1">
+                <p className="font-bold text-[#8C5A7D] flex items-center gap-1">
                   <span>1. Where You See Orders</span>
                 </p>
                 <p className="text-[11px] leading-relaxed">
@@ -646,8 +646,8 @@ export const AdminProductManager: React.FC = () => {
                 </p>
               </div>
 
-              <div className="p-3 bg-[#FAF7F2] border border-[#E8DED2] space-y-1">
-                <p className="font-bold text-[#5B1E22] flex items-center gap-1">
+              <div className="p-3 bg-[#F6F0F4] border border-[#D5C2D7] space-y-1">
+                <p className="font-bold text-[#8C5A7D] flex items-center gap-1">
                   <span>2. Direct UPI Payments</span>
                 </p>
                 <p className="text-[11px] leading-relaxed">
@@ -655,8 +655,8 @@ export const AdminProductManager: React.FC = () => {
                 </p>
               </div>
 
-              <div className="p-3 bg-[#FAF7F2] border border-[#E8DED2] space-y-1">
-                <p className="font-bold text-[#5B1E22] flex items-center gap-1">
+              <div className="p-3 bg-[#F6F0F4] border border-[#D5C2D7] space-y-1">
+                <p className="font-bold text-[#8C5A7D] flex items-center gap-1">
                   <span>3. Dual Email Notifications</span>
                 </p>
                 <p className="text-[11px] leading-relaxed">
@@ -664,8 +664,8 @@ export const AdminProductManager: React.FC = () => {
                 </p>
               </div>
 
-              <div className="p-3 bg-[#FAF7F2] border border-[#E8DED2] space-y-1">
-                <p className="font-bold text-[#5B1E22] flex items-center gap-1">
+              <div className="p-3 bg-[#F6F0F4] border border-[#D5C2D7] space-y-1">
+                <p className="font-bold text-[#8C5A7D] flex items-center gap-1">
                   <span>4. Owner Security</span>
                 </p>
                 <p className="text-[11px] leading-relaxed">
@@ -677,38 +677,38 @@ export const AdminProductManager: React.FC = () => {
 
           {/* Top KPI Metric Cards */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-white p-4 border border-[#E8DED2] shadow-xs">
-              <span className="text-[11px] uppercase tracking-wider text-[#9E897A] font-medium block">
+            <div className="bg-white p-4 border border-[#D5C2D7] shadow-xs">
+              <span className="text-[11px] uppercase tracking-wider text-[#A185A4] font-medium block">
                 Total Orders Placed
               </span>
-              <p className="font-serif text-2xl font-bold text-[#5B1E22] mt-1 tabular-nums">
+              <p className="font-serif text-2xl font-bold text-[#8C5A7D] mt-1 tabular-nums">
                 {orders.length}
               </p>
               <span className="text-[10px] text-[#7A8061] mt-0.5 block">Recorded in store storage</span>
             </div>
 
-            <div className="bg-white p-4 border border-[#E8DED2] shadow-xs">
-              <span className="text-[11px] uppercase tracking-wider text-[#9E897A] font-medium block">
+            <div className="bg-white p-4 border border-[#D5C2D7] shadow-xs">
+              <span className="text-[11px] uppercase tracking-wider text-[#A185A4] font-medium block">
                 Total Revenue (₹)
               </span>
-              <p className="font-mono text-2xl font-bold text-[#292522] mt-1 tabular-nums">
+              <p className="font-mono text-2xl font-bold text-[#554052] mt-1 tabular-nums">
                 ₹{orders.reduce((sum, o) => sum + o.total, 0).toLocaleString('en-IN')}
               </p>
-              <span className="text-[10px] text-[#9E897A] mt-0.5 block">Prepaid + COD bookings</span>
+              <span className="text-[10px] text-[#A185A4] mt-0.5 block">Prepaid + COD bookings</span>
             </div>
 
-            <div className="bg-white p-4 border border-[#E8DED2] shadow-xs">
-              <span className="text-[11px] uppercase tracking-wider text-[#9E897A] font-medium block">
+            <div className="bg-white p-4 border border-[#D5C2D7] shadow-xs">
+              <span className="text-[11px] uppercase tracking-wider text-[#A185A4] font-medium block">
                 Pending Dispatch
               </span>
-              <p className="font-serif text-2xl font-bold text-[#C9A76A] mt-1 tabular-nums">
+              <p className="font-serif text-2xl font-bold text-[#8C5A7D] mt-1 tabular-nums">
                 {orders.filter((o) => o.status === 'CONFIRMED').length}
               </p>
-              <span className="text-[10px] text-[#9E897A] mt-0.5 block">Ready to pack & courier</span>
+              <span className="text-[10px] text-[#A185A4] mt-0.5 block">Ready to pack & courier</span>
             </div>
 
-            <div className="bg-white p-4 border border-[#E8DED2] shadow-xs">
-              <span className="text-[11px] uppercase tracking-wider text-[#9E897A] font-medium block">
+            <div className="bg-white p-4 border border-[#D5C2D7] shadow-xs">
+              <span className="text-[11px] uppercase tracking-wider text-[#A185A4] font-medium block">
                 Delivered
               </span>
               <p className="font-serif text-2xl font-bold text-[#7A8061] mt-1 tabular-nums">
@@ -719,20 +719,20 @@ export const AdminProductManager: React.FC = () => {
           </div>
 
           {/* Search & Status Filter Controls */}
-          <div className="bg-white p-4 border border-[#E8DED2] flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="bg-white p-4 border border-[#D5C2D7] flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2 w-full sm:w-auto flex-1 max-w-md">
-              <Search className="w-4 h-4 text-[#9E897A]" />
+              <Search className="w-4 h-4 text-[#A185A4]" />
               <input
                 type="text"
                 value={orderSearchQuery}
                 onChange={(e) => setOrderSearchQuery(e.target.value)}
                 placeholder="Search by Order ID (e.g. ADH-2026), Name, Phone, or City..."
-                className="w-full bg-[#FAF7F2] border border-[#E8DED2] px-3 py-1.5 text-xs text-[#292522] outline-none focus:border-[#5B1E22]"
+                className="w-full bg-[#F6F0F4] border border-[#D5C2D7] px-3 py-1.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
               />
               {orderSearchQuery && (
                 <button
                   onClick={() => setOrderSearchQuery('')}
-                  className="text-xs text-[#9E897A] hover:text-[#5B1E22]"
+                  className="text-xs text-[#A185A4] hover:text-[#8C5A7D]"
                 >
                   Clear
                 </button>
@@ -740,11 +740,11 @@ export const AdminProductManager: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-2 text-xs w-full sm:w-auto justify-end">
-              <span className="text-[#9E897A] font-medium">Status:</span>
+              <span className="text-[#A185A4] font-medium">Status:</span>
               <select
                 value={orderStatusFilter}
                 onChange={(e) => setOrderStatusFilter(e.target.value as any)}
-                className="bg-[#FAF7F2] border border-[#E8DED2] px-3 py-1.5 text-xs text-[#292522] outline-none font-medium"
+                className="bg-[#F6F0F4] border border-[#D5C2D7] px-3 py-1.5 text-xs text-[#554052] outline-none font-medium"
               >
                 <option value="ALL">All Orders ({orders.length})</option>
                 <option value="CONFIRMED">Confirmed / Processing</option>
@@ -756,10 +756,10 @@ export const AdminProductManager: React.FC = () => {
 
           {/* Orders Cards List */}
           {orders.length === 0 ? (
-            <div className="bg-white border border-[#E8DED2] p-12 text-center space-y-3">
-              <Package className="w-10 h-10 text-[#C9A76A] mx-auto" />
-              <h3 className="font-serif text-xl font-bold text-[#292522]">No Customer Orders Yet</h3>
-              <p className="text-xs text-[#9E897A] max-w-sm mx-auto">
+            <div className="bg-white border border-[#D5C2D7] p-12 text-center space-y-3">
+              <Package className="w-10 h-10 text-[#8C5A7D] mx-auto" />
+              <h3 className="font-serif text-xl font-bold text-[#554052]">No Customer Orders Yet</h3>
+              <p className="text-xs text-[#A185A4] max-w-sm mx-auto">
                 Whenever a customer places an order on your website, it will immediately appear right here with their name, phone number, and delivery address.
               </p>
             </div>
@@ -783,15 +783,15 @@ export const AdminProductManager: React.FC = () => {
                 .map((order) => (
                   <div
                     key={order.id}
-                    className="bg-white border border-[#E8DED2] shadow-xs p-5 sm:p-6 space-y-4 hover:border-[#C9A76A]/80 transition-colors"
+                    className="bg-white border border-[#D5C2D7] shadow-xs p-5 sm:p-6 space-y-4 hover:border-[#8C5A7D]/80 transition-colors"
                   >
                     {/* Order Top Bar: Order ID, Date, Payment & Status Select */}
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#E8DED2]">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#D5C2D7]">
                       <div className="flex items-center gap-3">
-                        <span className="font-mono text-sm font-bold text-[#5B1E22]">
+                        <span className="font-mono text-sm font-bold text-[#8C5A7D]">
                           {order.orderNumber}
                         </span>
-                        <span className="text-[11px] text-[#9E897A]">
+                        <span className="text-[11px] text-[#A185A4]">
                           {new Date(order.createdAt).toLocaleDateString('en-IN', {
                             day: 'numeric',
                             month: 'short',
@@ -813,7 +813,7 @@ export const AdminProductManager: React.FC = () => {
 
                       {/* Status Selector */}
                       <div className="flex items-center gap-2 text-xs">
-                        <span className="text-[#9E897A] font-medium">Status:</span>
+                        <span className="text-[#A185A4] font-medium">Status:</span>
                         <select
                           value={order.status}
                           onChange={(e) => updateOrderStatus(order.id, e.target.value as any)}
@@ -835,28 +835,28 @@ export const AdminProductManager: React.FC = () => {
                     {/* Order Body: Customer & Address + Garments List */}
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
                       {/* Customer Info & Shipping Address */}
-                      <div className="md:col-span-5 space-y-2 text-xs border-b md:border-b-0 md:border-r border-[#E8DED2] pb-4 md:pb-0 md:pr-4">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-[#9E897A] block">
+                      <div className="md:col-span-5 space-y-2 text-xs border-b md:border-b-0 md:border-r border-[#D5C2D7] pb-4 md:pb-0 md:pr-4">
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-[#A185A4] block">
                           Customer & Delivery Address
                         </span>
-                        <p className="font-serif text-base font-bold text-[#292522]">
+                        <p className="font-serif text-base font-bold text-[#554052]">
                           {order.shippingAddress.fullName}
                         </p>
-                        <p className="text-[#292522]/85 leading-relaxed">
+                        <p className="text-[#554052]/85 leading-relaxed">
                           {order.shippingAddress.addressLine}
                           {order.shippingAddress.locality && `, ${order.shippingAddress.locality}`}
                           <br />
                           {order.shippingAddress.city}, {order.shippingAddress.state} —{' '}
-                          <strong className="text-[#5B1E22]">{order.shippingAddress.pincode}</strong>
+                          <strong className="text-[#8C5A7D]">{order.shippingAddress.pincode}</strong>
                         </p>
 
                         <div className="pt-2 text-xs space-y-1">
                           <p className="flex items-center gap-2">
-                            <Phone className="w-3.5 h-3.5 text-[#5B1E22]" />
+                            <Phone className="w-3.5 h-3.5 text-[#8C5A7D]" />
                             <span className="font-mono">{order.shippingAddress.phone}</span>
                             <a
                               href={`https://wa.me/91${order.shippingAddress.phone}?text=${encodeURIComponent(
-                                `Hello ${order.shippingAddress.fullName}! This is ADAAH HOUSE regarding your order ${order.orderNumber}. We have received your order and are preparing your parcel.`
+                                `Hello ${order.shippingAddress.fullName}! This is HOUSE OF RII regarding your order ${order.orderNumber}. We have received your order and are preparing your parcel.`
                               )}`}
                               target="_blank"
                               rel="noopener noreferrer"
@@ -866,25 +866,25 @@ export const AdminProductManager: React.FC = () => {
                               WhatsApp Customer
                             </a>
                           </p>
-                          <p className="flex items-center gap-2 text-[#9E897A]">
+                          <p className="flex items-center gap-2 text-[#A185A4]">
                             <Mail className="w-3.5 h-3.5" />
                             <span>{order.shippingAddress.email}</span>
                           </p>
                         </div>
 
                         {/* Payment & Receiver Information */}
-                        <div className="pt-2 border-t border-[#E8DED2]/80 space-y-1 text-[11px]">
-                          <span className="text-[10px] font-semibold uppercase tracking-wider text-[#9E897A] block">
+                        <div className="pt-2 border-t border-[#D5C2D7]/80 space-y-1 text-[11px]">
+                          <span className="text-[10px] font-semibold uppercase tracking-wider text-[#A185A4] block">
                             Payment Verification:
                           </span>
                           {order.paymentMethod === 'ONLINE_UPI' ? (
-                            <div className="bg-[#FAF7F2] p-2.5 border border-[#C9A76A]/40 space-y-1">
-                              <p className="font-semibold text-[#5B1E22] flex items-center gap-1 text-xs">
+                            <div className="bg-[#F6F0F4] p-2.5 border border-[#8C5A7D]/40 space-y-1">
+                              <p className="font-semibold text-[#8C5A7D] flex items-center gap-1 text-xs">
                                 <CheckCircle2 className="w-3.5 h-3.5 text-[#7A8061]" />
-                                <span>UPI Payment to: <strong className="font-mono text-[#5B1E22]">{order.receiverUpi || BRAND_CONFIG.payment.upiId}</strong></span>
+                                <span>UPI Payment to: <strong className="font-mono text-[#8C5A7D]">{order.receiverUpi || BRAND_CONFIG.payment.upiId}</strong></span>
                               </p>
-                              <p className="text-[#292522]">
-                                Customer UTR / Ref: <strong className="font-mono text-[#5B1E22] bg-white px-1.5 py-0.5 border border-[#E8DED2] rounded-xs">{order.transactionRef || 'Provided via UPI App'}</strong>
+                              <p className="text-[#554052]">
+                                Customer UTR / Ref: <strong className="font-mono text-[#8C5A7D] bg-white px-1.5 py-0.5 border border-[#D5C2D7] rounded-xs">{order.transactionRef || 'Provided via UPI App'}</strong>
                               </p>
                               <p className="text-[10px] text-[#7A8061] leading-tight">
                                 ✓ Money deposited directly to your bank account ({BRAND_CONFIG.payment.upiId}).
@@ -906,32 +906,32 @@ export const AdminProductManager: React.FC = () => {
 
                       {/* Items Ordered List */}
                       <div className="md:col-span-7 space-y-3">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-[#9E897A] block">
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-[#A185A4] block">
                           Kurti Items ({order.items.length})
                         </span>
-                        <div className="divide-y divide-[#E8DED2] max-h-48 overflow-y-auto">
+                        <div className="divide-y divide-[#D5C2D7] max-h-48 overflow-y-auto">
                           {order.items.map((item) => (
                             <div key={item.id} className="py-2 flex items-center justify-between gap-3 text-xs">
                               <div className="flex items-center gap-2.5">
                                 <img
                                   src={item.product.images[0]}
                                   alt=""
-                                  className="w-10 h-12 object-cover border border-[#E8DED2] shrink-0"
+                                  className="w-10 h-12 object-cover border border-[#D5C2D7] shrink-0"
                                 />
                                 <div>
-                                  <p className="font-serif font-bold text-[#292522] line-clamp-1">
+                                  <p className="font-serif font-bold text-[#554052] line-clamp-1">
                                     {item.product.name}
                                   </p>
-                                  <div className="flex items-center gap-2 text-[11px] text-[#9E897A]">
+                                  <div className="flex items-center gap-2 text-[11px] text-[#A185A4]">
                                     <span>
-                                      Size: <strong className="text-[#5B1E22]">{item.selectedSize}</strong>
+                                      Size: <strong className="text-[#8C5A7D]">{item.selectedSize}</strong>
                                     </span>
                                     <span>·</span>
                                     <span>Qty: {item.quantity}</span>
                                   </div>
                                 </div>
                               </div>
-                              <span className="font-mono font-semibold text-[#5B1E22] tabular-nums">
+                              <span className="font-mono font-semibold text-[#8C5A7D] tabular-nums">
                                 ₹{(item.product.price * item.quantity).toLocaleString('en-IN')}
                               </span>
                             </div>
@@ -939,15 +939,15 @@ export const AdminProductManager: React.FC = () => {
                         </div>
 
                         {/* Order Summary Financials Bar */}
-                        <div className="pt-2 border-t border-[#E8DED2] flex items-center justify-between text-xs">
-                          <div className="text-[11px] text-[#9E897A]">
+                        <div className="pt-2 border-t border-[#D5C2D7] flex items-center justify-between text-xs">
+                          <div className="text-[11px] text-[#A185A4]">
                             <span>Subtotal: ₹{order.subtotal}</span>
                             {order.discount > 0 && <span className="ml-2 text-[#7A8061]">Discount: -₹{order.discount}</span>}
                             <span className="ml-2">Shipping: {order.shippingFee === 0 ? 'FREE' : `₹${order.shippingFee}`}</span>
                           </div>
                           <div className="flex items-baseline gap-1.5 font-bold">
                             <span>Total:</span>
-                            <span className="font-mono text-sm text-[#5B1E22] tabular-nums">
+                            <span className="font-mono text-sm text-[#8C5A7D] tabular-nums">
                               ₹{order.total.toLocaleString('en-IN')}
                             </span>
                           </div>
@@ -956,13 +956,13 @@ export const AdminProductManager: React.FC = () => {
                     </div>
 
                     {/* Order Action Buttons */}
-                    <div className="pt-3 border-t border-[#E8DED2] flex items-center justify-between gap-2 text-xs">
+                    <div className="pt-3 border-t border-[#D5C2D7] flex items-center justify-between gap-2 text-xs">
                       <div className="flex flex-wrap items-center gap-2">
                         <button
                           onClick={() => window.print()}
-                          className="px-3 py-1.5 border border-[#E8DED2] hover:bg-[#FAF7F2] text-[#292522] font-medium flex items-center gap-1.5 transition-colors"
+                          className="px-3 py-1.5 border border-[#D5C2D7] hover:bg-[#F6F0F4] text-[#554052] font-medium flex items-center gap-1.5 transition-colors"
                         >
-                          <Printer className="w-3.5 h-3.5 text-[#5B1E22]" />
+                          <Printer className="w-3.5 h-3.5 text-[#8C5A7D]" />
                           <span>Print Slip</span>
                         </button>
 
@@ -977,10 +977,10 @@ export const AdminProductManager: React.FC = () => {
                               window.open(getOwnerMailtoUrl(order), '_blank');
                             }
                           }}
-                          className="px-3 py-1.5 border border-[#C9A76A]/60 hover:bg-[#FAF7F2] text-[#5B1E22] font-semibold flex items-center gap-1.5 transition-colors"
+                          className="px-3 py-1.5 border border-[#8C5A7D]/60 hover:bg-[#F6F0F4] text-[#8C5A7D] font-semibold flex items-center gap-1.5 transition-colors"
                           title="Resend email alert to aadahhouse@gmail.com and customer"
                         >
-                          <Mail className="w-3.5 h-3.5 text-[#5B1E22]" />
+                          <Mail className="w-3.5 h-3.5 text-[#8C5A7D]" />
                           <span>Resend Email Alerts</span>
                         </button>
 
@@ -1018,17 +1018,17 @@ export const AdminProductManager: React.FC = () => {
       {activeStudioTab === 'catalog' && (
         <div className="space-y-6 animate-in fade-in duration-200">
           {/* Page Title & Controls */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E8DED2]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#D5C2D7]">
             <div>
-              <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#5B1E22] font-semibold">
+              <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#8C5A7D] font-semibold">
                 <span>Catalogue Manager</span>
                 <span>·</span>
                 <span>Upload Photos & Sizes</span>
               </div>
-              <h2 className="font-serif text-3xl font-bold text-[#292522] mt-1">
+              <h2 className="font-serif text-3xl font-bold text-[#554052] mt-1">
                 Kurti Inventory & Photos
               </h2>
-              <p className="text-xs text-[#9E897A] mt-1">
+              <p className="text-xs text-[#A185A4] mt-1">
                 Upload kurti photos from your device, add/remove images, configure sizes (S, M, L, XL, XXL), and manage retail prices.
               </p>
             </div>
@@ -1036,7 +1036,7 @@ export const AdminProductManager: React.FC = () => {
             <div className="flex items-center gap-3">
               <button
                 onClick={resetProductsToDefault}
-                className="px-3.5 py-2 border border-[#E8DED2] bg-white text-[#292522] hover:text-[#5B1E22] text-xs font-medium flex items-center gap-1.5 transition-colors"
+                className="px-3.5 py-2 border border-[#D5C2D7] bg-white text-[#554052] hover:text-[#8C5A7D] text-xs font-medium flex items-center gap-1.5 transition-colors"
                 title="Reset to initial catalogue"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
@@ -1045,7 +1045,7 @@ export const AdminProductManager: React.FC = () => {
               {!isEditing && (
                 <button
                   onClick={handleStartNew}
-                  className="px-5 py-2.5 bg-[#5B1E22] hover:bg-[#421417] text-white text-xs uppercase tracking-wider font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
+                  className="px-5 py-2.5 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs uppercase tracking-wider font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Add New Kurti</span>
@@ -1058,16 +1058,16 @@ export const AdminProductManager: React.FC = () => {
       {isEditing && (
         <form
           onSubmit={handleSaveProduct}
-          className="bg-white p-6 sm:p-8 border-2 border-[#5B1E22]/30 shadow-md space-y-6"
+          className="bg-white p-6 sm:p-8 border-2 border-[#8C5A7D]/30 shadow-md space-y-6"
         >
-          <div className="flex items-center justify-between pb-4 border-b border-[#E8DED2]">
-            <h3 className="font-serif text-xl font-bold text-[#5B1E22]">
-              {editingId ? 'Edit Kurti Details' : 'Add New Kurti to ADAAH HOUSE'}
+          <div className="flex items-center justify-between pb-4 border-b border-[#D5C2D7]">
+            <h3 className="font-serif text-xl font-bold text-[#8C5A7D]">
+              {editingId ? 'Edit Kurti Details' : 'Add New Kurti to HOUSE OF RII'}
             </h3>
             <button
               type="button"
               onClick={resetForm}
-              className="text-xs text-[#9E897A] hover:text-[#5B1E22]"
+              className="text-xs text-[#A185A4] hover:text-[#8C5A7D]"
             >
               Cancel
             </button>
@@ -1077,7 +1077,7 @@ export const AdminProductManager: React.FC = () => {
             {/* Left Inputs */}
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-[#292522] mb-1">
+                <label className="block text-xs font-semibold text-[#554052] mb-1">
                   Kurti / Set Title *
                 </label>
                 <input
@@ -1086,19 +1086,19 @@ export const AdminProductManager: React.FC = () => {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Parijat Embroidered Chanderi Kurti Set"
                   required
-                  className="w-full bg-[#FAF7F2] border border-[#E8DED2] p-2.5 text-xs text-[#292522] outline-none focus:border-[#5B1E22]"
+                  className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-[#292522] mb-1">
+                  <label className="block text-xs font-semibold text-[#554052] mb-1">
                     Collection *
                   </label>
                   <select
                     value={collection}
                     onChange={(e) => setCollection(e.target.value as ProductCollection)}
-                    className="w-full bg-[#FAF7F2] border border-[#E8DED2] p-2.5 text-xs text-[#292522] outline-none"
+                    className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none"
                   >
                     <option value="Everyday Wear">Everyday Wear</option>
                     <option value="Festive & Wedding Edits">Festive & Wedding Edits</option>
@@ -1108,13 +1108,13 @@ export const AdminProductManager: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#292522] mb-1">
+                  <label className="block text-xs font-semibold text-[#554052] mb-1">
                     Category *
                   </label>
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value as Product['category'])}
-                    className="w-full bg-[#FAF7F2] border border-[#E8DED2] p-2.5 text-xs text-[#292522] outline-none"
+                    className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none"
                   >
                     <option value="Kurti Set">Kurti Set</option>
                     <option value="Bottom Wear">Bottom Wear</option>
@@ -1132,7 +1132,7 @@ export const AdminProductManager: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-[#292522] mb-1">
+                  <label className="block text-xs font-semibold text-[#554052] mb-1">
                     Retail Price (₹) *
                   </label>
                   <input
@@ -1141,11 +1141,11 @@ export const AdminProductManager: React.FC = () => {
                     onChange={(e) => setPrice(Math.max(1, Number(e.target.value)))}
                     min={1}
                     required
-                    className="w-full bg-[#FAF7F2] border border-[#E8DED2] p-2.5 text-xs font-mono text-[#292522] outline-none"
+                    className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs font-mono text-[#554052] outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#292522] mb-1">
+                  <label className="block text-xs font-semibold text-[#554052] mb-1">
                     Original Price / MRP (₹)
                   </label>
                   <input
@@ -1153,14 +1153,14 @@ export const AdminProductManager: React.FC = () => {
                     value={originalPrice}
                     onChange={(e) => setOriginalPrice(Math.max(1, Number(e.target.value)))}
                     min={1}
-                    className="w-full bg-[#FAF7F2] border border-[#E8DED2] p-2.5 text-xs font-mono text-[#292522] outline-none"
+                    className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs font-mono text-[#554052] outline-none"
                   />
                 </div>
 
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#292522] mb-1">
+                <label className="block text-xs font-semibold text-[#554052] mb-1">
                   Fabric Composition *
                 </label>
                 <input
@@ -1168,12 +1168,12 @@ export const AdminProductManager: React.FC = () => {
                   value={fabric}
                   onChange={(e) => setFabric(e.target.value)}
                   placeholder="e.g. 100% Breathable Cotton Mulmul / Chanderi Silk"
-                  className="w-full bg-[#FAF7F2] border border-[#E8DED2] p-2.5 text-xs text-[#292522] outline-none"
+                  className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#292522] mb-1">
+                <label className="block text-xs font-semibold text-[#554052] mb-1">
                   Description
                 </label>
                 <textarea
@@ -1181,13 +1181,13 @@ export const AdminProductManager: React.FC = () => {
                   onChange={(e) => setDescription(e.target.value)}
                   rows={3}
                   placeholder="Describe the kurti silhouette, embroidery, pairing, and occasions..."
-                  className="w-full bg-[#FAF7F2] border border-[#E8DED2] p-2.5 text-xs text-[#292522] outline-none"
+                  className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none"
                 />
               </div>
 
               {/* Kurti Sizes Selection (S, M, L, XL, XXL) */}
               <div className="pt-2">
-                <label className="block text-xs font-semibold text-[#292522] mb-2">
+                <label className="block text-xs font-semibold text-[#554052] mb-2">
                   Available Sizes (Starting S, M, L, XL, XXL):
                 </label>
                 <div className="flex items-center gap-3">
@@ -1200,8 +1200,8 @@ export const AdminProductManager: React.FC = () => {
                         onClick={() => handleToggleSize(sz)}
                         className={`w-12 h-11 border text-xs font-bold transition-all flex flex-col items-center justify-center ${
                           isSelected
-                            ? 'bg-[#5B1E22] text-white border-[#5B1E22]'
-                            : 'bg-white text-[#9E897A] border-[#E8DED2] hover:border-[#5B1E22]'
+                            ? 'bg-[#8C5A7D] text-white border-[#8C5A7D]'
+                            : 'bg-white text-[#A185A4] border-[#D5C2D7] hover:border-[#8C5A7D]'
                         }`}
                       >
                         <span>{sz}</span>
@@ -1210,7 +1210,7 @@ export const AdminProductManager: React.FC = () => {
                     );
                   })}
                 </div>
-                <p className="text-[11px] text-[#9E897A] mt-1.5">
+                <p className="text-[11px] text-[#A185A4] mt-1.5">
                   Click a size button to toggle its availability for this kurti.
                 </p>
               </div>
@@ -1219,16 +1219,16 @@ export const AdminProductManager: React.FC = () => {
             {/* Right: Kurti Image Management (Add / Remove) */}
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-[#292522] mb-1">
+                <label className="block text-xs font-semibold text-[#554052] mb-1">
                   Manage Kurti Images (Add & Remove)
                 </label>
-                <p className="text-[11px] text-[#9E897A] mb-3">
+                <p className="text-[11px] text-[#A185A4] mb-3">
                   Upload kurti photos from your device, or paste image URLs. You can remove unwanted images anytime.
                 </p>
 
                 {/* File Upload Button */}
-                <label className="flex items-center justify-center gap-2 p-3 bg-[#FAF7F2] border-2 border-dashed border-[#C9A76A]/60 hover:border-[#5B1E22] cursor-pointer text-xs font-semibold text-[#5B1E22] transition-colors">
-                  <Upload className="w-4 h-4 text-[#C9A76A]" />
+                <label className="flex items-center justify-center gap-2 p-3 bg-[#F6F0F4] border-2 border-dashed border-[#8C5A7D]/60 hover:border-[#8C5A7D] cursor-pointer text-xs font-semibold text-[#8C5A7D] transition-colors">
+                  <Upload className="w-4 h-4 text-[#8C5A7D]" />
                   <span>Upload Photos From Device</span>
                   <input
                     type="file"
@@ -1246,12 +1246,12 @@ export const AdminProductManager: React.FC = () => {
                     value={newImageUrl}
                     onChange={(e) => setNewImageUrl(e.target.value)}
                     placeholder="Or paste an image URL..."
-                    className="flex-1 bg-[#FAF7F2] border border-[#E8DED2] px-3 py-2 text-xs outline-none"
+                    className="flex-1 bg-[#F6F0F4] border border-[#D5C2D7] px-3 py-2 text-xs outline-none"
                   />
                   <button
                     type="button"
                     onClick={handleAddImageUrl}
-                    className="px-3 py-2 bg-[#292522] text-white text-xs font-medium hover:bg-[#5B1E22]"
+                    className="px-3 py-2 bg-[#554052] text-white text-xs font-medium hover:bg-[#8C5A7D]"
                   >
                     Add URL
                   </button>
@@ -1260,13 +1260,13 @@ export const AdminProductManager: React.FC = () => {
 
               {/* Current Images Gallery with Delete Overlay */}
               <div className="space-y-2">
-                <span className="text-xs font-medium text-[#292522]">
+                <span className="text-xs font-medium text-[#554052]">
                   Current Photos ({images.length}):
                 </span>
 
                 {images.length === 0 ? (
-                  <div className="p-8 border border-[#E8DED2] bg-[#FAF7F2] text-center text-xs text-[#9E897A]">
-                    <ImageIcon className="w-8 h-8 mx-auto text-[#C9A76A]/60 mb-2" />
+                  <div className="p-8 border border-[#D5C2D7] bg-[#F6F0F4] text-center text-xs text-[#A185A4]">
+                    <ImageIcon className="w-8 h-8 mx-auto text-[#8C5A7D]/60 mb-2" />
                     <span>No photos added yet. Upload an image to preview.</span>
                   </div>
                 ) : (
@@ -1274,7 +1274,7 @@ export const AdminProductManager: React.FC = () => {
                     {images.map((img, idx) => (
                       <div
                         key={idx}
-                        className="relative aspect-[3/4] bg-[#FAF7F2] border border-[#E8DED2] group overflow-hidden"
+                        className="relative aspect-[3/4] bg-[#F6F0F4] border border-[#D5C2D7] group overflow-hidden"
                       >
                         <img
                           src={img}
@@ -1302,31 +1302,31 @@ export const AdminProductManager: React.FC = () => {
               </div>
 
               {/* Flags & Stock */}
-              <div className="pt-2 border-t border-[#E8DED2] space-y-2">
-                <label className="flex items-center gap-2 text-xs text-[#292522] cursor-pointer">
+              <div className="pt-2 border-t border-[#D5C2D7] space-y-2">
+                <label className="flex items-center gap-2 text-xs text-[#554052] cursor-pointer">
                   <input
                     type="checkbox"
                     checked={inStock}
                     onChange={(e) => setInStock(e.target.checked)}
-                    className="accent-[#5B1E22]"
+                    className="accent-[#8C5A7D]"
                   />
                   <span>Mark as In Stock</span>
                 </label>
-                <label className="flex items-center gap-2 text-xs text-[#292522] cursor-pointer">
+                <label className="flex items-center gap-2 text-xs text-[#554052] cursor-pointer">
                   <input
                     type="checkbox"
                     checked={isNewArrival}
                     onChange={(e) => setIsNewArrival(e.target.checked)}
-                    className="accent-[#5B1E22]"
+                    className="accent-[#8C5A7D]"
                   />
                   <span>Show under "New Arrivals"</span>
                 </label>
-                <label className="flex items-center gap-2 text-xs text-[#292522] cursor-pointer">
+                <label className="flex items-center gap-2 text-xs text-[#554052] cursor-pointer">
                   <input
                     type="checkbox"
                     checked={isBestseller}
                     onChange={(e) => setIsBestseller(e.target.checked)}
-                    className="accent-[#5B1E22]"
+                    className="accent-[#8C5A7D]"
                   />
                   <span>Show under "Bestsellers"</span>
                 </label>
@@ -1335,17 +1335,17 @@ export const AdminProductManager: React.FC = () => {
           </div>
 
           {/* Form Actions */}
-          <div className="pt-4 border-t border-[#E8DED2] flex justify-end gap-3">
+          <div className="pt-4 border-t border-[#D5C2D7] flex justify-end gap-3">
             <button
               type="button"
               onClick={resetForm}
-              className="px-5 py-2.5 border border-[#E8DED2] text-xs font-medium text-[#292522] hover:bg-[#FAF7F2]"
+              className="px-5 py-2.5 border border-[#D5C2D7] text-xs font-medium text-[#554052] hover:bg-[#F6F0F4]"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-8 py-2.5 bg-[#5B1E22] hover:bg-[#421417] text-white text-xs uppercase tracking-wider font-semibold transition-colors shadow-xs"
+              className="px-8 py-2.5 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs uppercase tracking-wider font-semibold transition-colors shadow-xs"
             >
               {editingId ? 'Save Changes' : 'Publish Kurti to Store'}
             </button>
@@ -1354,19 +1354,19 @@ export const AdminProductManager: React.FC = () => {
       )}
 
       {/* Current Products Inventory Table */}
-      <div className="bg-white border border-[#E8DED2] overflow-hidden shadow-xs">
-        <div className="p-4 border-b border-[#E8DED2] bg-[#FAF7F2] flex items-center justify-between">
-          <span className="font-serif text-base font-bold text-[#292522]">
+      <div className="bg-white border border-[#D5C2D7] overflow-hidden shadow-xs">
+        <div className="p-4 border-b border-[#D5C2D7] bg-[#F6F0F4] flex items-center justify-between">
+          <span className="font-serif text-base font-bold text-[#554052]">
             Active Catalog ({products.length} Kurtis)
           </span>
-          <span className="text-xs text-[#9E897A]">
+          <span className="text-xs text-[#A185A4]">
             Modifications update your live storefront instantly
           </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#FAF7F2] text-[#9E897A] uppercase tracking-wider font-semibold border-b border-[#E8DED2]">
+            <thead className="bg-[#F6F0F4] text-[#A185A4] uppercase tracking-wider font-semibold border-b border-[#D5C2D7]">
               <tr>
                 <th className="py-3 px-4">Kurti</th>
                 <th className="py-3 px-4">Collection</th>
@@ -1377,37 +1377,37 @@ export const AdminProductManager: React.FC = () => {
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E8DED2]">
+            <tbody className="divide-y divide-[#D5C2D7]">
               {products.map((prod) => (
-                <tr key={prod.id} className="hover:bg-[#FAF7F2]/50 transition-colors">
+                <tr key={prod.id} className="hover:bg-[#F6F0F4]/50 transition-colors">
                   <td className="py-3 px-4 flex items-center gap-3">
                     <img
                       src={prod.images[0]}
                       alt=""
-                      className="w-10 h-12 object-cover border border-[#E8DED2] shrink-0"
+                      className="w-10 h-12 object-cover border border-[#D5C2D7] shrink-0"
                     />
                     <div>
-                      <p className="font-serif font-bold text-[#292522]">{prod.name}</p>
-                      <p className="font-mono text-[10px] text-[#9E897A]">{prod.sku}</p>
+                      <p className="font-serif font-bold text-[#554052]">{prod.name}</p>
+                      <p className="font-mono text-[10px] text-[#A185A4]">{prod.sku}</p>
                     </div>
                   </td>
-                  <td className="py-3 px-4 font-medium text-[#292522]">{prod.collection}</td>
+                  <td className="py-3 px-4 font-medium text-[#554052]">{prod.collection}</td>
                   <td className="py-3 px-4">
                     <div className="flex gap-1">
                       {prod.sizes.map((s) => (
                         <span
                           key={s}
-                          className="px-1.5 py-0.5 bg-[#FAF7F2] border border-[#E8DED2] text-[10px] font-mono"
+                          className="px-1.5 py-0.5 bg-[#F6F0F4] border border-[#D5C2D7] text-[10px] font-mono"
                         >
                           {s}
                         </span>
                       ))}
                     </div>
                   </td>
-                  <td className="py-3 px-4 font-mono font-semibold text-[#5B1E22] tabular-nums">
+                  <td className="py-3 px-4 font-mono font-semibold text-[#8C5A7D] tabular-nums">
                     ₹{prod.price.toLocaleString('en-IN')}
                   </td>
-                  <td className="py-3 px-4 text-[#292522]/80">
+                  <td className="py-3 px-4 text-[#554052]/80">
                     {prod.images.length} {prod.images.length === 1 ? 'photo' : 'photos'}
                   </td>
                   <td className="py-3 px-4">
@@ -1425,14 +1425,14 @@ export const AdminProductManager: React.FC = () => {
                     <div className="flex items-center justify-end gap-2">
                       <button
                         onClick={() => openProductDetails(prod)}
-                        className="p-1.5 text-[#292522] hover:text-[#5B1E22]"
+                        className="p-1.5 text-[#554052] hover:text-[#8C5A7D]"
                         title="View Live"
                       >
                         <Eye className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleStartEdit(prod)}
-                        className="p-1.5 text-[#5B1E22] hover:bg-[#FAF7F2]"
+                        className="p-1.5 text-[#8C5A7D] hover:bg-[#F6F0F4]"
                         title="Edit kurti & photos"
                       >
                         <Edit2 className="w-4 h-4" />

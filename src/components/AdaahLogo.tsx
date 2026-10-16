@@ -1,196 +1,234 @@
 import React from 'react';
 
-interface AdaahLogoProps {
+interface HouseOfRiiLogoProps {
   className?: string;
   variant?: 'primary' | 'stacked' | 'horizontal' | 'monogram' | 'emblem';
   theme?: 'light' | 'dark';
   showTagline?: boolean;
 }
 
-export const AdaahLogo: React.FC<AdaahLogoProps> = ({
+// Stylized Lotus Bloom from Official House of Rii Brand Identity
+export const HouseOfRiiLotus: React.FC<{
+  size?: number;
+  color?: string;
+  className?: string;
+}> = ({ size = 42, color = '#8C5A7D', className = '' }) => (
+  <svg
+    width={size}
+    height={size * 0.72}
+    viewBox="0 0 120 86"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={`shrink-0 transition-transform duration-300 ${className}`}
+  >
+    {/* Central Bloom Petal */}
+    <path
+      d="M60 6 C56 18 52 28 60 48 C68 28 64 18 60 6 Z"
+      stroke={color}
+      strokeWidth="2.2"
+      fill={color}
+      fillOpacity="0.08"
+      strokeLinejoin="round"
+    />
+    {/* Central Petal Vein */}
+    <path
+      d="M60 12 L60 40"
+      stroke={color}
+      strokeWidth="1.2"
+      strokeLinecap="round"
+      opacity="0.7"
+    />
+
+    {/* Inner Left Petal */}
+    <path
+      d="M60 48 C48 36 40 24 46 16 C53 22 56 34 60 48 Z"
+      stroke={color}
+      strokeWidth="2.0"
+      fill={color}
+      fillOpacity="0.06"
+      strokeLinejoin="round"
+    />
+
+    {/* Inner Right Petal */}
+    <path
+      d="M60 48 C72 36 80 24 74 16 C67 22 64 34 60 48 Z"
+      stroke={color}
+      strokeWidth="2.0"
+      fill={color}
+      fillOpacity="0.06"
+      strokeLinejoin="round"
+    />
+
+    {/* Outer Sweeping Left Petal */}
+    <path
+      d="M58 50 C38 48 24 38 32 26 C42 27 50 38 58 50 Z"
+      stroke={color}
+      strokeWidth="1.8"
+      fill={color}
+      fillOpacity="0.04"
+      strokeLinejoin="round"
+    />
+
+    {/* Outer Sweeping Right Petal */}
+    <path
+      d="M62 50 C82 48 96 38 88 26 C78 27 70 38 62 50 Z"
+      stroke={color}
+      strokeWidth="1.8"
+      fill={color}
+      fillOpacity="0.04"
+      strokeLinejoin="round"
+    />
+
+    {/* Elegant Lower Sweeping Tendril Flanking Left */}
+    <path
+      d="M18 52 C32 40 48 46 60 52"
+      stroke={color}
+      strokeWidth="1.8"
+      strokeLinecap="round"
+    />
+
+    {/* Elegant Lower Sweeping Tendril Flanking Right */}
+    <path
+      d="M102 52 C88 40 72 46 60 52"
+      stroke={color}
+      strokeWidth="1.8"
+      strokeLinecap="round"
+    />
+
+    {/* Base Calyx Anchor */}
+    <path
+      d="M52 52 C56 56 64 56 68 52"
+      stroke={color}
+      strokeWidth="2.0"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+// Ornamental Floral Divider with Lotus Bud: ── 🪷 ──
+export const HouseOfRiiDivider: React.FC<{ color?: string }> = ({ color = '#A185A4' }) => (
+  <div className="flex items-center justify-center gap-2.5 my-1 opacity-80">
+    <span className="h-[1px] w-8 sm:w-12 bg-current" style={{ color }} />
+    <svg width="14" height="12" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 1 C7 5 5 7 8 12 C11 7 9 5 8 1 Z" fill={color} />
+      <path d="M8 12 C5 9 3 7 5 5 C6.5 6.5 7.5 9 8 12 Z" fill={color} opacity="0.6" />
+      <path d="M8 12 C11 9 13 7 11 5 C9.5 6.5 8.5 9 8 12 Z" fill={color} opacity="0.6" />
+    </svg>
+    <span className="h-[1px] w-8 sm:w-12 bg-current" style={{ color }} />
+  </div>
+);
+
+export const HouseOfRiiLogo: React.FC<HouseOfRiiLogoProps> = ({
   className = '',
   variant = 'primary',
   theme = 'light',
   showTagline = true,
 }) => {
   const isDark = theme === 'dark';
-  const maroonColor = isDark ? '#FAF7F2' : '#5B1E22';
-  const goldColor = '#C9A76A';
-  const taglineColor = isDark ? '#E8DED2' : '#651F32';
+  const plumColor = isDark ? '#F6F0F4' : '#8C5A7D';
+  const textColor = isDark ? '#FAF7F2' : '#554052';
+  const accentColor = isDark ? '#D5C2D7' : '#A185A4';
 
-  // Stylized Lotus Blossom SVG (Matches the official ADAAH HOUSE brand icon)
-  const LotusFlower = ({ size = 32 }: { size?: number }) => (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 100 80"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="shrink-0 transition-transform duration-300"
-    >
-      {/* Topmost ornamental dots */}
-      <circle cx="50" cy="5" r="1.8" fill={goldColor} />
-      <circle cx="50" cy="11" r="2.2" fill={goldColor} />
+  // Circular Monogram with Floral Stem (from Brand Guidelines)
+  if (variant === 'monogram') {
+    return (
+      <div className={`inline-flex items-center justify-center select-none ${className}`}>
+        <div
+          className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full border flex items-center justify-center shadow-2xs transition-transform duration-300 hover:scale-105"
+          style={{
+            borderColor: accentColor,
+            backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : '#FFFFFF',
+          }}
+        >
+          {/* Stylized Rii Monogram */}
+          <div className="flex items-baseline relative">
+            <span
+              className="font-serif font-bold text-2xl sm:text-3xl tracking-tight"
+              style={{ color: plumColor }}
+            >
+              R
+            </span>
+            <span
+              className="font-serif font-light text-base sm:text-lg italic -ml-0.5"
+              style={{ color: accentColor }}
+            >
+              ii
+            </span>
+            {/* Delicate Sprouting Floral Bud Motif */}
+            <svg
+              className="absolute -top-1 -right-2 w-3.5 h-3.5"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 18 C10 12 14 8 16 3 C11 5 7 9 10 18 Z"
+                fill={plumColor}
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-      {/* Central Flame / Lotus Core */}
-      <path
-        d="M50 16 C48 24 45 32 50 44 C55 32 52 24 50 16 Z"
-        stroke={goldColor}
-        strokeWidth="2"
-        fill="none"
-        strokeLinecap="round"
-      />
-
-      {/* Inner Petals Left & Right */}
-      <path
-        d="M50 44 C42 34 38 23 44 19 C48 23 49 33 50 44 Z"
-        stroke={goldColor}
-        strokeWidth="1.8"
-        fill="none"
-      />
-      <path
-        d="M50 44 C58 34 62 23 56 19 C52 23 51 33 50 44 Z"
-        stroke={goldColor}
-        strokeWidth="1.8"
-        fill="none"
-      />
-
-      {/* Outer Sweeping Petals */}
-      <path
-        d="M50 46 C34 44 22 36 28 26 C36 25 43 35 50 46 Z"
-        stroke={goldColor}
-        strokeWidth="1.8"
-        fill="none"
-      />
-      <path
-        d="M50 46 C66 44 78 36 72 26 C64 25 57 35 50 46 Z"
-        stroke={goldColor}
-        strokeWidth="1.8"
-        fill="none"
-      />
-
-      {/* Base Calyx Curves */}
-      <path
-        d="M32 46 C40 52 46 54 50 54 C54 54 60 52 68 46"
-        stroke={goldColor}
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-
-      {/* Lower Stem & Suspended Diamond Droplet */}
-      <path d="M50 54 L50 62" stroke={goldColor} strokeWidth="1.5" strokeLinecap="round" />
-      <polygon points="50,65 52,69 50,73 48,69" fill={goldColor} />
-    </svg>
-  );
-
-  // Horizontal variant (Ideal for sticky navigation bar)
+  // Horizontal variant (Great for Navbar and Sticky Headers)
   if (variant === 'horizontal') {
     return (
-      <div className={`inline-flex items-center gap-3 select-none ${className}`}>
-        <LotusFlower size={34} />
+      <div className={`inline-flex items-center gap-3.5 select-none ${className}`}>
+        <HouseOfRiiLotus size={36} color={plumColor} />
         <div className="flex flex-col text-left">
           <div className="flex items-baseline gap-1.5">
             <span
-              className="font-serif tracking-[0.16em] text-xl font-bold leading-none"
-              style={{ color: maroonColor }}
+              className="font-serif tracking-[0.16em] text-xl sm:text-2xl font-bold leading-none"
+              style={{ color: plumColor }}
             >
-              ADAAH
-            </span>
-            <span
-              className="font-serif tracking-[0.24em] text-xs font-medium"
-              style={{ color: goldColor }}
-            >
-              HOUSE
+              HOUSE OF RII
             </span>
           </div>
-          {showTagline && (
-            <span
-              className="text-[9px] uppercase tracking-[0.24em] font-medium leading-tight mt-0.5"
-              style={{ color: taglineColor }}
-            >
-              Grace in every thread
-            </span>
-          )}
+          <div className="flex items-center justify-between text-[8px] sm:text-[9px] uppercase tracking-[0.32em] font-semibold mt-0.5" style={{ color: accentColor }}>
+            <span>ETHNIC WEAR</span>
+          </div>
         </div>
       </div>
     );
   }
 
-  // Monogram variant ("AH" monogram with floral stem)
-  if (variant === 'monogram') {
-    return (
-      <div className={`inline-flex flex-col items-center select-none ${className}`}>
-        <div className="relative w-12 h-12 flex items-center justify-center">
-          <span
-            className="font-serif text-3xl font-bold tracking-tight italic"
-            style={{ color: maroonColor }}
-          >
-            A
-          </span>
-          <span
-            className="font-serif text-3xl font-bold tracking-tight -ml-1"
-            style={{ color: goldColor }}
-          >
-            H
-          </span>
-        </div>
-        <span
-          className="text-[8px] uppercase tracking-[0.25em] font-semibold mt-0.5"
-          style={{ color: maroonColor }}
-        >
-          ADAAH HOUSE
-        </span>
-      </div>
-    );
-  }
-
-  // Emblem in traditional scalloped Indian arch
-  if (variant === 'emblem') {
-    return (
-      <div
-        className={`inline-flex items-center justify-center p-3 rounded-full border border-[#C9A76A]/40 bg-[#FAF7F2] ${className}`}
-      >
-        <LotusFlower size={38} />
-      </div>
-    );
-  }
-
-  // Primary Brand Logo (Stacked - Lotus on top, ADAAH, — HOUSE —, GRACE IN EVERY THREAD)
+  // Primary Stacked Logo (Centered as in official brand sheet)
   return (
-    <div className={`flex flex-col items-center text-center select-none ${className}`}>
-      <LotusFlower size={42} />
-      
-      {/* ADAAH Wordmark */}
-      <h1
-        className="font-serif text-2xl sm:text-3xl tracking-[0.2em] font-bold mt-1.5 leading-none transition-colors"
-        style={{ color: maroonColor }}
-      >
-        ADAAH
+    <div className={`inline-flex flex-col items-center justify-center text-center select-none ${className}`}>
+      {/* Lotus Bloom Icon */}
+      <HouseOfRiiLotus size={variant === 'stacked' ? 48 : 56} color={plumColor} />
+
+      {/* Brand Title: HOUSE OF RII */}
+      <h1 className="font-serif font-bold tracking-[0.18em] text-2xl sm:text-3xl lg:text-4xl leading-none mt-2">
+        <span style={{ color: plumColor }}>HOUSE OF RII</span>
       </h1>
 
-      {/* — HOUSE — with gold accents */}
-      <div className="flex items-center justify-center gap-2 mt-1.5 w-full max-w-[170px]">
-        <span className="h-[0.5px] flex-1 bg-[#C9A76A]/70" />
-        <span className="text-[7px] text-[#C9A76A]">✦</span>
-        <span
-          className="font-serif tracking-[0.32em] text-[11px] sm:text-xs font-semibold uppercase"
-          style={{ color: goldColor }}
-        >
-          HOUSE
-        </span>
-        <span className="text-[7px] text-[#C9A76A]">✦</span>
-        <span className="h-[0.5px] flex-1 bg-[#C9A76A]/70" />
-      </div>
+      {/* Subtitle: ETHNIC WEAR */}
+      <p
+        className="text-[9px] sm:text-[10px] uppercase tracking-[0.38em] font-semibold mt-1"
+        style={{ color: textColor }}
+      >
+        ETHNIC WEAR
+      </p>
 
-      {/* Official Tagline */}
+      {/* Ornamental Floral Divider */}
+      {showTagline && <HouseOfRiiDivider color={accentColor} />}
+
+      {/* Brand Tagline from Guidelines */}
       {showTagline && (
-        <p
-          className="text-[9px] sm:text-[10px] uppercase tracking-[0.28em] font-medium mt-1.5"
-          style={{ color: taglineColor }}
+        <span
+          className="font-serif italic text-xs sm:text-sm tracking-wide mt-0.5"
+          style={{ color: textColor }}
         >
-          Grace in every thread
-        </p>
+          Tradition, Styled Your Way.
+        </span>
       )}
     </div>
   );
 };
+
+// Backwards-compatible alias for existing imports
+export const AdaahLogo = HouseOfRiiLogo;
+export default HouseOfRiiLogo;

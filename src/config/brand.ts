@@ -1,27 +1,28 @@
 export const BRAND_CONFIG = {
-  name: 'ADAAH HOUSE',
-  tagline: 'GRACE IN EVERY THREAD.',
-  subTagline: 'Curated Indian Ethnic Wear for Everyday Luxury',
-  businessModelNote: 'Thoughtfully curated ready-made kurtis and ethnic ensembles retailed with love.',
+  name: 'HOUSE OF RII',
+  tagline: 'Tradition, Styled Your Way.',
+  subTagline: 'ELEGANT KURTAS, KURTA SETS AND CO-ORDS FOR EVERY YOU',
+  businessModelNote: 'Curated Indian ethnic wear rooted in tradition, crafted for everyday luxury and celebratory moments.',
   
   contact: {
     phone: '7357804296',
     whatsappFormatted: '+91 73578 04296',
     whatsappRaw: '917357804296',
-    email: 'aadahhouse@gmail.com',
+    email: 'aadahhouse@gmail.com', // Active operational inbox
+    brandEmail: 'care@houseofrii.com',
     supportHours: 'Mon – Sat, 10:00 AM – 7:00 PM IST',
     location: 'Rajasthan, India',
   },
   
   social: {
-    instagram: '@adaahhouse',
-    instagramUrl: 'https://instagram.com/adaahhouse',
+    instagram: '@houseofrii',
+    instagramUrl: 'https://instagram.com/houseofrii',
     whatsappUrl: 'https://wa.me/917357804296',
   },
 
   payment: {
     upiId: '7357804296@ybl',
-    merchantName: 'ADAAH HOUSE',
+    merchantName: 'HOUSE OF RII',
     supportNumber: '7357804296',
     gatewayOptions: 'PhonePe / Google Pay / BHIM / Direct UPI',
   },
@@ -34,33 +35,41 @@ export const BRAND_CONFIG = {
     codAvailable: true,
   },
   
+  // Official Mauve & Plum Brand Palette from Guidelines
   colors: {
-    maroon: '#5B1E22',
-    ivory: '#FAF7F2',
-    gold: '#C9A76A',
-    beige: '#E8DED2',
-    sage: '#7A8061',
-    rose: '#C98A8E',
-    taupe: '#9E897A',
-    charcoal: '#292522',
+    softLilac: '#F6F0F4',     // Backgrounds
+    dustyMauve: '#D5C2D7',    // Accents & Borders
+    mutedViolet: '#A185A4',   // Buttons & Highlights
+    plum: '#8C5A7D',          // Headings & Key Elements
+    deepPlum: '#554052',      // Text & Dark Contrast
+    
+    // Semantic mappings for compatibility
+    maroon: '#8C5A7D',        // maps to Plum
+    ivory: '#F6F0F4',         // maps to Soft Lilac
+    gold: '#A185A4',          // maps to Muted Violet
+    beige: '#D5C2D7',         // maps to Dusty Mauve
+    sage: '#A185A4',
+    rose: '#D5C2D7',
+    taupe: '#8C5A7D',
+    charcoal: '#554052',      // maps to Deep Plum
   },
   
   packagingQuote: {
-    title: 'A little Adaah in every outfit.',
-    body: 'Thank you for choosing Adaah House. We hope this piece brings a little extra grace to your everyday moments.',
-    signature: 'With love, Adaah House',
+    title: 'Tradition, Styled Your Way.',
+    body: 'Thank you for choosing House of Rii. We hope this piece brings comfort, grace, and timeless elegance to your story.',
+    signature: 'With love, House of Rii',
   },
   
   coupons: [
     {
-      code: 'ADAAH10',
+      code: 'RII10',
       description: '10% off on all orders above ₹999',
       type: 'percentage' as const,
       value: 10,
       minOrder: 999,
     },
     {
-      code: 'FIRSTGRACE',
+      code: 'HOUSEOFRII',
       description: 'Flat ₹200 off your first purchase above ₹1,499',
       type: 'fixed' as const,
       value: 200,
@@ -72,6 +81,13 @@ export const BRAND_CONFIG = {
       type: 'percentage' as const,
       value: 15,
       minOrder: 2499,
+    },
+    {
+      code: 'ADAAH10',
+      description: '10% loyalty discount',
+      type: 'percentage' as const,
+      value: 10,
+      minOrder: 999,
     },
   ],
 };

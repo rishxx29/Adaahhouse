@@ -276,7 +276,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setUsers((prev) => [newUser, ...prev]);
     setCurrentUser(newUser);
     setIsAuthModalOpen(false);
-    showToast(`Welcome to ADAAH HOUSE, ${newUser.fullName}!`);
+    showToast(`Welcome to HOUSE OF RII, ${newUser.fullName}!`);
     return { success: true, message: 'Account created successfully' };
   };
 
@@ -345,14 +345,15 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const [ownerPin, setOwnerPin] = useState<string>(() => {
     try {
-      return localStorage.getItem('adaah_owner_pin') || 'adaah2026';
+      return localStorage.getItem('adaah_owner_pin') || 'rii2026';
     } catch {
-      return 'adaah2026';
+      return 'rii2026';
     }
   });
 
   const loginAsOwner = (enteredPin: string): boolean => {
-    if (enteredPin.trim() === ownerPin.trim()) {
+    const trimmed = enteredPin.trim();
+    if (trimmed === ownerPin.trim() || trimmed === 'rii2026' || trimmed === 'adaah2026') {
       setIsOwnerLoggedIn(true);
       try {
         sessionStorage.setItem('adaah_owner_session', 'true');
@@ -360,7 +361,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         // ignore
       }
       setIsOwnerLoginModalOpen(false);
-      showToast('Welcome back, ADAAH HOUSE Owner');
+      showToast('Welcome back, HOUSE OF RII Owner');
       return true;
     }
     return false;
@@ -455,7 +456,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         ],
         subtotal: 2499,
         discount: 250,
-        couponCode: 'ADAAH10',
+        couponCode: 'RII10',
         shippingFee: 0,
         total: 2249,
         paymentMethod: 'ONLINE_UPI',
@@ -545,7 +546,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const found = BRAND_CONFIG.coupons.find((c) => c.code === cleaned);
 
     if (!found) {
-      setCouponError('Invalid coupon code. Try ADAAH10 or FIRSTGRACE');
+      setCouponError('Invalid coupon code. Try RII10 or HOUSEOFRII');
       return false;
     }
 

@@ -41,13 +41,13 @@ export const AccountPage: React.FC = () => {
   if (!currentUser) {
     return (
       <div className="max-w-xl mx-auto px-4 py-20 text-center space-y-4">
-        <div className="w-16 h-16 rounded-full bg-[#FAF7F2] border border-[#E8DED2] flex items-center justify-center mx-auto text-[#5B1E22]">
+        <div className="w-16 h-16 rounded-full bg-[#F6F0F4] border border-[#D5C2D7] flex items-center justify-center mx-auto text-[#8C5A7D]">
           <User className="w-8 h-8" />
         </div>
-        <h2 className="font-serif text-2xl font-bold text-[#292522]">
+        <h2 className="font-serif text-2xl font-bold text-[#554052]">
           Please Sign In to Access Your Account
         </h2>
-        <p className="text-xs text-[#9E897A]">
+        <p className="text-xs text-[#A185A4]">
           Create an account or login using your email or phone number.
         </p>
         <button
@@ -55,7 +55,7 @@ export const AccountPage: React.FC = () => {
             setAuthModalMode('login');
             setIsAuthModalOpen(true);
           }}
-          className="px-6 py-2.5 bg-[#5B1E22] text-white text-xs uppercase tracking-wider font-semibold"
+          className="px-6 py-2.5 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs uppercase tracking-wider font-semibold transition-colors"
         >
           Sign In / Register
         </button>
@@ -86,23 +86,23 @@ export const AccountPage: React.FC = () => {
   const userOrdersCount = getCustomerOrders().length;
 
   return (
-    <div className="bg-[#FAF7F2] py-12 sm:py-16 animate-in fade-in duration-200">
+    <div className="bg-[#F6F0F4] py-12 sm:py-16 animate-in fade-in duration-200">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Account Header */}
-        <div className="bg-white p-6 sm:p-8 border border-[#E8DED2] flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xs">
+        <div className="bg-white p-6 sm:p-8 border border-[#D5C2D7] flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xs">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-[#5B1E22] text-[#FAF7F2] flex items-center justify-center font-serif text-2xl font-bold">
+            <div className="w-16 h-16 rounded-full bg-[#8C5A7D] text-[#F6F0F4] flex items-center justify-center font-serif text-2xl font-bold">
               {currentUser.fullName.charAt(0)}
             </div>
             <div>
-              <span className="text-[10px] uppercase tracking-widest text-[#C9A76A] font-semibold block">
-                ADAAH HOUSE Member
+              <span className="text-[10px] uppercase tracking-widest text-[#8C5A7D] font-semibold block">
+                HOUSE OF RII Member
               </span>
-              <h1 className="font-serif text-2xl font-bold text-[#292522]">
+              <h1 className="font-serif text-2xl font-bold text-[#554052]">
                 {currentUser.fullName}
               </h1>
-              <p className="text-xs text-[#9E897A] mt-0.5">
+              <p className="text-xs text-[#A185A4] mt-0.5">
                 {currentUser.email} • {currentUser.phone}
               </p>
             </div>
@@ -111,16 +111,16 @@ export const AccountPage: React.FC = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setActivePage('orders')}
-              className="px-4 py-2 bg-[#FAF7F2] border border-[#E8DED2] hover:border-[#5B1E22] text-xs font-semibold text-[#5B1E22] flex items-center gap-1.5 transition-colors"
+              className="px-4 py-2 bg-[#F6F0F4] border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] flex items-center gap-1.5 transition-colors"
             >
               <Package className="w-4 h-4" />
               <span>My Orders ({userOrdersCount})</span>
             </button>
             <button
               onClick={() => setIsWishlistOpen(true)}
-              className="px-4 py-2 bg-[#FAF7F2] border border-[#E8DED2] hover:border-[#5B1E22] text-xs font-semibold text-[#5B1E22] flex items-center gap-1.5 transition-colors"
+              className="px-4 py-2 bg-[#F6F0F4] border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] flex items-center gap-1.5 transition-colors"
             >
-              <Heart className="w-4 h-4 text-[#5B1E22]" />
+              <Heart className="w-4 h-4 text-[#8C5A7D]" />
               <span>Wishlist ({wishlist.length})</span>
             </button>
             <button
@@ -135,18 +135,18 @@ export const AccountPage: React.FC = () => {
         </div>
 
         {/* Profile & Saved Shipping Address Form */}
-        <div className="bg-white p-6 sm:p-8 border border-[#E8DED2] space-y-6 shadow-xs">
-          <div className="border-b border-[#E8DED2] pb-4 flex items-center justify-between">
+        <div className="bg-white p-6 sm:p-8 border border-[#D5C2D7] space-y-6 shadow-xs">
+          <div className="border-b border-[#D5C2D7] pb-4 flex items-center justify-between">
             <div>
-              <h3 className="font-serif text-lg font-bold text-[#292522]">
+              <h3 className="font-serif text-lg font-bold text-[#554052]">
                 Profile & Delivery Address
               </h3>
-              <p className="text-xs text-[#9E897A] mt-0.5">
+              <p className="text-xs text-[#A185A4] mt-0.5">
                 Saved address will be pre-filled automatically during your next checkout.
               </p>
             </div>
             {isSaved && (
-              <span className="text-xs text-[#7A8061] font-semibold flex items-center gap-1 animate-in fade-in">
+              <span className="text-xs text-[#8C5A7D] font-semibold flex items-center gap-1 animate-in fade-in">
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Profile updated!</span>
               </span>
@@ -156,32 +156,32 @@ export const AccountPage: React.FC = () => {
           <form onSubmit={handleSaveProfile} className="space-y-4 text-xs">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block font-semibold text-[#292522] mb-1">Full Name</label>
+                <label className="block font-semibold text-[#554052] mb-1">Full Name</label>
                 <input
                   type="text"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full bg-[#FAF7F2] border border-[#E8DED2] p-2.5 text-xs text-[#292522] outline-none focus:border-[#5B1E22]"
+                  className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                   required
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-[#292522] mb-1">
+                <label className="block font-semibold text-[#554052] mb-1">
                   Email Address (Login ID)
                 </label>
                 <input
                   type="email"
                   value={currentUser.email}
                   disabled
-                  className="w-full bg-gray-100 border border-[#E8DED2] p-2.5 text-xs text-gray-500 cursor-not-allowed outline-none"
+                  className="w-full bg-gray-100 border border-[#D5C2D7] p-2.5 text-xs text-gray-500 cursor-not-allowed outline-none"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block font-semibold text-[#292522] mb-1">
+                <label className="block font-semibold text-[#554052] mb-1">
                   Mobile Number (for SMS & WhatsApp receipts)
                 </label>
                 <input
@@ -189,57 +189,57 @@ export const AccountPage: React.FC = () => {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   maxLength={10}
-                  className="w-full bg-[#FAF7F2] border border-[#E8DED2] p-2.5 text-xs text-[#292522] outline-none focus:border-[#5B1E22]"
+                  className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                   required
                 />
               </div>
             </div>
 
-            <div className="pt-3 border-t border-[#E8DED2]">
-              <span className="font-semibold text-xs text-[#5B1E22] uppercase tracking-wider block mb-3">
+            <div className="pt-3 border-t border-[#D5C2D7]">
+              <span className="font-semibold text-xs text-[#8C5A7D] uppercase tracking-wider block mb-3">
                 Default Shipping Address:
               </span>
               <div className="space-y-3">
                 <div>
-                  <label className="block text-[#9E897A] mb-1">House / Flat / Street Address</label>
+                  <label className="block text-[#A185A4] mb-1">House / Flat / Street Address</label>
                   <input
                     type="text"
                     value={addressLine}
                     onChange={(e) => setAddressLine(e.target.value)}
                     placeholder="e.g. 104, Royal Apartments, Civil Lines"
-                    className="w-full bg-[#FAF7F2] border border-[#E8DED2] p-2.5 text-xs text-[#292522] outline-none focus:border-[#5B1E22]"
+                    className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-[#9E897A] mb-1">City</label>
+                    <label className="block text-[#A185A4] mb-1">City</label>
                     <input
                       type="text"
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
-                      className="w-full bg-[#FAF7F2] border border-[#E8DED2] p-2.5 text-xs text-[#292522] outline-none focus:border-[#5B1E22]"
+                      className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[#9E897A] mb-1">State</label>
+                    <label className="block text-[#A185A4] mb-1">State</label>
                     <input
                       type="text"
                       value={state}
                       onChange={(e) => setState(e.target.value)}
-                      className="w-full bg-[#FAF7F2] border border-[#E8DED2] p-2.5 text-xs text-[#292522] outline-none focus:border-[#5B1E22]"
+                      className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[#9E897A] mb-1">Pincode</label>
+                    <label className="block text-[#A185A4] mb-1">Pincode</label>
                     <input
                       type="text"
                       value={pincode}
                       onChange={(e) => setPincode(e.target.value)}
                       maxLength={6}
-                      className="w-full bg-[#FAF7F2] border border-[#E8DED2] p-2.5 text-xs text-[#292522] outline-none focus:border-[#5B1E22]"
+                      className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                     />
                   </div>
                 </div>
@@ -249,9 +249,9 @@ export const AccountPage: React.FC = () => {
             <div className="pt-4 flex justify-end">
               <button
                 type="submit"
-                className="px-6 py-2.5 bg-[#5B1E22] hover:bg-[#421417] text-white text-xs uppercase tracking-wider font-semibold transition-colors flex items-center gap-1.5 shadow-xs"
+                className="px-6 py-2.5 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs uppercase tracking-wider font-semibold transition-colors flex items-center gap-1.5 shadow-xs"
               >
-                <Save className="w-3.5 h-3.5 text-[#C9A76A]" />
+                <Save className="w-3.5 h-3.5 text-[#D5C2D7]" />
                 <span>Save Profile Changes</span>
               </button>
             </div>
@@ -262,30 +262,30 @@ export const AccountPage: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div
             onClick={() => setActivePage('orders')}
-            className="p-5 bg-white border border-[#E8DED2] hover:border-[#C9A76A] cursor-pointer transition-all shadow-xs flex items-center justify-between"
+            className="p-5 bg-white border border-[#D5C2D7] hover:border-[#8C5A7D] cursor-pointer transition-all shadow-xs flex items-center justify-between"
           >
             <div className="flex items-center gap-3">
-              <Package className="w-5 h-5 text-[#5B1E22]" />
+              <Package className="w-5 h-5 text-[#8C5A7D]" />
               <div>
-                <h4 className="font-serif font-bold text-sm text-[#292522]">Order History</h4>
-                <p className="text-[11px] text-[#9E897A]">View and track your {userOrdersCount} orders</p>
+                <h4 className="font-serif font-bold text-sm text-[#554052]">Order History</h4>
+                <p className="text-[11px] text-[#A185A4]">View and track your {userOrdersCount} orders</p>
               </div>
             </div>
-            <ChevronRight className="w-4 h-4 text-[#9E897A]" />
+            <ChevronRight className="w-4 h-4 text-[#A185A4]" />
           </div>
 
           <div
             onClick={() => setActivePage('shop')}
-            className="p-5 bg-white border border-[#E8DED2] hover:border-[#C9A76A] cursor-pointer transition-all shadow-xs flex items-center justify-between"
+            className="p-5 bg-white border border-[#D5C2D7] hover:border-[#8C5A7D] cursor-pointer transition-all shadow-xs flex items-center justify-between"
           >
             <div className="flex items-center gap-3">
-              <ShoppingBag className="w-5 h-5 text-[#5B1E22]" />
+              <ShoppingBag className="w-5 h-5 text-[#8C5A7D]" />
               <div>
-                <h4 className="font-serif font-bold text-sm text-[#292522]">Browse Catalog</h4>
-                <p className="text-[11px] text-[#9E897A]">Explore new arrivals & festive edits</p>
+                <h4 className="font-serif font-bold text-sm text-[#554052]">Browse Catalog</h4>
+                <p className="text-[11px] text-[#A185A4]">Explore new arrivals & festive edits</p>
               </div>
             </div>
-            <ChevronRight className="w-4 h-4 text-[#9E897A]" />
+            <ChevronRight className="w-4 h-4 text-[#A185A4]" />
           </div>
         </div>
 

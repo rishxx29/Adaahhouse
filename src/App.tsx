@@ -105,7 +105,7 @@ const MainLayout: React.FC = () => {
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-30 p-3.5 bg-[#25D366] text-white rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 flex items-center gap-2 group"
         aria-label="Order or Chat on WhatsApp"
-        title="Chat with ADAAH HOUSE on WhatsApp"
+        title="Chat with HOUSE OF RII on WhatsApp"
       >
         <MessageCircle className="w-5 h-5 fill-current" />
         <span className="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out text-xs font-semibold pr-1">
@@ -115,8 +115,8 @@ const MainLayout: React.FC = () => {
 
       {/* 6. Subtle Feedback Toast */}
       {toast && (
-        <div className="fixed bottom-6 left-6 z-50 bg-[#292522] text-[#FAF7F2] px-4 py-3 rounded-xs shadow-lg border border-[#C9A76A]/40 text-xs font-medium flex items-center gap-2 animate-in slide-in-from-bottom-2 duration-200">
-          <Check className="w-4 h-4 text-[#C9A76A]" />
+        <div className="fixed bottom-6 left-6 z-50 bg-[#554052] text-[#F6F0F4] px-4 py-3 rounded-xs shadow-lg border border-[#D5C2D7] text-xs font-medium flex items-center gap-2 animate-in slide-in-from-bottom-2 duration-200">
+          <Check className="w-4 h-4 text-[#D5C2D7]" />
           <span>{toast}</span>
         </div>
       )}

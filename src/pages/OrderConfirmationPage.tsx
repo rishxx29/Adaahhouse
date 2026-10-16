@@ -79,10 +79,10 @@ export const OrderConfirmationPage: React.FC = () => {
   if (!lastOrder) {
     return (
       <div className="max-w-xl mx-auto px-4 py-20 text-center space-y-4">
-        <p className="font-serif text-xl font-bold text-[#292522]">No recent order found</p>
+        <p className="font-serif text-xl font-bold text-[#554052]">No recent order found</p>
         <button
           onClick={() => setActivePage('shop')}
-          className="px-6 py-2.5 bg-[#5B1E22] text-white text-xs uppercase tracking-wider font-semibold"
+          className="px-6 py-2.5 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs uppercase tracking-wider font-semibold transition-colors"
         >
           Explore Collection
         </button>
@@ -138,40 +138,40 @@ export const OrderConfirmationPage: React.FC = () => {
   const isSimulated = notificationResult?.simulated ?? true;
 
   return (
-    <div className="bg-[#FAF7F2] py-12 sm:py-16 animate-in fade-in duration-300 print:bg-white print:py-0">
+    <div className="bg-[#F6F0F4] py-12 sm:py-16 animate-in fade-in duration-300 print:bg-white print:py-0">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* 1. Success Banner */}
-        <div className="bg-white p-8 sm:p-10 border border-[#E8DED2] text-center space-y-4 shadow-sm relative overflow-hidden">
+        <div className="bg-white p-8 sm:p-10 border border-[#D5C2D7] text-center space-y-4 shadow-sm relative overflow-hidden">
           {/* Decorative luxury gradient top accent */}
-          <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#5B1E22] via-[#C9A76A] to-[#5B1E22]" />
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#8C5A7D] via-[#A185A4] to-[#8C5A7D]" />
 
-          <div className="w-20 h-20 rounded-full bg-[#7A8061]/15 text-[#7A8061] flex items-center justify-center mx-auto shadow-inner ring-8 ring-[#7A8061]/5 animate-in zoom-in-75 duration-300">
+          <div className="w-20 h-20 rounded-full bg-[#8C5A7D]/15 text-[#8C5A7D] flex items-center justify-center mx-auto shadow-inner ring-8 ring-[#8C5A7D]/5 animate-in zoom-in-75 duration-300">
             <CheckCircle2 className="w-12 h-12" />
           </div>
 
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-[#7A8061]/10 border border-[#7A8061]/30 text-[#7A8061] text-[11px] font-bold uppercase tracking-widest rounded-full">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-[#8C5A7D]/10 border border-[#8C5A7D]/30 text-[#8C5A7D] text-[11px] font-bold uppercase tracking-widest rounded-full">
             <span>Payment Received · Order Confirmed</span>
           </div>
 
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[#292522] tracking-tight">
+          <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[#554052] tracking-tight">
             Order Placed Successfully!
           </h1>
 
-          <p className="font-serif text-lg sm:text-xl text-[#5B1E22] font-semibold italic">
-            Thank you for ordering from ADAAH HOUSE
+          <p className="font-serif text-lg sm:text-xl text-[#8C5A7D] font-semibold italic">
+            Thank you for ordering from HOUSE OF RII
           </p>
 
-          <p className="text-xs sm:text-sm text-[#292522]/80 max-w-lg mx-auto leading-relaxed">
-            Grace in every thread. We have received your order details and payment confirmation. Our master artisans and dispatch team are now preparing your handcrafted pieces with care.
+          <p className="text-xs sm:text-sm text-[#554052]/80 max-w-lg mx-auto leading-relaxed">
+            Tradition, Styled Your Way. We have received your order details and payment confirmation. Our team is now preparing your curated pieces with care.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-2 pt-1 text-xs">
-            <span className="font-mono px-3.5 py-1.5 bg-[#FAF7F2] border border-[#E8DED2] text-[#5B1E22] font-bold">
+            <span className="font-mono px-3.5 py-1.5 bg-[#F6F0F4] border border-[#D5C2D7] text-[#8C5A7D] font-bold">
               Order ID: {lastOrder.orderNumber}
             </span>
-            <span className="px-3.5 py-1.5 bg-[#FAF7F2] border border-[#E8DED2] text-[#292522] font-medium flex items-center gap-1.5">
-              <Truck className="w-3.5 h-3.5 text-[#C9A76A]" />
+            <span className="px-3.5 py-1.5 bg-[#F6F0F4] border border-[#D5C2D7] text-[#554052] font-medium flex items-center gap-1.5">
+              <Truck className="w-3.5 h-3.5 text-[#8C5A7D]" />
               <span>Est. Delivery: <strong>{lastOrder.estimatedDeliveryDate}</strong></span>
             </span>
           </div>
@@ -183,9 +183,9 @@ export const OrderConfirmationPage: React.FC = () => {
                 setActivePage('home');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="px-7 py-3 bg-[#5B1E22] hover:bg-[#421417] text-white text-xs uppercase tracking-widest font-semibold flex items-center gap-2 transition-all shadow-md hover:scale-[1.02] cursor-pointer"
+              className="px-7 py-3 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs uppercase tracking-widest font-semibold flex items-center gap-2 transition-all shadow-md hover:scale-[1.02] cursor-pointer"
             >
-              <Home className="w-4 h-4 text-[#C9A76A]" />
+              <Home className="w-4 h-4 text-[#D5C2D7]" />
               <span>Go to Home Page</span>
             </button>
 
@@ -194,9 +194,9 @@ export const OrderConfirmationPage: React.FC = () => {
                 setActivePage('orders');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="px-6 py-3 bg-white hover:bg-[#FAF7F2] border border-[#5B1E22] text-[#5B1E22] text-xs uppercase tracking-wider font-semibold flex items-center gap-2 transition-colors cursor-pointer"
+              className="px-6 py-3 bg-white hover:bg-[#F6F0F4] border border-[#8C5A7D] text-[#8C5A7D] text-xs uppercase tracking-wider font-semibold flex items-center gap-2 transition-colors cursor-pointer"
             >
-              <Package className="w-4 h-4 text-[#5B1E22]" />
+              <Package className="w-4 h-4 text-[#8C5A7D]" />
               <span>View in "My Orders"</span>
             </button>
 
@@ -205,30 +205,28 @@ export const OrderConfirmationPage: React.FC = () => {
                 setActivePage('shop');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="px-6 py-3 bg-[#FAF7F2] hover:bg-[#E8DED2] border border-[#E8DED2] text-[#292522] text-xs uppercase tracking-wider font-semibold flex items-center gap-2 transition-colors cursor-pointer"
+              className="px-6 py-3 bg-[#F6F0F4] hover:bg-[#D5C2D7] border border-[#D5C2D7] text-[#554052] text-xs uppercase tracking-wider font-semibold flex items-center gap-2 transition-colors cursor-pointer"
             >
-              <ShoppingBag className="w-4 h-4 text-[#9E897A]" />
+              <ShoppingBag className="w-4 h-4 text-[#A185A4]" />
               <span>Continue Shopping</span>
             </button>
           </div>
         </div>
 
-
-
         {/* 3. Order Details & Receipt */}
-        <div className="bg-white p-6 sm:p-8 border border-[#E8DED2] space-y-6 shadow-xs">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E8DED2] text-xs">
+        <div className="bg-white p-6 sm:p-8 border border-[#D5C2D7] space-y-6 shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#D5C2D7] text-xs">
             <div>
-              <span className="text-[#9E897A] block">Estimated Delivery Date</span>
-              <strong className="text-sm font-semibold text-[#5B1E22]">
+              <span className="text-[#A185A4] block">Estimated Delivery Date</span>
+              <strong className="text-sm font-semibold text-[#8C5A7D]">
                 {lastOrder.estimatedDeliveryDate}
               </strong>
             </div>
             <div>
-              <span className="text-[#9E897A] block">Payment Method</span>
+              <span className="text-[#A185A4] block">Payment Method</span>
               <span
                 className={`font-semibold uppercase text-[11px] ${
-                  lastOrder.paymentStatus === 'PAID' ? 'text-[#7A8061]' : 'text-[#C9A76A]'
+                  lastOrder.paymentStatus === 'PAID' ? 'text-[#8C5A7D]' : 'text-[#A185A4]'
                 }`}
               >
                 {lastOrder.paymentMethod === 'COD'
@@ -241,7 +239,7 @@ export const OrderConfirmationPage: React.FC = () => {
             <div className="print:hidden">
               <button
                 onClick={handlePrint}
-                className="px-3 py-1.5 border border-[#E8DED2] hover:bg-[#FAF7F2] text-[#292522] flex items-center gap-1.5 font-medium transition-colors"
+                className="px-3 py-1.5 border border-[#D5C2D7] hover:bg-[#F6F0F4] text-[#554052] flex items-center gap-1.5 font-medium transition-colors"
               >
                 <Printer className="w-3.5 h-3.5" />
                 <span>Print Invoice</span>
@@ -251,26 +249,26 @@ export const OrderConfirmationPage: React.FC = () => {
 
           {/* Items Purchased List */}
           <div className="space-y-4">
-            <h3 className="font-serif text-base font-bold text-[#292522]">
+            <h3 className="font-serif text-base font-bold text-[#554052]">
               Garments in this Order ({lastOrder.items.length})
             </h3>
-            <div className="divide-y divide-[#E8DED2]">
+            <div className="divide-y divide-[#D5C2D7]">
               {lastOrder.items.map((item) => (
                 <div key={item.id} className="py-3 flex items-center gap-4 text-xs">
                   <img
                     src={item.product.images[0]}
                     alt=""
-                    className="w-14 h-16 object-cover border border-[#E8DED2] shrink-0"
+                    className="w-14 h-16 object-cover border border-[#D5C2D7] shrink-0"
                   />
                   <div className="flex-1">
-                    <p className="font-serif font-bold text-[#292522] text-sm">
+                    <p className="font-serif font-bold text-[#554052] text-sm">
                       {item.product.name}
                     </p>
-                    <p className="text-[11px] text-[#9E897A]">
-                      Kurti Size: <strong className="text-[#5B1E22]">{item.selectedSize}</strong> · Qty: {item.quantity}
+                    <p className="text-[11px] text-[#A185A4]">
+                      Kurti Size: <strong className="text-[#8C5A7D]">{item.selectedSize}</strong> · Qty: {item.quantity}
                     </p>
                   </div>
-                  <span className="font-mono text-sm font-semibold text-[#5B1E22] tabular-nums">
+                  <span className="font-mono text-sm font-semibold text-[#8C5A7D] tabular-nums">
                     ₹{(item.product.price * item.quantity).toLocaleString('en-IN')}
                   </span>
                 </div>
@@ -279,13 +277,13 @@ export const OrderConfirmationPage: React.FC = () => {
           </div>
 
           {/* Price Breakdown */}
-          <div className="pt-4 border-t border-[#E8DED2] space-y-2 text-xs text-[#292522]/80">
+          <div className="pt-4 border-t border-[#D5C2D7] space-y-2 text-xs text-[#554052]/80">
             <div className="flex justify-between">
               <span>Subtotal</span>
               <span className="font-mono tabular-nums">₹{lastOrder.subtotal.toLocaleString('en-IN')}</span>
             </div>
             {lastOrder.discount > 0 && (
-              <div className="flex justify-between text-[#7A8061] font-medium">
+              <div className="flex justify-between text-[#8C5A7D] font-medium">
                 <span>Discount ({lastOrder.couponCode})</span>
                 <span className="font-mono tabular-nums">-₹{lastOrder.discount.toLocaleString('en-IN')}</span>
               </div>
@@ -296,25 +294,25 @@ export const OrderConfirmationPage: React.FC = () => {
                 {lastOrder.shippingFee === 0 ? 'FREE' : `₹${lastOrder.shippingFee}`}
               </span>
             </div>
-            <div className="pt-2 border-t border-[#E8DED2] flex justify-between text-base font-bold text-[#292522]">
+            <div className="pt-2 border-t border-[#D5C2D7] flex justify-between text-base font-bold text-[#554052]">
               <span className="font-serif">Total Paid / Payable</span>
-              <span className="font-mono text-[#5B1E22] tabular-nums">
+              <span className="font-mono text-[#8C5A7D] tabular-nums">
                 ₹{lastOrder.total.toLocaleString('en-IN')}
               </span>
             </div>
           </div>
 
           {/* Shipping Address Summary */}
-          <div className="pt-4 border-t border-[#E8DED2] text-xs space-y-1">
-            <span className="text-[#9E897A] font-semibold uppercase tracking-wider block">
+          <div className="pt-4 border-t border-[#D5C2D7] text-xs space-y-1">
+            <span className="text-[#A185A4] font-semibold uppercase tracking-wider block">
               Delivery Address:
             </span>
-            <p className="font-semibold text-[#292522]">{lastOrder.shippingAddress.fullName}</p>
-            <p className="text-[#292522]/80">
+            <p className="font-semibold text-[#554052]">{lastOrder.shippingAddress.fullName}</p>
+            <p className="text-[#554052]/80">
               {lastOrder.shippingAddress.addressLine}{lastOrder.shippingAddress.locality ? `, ${lastOrder.shippingAddress.locality}` : ''}, {lastOrder.shippingAddress.city},{' '}
               {lastOrder.shippingAddress.state} — {lastOrder.shippingAddress.pincode}
             </p>
-            <p className="text-[#292522]/80">
+            <p className="text-[#554052]/80">
               Phone: {lastOrder.shippingAddress.phone} | Email: {lastOrder.shippingAddress.email}
             </p>
           </div>
@@ -328,9 +326,9 @@ export const OrderConfirmationPage: React.FC = () => {
                 setActivePage('home');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="w-full sm:w-auto px-6 py-3 bg-[#5B1E22] hover:bg-[#421417] text-white text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 transition-all shadow-xs cursor-pointer"
+              className="w-full sm:w-auto px-6 py-3 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 transition-all shadow-xs cursor-pointer"
             >
-              <Home className="w-4 h-4 text-[#C9A76A]" />
+              <Home className="w-4 h-4 text-[#D5C2D7]" />
               <span>Return to Home Page</span>
             </button>
 
@@ -339,9 +337,9 @@ export const OrderConfirmationPage: React.FC = () => {
                 setActivePage('orders');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="w-full sm:w-auto px-5 py-3 bg-white hover:bg-[#FAF7F2] border border-[#E8DED2] text-[#292522] text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+              className="w-full sm:w-auto px-5 py-3 bg-white hover:bg-[#F6F0F4] border border-[#D5C2D7] text-[#554052] text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
-              <Package className="w-4 h-4 text-[#5B1E22]" />
+              <Package className="w-4 h-4 text-[#8C5A7D]" />
               <span>Track in My Orders</span>
             </button>
           </div>
@@ -359,9 +357,9 @@ export const OrderConfirmationPage: React.FC = () => {
 
             <button
               onClick={handlePrint}
-              className="w-full sm:w-auto px-5 py-3 bg-white hover:bg-[#FAF7F2] border border-[#E8DED2] text-[#292522] text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+              className="w-full sm:w-auto px-5 py-3 bg-white hover:bg-[#F6F0F4] border border-[#D5C2D7] text-[#554052] text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
-              <Printer className="w-4 h-4 text-[#5B1E22]" />
+              <Printer className="w-4 h-4 text-[#8C5A7D]" />
               <span>Print Invoice</span>
             </button>
           </div>

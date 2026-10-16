@@ -16,18 +16,18 @@ export const SizeGuideModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-[#FAF7F2] max-w-2xl w-full border border-[#C9A76A]/40 shadow-xl overflow-hidden animate-in zoom-in-95 duration-200 max-h-[90vh] flex flex-col">
+      <div className="bg-[#F6F0F4] max-w-2xl w-full border border-[#D5C2D7] shadow-xl overflow-hidden animate-in zoom-in-95 duration-200 max-h-[90vh] flex flex-col">
         {/* Modal Header */}
-        <div className="px-6 py-4 border-b border-[#E8DED2] flex items-center justify-between bg-[#F2ECE1]">
+        <div className="px-6 py-4 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F6F0F4]">
           <div className="flex items-center gap-2">
-            <Ruler className="w-5 h-5 text-[#5B1E22]" />
-            <h3 className="font-serif text-xl font-bold text-[#292522]">
-              ADAAH HOUSE — Kurti Sizing Chart
+            <Ruler className="w-5 h-5 text-[#8C5A7D]" />
+            <h3 className="font-serif text-xl font-bold text-[#554052]">
+              HOUSE OF RII — Kurti Sizing Chart
             </h3>
           </div>
           <button
             onClick={() => setIsSizeGuideOpen(false)}
-            className="p-1 text-[#292522] hover:text-[#5B1E22]"
+            className="p-1 text-[#554052] hover:text-[#8C5A7D]"
             aria-label="Close size guide"
           >
             <X className="w-5 h-5" />
@@ -38,14 +38,14 @@ export const SizeGuideModal: React.FC = () => {
         <div className="p-6 overflow-y-auto space-y-6 text-sm">
           {/* Unit Switcher */}
           <div className="flex items-center justify-between">
-            <p className="text-xs text-[#292522]/80">
+            <p className="text-xs text-[#554052]/80">
               Garment measurements are taken flat across the garment.
             </p>
-            <div className="flex items-center border border-[#E8DED2] bg-white text-xs">
+            <div className="flex items-center border border-[#D5C2D7] bg-white text-xs">
               <button
                 onClick={() => setUnit('inches')}
                 className={`px-3 py-1 font-medium transition-colors ${
-                  unit === 'inches' ? 'bg-[#5B1E22] text-white' : 'text-[#292522] hover:text-[#5B1E22]'
+                  unit === 'inches' ? 'bg-[#8C5A7D] text-white' : 'text-[#554052] hover:text-[#8C5A7D]'
                 }`}
               >
                 Inches (")
@@ -53,7 +53,7 @@ export const SizeGuideModal: React.FC = () => {
               <button
                 onClick={() => setUnit('cm')}
                 className={`px-3 py-1 font-medium transition-colors ${
-                  unit === 'cm' ? 'bg-[#5B1E22] text-white' : 'text-[#292522] hover:text-[#5B1E22]'
+                  unit === 'cm' ? 'bg-[#8C5A7D] text-white' : 'text-[#554052] hover:text-[#8C5A7D]'
                 }`}
               >
                 Centimeters (cm)
@@ -62,9 +62,9 @@ export const SizeGuideModal: React.FC = () => {
           </div>
 
           {/* Measurements Table */}
-          <div className="overflow-x-auto border border-[#E8DED2] bg-white">
+          <div className="overflow-x-auto border border-[#D5C2D7] bg-white">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#5B1E22] text-[#FAF7F2] uppercase tracking-wider font-semibold">
+              <thead className="bg-[#8C5A7D] text-[#F6F0F4] uppercase tracking-wider font-semibold">
                 <tr>
                   <th className="py-2.5 px-3">Size</th>
                   <th className="py-2.5 px-3">Kurti Bust</th>
@@ -74,12 +74,12 @@ export const SizeGuideModal: React.FC = () => {
                   <th className="py-2.5 px-3">Shoulder</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E8DED2] font-mono tabular-nums text-[#292522]">
+              <tbody className="divide-y divide-[#D5C2D7] font-mono tabular-nums text-[#554052]">
                 {(['S', 'M', 'L', 'XL', 'XXL'] as const).map((sz, idx) => {
                   const m = STANDARD_MEASUREMENTS[sz];
                   return (
-                    <tr key={sz} className={idx % 2 === 0 ? 'bg-white' : 'bg-[#FAF7F2]/60'}>
-                      <td className="py-2.5 px-3 font-sans font-bold text-[#5B1E22]">{sz}</td>
+                    <tr key={sz} className={idx % 2 === 0 ? 'bg-white' : 'bg-[#F6F0F4]/60'}>
+                      <td className="py-2.5 px-3 font-sans font-bold text-[#8C5A7D]">{sz}</td>
                       <td className="py-2.5 px-3">{unit === 'inches' ? m.bust : toCm(m.bust)}</td>
                       <td className="py-2.5 px-3">{unit === 'inches' ? m.waist : toCm(m.waist)}</td>
                       <td className="py-2.5 px-3">{unit === 'inches' ? m.hip : toCm(m.hip)}</td>
@@ -93,12 +93,12 @@ export const SizeGuideModal: React.FC = () => {
           </div>
 
           {/* How to Measure Guidelines */}
-          <div className="bg-[#FAF7F2] p-4 border border-[#E8DED2] space-y-2">
-            <h4 className="font-serif text-sm font-semibold text-[#5B1E22] flex items-center gap-1.5">
-              <CheckCircle className="w-4 h-4 text-[#C9A76A]" />
+          <div className="bg-[#F6F0F4] p-4 border border-[#D5C2D7] space-y-2">
+            <h4 className="font-serif text-sm font-semibold text-[#8C5A7D] flex items-center gap-1.5">
+              <CheckCircle className="w-4 h-4 text-[#8C5A7D]" />
               <span>How to Measure Your Best Fit</span>
             </h4>
-            <ul className="text-xs text-[#292522]/80 space-y-1.5 list-disc pl-4 font-normal">
+            <ul className="text-xs text-[#554052]/80 space-y-1.5 list-disc pl-4 font-normal">
               <li>
                 <strong>Bust:</strong> Measure around the fullest part of your chest with a tape held comfortably level.
               </li>
@@ -116,10 +116,10 @@ export const SizeGuideModal: React.FC = () => {
         </div>
 
         {/* Modal Footer */}
-        <div className="px-6 py-3 border-t border-[#E8DED2] bg-[#F2ECE1] flex justify-end">
+        <div className="px-6 py-3 border-t border-[#D5C2D7] bg-[#F6F0F4] flex justify-end">
           <button
             onClick={() => setIsSizeGuideOpen(false)}
-            className="px-6 py-2 bg-[#5B1E22] text-[#FAF7F2] text-xs uppercase tracking-wider font-semibold hover:bg-[#421417] transition-colors"
+            className="px-6 py-2 bg-[#8C5A7D] text-[#F6F0F4] text-xs uppercase tracking-wider font-semibold hover:bg-[#554052] transition-colors"
           >
             Got It
           </button>

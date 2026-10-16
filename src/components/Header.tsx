@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { useStore, ActivePage } from '../context/StoreContext';
 import { BRAND_CONFIG } from '../config/brand';
+import { HouseOfRiiLotus } from './AdaahLogo';
 
 export const Header: React.FC = () => {
   const {
@@ -77,12 +78,12 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#FAF7F2] border-b border-[#E8DED2]/80 transition-all shadow-xs">
+    <header className="sticky top-0 z-40 bg-[#F6F0F4] border-b border-[#D5C2D7] transition-all shadow-xs">
       {/* Search Bar Slide-Down Overlay */}
       {isSearchOpen && (
-        <div className="bg-[#FAF7F2] border-b border-[#E8DED2] px-4 py-3 animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="bg-[#F6F0F4] border-b border-[#D5C2D7] px-4 py-3 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="max-w-3xl mx-auto flex items-center gap-3">
-            <Search className="w-4 h-4 text-[#C9A76A]" />
+            <Search className="w-4 h-4 text-[#8C5A7D]" />
             <input
               type="text"
               value={searchQuery}
@@ -90,21 +91,21 @@ export const Header: React.FC = () => {
                 setSearchQuery(e.target.value);
                 if (activePage !== 'shop') setActivePage('shop');
               }}
-              placeholder="Search kurtis by fabric, style, color, or collection..."
-              className="flex-1 bg-transparent border-none outline-none text-sm text-[#292522] placeholder:text-[#9E897A]"
+              placeholder="Search kurtas, sets, fabrics, co-ords..."
+              className="flex-1 bg-transparent border-none outline-none text-sm text-[#554052] placeholder:text-[#A185A4]"
               autoFocus
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="text-xs text-[#9E897A] hover:text-[#5B1E22] px-2 py-1"
+                className="text-xs text-[#8C5A7D] hover:text-[#554052] px-2 py-1"
               >
                 Clear
               </button>
             )}
             <button
               onClick={() => setIsSearchOpen(false)}
-              className="p-1 text-[#292522] hover:text-[#5B1E22]"
+              className="p-1 text-[#554052] hover:text-[#8C5A7D]"
               aria-label="Close search"
             >
               <X className="w-4 h-4" />
@@ -114,41 +115,41 @@ export const Header: React.FC = () => {
       )}
 
       {/* Main Header Bar: Corner Menu | Middle Website Name | Corner Utility Icons */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-22 flex items-center justify-between">
         {/* Left Corner: Elegant Menu Button */}
         <div className="w-1/4 sm:w-1/3 flex items-center justify-start">
           <button
             onClick={() => setIsSideNavOpen(true)}
-            className="flex items-center gap-2.5 p-1.5 -ml-2 text-[#292522] hover:text-[#5B1E22] transition-colors group cursor-pointer"
+            className="flex items-center gap-2.5 p-1.5 -ml-2 text-[#554052] hover:text-[#8C5A7D] transition-colors group cursor-pointer"
             aria-label="Open Navigation Menu"
             title="Explore all sections & collections"
           >
-            <div className="w-10 h-10 rounded-full bg-white border border-[#E8DED2] group-hover:border-[#5B1E22] group-hover:bg-[#5B1E22]/5 flex items-center justify-center transition-all shadow-2xs">
-              <Menu className="w-5 h-5 text-[#292522] group-hover:text-[#5B1E22] stroke-[1.8]" />
+            <div className="w-10 h-10 rounded-full bg-white border border-[#D5C2D7] group-hover:border-[#8C5A7D] group-hover:bg-[#8C5A7D]/5 flex items-center justify-center transition-all shadow-2xs">
+              <Menu className="w-5 h-5 text-[#554052] group-hover:text-[#8C5A7D] stroke-[1.8]" />
             </div>
-            <span className="hidden sm:inline font-serif uppercase tracking-[0.24em] text-xs font-semibold text-[#292522] group-hover:text-[#5B1E22]">
+            <span className="hidden sm:inline font-serif uppercase tracking-[0.24em] text-xs font-semibold text-[#554052] group-hover:text-[#8C5A7D]">
               Menu
             </span>
           </button>
         </div>
 
-        {/* Center: ONLY the Name of the Website */}
+        {/* Center: HOUSE OF RII Brand Name & Lotus Emblem */}
         <div className="flex-1 flex flex-col items-center justify-center text-center px-2">
           <button
             onClick={() => handleNavClick('home')}
             className="inline-flex flex-col items-center justify-center text-center group cursor-pointer focus-visible:outline-none"
-            aria-label="ADAAH HOUSE Home"
+            aria-label="HOUSE OF RII Home"
           >
-            <div className="flex items-baseline justify-center gap-1.5 sm:gap-2.5">
-              <span className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold tracking-[0.22em] text-[#5B1E22] leading-none transition-colors group-hover:text-[#421417]">
-                ADAAH
-              </span>
-              <span className="font-serif text-lg sm:text-2xl lg:text-3xl font-light tracking-[0.3em] text-[#C9A76A]">
-                HOUSE
+            <div className="mb-0.5 opacity-90 group-hover:opacity-100 transition-opacity">
+              <HouseOfRiiLotus size={28} color="#8C5A7D" />
+            </div>
+            <div className="flex items-baseline justify-center">
+              <span className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal tracking-[0.18em] text-[#8C5A7D] leading-none transition-colors group-hover:text-[#554052]">
+                HOUSE OF RII
               </span>
             </div>
-            <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.34em] text-[#651F32] font-semibold mt-1">
-              Grace in every thread
+            <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.38em] text-[#554052]/80 font-medium mt-1">
+              ETHNIC WEAR
             </span>
           </button>
         </div>
@@ -158,7 +159,7 @@ export const Header: React.FC = () => {
           {/* Search Trigger */}
           <button
             onClick={() => setIsSearchOpen(!isSearchOpen)}
-            className="p-2 text-[#292522] hover:text-[#5B1E22] transition-colors cursor-pointer"
+            className="p-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
             title="Search Products"
             aria-label="Search"
           >
@@ -168,13 +169,13 @@ export const Header: React.FC = () => {
           {/* Wishlist Icon */}
           <button
             onClick={() => setIsWishlistOpen(true)}
-            className="relative p-2 text-[#292522] hover:text-[#5B1E22] transition-colors cursor-pointer"
+            className="relative p-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
             title="View Wishlist"
             aria-label="Wishlist"
           >
             <Heart className="w-5 h-5 stroke-[1.75]" />
             {wishlist.length > 0 && (
-              <span className="absolute top-1 right-1 w-4 h-4 bg-[#5B1E22] text-white text-[10px] font-semibold rounded-full flex items-center justify-center animate-in zoom-in-75 duration-150">
+              <span className="absolute top-1 right-1 w-4 h-4 bg-[#8C5A7D] text-white text-[10px] font-semibold rounded-full flex items-center justify-center animate-in zoom-in-75 duration-150">
                 {wishlist.length}
               </span>
             )}
@@ -183,13 +184,13 @@ export const Header: React.FC = () => {
           {/* Shopping Bag Button */}
           <button
             onClick={() => setIsCartOpen(true)}
-            className="relative p-2 text-[#292522] hover:text-[#5B1E22] transition-colors cursor-pointer"
+            className="relative p-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
             title="Shopping Bag"
             aria-label="Shopping Bag"
           >
             <ShoppingBag className="w-5 h-5 stroke-[1.75]" />
             {cartCount > 0 && (
-              <span className="absolute top-1 right-1 w-4 h-4 bg-[#C9A76A] text-[#292522] text-[10px] font-bold rounded-full flex items-center justify-center shadow-xs">
+              <span className="absolute top-1 right-1 w-4 h-4 bg-[#8C5A7D] text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-xs">
                 {cartCount}
               </span>
             )}
@@ -200,38 +201,38 @@ export const Header: React.FC = () => {
             <div className="relative group hidden sm:block">
               <button
                 onClick={() => handleNavClick('account')}
-                className="flex items-center gap-1.5 p-1 px-2 bg-white border border-[#E8DED2] hover:border-[#5B1E22] text-xs font-semibold text-[#5B1E22] transition-colors rounded-xs shadow-2xs cursor-pointer"
+                className="flex items-center gap-1.5 p-1 px-2 bg-white border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] transition-colors rounded-xs shadow-2xs cursor-pointer"
                 title={`Signed in as ${currentUser.fullName}`}
               >
-                <div className="w-5 h-5 rounded-full bg-[#5B1E22] text-[#FAF7F2] flex items-center justify-center text-[10px] font-bold">
+                <div className="w-5 h-5 rounded-full bg-[#8C5A7D] text-[#F6F0F4] flex items-center justify-center text-[10px] font-bold">
                   {currentUser.fullName.charAt(0)}
                 </div>
                 <span className="max-w-[70px] truncate text-[11px]">
                   {currentUser.fullName.split(' ')[0]}
                 </span>
-                <ChevronDown className="w-3 h-3 text-[#9E897A]" />
+                <ChevronDown className="w-3 h-3 text-[#A185A4]" />
               </button>
 
               {/* Dropdown Menu */}
-              <div className="absolute right-0 top-full mt-1 w-44 bg-white border border-[#E8DED2] shadow-lg rounded-xs py-1.5 hidden group-hover:block z-50 text-xs">
-                <div className="px-3 py-1.5 border-b border-[#E8DED2] text-[11px] text-[#9E897A] truncate">
+              <div className="absolute right-0 top-full mt-1 w-44 bg-white border border-[#D5C2D7] shadow-lg rounded-xs py-1.5 hidden group-hover:block z-50 text-xs">
+                <div className="px-3 py-1.5 border-b border-[#D5C2D7] text-[11px] text-[#A185A4] truncate">
                   {currentUser.email}
                 </div>
                 <button
                   onClick={() => handleNavClick('orders')}
-                  className="w-full text-left px-3 py-2 hover:bg-[#FAF7F2] text-[#292522] flex items-center gap-2"
+                  className="w-full text-left px-3 py-2 hover:bg-[#F6F0F4] text-[#554052] flex items-center gap-2"
                 >
-                  <Package className="w-3.5 h-3.5 text-[#5B1E22]" />
+                  <Package className="w-3.5 h-3.5 text-[#8C5A7D]" />
                   <span>My Orders</span>
                 </button>
                 <button
                   onClick={() => handleNavClick('account')}
-                  className="w-full text-left px-3 py-2 hover:bg-[#FAF7F2] text-[#292522] flex items-center gap-2"
+                  className="w-full text-left px-3 py-2 hover:bg-[#F6F0F4] text-[#554052] flex items-center gap-2"
                 >
-                  <User className="w-3.5 h-3.5 text-[#5B1E22]" />
+                  <User className="w-3.5 h-3.5 text-[#8C5A7D]" />
                   <span>Account Profile</span>
                 </button>
-                <div className="border-t border-[#E8DED2] my-1" />
+                <div className="border-t border-[#D5C2D7] my-1" />
                 <button
                   onClick={() => logoutCustomer()}
                   className="w-full text-left px-3 py-1.5 hover:bg-red-50 text-red-700 flex items-center gap-2"
@@ -247,10 +248,10 @@ export const Header: React.FC = () => {
                 setAuthModalMode('login');
                 setIsAuthModalOpen(true);
               }}
-              className="hidden sm:flex items-center gap-1.5 p-1.5 px-2.5 bg-white border border-[#E8DED2] hover:border-[#5B1E22] text-xs font-semibold text-[#292522] hover:text-[#5B1E22] transition-colors rounded-xs shadow-2xs cursor-pointer"
+              className="hidden sm:flex items-center gap-1.5 p-1.5 px-2.5 bg-white border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#554052] hover:text-[#8C5A7D] transition-colors rounded-xs shadow-2xs cursor-pointer"
               title="Customer Sign In / Register"
             >
-              <User className="w-4 h-4 text-[#5B1E22]" />
+              <User className="w-4 h-4 text-[#8C5A7D]" />
               <span className="text-[11px]">Sign In</span>
             </button>
           )}
@@ -260,14 +261,14 @@ export const Header: React.FC = () => {
             onClick={() => handleNavClick('admin')}
             className={`p-2 rounded-xs transition-colors cursor-pointer ${
               isOwnerLoggedIn
-                ? 'bg-[#5B1E22] text-[#FAF7F2] hover:bg-[#421417]'
-                : 'text-[#9E897A] hover:text-[#5B1E22]'
+                ? 'bg-[#8C5A7D] text-[#F6F0F4] hover:bg-[#554052]'
+                : 'text-[#A185A4] hover:text-[#8C5A7D]'
             }`}
             title={isOwnerLoggedIn ? 'Admin Studio Active' : 'Owner & Admin Portal'}
             aria-label="Admin Portal"
           >
             {isOwnerLoggedIn ? (
-              <SlidersHorizontal className="w-4 h-4 text-[#C9A76A]" />
+              <SlidersHorizontal className="w-4 h-4 text-[#D5C2D7]" />
             ) : (
               <Lock className="w-4 h-4" />
             )}
@@ -286,29 +287,29 @@ export const Header: React.FC = () => {
           />
 
           {/* Side Drawer Panel */}
-          <div className="relative w-full max-w-sm sm:max-w-md bg-[#FAF7F2] h-full shadow-2xl flex flex-col justify-between border-r border-[#E8DED2] overflow-y-auto animate-in slide-in-from-left duration-300 z-10">
+          <div className="relative w-full max-w-sm sm:max-w-md bg-[#F6F0F4] h-full shadow-2xl flex flex-col justify-between border-r border-[#D5C2D7] overflow-y-auto animate-in slide-in-from-left duration-300 z-10">
             {/* Top Header of Drawer */}
-            <div className="p-5 border-b border-[#E8DED2] flex items-center justify-between bg-white shrink-0">
+            <div className="p-5 border-b border-[#D5C2D7] flex items-center justify-between bg-white shrink-0">
               <button
                 onClick={() => handleNavClick('home')}
                 className="flex items-center gap-3 text-left focus:outline-none cursor-pointer"
               >
-                <div className="w-9 h-9 rounded-full bg-[#5B1E22]/10 flex items-center justify-center text-[#5B1E22] border border-[#C9A76A]/40">
-                  <span className="font-serif font-bold text-sm text-[#5B1E22]">AH</span>
+                <div className="w-10 h-10 rounded-full bg-[#8C5A7D]/10 flex items-center justify-center text-[#8C5A7D] border border-[#A185A4]/40">
+                  <span className="font-serif font-bold text-sm text-[#8C5A7D]">Rii</span>
                 </div>
                 <div>
-                  <h3 className="font-serif text-lg font-bold text-[#5B1E22] tracking-wider leading-none">
-                    ADAAH HOUSE
+                  <h3 className="font-serif text-lg font-bold text-[#8C5A7D] tracking-wider leading-none">
+                    HOUSE OF RII
                   </h3>
-                  <p className="text-[9px] uppercase tracking-[0.24em] text-[#C9A76A] font-semibold mt-0.5">
-                    Grace in every thread
+                  <p className="text-[9px] uppercase tracking-[0.28em] text-[#A185A4] font-semibold mt-0.5">
+                    ETHNIC WEAR
                   </p>
                 </div>
               </button>
 
               <button
                 onClick={() => setIsSideNavOpen(false)}
-                className="w-8 h-8 rounded-full border border-[#E8DED2] flex items-center justify-center text-[#292522] hover:text-[#5B1E22] hover:border-[#5B1E22] transition-colors cursor-pointer"
+                className="w-8 h-8 rounded-full border border-[#D5C2D7] flex items-center justify-center text-[#554052] hover:text-[#8C5A7D] hover:border-[#8C5A7D] transition-colors cursor-pointer"
                 aria-label="Close Navigation"
               >
                 <X className="w-4 h-4" />
@@ -316,16 +317,16 @@ export const Header: React.FC = () => {
             </div>
 
             {/* Customer Greeting / Auth Strip */}
-            <div className="px-5 py-3.5 bg-[#F2ECE1] border-b border-[#E8DED2] flex items-center justify-between shrink-0">
+            <div className="px-5 py-3.5 bg-[#EFE7ED] border-b border-[#D5C2D7] flex items-center justify-between shrink-0">
               {currentUser ? (
                 <div className="flex items-center justify-between w-full text-xs">
                   <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-full bg-[#5B1E22] text-[#FAF7F2] flex items-center justify-center font-bold text-xs shadow-xs">
+                    <div className="w-7 h-7 rounded-full bg-[#8C5A7D] text-[#FAF7F2] flex items-center justify-center font-bold text-xs shadow-xs">
                       {currentUser.fullName.charAt(0)}
                     </div>
                     <div>
-                      <p className="font-semibold text-[#292522]">{currentUser.fullName}</p>
-                      <p className="text-[10px] text-[#9E897A] truncate max-w-[170px]">{currentUser.email}</p>
+                      <p className="font-semibold text-[#554052]">{currentUser.fullName}</p>
+                      <p className="text-[10px] text-[#A185A4] truncate max-w-[170px]">{currentUser.email}</p>
                     </div>
                   </div>
                   <button
@@ -341,8 +342,8 @@ export const Header: React.FC = () => {
               ) : (
                 <div className="flex items-center justify-between w-full">
                   <div>
-                    <p className="font-serif font-bold text-xs text-[#292522]">Welcome to ADAAH HOUSE</p>
-                    <p className="text-[10px] text-[#9E897A]">Sign in for order tracking & saved address</p>
+                    <p className="font-serif font-bold text-xs text-[#554052]">Welcome to HOUSE OF RII</p>
+                    <p className="text-[10px] text-[#A185A4]">Tradition, styled your way</p>
                   </div>
                   <button
                     onClick={() => {
@@ -350,7 +351,7 @@ export const Header: React.FC = () => {
                       setAuthModalMode('login');
                       setIsAuthModalOpen(true);
                     }}
-                    className="px-3.5 py-1.5 bg-[#5B1E22] text-white text-[11px] font-semibold uppercase tracking-wider rounded-xs shadow-xs hover:bg-[#421417] cursor-pointer"
+                    className="px-3.5 py-1.5 bg-[#8C5A7D] text-white text-[11px] font-semibold uppercase tracking-wider rounded-xs shadow-xs hover:bg-[#554052] cursor-pointer"
                   >
                     Sign In
                   </button>
@@ -362,7 +363,7 @@ export const Header: React.FC = () => {
             <div className="flex-1 px-5 py-4 space-y-6 overflow-y-auto text-xs">
               {/* Category 1: Kurti Collections & Tabs */}
               <div className="space-y-1">
-                <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#C9A76A] block px-2 pb-1">
+                <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#8C5A7D] block px-2 pb-1">
                   Boutique Collections & Tabs
                 </span>
 
@@ -371,12 +372,12 @@ export const Header: React.FC = () => {
                   onClick={() => handleNavClick('home')}
                   className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
                     activePage === 'home'
-                      ? 'bg-[#5B1E22] text-white font-semibold'
-                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
+                      ? 'bg-[#8C5A7D] text-white font-semibold'
+                      : 'text-[#554052] hover:bg-white hover:text-[#8C5A7D]'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <Home className="w-4 h-4 text-[#C9A76A]" />
+                    <Home className="w-4 h-4 text-[#A185A4]" />
                     <span className="text-[13px] uppercase tracking-wider">Home</span>
                   </div>
                   <ChevronRight className="w-3.5 h-3.5 opacity-60" />
@@ -387,15 +388,15 @@ export const Header: React.FC = () => {
                   onClick={() => handleNavClick('shop', 'all', 'all')}
                   className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
                     activePage === 'shop' && selectedCollectionFilter === 'all' && selectedCategoryFilter === 'all'
-                      ? 'bg-[#5B1E22] text-white font-semibold'
-                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
+                      ? 'bg-[#8C5A7D] text-white font-semibold'
+                      : 'text-[#554052] hover:bg-white hover:text-[#8C5A7D]'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <ShoppingBag className="w-4 h-4 text-[#C9A76A]" />
-                    <span className="text-[13px] uppercase tracking-wider">Shop All Kurtis</span>
+                    <ShoppingBag className="w-4 h-4 text-[#A185A4]" />
+                    <span className="text-[13px] uppercase tracking-wider">Shop All Kurtas & Sets</span>
                   </div>
-                  <span className="text-[10px] px-2 py-0.5 bg-[#C9A76A]/20 text-[#5B1E22] rounded-full font-bold">
+                  <span className="text-[10px] px-2 py-0.5 bg-[#A185A4]/20 text-[#8C5A7D] rounded-full font-bold">
                     All
                   </span>
                 </button>
@@ -405,34 +406,34 @@ export const Header: React.FC = () => {
                   onClick={() => handleNavClick('shop', 'bestseller', 'all')}
                   className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
                     activePage === 'shop' && selectedCollectionFilter === 'bestseller'
-                      ? 'bg-[#5B1E22] text-white font-semibold'
-                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
+                      ? 'bg-[#8C5A7D] text-white font-semibold'
+                      : 'text-[#554052] hover:bg-white hover:text-[#8C5A7D]'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <Flame className="w-4 h-4 text-amber-500 fill-amber-500" />
+                    <Flame className="w-4 h-4 text-[#8C5A7D] fill-[#8C5A7D]" />
                     <span className="text-[13px] uppercase tracking-wider font-bold">Bestseller</span>
                   </div>
-                  <span className="text-[9px] px-2 py-0.5 bg-amber-500/20 text-amber-800 font-bold uppercase rounded-full">
+                  <span className="text-[9px] px-2 py-0.5 bg-[#8C5A7D]/15 text-[#8C5A7D] font-bold uppercase rounded-full">
                     Top Picks
                   </span>
                 </button>
 
                 {/* EVERYDAY WEAR TAB GROUP */}
                 <div className="pt-2">
-                  <div className="flex items-center justify-between px-3 py-2 bg-[#F2ECE1]/70 border border-[#E8DED2] rounded-xs">
+                  <div className="flex items-center justify-between px-3 py-2 bg-[#EFE7ED]/80 border border-[#D5C2D7] rounded-xs">
                     <button
                       onClick={() => handleNavClick('shop', 'Everyday Wear', 'all')}
-                      className="flex items-center gap-2 text-left flex-1 hover:text-[#5B1E22] cursor-pointer"
+                      className="flex items-center gap-2 text-left flex-1 hover:text-[#8C5A7D] cursor-pointer"
                     >
-                      <Sparkles className="w-4 h-4 text-[#C9A76A]" />
-                      <span className="text-[13px] uppercase tracking-wider font-bold text-[#292522]">
+                      <Sparkles className="w-4 h-4 text-[#A185A4]" />
+                      <span className="text-[13px] uppercase tracking-wider font-bold text-[#554052]">
                         Everyday Wear
                       </span>
                     </button>
                     <button
                       onClick={() => setIsEverydayOpen(!isEverydayOpen)}
-                      className="p-1 text-[#9E897A] hover:text-[#5B1E22] cursor-pointer"
+                      className="p-1 text-[#A185A4] hover:text-[#8C5A7D] cursor-pointer"
                       aria-label="Toggle Everyday Wear Sub-tabs"
                     >
                       <ChevronDown
@@ -445,15 +446,15 @@ export const Header: React.FC = () => {
 
                   {/* Everyday Wear Sub-tabs */}
                   {isEverydayOpen && (
-                    <div className="mt-1 ml-3 pl-3 border-l-2 border-[#C9A76A]/40 space-y-1">
+                    <div className="mt-1 ml-3 pl-3 border-l-2 border-[#A185A4]/40 space-y-1">
                       <button
                         onClick={() => handleNavClick('shop', 'Everyday Wear', 'all')}
                         className={`w-full text-left px-2.5 py-1.5 text-xs rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
                           activePage === 'shop' &&
                           selectedCollectionFilter === 'Everyday Wear' &&
                           selectedCategoryFilter === 'all'
-                            ? 'bg-[#5B1E22] text-white font-semibold'
-                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                            ? 'bg-[#8C5A7D] text-white font-semibold'
+                            : 'text-[#554052]/80 hover:bg-white hover:text-[#8C5A7D]'
                         }`}
                       >
                         <span>All Everyday Wear</span>
@@ -465,8 +466,8 @@ export const Header: React.FC = () => {
                           activePage === 'shop' &&
                           selectedCollectionFilter === 'Everyday Wear' &&
                           selectedCategoryFilter === 'Kurti Set'
-                            ? 'bg-[#5B1E22] text-white font-semibold'
-                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                            ? 'bg-[#8C5A7D] text-white font-semibold'
+                            : 'text-[#554052]/80 hover:bg-white hover:text-[#8C5A7D]'
                         }`}
                       >
                         <span>Kurti Set</span>
@@ -479,8 +480,8 @@ export const Header: React.FC = () => {
                           activePage === 'shop' &&
                           selectedCollectionFilter === 'Everyday Wear' &&
                           selectedCategoryFilter === 'Bottom Wear'
-                            ? 'bg-[#5B1E22] text-white font-semibold'
-                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                            ? 'bg-[#8C5A7D] text-white font-semibold'
+                            : 'text-[#554052]/80 hover:bg-white hover:text-[#8C5A7D]'
                         }`}
                       >
                         <span>Bottom Wear</span>
@@ -493,8 +494,8 @@ export const Header: React.FC = () => {
                           activePage === 'shop' &&
                           selectedCollectionFilter === 'Everyday Wear' &&
                           selectedCategoryFilter === 'Coord Set'
-                            ? 'bg-[#5B1E22] text-white font-semibold'
-                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                            ? 'bg-[#8C5A7D] text-white font-semibold'
+                            : 'text-[#554052]/80 hover:bg-white hover:text-[#8C5A7D]'
                         }`}
                       >
                         <span>Coord Set</span>
@@ -506,19 +507,19 @@ export const Header: React.FC = () => {
 
                 {/* FESTIVE & WEDDING EDITS TAB GROUP */}
                 <div className="pt-2">
-                  <div className="flex items-center justify-between px-3 py-2 bg-[#F2ECE1]/70 border border-[#E8DED2] rounded-xs">
+                  <div className="flex items-center justify-between px-3 py-2 bg-[#EFE7ED]/80 border border-[#D5C2D7] rounded-xs">
                     <button
                       onClick={() => handleNavClick('shop', 'Festive & Wedding Edits', 'all')}
-                      className="flex items-center gap-2 text-left flex-1 hover:text-[#5B1E22] cursor-pointer"
+                      className="flex items-center gap-2 text-left flex-1 hover:text-[#8C5A7D] cursor-pointer"
                     >
-                      <Sparkles className="w-4 h-4 text-[#C9A76A]" />
-                      <span className="text-[13px] uppercase tracking-wider font-bold text-[#292522]">
+                      <Sparkles className="w-4 h-4 text-[#A185A4]" />
+                      <span className="text-[13px] uppercase tracking-wider font-bold text-[#554052]">
                         Festive & Wedding Edits
                       </span>
                     </button>
                     <button
                       onClick={() => setIsFestiveOpen(!isFestiveOpen)}
-                      className="p-1 text-[#9E897A] hover:text-[#5B1E22] cursor-pointer"
+                      className="p-1 text-[#A185A4] hover:text-[#8C5A7D] cursor-pointer"
                       aria-label="Toggle Festive & Wedding Sub-tabs"
                     >
                       <ChevronDown
@@ -531,15 +532,15 @@ export const Header: React.FC = () => {
 
                   {/* Festive & Wedding Sub-tabs */}
                   {isFestiveOpen && (
-                    <div className="mt-1 ml-3 pl-3 border-l-2 border-[#C9A76A]/40 space-y-1">
+                    <div className="mt-1 ml-3 pl-3 border-l-2 border-[#A185A4]/40 space-y-1">
                       <button
                         onClick={() => handleNavClick('shop', 'Festive & Wedding Edits', 'all')}
                         className={`w-full text-left px-2.5 py-1.5 text-xs rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
                           activePage === 'shop' &&
                           selectedCollectionFilter === 'Festive & Wedding Edits' &&
                           selectedCategoryFilter === 'all'
-                            ? 'bg-[#5B1E22] text-white font-semibold'
-                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                            ? 'bg-[#8C5A7D] text-white font-semibold'
+                            : 'text-[#554052]/80 hover:bg-white hover:text-[#8C5A7D]'
                         }`}
                       >
                         <span>All Festive & Wedding</span>
@@ -551,8 +552,8 @@ export const Header: React.FC = () => {
                           activePage === 'shop' &&
                           selectedCollectionFilter === 'Festive & Wedding Edits' &&
                           selectedCategoryFilter === 'Suit Sets'
-                            ? 'bg-[#5B1E22] text-white font-semibold'
-                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                            ? 'bg-[#8C5A7D] text-white font-semibold'
+                            : 'text-[#554052]/80 hover:bg-white hover:text-[#8C5A7D]'
                         }`}
                       >
                         <span>Suit Sets</span>
@@ -565,8 +566,8 @@ export const Header: React.FC = () => {
                           activePage === 'shop' &&
                           selectedCollectionFilter === 'Festive & Wedding Edits' &&
                           selectedCategoryFilter === 'Kurta Sets'
-                            ? 'bg-[#5B1E22] text-white font-semibold'
-                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                            ? 'bg-[#8C5A7D] text-white font-semibold'
+                            : 'text-[#554052]/80 hover:bg-white hover:text-[#8C5A7D]'
                         }`}
                       >
                         <span>Kurta Sets</span>
@@ -579,8 +580,8 @@ export const Header: React.FC = () => {
                           activePage === 'shop' &&
                           selectedCollectionFilter === 'Festive & Wedding Edits' &&
                           selectedCategoryFilter === 'Coord Sets'
-                            ? 'bg-[#5B1E22] text-white font-semibold'
-                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                            ? 'bg-[#8C5A7D] text-white font-semibold'
+                            : 'text-[#554052]/80 hover:bg-white hover:text-[#8C5A7D]'
                         }`}
                       >
                         <span>Coord Sets</span>
@@ -593,8 +594,8 @@ export const Header: React.FC = () => {
                           activePage === 'shop' &&
                           selectedCollectionFilter === 'Festive & Wedding Edits' &&
                           selectedCategoryFilter === 'Sharara Sets'
-                            ? 'bg-[#5B1E22] text-white font-semibold'
-                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                            ? 'bg-[#8C5A7D] text-white font-semibold'
+                            : 'text-[#554052]/80 hover:bg-white hover:text-[#8C5A7D]'
                         }`}
                       >
                         <span>Sharara Sets</span>
@@ -606,8 +607,8 @@ export const Header: React.FC = () => {
               </div>
 
               {/* Category 2: Customer Section */}
-              <div className="space-y-1 pt-2 border-t border-[#E8DED2]">
-                <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#C9A76A] block px-2 pb-1">
+              <div className="space-y-1 pt-2 border-t border-[#D5C2D7]">
+                <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#8C5A7D] block px-2 pb-1">
                   Customer Dashboard
                 </span>
 
@@ -615,15 +616,15 @@ export const Header: React.FC = () => {
                   onClick={() => handleNavClick('orders')}
                   className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
                     activePage === 'orders'
-                      ? 'bg-[#5B1E22] text-white font-semibold'
-                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
+                      ? 'bg-[#8C5A7D] text-white font-semibold'
+                      : 'text-[#554052] hover:bg-white hover:text-[#8C5A7D]'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <Package className="w-4 h-4 text-[#5B1E22]" />
+                    <Package className="w-4 h-4 text-[#8C5A7D]" />
                     <span className="text-[13px] uppercase tracking-wider font-semibold">My Orders</span>
                   </div>
-                  <span className="px-2 py-0.5 bg-[#FAF7F2] border border-[#E8DED2] text-[#5B1E22] text-[10px] font-bold rounded-xs">
+                  <span className="px-2 py-0.5 bg-[#F6F0F4] border border-[#D5C2D7] text-[#8C5A7D] text-[10px] font-bold rounded-xs">
                     {orders.length} Placed
                   </span>
                 </button>
@@ -633,14 +634,14 @@ export const Header: React.FC = () => {
                     setIsSideNavOpen(false);
                     setIsWishlistOpen(true);
                   }}
-                  className="w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between text-[#292522] hover:bg-white hover:text-[#5B1E22] transition-colors cursor-pointer"
+                  className="w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between text-[#554052] hover:bg-white hover:text-[#8C5A7D] transition-colors cursor-pointer"
                 >
                   <div className="flex items-center gap-2.5">
-                    <Heart className="w-4 h-4 text-[#5B1E22]" />
+                    <Heart className="w-4 h-4 text-[#8C5A7D]" />
                     <span className="text-[13px] uppercase tracking-wider">My Wishlist</span>
                   </div>
                   {wishlist.length > 0 && (
-                    <span className="px-1.5 py-0.5 bg-[#5B1E22] text-white text-[10px] rounded-full leading-none">
+                    <span className="px-1.5 py-0.5 bg-[#8C5A7D] text-white text-[10px] rounded-full leading-none">
                       {wishlist.length}
                     </span>
                   )}
@@ -650,12 +651,12 @@ export const Header: React.FC = () => {
                   onClick={() => handleNavClick('account')}
                   className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
                     activePage === 'account'
-                      ? 'bg-[#5B1E22] text-white font-semibold'
-                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
+                      ? 'bg-[#8C5A7D] text-white font-semibold'
+                      : 'text-[#554052] hover:bg-white hover:text-[#8C5A7D]'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <User className="w-4 h-4 text-[#5B1E22]" />
+                    <User className="w-4 h-4 text-[#8C5A7D]" />
                     <span className="text-[13px] uppercase tracking-wider">Customer Profile & Addresses</span>
                   </div>
                   <ChevronRight className="w-3.5 h-3.5 opacity-60" />
@@ -663,8 +664,8 @@ export const Header: React.FC = () => {
               </div>
 
               {/* Category 3: Brand & Heritage */}
-              <div className="space-y-1 pt-2 border-t border-[#E8DED2]">
-                <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#C9A76A] block px-2 pb-1">
+              <div className="space-y-1 pt-2 border-t border-[#D5C2D7]">
+                <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#8C5A7D] block px-2 pb-1">
                   Brand & Heritage
                 </span>
 
@@ -672,13 +673,13 @@ export const Header: React.FC = () => {
                   onClick={() => handleNavClick('about')}
                   className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
                     activePage === 'about'
-                      ? 'bg-[#5B1E22] text-white font-semibold'
-                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
+                      ? 'bg-[#8C5A7D] text-white font-semibold'
+                      : 'text-[#554052] hover:bg-white hover:text-[#8C5A7D]'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <Info className="w-4 h-4 text-[#9E897A]" />
-                    <span className="text-[13px] uppercase tracking-wider">About ADAAH HOUSE</span>
+                    <Info className="w-4 h-4 text-[#A185A4]" />
+                    <span className="text-[13px] uppercase tracking-wider">About HOUSE OF RII</span>
                   </div>
                   <ChevronRight className="w-3.5 h-3.5 opacity-60" />
                 </button>
@@ -687,12 +688,12 @@ export const Header: React.FC = () => {
                   onClick={() => handleNavClick('contact')}
                   className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
                     activePage === 'contact'
-                      ? 'bg-[#5B1E22] text-white font-semibold'
-                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
+                      ? 'bg-[#8C5A7D] text-white font-semibold'
+                      : 'text-[#554052] hover:bg-white hover:text-[#8C5A7D]'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <Phone className="w-4 h-4 text-[#9E897A]" />
+                    <Phone className="w-4 h-4 text-[#A185A4]" />
                     <span className="text-[13px] uppercase tracking-wider">Contact & Concierge</span>
                   </div>
                   <ChevronRight className="w-3.5 h-3.5 opacity-60" />
@@ -702,12 +703,12 @@ export const Header: React.FC = () => {
                   onClick={() => handleNavClick('policies')}
                   className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
                     activePage === 'policies'
-                      ? 'bg-[#5B1E22] text-white font-semibold'
-                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
+                      ? 'bg-[#8C5A7D] text-white font-semibold'
+                      : 'text-[#554052] hover:bg-white hover:text-[#8C5A7D]'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <ShieldCheck className="w-4 h-4 text-[#9E897A]" />
+                    <ShieldCheck className="w-4 h-4 text-[#A185A4]" />
                     <span className="text-[13px] uppercase tracking-wider">Policies & Exchange</span>
                   </div>
                   <ChevronRight className="w-3.5 h-3.5 opacity-60" />
@@ -715,17 +716,17 @@ export const Header: React.FC = () => {
               </div>
 
               {/* Category 4: Admin Portal */}
-              <div className="pt-2 border-t border-[#E8DED2]">
+              <div className="pt-2 border-t border-[#D5C2D7]">
                 <button
                   onClick={() => handleNavClick('admin')}
                   className={`w-full text-left p-3 rounded-xs border flex items-center justify-between transition-colors cursor-pointer ${
                     isOwnerLoggedIn
-                      ? 'bg-[#5B1E22] text-white border-[#C9A76A]'
-                      : 'bg-[#F2ECE1] text-[#5B1E22] border-[#C9A76A]/50 hover:bg-[#5B1E22] hover:text-white'
+                      ? 'bg-[#8C5A7D] text-white border-[#A185A4]'
+                      : 'bg-[#EFE7ED] text-[#8C5A7D] border-[#A185A4]/50 hover:bg-[#8C5A7D] hover:text-white'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <Lock className="w-4 h-4 text-[#C9A76A]" />
+                    <Lock className="w-4 h-4 text-[#A185A4]" />
                     <div>
                       <p className="font-bold text-xs uppercase tracking-wider">
                         {isOwnerLoggedIn ? 'Admin Studio (Active)' : 'Admin & Owner Portal'}

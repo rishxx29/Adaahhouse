@@ -123,12 +123,12 @@ export const CustomerAuthModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-[#FAF7F2] max-w-md w-full border border-[#C9A76A]/50 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 max-h-[92vh] flex flex-col">
+      <div className="bg-[#F6F0F4] max-w-md w-full border border-[#D5C2D7] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 max-h-[92vh] flex flex-col">
         {/* Modal Header */}
-        <div className="px-6 py-4 border-b border-[#E8DED2] flex items-center justify-between bg-[#F2ECE1]">
+        <div className="px-6 py-4 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F6F0F4]">
           <div className="flex items-center gap-2">
-            <User className="w-4 h-4 text-[#5B1E22]" />
-            <h3 className="font-serif text-lg font-bold text-[#292522]">
+            <User className="w-4 h-4 text-[#8C5A7D]" />
+            <h3 className="font-serif text-lg font-bold text-[#554052]">
               {authModalMode === 'login' ? 'Customer Sign In' : 'Create Customer Account'}
             </h3>
           </div>
@@ -138,7 +138,7 @@ export const CustomerAuthModal: React.FC = () => {
               setLoginError(null);
               setRegError(null);
             }}
-            className="p-1 text-[#292522] hover:text-[#5B1E22]"
+            className="p-1 text-[#554052] hover:text-[#8C5A7D]"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -146,7 +146,7 @@ export const CustomerAuthModal: React.FC = () => {
         </div>
 
         {/* Tab switchers: Sign In vs Create Account */}
-        <div className="grid grid-cols-2 border-b border-[#E8DED2] bg-white text-xs font-semibold uppercase tracking-wider text-center">
+        <div className="grid grid-cols-2 border-b border-[#D5C2D7] bg-white text-xs font-semibold uppercase tracking-wider text-center">
           <button
             onClick={() => {
               setAuthModalMode('login');
@@ -154,8 +154,8 @@ export const CustomerAuthModal: React.FC = () => {
             }}
             className={`py-3 transition-colors ${
               authModalMode === 'login'
-                ? 'text-[#5B1E22] border-b-2 border-[#5B1E22] bg-[#FAF7F2] font-bold'
-                : 'text-[#9E897A] hover:text-[#292522]'
+                ? 'text-[#8C5A7D] border-b-2 border-[#8C5A7D] bg-[#F6F0F4] font-bold'
+                : 'text-[#A185A4] hover:text-[#554052]'
             }`}
           >
             Sign In
@@ -167,8 +167,8 @@ export const CustomerAuthModal: React.FC = () => {
             }}
             className={`py-3 transition-colors ${
               authModalMode === 'register'
-                ? 'text-[#5B1E22] border-b-2 border-[#5B1E22] bg-[#FAF7F2] font-bold'
-                : 'text-[#9E897A] hover:text-[#292522]'
+                ? 'text-[#8C5A7D] border-b-2 border-[#8C5A7D] bg-[#F6F0F4] font-bold'
+                : 'text-[#A185A4] hover:text-[#554052]'
             }`}
           >
             New User? Register
@@ -176,15 +176,15 @@ export const CustomerAuthModal: React.FC = () => {
         </div>
 
         {/* Modal Scrollable Body */}
-        <div className="p-6 overflow-y-auto space-y-5 text-xs text-[#292522]">
+        <div className="p-6 overflow-y-auto space-y-5 text-xs text-[#554052]">
           {/* Brand Emblem */}
           <div className="text-center">
             <AdaahLogo variant="monogram" className="mx-auto scale-90" showTagline={false} />
-            <p className="font-serif text-base font-bold text-[#292522] mt-1">
-              ADAAH HOUSE
+            <p className="font-serif text-base font-bold text-[#554052] mt-1">
+              HOUSE OF RII
             </p>
-            <p className="text-[11px] text-[#9E897A] uppercase tracking-widest mt-0.5">
-              Grace In Every Thread
+            <p className="text-[11px] text-[#A185A4] uppercase tracking-widest mt-0.5">
+              Tradition, Styled Your Way.
             </p>
           </div>
 
@@ -199,7 +199,7 @@ export const CustomerAuthModal: React.FC = () => {
 
               {/* Email or Phone Field */}
               <div>
-                <label className="block font-medium text-[#292522] mb-1">
+                <label className="block font-medium text-[#554052] mb-1">
                   Email ID or Mobile Number *
                 </label>
                 <div className="relative">
@@ -208,12 +208,12 @@ export const CustomerAuthModal: React.FC = () => {
                     value={loginIdentifier}
                     onChange={(e) => setLoginIdentifier(e.target.value)}
                     placeholder="Enter email or 10-digit mobile number"
-                    className="w-full bg-white border border-[#E8DED2] pl-9 pr-3 py-2.5 text-xs text-[#292522] outline-none focus:border-[#5B1E22]"
+                    className="w-full bg-white border border-[#D5C2D7] pl-9 pr-3 py-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                     autoFocus
                   />
-                  <Mail className="w-3.5 h-3.5 text-[#9E897A] absolute left-3 top-3.5" />
+                  <Mail className="w-3.5 h-3.5 text-[#A185A4] absolute left-3 top-3.5" />
                 </div>
-                <span className="text-[10px] text-[#9E897A] mt-1 block">
+                <span className="text-[10px] text-[#A185A4] mt-1 block">
                   e.g. ananya.sharma@example.com or 9829012345
                 </span>
               </div>
@@ -221,11 +221,11 @@ export const CustomerAuthModal: React.FC = () => {
               {/* Password Field */}
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="font-medium text-[#292522]">Password *</label>
+                  <label className="font-medium text-[#554052]">Password *</label>
                   <button
                     type="button"
                     onClick={() => fillDemoCredentials()}
-                    className="text-[10px] text-[#C9A76A] hover:underline font-semibold"
+                    className="text-[10px] text-[#8C5A7D] hover:underline font-semibold"
                   >
                     Use Demo Credentials
                   </button>
@@ -236,13 +236,13 @@ export const CustomerAuthModal: React.FC = () => {
                     value={loginPassword}
                     onChange={(e) => setLoginPassword(e.target.value)}
                     placeholder="Enter your account password"
-                    className="w-full bg-white border border-[#E8DED2] pl-9 pr-9 py-2.5 text-xs text-[#292522] outline-none focus:border-[#5B1E22]"
+                    className="w-full bg-white border border-[#D5C2D7] pl-9 pr-9 py-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                   />
-                  <Lock className="w-3.5 h-3.5 text-[#9E897A] absolute left-3 top-3.5" />
+                  <Lock className="w-3.5 h-3.5 text-[#A185A4] absolute left-3 top-3.5" />
                   <button
                     type="button"
                     onClick={() => setShowLoginPassword(!showLoginPassword)}
-                    className="absolute right-3 top-3 text-[#9E897A] hover:text-[#292522]"
+                    className="absolute right-3 top-3 text-[#A185A4] hover:text-[#554052]"
                   >
                     {showLoginPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                   </button>
@@ -252,22 +252,22 @@ export const CustomerAuthModal: React.FC = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full py-3 bg-[#5B1E22] hover:bg-[#421417] text-white text-xs uppercase tracking-wider font-semibold transition-colors flex items-center justify-center gap-2 shadow-xs"
+                className="w-full py-3 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs uppercase tracking-wider font-semibold transition-colors flex items-center justify-center gap-2 shadow-xs"
               >
                 <span>Sign In to Your Account</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#C9A76A]" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#D5C2D7]" />
               </button>
 
               {/* Fast Demo Account helper */}
-              <div className="p-3 bg-[#FAF7F2] border border-[#E8DED2] text-[11px] space-y-1">
-                <span className="font-semibold text-[#5B1E22] block">Testing customer account?</span>
-                <p className="text-[#9E897A]">
+              <div className="p-3 bg-[#F6F0F4] border border-[#D5C2D7] text-[11px] space-y-1">
+                <span className="font-semibold text-[#8C5A7D] block">Testing customer account?</span>
+                <p className="text-[#A185A4]">
                   Click below to fill sample account details:
                 </p>
                 <button
                   type="button"
                   onClick={fillDemoCredentials}
-                  className="mt-1 text-[11px] text-[#5B1E22] font-semibold underline"
+                  className="mt-1 text-[11px] text-[#8C5A7D] font-semibold underline"
                 >
                   Fill Demo: ananya.sharma@example.com / password123
                 </button>
@@ -284,39 +284,39 @@ export const CustomerAuthModal: React.FC = () => {
 
               {/* Full Name */}
               <div>
-                <label className="block font-medium text-[#292522] mb-1">Full Name *</label>
+                <label className="block font-medium text-[#554052] mb-1">Full Name *</label>
                 <div className="relative">
                   <input
                     type="text"
                     value={regName}
                     onChange={(e) => setRegName(e.target.value)}
                     placeholder="e.g. Radhika Verma"
-                    className="w-full bg-white border border-[#E8DED2] pl-9 pr-3 py-2 text-xs text-[#292522] outline-none focus:border-[#5B1E22]"
+                    className="w-full bg-white border border-[#D5C2D7] pl-9 pr-3 py-2 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                     required
                   />
-                  <User className="w-3.5 h-3.5 text-[#9E897A] absolute left-3 top-3" />
+                  <User className="w-3.5 h-3.5 text-[#A185A4] absolute left-3 top-3" />
                 </div>
               </div>
 
               {/* Email Address */}
               <div>
-                <label className="block font-medium text-[#292522] mb-1">Email Address *</label>
+                <label className="block font-medium text-[#554052] mb-1">Email Address *</label>
                 <div className="relative">
                   <input
                     type="email"
                     value={regEmail}
                     onChange={(e) => setRegEmail(e.target.value)}
                     placeholder="e.g. radhika@example.com"
-                    className="w-full bg-white border border-[#E8DED2] pl-9 pr-3 py-2 text-xs text-[#292522] outline-none focus:border-[#5B1E22]"
+                    className="w-full bg-white border border-[#D5C2D7] pl-9 pr-3 py-2 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                     required
                   />
-                  <Mail className="w-3.5 h-3.5 text-[#9E897A] absolute left-3 top-3" />
+                  <Mail className="w-3.5 h-3.5 text-[#A185A4] absolute left-3 top-3" />
                 </div>
               </div>
 
               {/* Mobile Phone Number */}
               <div>
-                <label className="block font-medium text-[#292522] mb-1">
+                <label className="block font-medium text-[#554052] mb-1">
                   Mobile Number (for WhatsApp updates & Login) *
                 </label>
                 <div className="relative">
@@ -326,30 +326,30 @@ export const CustomerAuthModal: React.FC = () => {
                     onChange={(e) => setRegPhone(e.target.value)}
                     placeholder="10-digit mobile number"
                     maxLength={10}
-                    className="w-full bg-white border border-[#E8DED2] pl-9 pr-3 py-2 text-xs text-[#292522] outline-none focus:border-[#5B1E22]"
+                    className="w-full bg-white border border-[#D5C2D7] pl-9 pr-3 py-2 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                     required
                   />
-                  <Phone className="w-3.5 h-3.5 text-[#9E897A] absolute left-3 top-3" />
+                  <Phone className="w-3.5 h-3.5 text-[#A185A4] absolute left-3 top-3" />
                 </div>
               </div>
 
               {/* Password */}
               <div>
-                <label className="block font-medium text-[#292522] mb-1">Create Password *</label>
+                <label className="block font-medium text-[#554052] mb-1">Create Password *</label>
                 <div className="relative">
                   <input
                     type={showRegPassword ? 'text' : 'password'}
                     value={regPassword}
                     onChange={(e) => setRegPassword(e.target.value)}
                     placeholder="At least 6 characters"
-                    className="w-full bg-white border border-[#E8DED2] pl-9 pr-9 py-2 text-xs text-[#292522] outline-none focus:border-[#5B1E22]"
+                    className="w-full bg-white border border-[#D5C2D7] pl-9 pr-9 py-2 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                     required
                   />
-                  <Lock className="w-3.5 h-3.5 text-[#9E897A] absolute left-3 top-3" />
+                  <Lock className="w-3.5 h-3.5 text-[#A185A4] absolute left-3 top-3" />
                   <button
                     type="button"
                     onClick={() => setShowRegPassword(!showRegPassword)}
-                    className="absolute right-3 top-2.5 text-[#9E897A] hover:text-[#292522]"
+                    className="absolute right-3 top-2.5 text-[#A185A4] hover:text-[#554052]"
                   >
                     {showRegPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                   </button>
@@ -357,8 +357,8 @@ export const CustomerAuthModal: React.FC = () => {
               </div>
 
               {/* Optional Shipping Address */}
-              <div className="pt-2 border-t border-[#E8DED2]">
-                <span className="text-[11px] font-semibold text-[#5B1E22] uppercase tracking-wider block mb-2">
+              <div className="pt-2 border-t border-[#D5C2D7]">
+                <span className="text-[11px] font-semibold text-[#8C5A7D] uppercase tracking-wider block mb-2">
                   Optional: Default Delivery Address
                 </span>
                 <div className="space-y-2">
@@ -367,7 +367,7 @@ export const CustomerAuthModal: React.FC = () => {
                     value={regAddress}
                     onChange={(e) => setRegAddress(e.target.value)}
                     placeholder="House / Street address"
-                    className="w-full bg-white border border-[#E8DED2] px-3 py-1.5 text-xs text-[#292522] outline-none"
+                    className="w-full bg-white border border-[#D5C2D7] px-3 py-1.5 text-xs text-[#554052] outline-none"
                   />
                   <div className="grid grid-cols-2 gap-2">
                     <input
@@ -375,7 +375,7 @@ export const CustomerAuthModal: React.FC = () => {
                       value={regCity}
                       onChange={(e) => setRegCity(e.target.value)}
                       placeholder="City"
-                      className="bg-white border border-[#E8DED2] px-3 py-1.5 text-xs text-[#292522] outline-none"
+                      className="bg-white border border-[#D5C2D7] px-3 py-1.5 text-xs text-[#554052] outline-none"
                     />
                     <input
                       type="text"
@@ -383,7 +383,7 @@ export const CustomerAuthModal: React.FC = () => {
                       onChange={(e) => setRegPincode(e.target.value)}
                       placeholder="6-digit Pincode"
                       maxLength={6}
-                      className="bg-white border border-[#E8DED2] px-3 py-1.5 text-xs text-[#292522] outline-none"
+                      className="bg-white border border-[#D5C2D7] px-3 py-1.5 text-xs text-[#554052] outline-none"
                     />
                   </div>
                 </div>
@@ -392,18 +392,18 @@ export const CustomerAuthModal: React.FC = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full py-3 bg-[#5B1E22] hover:bg-[#421417] text-white text-xs uppercase tracking-wider font-semibold transition-colors flex items-center justify-center gap-2 shadow-xs"
+                className="w-full py-3 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs uppercase tracking-wider font-semibold transition-colors flex items-center justify-center gap-2 shadow-xs"
               >
-                <span>Create ADAAH HOUSE Account</span>
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#C9A76A]" />
+                <span>Create HOUSE OF RII Account</span>
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#D5C2D7]" />
               </button>
             </form>
           )}
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 bg-[#F2ECE1] border-t border-[#E8DED2] text-center text-[11px] text-[#9E897A]">
-          <span>Protected by ADAAH HOUSE Customer Privacy Guidelines.</span>
+        <div className="p-4 bg-[#F6F0F4] border-t border-[#D5C2D7] text-center text-[11px] text-[#A185A4]">
+          <span>Protected by HOUSE OF RII Customer Privacy Guidelines.</span>
         </div>
       </div>
     </div>

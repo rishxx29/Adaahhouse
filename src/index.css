@@ -1,53 +1,68 @@
 @import "tailwindcss";
 
 @theme {
-  --font-serif: "Cormorant Garamond", Georgia, serif;
-  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Lora", Georgia, serif;
   
-  --color-maroon: #5B1E22;
-  --color-maroon-dark: #421417;
-  --color-maroon-light: #74272D;
+  /* Official House of Rii Mauve & Plum Palette */
+  --color-soft-lilac: #F6F0F4;
+  --color-dusty-mauve: #D5C2D7;
+  --color-muted-violet: #A185A4;
+  --color-plum: #8C5A7D;
+  --color-deep-plum: #554052;
   
-  --color-ivory: #FAF7F2;
-  --color-ivory-muted: #F2ECE1;
-  --color-ivory-warm: #F7EFE3;
+  /* Compatibility mappings */
+  --color-maroon: #8C5A7D;
+  --color-maroon-dark: #554052;
+  --color-maroon-light: #A185A4;
   
-  --color-beige: #E8DED2;
-  --color-beige-subtle: #F0E8DD;
+  --color-ivory: #F6F0F4;
+  --color-ivory-muted: #EFE7ED;
+  --color-ivory-warm: #F6F0F4;
   
-  --color-gold: #C9A76A;
-  --color-gold-dark: #B59355;
-  --color-gold-light: #DFC794;
+  --color-beige: #D5C2D7;
+  --color-beige-subtle: #EADEEB;
   
-  --color-sage: #7A8061;
-  --color-rose: #C98A8E;
-  --color-taupe: #9E897A;
-  --color-charcoal: #292522;
+  --color-gold: #A185A4;
+  --color-gold-dark: #8C5A7D;
+  --color-gold-light: #D5C2D7;
+  
+  --color-sage: #A185A4;
+  --color-rose: #D5C2D7;
+  --color-taupe: #8C5A7D;
+  --color-charcoal: #554052;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
     font-family: var(--font-sans);
+    background-color: #F6F0F4;
+    color: #554052;
   }
 
   h1, h2, h3, h4, .font-serif {
     font-family: var(--font-serif);
   }
+
+  p, .font-body {
+    font-family: var(--font-body);
+  }
 }
 
-/* Custom subtle scrollbar */
+/* Custom subtle scrollbar in Mauve & Plum */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF7F2;
+  background: #F6F0F4;
 }
 ::-webkit-scrollbar-thumb {
-  background: #E8DED2;
+  background: #D5C2D7;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C9A76A;
+  background: #8C5A7D;
 }

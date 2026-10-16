@@ -36,7 +36,7 @@ function orderNotificationPlugin(): Plugin {
             }
             fs.writeFileSync(envPath, envContent, 'utf-8');
 
-            console.log(`\n🔑 [ADAAH HOUSE] SMTP_PASS updated and saved to .env for aadahhouse@gmail.com\n`);
+            console.log(`\n🔑 [HOUSE OF RII] SMTP_PASS updated and saved to .env for aadahhouse@gmail.com\n`);
 
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ success: true, message: 'Gmail App Password saved and activated successfully!' }));
@@ -103,7 +103,7 @@ function orderNotificationPlugin(): Plugin {
           try {
             const { phone, customerName, orderNumber, message } = JSON.parse(body || '{}');
             console.log('\n======================================================');
-            console.log('📱 [ADAAH HOUSE SMS & MOBILE NOTIFICATION DISPATCH]');
+            console.log('📱 [HOUSE OF RII SMS & MOBILE NOTIFICATION DISPATCH]');
             console.log(`➡️  Recipient Mobile: +91 ${phone} (${customerName || 'Valued Customer'})`);
             console.log(`📦  Order #${orderNumber}`);
             console.log(`💬  Message:\n"${message}"`);
@@ -173,9 +173,9 @@ function orderNotificationPlugin(): Plugin {
                 },
               });
 
-              // 1. Send Order Notification to Owner (aadahhouse@gmail.com)
+              // 1. Send Order Notification to Owner
               await transporter.sendMail({
-                from: `"ADAAH HOUSE Orders" <${smtpUser}>`,
+                from: `"HOUSE OF RII Orders" <${smtpUser}>`,
                 to: targetOwnerEmail,
                 replyTo: order?.shippingAddress?.email || customerEmail?.to,
                 subject: ownerEmail.subject,
@@ -186,7 +186,7 @@ function orderNotificationPlugin(): Plugin {
               // 2. Send Order Confirmation to Customer
               if (customerEmail?.to) {
                 await transporter.sendMail({
-                  from: `"ADAAH HOUSE" <${smtpUser}>`,
+                  from: `"HOUSE OF RII" <${smtpUser}>`,
                   to: customerEmail.to,
                   replyTo: targetOwnerEmail,
                   subject: customerEmail.subject,
@@ -195,7 +195,7 @@ function orderNotificationPlugin(): Plugin {
                 });
               }
 
-              console.log(`\n✅ [ADAAH HOUSE] Live emails successfully sent via Gmail SMTP:`);
+              console.log(`\n✅ [HOUSE OF RII] Live emails successfully sent via Gmail SMTP:`);
               console.log(`   Owner: ${targetOwnerEmail}`);
               console.log(`   Customer: ${customerEmail?.to}`);
               console.log(`   Order: #${order?.orderNumber} (₹${order?.total})\n`);
@@ -215,7 +215,7 @@ function orderNotificationPlugin(): Plugin {
 
             // Fallback / Development Simulation mode
             console.log('\n======================================================');
-            console.log('✉️  [ADAAH HOUSE NOTIFICATION DISPATCH - PREVIEW]');
+            console.log('✉️  [HOUSE OF RII NOTIFICATION DISPATCH - PREVIEW]');
             console.log(`➡️  Owner Notification to: ${targetOwnerEmail}`);
             console.log(`➡️  Customer Confirmation to: ${customerEmail?.to}`);
             console.log(`📦  Order #${order?.orderNumber} | Total: ₹${order?.total} | Status: ${order?.status}`);
