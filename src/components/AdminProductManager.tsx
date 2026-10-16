@@ -314,196 +314,104 @@ export const AdminProductManager: React.FC = () => {
           </p>
         </div>
 
-        {/* 2-Column Portal Card */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 bg-white border border-[#D5C2D7] shadow-md overflow-hidden">
-          {/* Left Column: Admin Login Form (5 cols) */}
-          <div className="lg:col-span-5 p-6 sm:p-8 bg-[#F6F0F4] border-b lg:border-b-0 lg:border-r border-[#D5C2D7] flex flex-col justify-between space-y-6">
-            <div>
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-11 h-11 rounded-full bg-[#8C5A7D] text-[#F6F0F4] flex items-center justify-center shadow-xs">
-                  <Lock className="w-5 h-5 text-[#D5C2D7]" />
-                </div>
-                <div>
-                  <h2 className="font-serif text-lg font-bold text-[#554052]">Owner Sign In</h2>
-                  <p className="text-[11px] text-[#A185A4]">Enter your credentials to enter Studio</p>
-                </div>
-              </div>
-
-              <form onSubmit={handleGateSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-semibold text-[#554052] mb-1">
-                    Official Admin Email / User ID
-                  </label>
-                  <input
-                    type="text"
-                    value={adminIdentifier}
-                    onChange={(e) => setAdminIdentifier(e.target.value)}
-                    placeholder="aadahhouse@gmail.com"
-                    className="w-full bg-white border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
-                  />
-                </div>
-
-                <div>
-                  <div className="flex items-center justify-between mb-1">
-                    <label className="block text-xs font-semibold text-[#554052]">
-                      Admin Passcode
-                    </label>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setGatePasscode('rii2026');
-                        setAdminIdentifier('aadahhouse@gmail.com');
-                      }}
-                      className="text-[10px] text-[#8C5A7D] font-semibold underline hover:text-[#554052]"
-                    >
-                      Fill default (rii2026)
-                    </button>
-                  </div>
-                  <div className="relative">
-                    <input
-                      type={showGatePasscode ? 'text' : 'password'}
-                      value={gatePasscode}
-                      onChange={(e) => setGatePasscode(e.target.value)}
-                      placeholder="Enter owner passcode"
-                      autoFocus
-                      className="w-full bg-white border border-[#D5C2D7] p-2.5 pr-10 text-xs text-[#554052] outline-none focus:border-[#8C5A7D] font-mono tracking-wider"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowGatePasscode(!showGatePasscode)}
-                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#A185A4] hover:text-[#554052]"
-                    >
-                      {showGatePasscode ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                    </button>
-                  </div>
-                  {gateError && (
-                    <p className="text-[11px] text-red-600 font-medium mt-1.5 flex items-center gap-1">
-                      <AlertCircle className="w-3.5 h-3.5 inline" /> {gateError}
-                    </p>
-                  )}
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full py-3 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs uppercase tracking-widest font-semibold transition-colors shadow-sm"
-                >
-                  Verify & Access Studio
-                </button>
-              </form>
-
-              <div className="mt-4 p-3 bg-white border border-[#D5C2D7] rounded-xs space-y-1 text-[11px] text-[#554052]/80">
-                <p className="font-semibold text-[#8C5A7D] flex items-center gap-1">
-                  <Key className="w-3 h-3 text-[#8C5A7D]" /> Credentials Guide
-                </p>
-                <p>• Admin ID: <strong className="font-mono text-[#554052]">aadahhouse@gmail.com</strong></p>
-                <p>• Default Passcode: <strong className="font-mono text-[#8C5A7D]">rii2026</strong></p>
-                <p className="text-[10px] text-[#A185A4] pt-0.5">
-                  You can update this passcode anytime inside the studio via PIN Settings.
-                </p>
-              </div>
+        {/* Centered Owner Sign In Card */}
+        <div className="max-w-md mx-auto bg-white border border-[#D5C2D7] shadow-md overflow-hidden p-6 sm:p-8 space-y-6">
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-full bg-[#8C5A7D] text-[#F6F0F4] flex items-center justify-center shadow-xs shrink-0">
+              <Lock className="w-5 h-5 text-[#D5C2D7]" />
             </div>
-
-            <div className="pt-4 border-t border-[#D5C2D7] flex items-center justify-between text-xs">
-              <button
-                onClick={() => setActivePage('home')}
-                className="text-[#A185A4] hover:text-[#8C5A7D] flex items-center gap-1 transition-colors"
-              >
-                ← Return to Boutique Storefront
-              </button>
-              <button
-                onClick={() => setActivePage('orders')}
-                className="text-[#8C5A7D] font-medium hover:underline"
-              >
-                Customer Orders Portal
-              </button>
+            <div>
+              <h2 className="font-serif text-lg font-bold text-[#554052]">Owner Sign In</h2>
+              <p className="text-[11px] text-[#A185A4]">Enter your credentials to enter Studio</p>
             </div>
           </div>
 
-          {/* Right Column: Studio Capabilities & Feature Overview (7 cols) */}
-          <div className="lg:col-span-7 p-6 sm:p-8 bg-white space-y-5">
+          <form onSubmit={handleGateSubmit} className="space-y-4">
             <div>
-              <span className="text-[10px] uppercase font-bold tracking-widest text-[#8C5A7D]">
-                Included in Owner Studio
-              </span>
-              <h3 className="font-serif text-xl font-bold text-[#554052] mt-0.5">
-                Complete Boutique Command Center
-              </h3>
-              <p className="text-xs text-[#554052]/70 mt-1 leading-relaxed">
-                Once authenticated, the Owner Studio grants full access to manage store operations, orders, and products:
-              </p>
+              <label className="block text-xs font-semibold text-[#554052] mb-1">
+                Official Admin Email / User ID
+              </label>
+              <input
+                type="text"
+                value={adminIdentifier}
+                onChange={(e) => setAdminIdentifier(e.target.value)}
+                placeholder="aadahhouse@gmail.com"
+                className="w-full bg-white border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
+              />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-              {/* Feature 1 */}
-              <div className="p-3.5 bg-[#F6F0F4] border border-[#D5C2D7] space-y-1.5">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-full bg-[#8C5A7D]/10 flex items-center justify-center text-[#8C5A7D]">
-                    <Package className="w-3.5 h-3.5" />
-                  </div>
-                  <h4 className="font-bold text-xs text-[#554052]">Customer Orders Hub</h4>
-                </div>
-                <p className="text-[11px] text-[#554052]/80 leading-relaxed">
-                  Real-time table of customer orders with delivery address, phone, item breakdown, size selections (S–XXL), and tracking status updates.
-                </p>
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <label className="block text-xs font-semibold text-[#554052]">
+                  Admin Passcode
+                </label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setGatePasscode('rii2026');
+                    setAdminIdentifier('aadahhouse@gmail.com');
+                  }}
+                  className="text-[10px] text-[#8C5A7D] font-semibold underline hover:text-[#554052] cursor-pointer"
+                >
+                  Fill default (rii2026)
+                </button>
               </div>
-
-              {/* Feature 2 */}
-              <div className="p-3.5 bg-[#F6F0F4] border border-[#D5C2D7] space-y-1.5">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-full bg-[#8C5A7D]/10 flex items-center justify-center text-[#8C5A7D]">
-                    <ShoppingBag className="w-3.5 h-3.5" />
-                  </div>
-                  <h4 className="font-bold text-xs text-[#554052]">Garment Catalogue & Photos</h4>
-                </div>
-                <p className="text-[11px] text-[#554052]/80 leading-relaxed">
-                  Add new kurtis, suit sets and co-ords, upload multiple high-res product photos, configure stock counts, collections, and set prices with min. ₹1 guarantee.
-                </p>
+              <div className="relative">
+                <input
+                  type={showGatePasscode ? 'text' : 'password'}
+                  value={gatePasscode}
+                  onChange={(e) => setGatePasscode(e.target.value)}
+                  placeholder="Enter owner passcode"
+                  autoFocus
+                  className="w-full bg-white border border-[#D5C2D7] p-2.5 pr-10 text-xs text-[#554052] outline-none focus:border-[#8C5A7D] font-mono tracking-wider"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowGatePasscode(!showGatePasscode)}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#A185A4] hover:text-[#554052]"
+                >
+                  {showGatePasscode ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
-
-              {/* Feature 3 */}
-              <div className="p-3.5 bg-[#F6F0F4] border border-[#D5C2D7] space-y-1.5">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-full bg-[#8C5A7D]/10 flex items-center justify-center text-[#8C5A7D]">
-                    <Mail className="w-3.5 h-3.5" />
-                  </div>
-                  <h4 className="font-bold text-xs text-[#554052]">Dual Email Notifications</h4>
-                </div>
-                <p className="text-[11px] text-[#554052]/80 leading-relaxed">
-                  Automated email alerts dispatched to <strong>{BRAND_CONFIG.contact.email}</strong>, while customers get receipts and WhatsApp updates.
+              {gateError && (
+                <p className="text-[11px] text-red-600 font-medium mt-1.5 flex items-center gap-1">
+                  <AlertCircle className="w-3.5 h-3.5 inline" /> {gateError}
                 </p>
-              </div>
-
-              {/* Feature 4 */}
-              <div className="p-3.5 bg-[#F6F0F4] border border-[#D5C2D7] space-y-1.5">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-full bg-[#8C5A7D]/10 flex items-center justify-center text-[#8C5A7D]">
-                    <Printer className="w-3.5 h-3.5" />
-                  </div>
-                  <h4 className="font-bold text-xs text-[#554052]">Invoices & Packing Slips</h4>
-                </div>
-                <p className="text-[11px] text-[#554052]/80 leading-relaxed">
-                  Generate professional printable shipping slips with buyer addresses, garment barcodes, UPI transaction references, and totals.
-                </p>
-              </div>
+              )}
             </div>
 
-            {/* Live Store Stats Strip */}
-            <div className="p-3.5 bg-[#8C5A7D] text-[#F6F0F4] border border-[#D5C2D7] flex items-center justify-between flex-wrap gap-2 text-xs">
-              <div>
-                <span className="text-[#D5C2D7] font-semibold">Live Inventory: </span>
-                <span>{products.length} Designs Active</span>
-              </div>
-              <div className="hidden sm:block text-white/30">|</div>
-              <div>
-                <span className="text-[#D5C2D7] font-semibold">Recorded Orders: </span>
-                <span>{orders.length} Orders</span>
-              </div>
-              <div className="hidden sm:block text-white/30">|</div>
-              <div>
-                <span className="text-[#D5C2D7] font-semibold">Receiver UPI: </span>
-                <span className="font-mono">{BRAND_CONFIG.payment.upiId}</span>
-              </div>
-            </div>
+            <button
+              type="submit"
+              className="w-full py-3 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs uppercase tracking-widest font-semibold transition-colors shadow-sm cursor-pointer"
+            >
+              Verify & Access Studio
+            </button>
+          </form>
+
+          <div className="p-3 bg-[#F6F0F4] border border-[#D5C2D7] rounded-xs space-y-1 text-[11px] text-[#554052]/80">
+            <p className="font-semibold text-[#8C5A7D] flex items-center gap-1">
+              <Key className="w-3 h-3 text-[#8C5A7D]" /> Credentials Guide
+            </p>
+            <p>• Admin ID: <strong className="font-mono text-[#554052]">aadahhouse@gmail.com</strong></p>
+            <p>• Default Passcode: <strong className="font-mono text-[#8C5A7D]">rii2026</strong></p>
+            <p className="text-[10px] text-[#A185A4] pt-0.5">
+              You can update this passcode anytime inside the studio via PIN Settings.
+            </p>
+          </div>
+
+          <div className="pt-4 border-t border-[#D5C2D7] flex items-center justify-between text-xs">
+            <button
+              onClick={() => setActivePage('home')}
+              className="text-[#A185A4] hover:text-[#8C5A7D] flex items-center gap-1 transition-colors cursor-pointer"
+            >
+              ← Return to Storefront
+            </button>
+            <button
+              onClick={() => setActivePage('orders')}
+              className="text-[#8C5A7D] font-medium hover:underline cursor-pointer"
+            >
+              Customer Orders Portal
+            </button>
           </div>
         </div>
       </div>
