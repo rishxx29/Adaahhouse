@@ -60,7 +60,7 @@ export const Footer: React.FC = () => {
             <div>
               <h4 className="font-serif text-sm font-semibold text-white">Authentic Curation</h4>
               <p className="text-[#D5C2D7]/80 mt-0.5 leading-relaxed">
-                Hand-inspected fabrics, durable stitching, and genuine Indian ethnic craftsmanship.
+                Handpicked ethnic wear, carefully selected fabrics, and timeless Indian craftsmanship.
               </p>
             </div>
           </div>
