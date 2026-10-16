@@ -1100,6 +1100,8 @@ export const AdminProductManager: React.FC = () => {
                     onChange={(e) => setCollection(e.target.value as ProductCollection)}
                     className="w-full bg-[#FAF7F2] border border-[#E8DED2] p-2.5 text-xs text-[#292522] outline-none"
                   >
+                    <option value="Everyday Wear">Everyday Wear</option>
+                    <option value="Festive & Wedding Edits">Festive & Wedding Edits</option>
                     <option value="Everyday Elegance">Everyday Elegance</option>
                     <option value="Festive Edit">Festive Edit</option>
                     <option value="Office & College Wear">Office & College Wear</option>
@@ -1115,6 +1117,12 @@ export const AdminProductManager: React.FC = () => {
                     className="w-full bg-[#FAF7F2] border border-[#E8DED2] p-2.5 text-xs text-[#292522] outline-none"
                   >
                     <option value="Kurti Set">Kurti Set</option>
+                    <option value="Bottom Wear">Bottom Wear</option>
+                    <option value="Coord Set">Coord Set</option>
+                    <option value="Suit Sets">Suit Sets</option>
+                    <option value="Kurta Sets">Kurta Sets</option>
+                    <option value="Coord Sets">Coord Sets</option>
+                    <option value="Sharara Sets">Sharara Sets</option>
                     <option value="Straight Kurti">Straight Kurti</option>
                     <option value="Anarkali Kurti">Anarkali Kurti</option>
                     <option value="Co-ord Set">Co-ord Set</option>

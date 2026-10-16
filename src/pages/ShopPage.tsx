@@ -9,27 +9,80 @@ export const ShopPage: React.FC = () => {
     products,
     selectedCollectionFilter,
     setSelectedCollectionFilter,
+    selectedCategoryFilter,
+    setSelectedCategoryFilter,
     searchQuery,
     setSearchQuery,
     wishlist,
   } = useStore();
 
   const [selectedSizeFilter, setSelectedSizeFilter] = useState<KurtiSize | 'all'>('all');
-  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'featured' | 'price-asc' | 'price-desc' | 'newest'>('featured');
   const [maxPrice, setMaxPrice] = useState<number>(5000);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
   // Collections list
-  const collections: { id: string; label: string; isWishlist?: boolean }[] = [
+  const collections: { id: string; label: string; isWishlist?: boolean; isBestseller?: boolean }[] = [
     { id: 'all', label: 'All Collections' },
+    { id: 'bestseller', label: '🔥 Bestseller', isBestseller: true },
+    { id: 'Everyday Wear', label: 'Everyday Wear' },
+    { id: 'Festive & Wedding Edits', label: 'Festive & Wedding Edits' },
     { id: 'wishlist', label: `My Wishlist (${wishlist.length})`, isWishlist: true },
-    { id: 'Everyday Elegance', label: 'Everyday Elegance' },
-    { id: 'Festive Edit', label: 'Festive Edit' },
-    { id: 'Office & College Wear', label: 'Office & College Wear' },
   ];
 
-  const categories = ['all', 'Kurti Set', 'Straight Kurti', 'Anarkali Kurti', 'Co-ord Set'];
+  // Dynamic Sub-tabs according to the active collection
+  const subTabs = useMemo(() => {
+    if (selectedCollectionFilter === 'Everyday Wear') {
+      return [
+        { id: 'all', label: 'All Everyday Wear' },
+        { id: 'Kurti Set', label: 'Kurti Set' },
+        { id: 'Bottom Wear', label: 'Bottom Wear' },
+        { id: 'Coord Set', label: 'Coord Set' },
+      ];
+    }
+    if (selectedCollectionFilter === 'Festive & Wedding Edits') {
+      return [
+        { id: 'all', label: 'All Festive & Wedding' },
+        { id: 'Suit Sets', label: 'Suit Sets' },
+        { id: 'Kurta Sets', label: 'Kurta Sets' },
+        { id: 'Coord Sets', label: 'Coord Sets' },
+        { id: 'Sharara Sets', label: 'Sharara Sets' },
+      ];
+    }
+    if (selectedCollectionFilter === 'bestseller') {
+      return [
+        { id: 'all', label: 'All Bestsellers' },
+        { id: 'Kurti Set', label: 'Kurti Sets' },
+        { id: 'Bottom Wear', label: 'Bottom Wear' },
+        { id: 'Suit Sets', label: 'Suit Sets' },
+        { id: 'Kurta Sets', label: 'Kurta Sets' },
+        { id: 'Coord Sets', label: 'Coord Sets' },
+        { id: 'Sharara Sets', label: 'Sharara Sets' },
+      ];
+    }
+    return [];
+  }, [selectedCollectionFilter]);
+
+  // Categories list for sidebar
+  const categories = useMemo(() => {
+    if (selectedCollectionFilter === 'Everyday Wear') {
+      return ['all', 'Kurti Set', 'Bottom Wear', 'Coord Set'];
+    }
+    if (selectedCollectionFilter === 'Festive & Wedding Edits') {
+      return ['all', 'Suit Sets', 'Kurta Sets', 'Coord Sets', 'Sharara Sets'];
+    }
+    return [
+      'all',
+      'Kurti Set',
+      'Bottom Wear',
+      'Coord Set',
+      'Suit Sets',
+      'Kurta Sets',
+      'Coord Sets',
+      'Sharara Sets',
+    ];
+  }, [selectedCollectionFilter]);
+
   const sizes: KurtiSize[] = ['S', 'M', 'L', 'XL', 'XXL'];
 
   // Filter & Sort Logic
@@ -39,13 +92,31 @@ export const ShopPage: React.FC = () => {
         // Wishlist / Collection filter
         if (selectedCollectionFilter === 'wishlist') {
           if (!wishlist.includes(p.id)) return false;
-        } else if (selectedCollectionFilter !== 'all' && p.collection !== selectedCollectionFilter) {
-          return false;
+        } else if (selectedCollectionFilter === 'bestseller') {
+          if (!p.isBestseller) return false;
+        } else if (selectedCollectionFilter !== 'all') {
+          if (
+            p.collection !== selectedCollectionFilter &&
+            !(selectedCollectionFilter === 'Everyday Wear' && (p.collection as string) === 'Everyday Elegance') &&
+            !(selectedCollectionFilter === 'Festive & Wedding Edits' && (p.collection as string) === 'Festive Edit')
+          ) {
+            return false;
+          }
         }
+
         // Category filter
-        if (selectedCategoryFilter !== 'all' && p.category !== selectedCategoryFilter) {
-          return false;
+        if (selectedCategoryFilter !== 'all') {
+          if (p.category !== selectedCategoryFilter) {
+            // Match singular vs plural coords if applicable
+            const isCoordMatch =
+              (selectedCategoryFilter === 'Coord Set' || selectedCategoryFilter === 'Coord Sets') &&
+              (p.category === 'Coord Set' || p.category === 'Coord Sets' || (p.category as string) === 'Co-ord Set');
+            if (!isCoordMatch) {
+              return false;
+            }
+          }
         }
+
         // Size filter
         if (selectedSizeFilter !== 'all' && !p.sizes.includes(selectedSizeFilter)) {
           return false;
@@ -98,6 +169,11 @@ export const ShopPage: React.FC = () => {
     setSearchQuery('');
   };
 
+  const handleCollectionSelect = (colId: string) => {
+    setSelectedCollectionFilter(colId);
+    setSelectedCategoryFilter('all');
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 animate-in fade-in duration-200">
       {/* Editorial Header */}
@@ -108,38 +184,73 @@ export const ShopPage: React.FC = () => {
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#292522]">
           {selectedCollectionFilter === 'wishlist'
             ? 'My Saved Wishlist'
+            : selectedCollectionFilter === 'bestseller'
+            ? 'Bestsellers & Top Picks'
             : selectedCollectionFilter === 'all'
-            ? 'All Kurtis & Sets'
+            ? 'All Kurtis & Ensembles'
             : selectedCollectionFilter}
         </h1>
         <p className="text-xs sm:text-sm text-[#292522]/80 font-normal">
           {selectedCollectionFilter === 'wishlist'
-            ? 'Your shortlisted silhouettes and kurti sets saved to revisit, customize, and add to your bag.'
+            ? 'Your shortlisted silhouettes and ensembles saved to revisit, customize, and add to your bag.'
+            : selectedCollectionFilter === 'bestseller'
+            ? 'Our most-loved silhouettes, top-rated sets, and crowd-favourite artisanal handcrafts.'
+            : selectedCollectionFilter === 'Everyday Wear'
+            ? 'Breathable cotton kurti sets, tailored bottom wear, and relaxed everyday coord sets designed for daily grace.'
+            : selectedCollectionFilter === 'Festive & Wedding Edits'
+            ? 'Grand suit sets, silk kurta sets, luxury festive coords, and tiered sharara sets crafted for celebratory moments.'
             : 'Handpicked silhouette cuts, authentic hand-block prints, and breathable fabrics tailored for effortless grace.'}
         </p>
       </div>
 
-      {/* Filter Chips Bar (Collections Tabs) adhering to Interactive Filter Controls rule */}
-      <div className="flex items-center justify-center gap-1.5 flex-wrap p-1 bg-[#F2ECE1]/60 rounded-xs max-w-2xl mx-auto border border-[#E8DED2]">
-        {collections.map((col) => {
-          const isActive = selectedCollectionFilter === col.id;
-          return (
-            <button
-              key={col.id}
-              onClick={() => setSelectedCollectionFilter(col.id)}
-              className={`inline-flex items-center gap-1.5 px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all ${
-                isActive
-                  ? 'bg-[#5B1E22] text-[#FAF7F2] shadow-xs'
-                  : 'text-[#292522]/80 hover:text-[#5B1E22] hover:bg-white/60'
-              }`}
-            >
-              {col.isWishlist && (
-                <Heart className={`w-3.5 h-3.5 ${isActive ? 'fill-current' : 'text-[#5B1E22]'}`} />
-              )}
-              <span>{col.label}</span>
-            </button>
-          );
-        })}
+      {/* Primary Collections Tabs */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-center gap-1.5 flex-wrap p-1.5 bg-[#F2ECE1]/60 rounded-xs max-w-3xl mx-auto border border-[#E8DED2]">
+          {collections.map((col) => {
+            const isActive = selectedCollectionFilter === col.id;
+            return (
+              <button
+                key={col.id}
+                onClick={() => handleCollectionSelect(col.id)}
+                className={`inline-flex items-center gap-1.5 px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all cursor-pointer ${
+                  isActive
+                    ? 'bg-[#5B1E22] text-[#FAF7F2] shadow-xs'
+                    : 'text-[#292522]/80 hover:text-[#5B1E22] hover:bg-white/60'
+                }`}
+              >
+                {col.isWishlist && (
+                  <Heart className={`w-3.5 h-3.5 ${isActive ? 'fill-current' : 'text-[#5B1E22]'}`} />
+                )}
+                <span>{col.label}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Dynamic Secondary Sub-tabs Bar */}
+        {subTabs.length > 0 && (
+          <div className="flex items-center justify-center gap-2 flex-wrap max-w-2xl mx-auto pt-1 animate-in fade-in duration-200">
+            <span className="text-[11px] uppercase tracking-wider font-bold text-[#C9A76A] mr-1 hidden sm:inline">
+              Category:
+            </span>
+            {subTabs.map((sub) => {
+              const isSubActive = selectedCategoryFilter === sub.id;
+              return (
+                <button
+                  key={sub.id}
+                  onClick={() => setSelectedCategoryFilter(sub.id)}
+                  className={`px-3.5 py-1.5 text-xs font-semibold rounded-full border transition-all cursor-pointer ${
+                    isSubActive
+                      ? 'bg-[#5B1E22] text-white border-[#5B1E22] shadow-xs'
+                      : 'bg-white/90 text-[#292522] border-[#E8DED2] hover:border-[#5B1E22] hover:text-[#5B1E22]'
+                  }`}
+                >
+                  {sub.label}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* Controls Bar: Results Count, Mobile Filter Drawer Toggle, Sorting */}

@@ -8,7 +8,24 @@ export interface GarmentMeasurements {
   shoulder?: string;
 }
 
-export type ProductCollection = 'Everyday Elegance' | 'Festive Edit' | 'Office & College Wear';
+export type ProductCollection =
+  | 'Everyday Wear'
+  | 'Festive & Wedding Edits'
+  | 'Everyday Elegance'
+  | 'Festive Edit'
+  | 'Office & College Wear';
+
+export type ProductCategory =
+  | 'Kurti Set'
+  | 'Bottom Wear'
+  | 'Coord Set'
+  | 'Suit Sets'
+  | 'Kurta Sets'
+  | 'Coord Sets'
+  | 'Sharara Sets'
+  | 'Co-ord Set'
+  | 'Straight Kurti'
+  | 'Anarkali Kurti';
 
 export interface Product {
   id: string;
@@ -16,7 +33,7 @@ export interface Product {
   name: string;
   slug: string;
   collection: ProductCollection;
-  category: 'Kurti Set' | 'Straight Kurti' | 'Anarkali Kurti' | 'Co-ord Set';
+  category: ProductCategory;
   price: number;
   originalPrice?: number;
   images: string[];

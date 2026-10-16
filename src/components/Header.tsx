@@ -19,6 +19,7 @@ import {
   ShieldCheck,
   ChevronRight,
   MessageCircle,
+  Flame,
 } from 'lucide-react';
 import { useStore, ActivePage } from '../context/StoreContext';
 import { BRAND_CONFIG } from '../config/brand';
@@ -29,6 +30,8 @@ export const Header: React.FC = () => {
     setActivePage,
     selectedCollectionFilter,
     setSelectedCollectionFilter,
+    selectedCategoryFilter,
+    setSelectedCategoryFilter,
     cartCount,
     wishlist,
     setIsCartOpen,
@@ -46,6 +49,8 @@ export const Header: React.FC = () => {
 
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isEverydayOpen, setIsEverydayOpen] = useState(true);
+  const [isFestiveOpen, setIsFestiveOpen] = useState(true);
 
   // Prevent background scrolling when side navigation drawer is open
   useEffect(() => {
@@ -59,13 +64,14 @@ export const Header: React.FC = () => {
     };
   }, [isSideNavOpen]);
 
-  const handleNavClick = (page: ActivePage, collectionFilter?: string) => {
+  const handleNavClick = (page: ActivePage, collectionFilter?: string, categoryFilter: string = 'all') => {
     setActivePage(page);
     if (collectionFilter) {
       setSelectedCollectionFilter(collectionFilter);
     } else if (page === 'shop') {
       setSelectedCollectionFilter('all');
     }
+    setSelectedCategoryFilter(categoryFilter);
     setIsSideNavOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -354,12 +360,13 @@ export const Header: React.FC = () => {
 
             {/* Drawer Navigation Links & Tabs */}
             <div className="flex-1 px-5 py-4 space-y-6 overflow-y-auto text-xs">
-              {/* Category 1: Kurti Collections */}
+              {/* Category 1: Kurti Collections & Tabs */}
               <div className="space-y-1">
                 <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#C9A76A] block px-2 pb-1">
                   Boutique Collections & Tabs
                 </span>
 
+                {/* Home */}
                 <button
                   onClick={() => handleNavClick('home')}
                   className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
@@ -375,10 +382,11 @@ export const Header: React.FC = () => {
                   <ChevronRight className="w-3.5 h-3.5 opacity-60" />
                 </button>
 
+                {/* Shop All */}
                 <button
-                  onClick={() => handleNavClick('shop', 'all')}
+                  onClick={() => handleNavClick('shop', 'all', 'all')}
                   className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
-                    activePage === 'shop' && selectedCollectionFilter === 'all'
+                    activePage === 'shop' && selectedCollectionFilter === 'all' && selectedCategoryFilter === 'all'
                       ? 'bg-[#5B1E22] text-white font-semibold'
                       : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
                   }`}
@@ -392,35 +400,209 @@ export const Header: React.FC = () => {
                   </span>
                 </button>
 
+                {/* BESTSELLER TAB */}
                 <button
-                  onClick={() => handleNavClick('shop', 'Everyday Elegance')}
+                  onClick={() => handleNavClick('shop', 'bestseller', 'all')}
                   className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
-                    activePage === 'shop' && selectedCollectionFilter === 'Everyday Elegance'
+                    activePage === 'shop' && selectedCollectionFilter === 'bestseller'
                       ? 'bg-[#5B1E22] text-white font-semibold'
                       : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <Sparkles className="w-4 h-4 text-[#C9A76A]" />
-                    <span className="text-[13px] uppercase tracking-wider">Everyday Wear (Casual/Office)</span>
+                    <Flame className="w-4 h-4 text-amber-500 fill-amber-500" />
+                    <span className="text-[13px] uppercase tracking-wider font-bold">Bestseller</span>
                   </div>
-                  <ChevronRight className="w-3.5 h-3.5 opacity-60" />
+                  <span className="text-[9px] px-2 py-0.5 bg-amber-500/20 text-amber-800 font-bold uppercase rounded-full">
+                    Top Picks
+                  </span>
                 </button>
 
-                <button
-                  onClick={() => handleNavClick('shop', 'Festive Edit')}
-                  className={`w-full text-left px-3 py-2.5 rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
-                    activePage === 'shop' && selectedCollectionFilter === 'Festive Edit'
-                      ? 'bg-[#5B1E22] text-white font-semibold'
-                      : 'text-[#292522] hover:bg-white hover:text-[#5B1E22]'
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <Sparkles className="w-4 h-4 text-[#C9A76A]" />
-                    <span className="text-[13px] uppercase tracking-wider">Festive & Wedding Edit</span>
+                {/* EVERYDAY WEAR TAB GROUP */}
+                <div className="pt-2">
+                  <div className="flex items-center justify-between px-3 py-2 bg-[#F2ECE1]/70 border border-[#E8DED2] rounded-xs">
+                    <button
+                      onClick={() => handleNavClick('shop', 'Everyday Wear', 'all')}
+                      className="flex items-center gap-2 text-left flex-1 hover:text-[#5B1E22] cursor-pointer"
+                    >
+                      <Sparkles className="w-4 h-4 text-[#C9A76A]" />
+                      <span className="text-[13px] uppercase tracking-wider font-bold text-[#292522]">
+                        Everyday Wear
+                      </span>
+                    </button>
+                    <button
+                      onClick={() => setIsEverydayOpen(!isEverydayOpen)}
+                      className="p-1 text-[#9E897A] hover:text-[#5B1E22] cursor-pointer"
+                      aria-label="Toggle Everyday Wear Sub-tabs"
+                    >
+                      <ChevronDown
+                        className={`w-4 h-4 transition-transform duration-200 ${
+                          isEverydayOpen ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
                   </div>
-                  <ChevronRight className="w-3.5 h-3.5 opacity-60" />
-                </button>
+
+                  {/* Everyday Wear Sub-tabs */}
+                  {isEverydayOpen && (
+                    <div className="mt-1 ml-3 pl-3 border-l-2 border-[#C9A76A]/40 space-y-1">
+                      <button
+                        onClick={() => handleNavClick('shop', 'Everyday Wear', 'all')}
+                        className={`w-full text-left px-2.5 py-1.5 text-xs rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                          activePage === 'shop' &&
+                          selectedCollectionFilter === 'Everyday Wear' &&
+                          selectedCategoryFilter === 'all'
+                            ? 'bg-[#5B1E22] text-white font-semibold'
+                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                        }`}
+                      >
+                        <span>All Everyday Wear</span>
+                      </button>
+
+                      <button
+                        onClick={() => handleNavClick('shop', 'Everyday Wear', 'Kurti Set')}
+                        className={`w-full text-left px-2.5 py-1.5 text-xs rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                          activePage === 'shop' &&
+                          selectedCollectionFilter === 'Everyday Wear' &&
+                          selectedCategoryFilter === 'Kurti Set'
+                            ? 'bg-[#5B1E22] text-white font-semibold'
+                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                        }`}
+                      >
+                        <span>Kurti Set</span>
+                        <ChevronRight className="w-3 h-3 opacity-60" />
+                      </button>
+
+                      <button
+                        onClick={() => handleNavClick('shop', 'Everyday Wear', 'Bottom Wear')}
+                        className={`w-full text-left px-2.5 py-1.5 text-xs rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                          activePage === 'shop' &&
+                          selectedCollectionFilter === 'Everyday Wear' &&
+                          selectedCategoryFilter === 'Bottom Wear'
+                            ? 'bg-[#5B1E22] text-white font-semibold'
+                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                        }`}
+                      >
+                        <span>Bottom Wear</span>
+                        <ChevronRight className="w-3 h-3 opacity-60" />
+                      </button>
+
+                      <button
+                        onClick={() => handleNavClick('shop', 'Everyday Wear', 'Coord Set')}
+                        className={`w-full text-left px-2.5 py-1.5 text-xs rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                          activePage === 'shop' &&
+                          selectedCollectionFilter === 'Everyday Wear' &&
+                          selectedCategoryFilter === 'Coord Set'
+                            ? 'bg-[#5B1E22] text-white font-semibold'
+                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                        }`}
+                      >
+                        <span>Coord Set</span>
+                        <ChevronRight className="w-3 h-3 opacity-60" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* FESTIVE & WEDDING EDITS TAB GROUP */}
+                <div className="pt-2">
+                  <div className="flex items-center justify-between px-3 py-2 bg-[#F2ECE1]/70 border border-[#E8DED2] rounded-xs">
+                    <button
+                      onClick={() => handleNavClick('shop', 'Festive & Wedding Edits', 'all')}
+                      className="flex items-center gap-2 text-left flex-1 hover:text-[#5B1E22] cursor-pointer"
+                    >
+                      <Sparkles className="w-4 h-4 text-[#C9A76A]" />
+                      <span className="text-[13px] uppercase tracking-wider font-bold text-[#292522]">
+                        Festive & Wedding Edits
+                      </span>
+                    </button>
+                    <button
+                      onClick={() => setIsFestiveOpen(!isFestiveOpen)}
+                      className="p-1 text-[#9E897A] hover:text-[#5B1E22] cursor-pointer"
+                      aria-label="Toggle Festive & Wedding Sub-tabs"
+                    >
+                      <ChevronDown
+                        className={`w-4 h-4 transition-transform duration-200 ${
+                          isFestiveOpen ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+                  </div>
+
+                  {/* Festive & Wedding Sub-tabs */}
+                  {isFestiveOpen && (
+                    <div className="mt-1 ml-3 pl-3 border-l-2 border-[#C9A76A]/40 space-y-1">
+                      <button
+                        onClick={() => handleNavClick('shop', 'Festive & Wedding Edits', 'all')}
+                        className={`w-full text-left px-2.5 py-1.5 text-xs rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                          activePage === 'shop' &&
+                          selectedCollectionFilter === 'Festive & Wedding Edits' &&
+                          selectedCategoryFilter === 'all'
+                            ? 'bg-[#5B1E22] text-white font-semibold'
+                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                        }`}
+                      >
+                        <span>All Festive & Wedding</span>
+                      </button>
+
+                      <button
+                        onClick={() => handleNavClick('shop', 'Festive & Wedding Edits', 'Suit Sets')}
+                        className={`w-full text-left px-2.5 py-1.5 text-xs rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                          activePage === 'shop' &&
+                          selectedCollectionFilter === 'Festive & Wedding Edits' &&
+                          selectedCategoryFilter === 'Suit Sets'
+                            ? 'bg-[#5B1E22] text-white font-semibold'
+                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                        }`}
+                      >
+                        <span>Suit Sets</span>
+                        <ChevronRight className="w-3 h-3 opacity-60" />
+                      </button>
+
+                      <button
+                        onClick={() => handleNavClick('shop', 'Festive & Wedding Edits', 'Kurta Sets')}
+                        className={`w-full text-left px-2.5 py-1.5 text-xs rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                          activePage === 'shop' &&
+                          selectedCollectionFilter === 'Festive & Wedding Edits' &&
+                          selectedCategoryFilter === 'Kurta Sets'
+                            ? 'bg-[#5B1E22] text-white font-semibold'
+                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                        }`}
+                      >
+                        <span>Kurta Sets</span>
+                        <ChevronRight className="w-3 h-3 opacity-60" />
+                      </button>
+
+                      <button
+                        onClick={() => handleNavClick('shop', 'Festive & Wedding Edits', 'Coord Sets')}
+                        className={`w-full text-left px-2.5 py-1.5 text-xs rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                          activePage === 'shop' &&
+                          selectedCollectionFilter === 'Festive & Wedding Edits' &&
+                          selectedCategoryFilter === 'Coord Sets'
+                            ? 'bg-[#5B1E22] text-white font-semibold'
+                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                        }`}
+                      >
+                        <span>Coord Sets</span>
+                        <ChevronRight className="w-3 h-3 opacity-60" />
+                      </button>
+
+                      <button
+                        onClick={() => handleNavClick('shop', 'Festive & Wedding Edits', 'Sharara Sets')}
+                        className={`w-full text-left px-2.5 py-1.5 text-xs rounded-xs flex items-center justify-between transition-colors cursor-pointer ${
+                          activePage === 'shop' &&
+                          selectedCollectionFilter === 'Festive & Wedding Edits' &&
+                          selectedCategoryFilter === 'Sharara Sets'
+                            ? 'bg-[#5B1E22] text-white font-semibold'
+                            : 'text-[#292522]/80 hover:bg-white hover:text-[#5B1E22]'
+                        }`}
+                      >
+                        <span>Sharara Sets</span>
+                        <ChevronRight className="w-3 h-3 opacity-60" />
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Category 2: Customer Section */}

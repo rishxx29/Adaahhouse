@@ -14,35 +14,44 @@ import dustyRoseImg from '../assets/images/kurti_dusty_rose_set_1792057769153.jp
 import heroImg from '../assets/images/hero_kurti_editorial_1792057768559.jpg';
 
 export const HomePage: React.FC = () => {
-  const { products, setActivePage, setSelectedCollectionFilter } = useStore();
+  const {
+    products,
+    setActivePage,
+    setSelectedCollectionFilter,
+    setSelectedCategoryFilter,
+  } = useStore();
 
   const newArrivals = products.filter((p) => p.isNewArrival).slice(0, 3);
-  const bestsellers = products.filter((p) => p.isBestseller).slice(0, 3);
+  const bestsellers = products.filter((p) => p.isBestseller).slice(0, 4);
 
-  const handleCollectionClick = (collection: string) => {
-    setSelectedCollectionFilter(collection);
+  const handleCollectionClick = (target: string) => {
+    setSelectedCollectionFilter(target);
+    setSelectedCategoryFilter('all');
     setActivePage('shop');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const collectionsList = [
     {
-      name: 'Everyday Elegance',
-      tag: 'Soft Cottons & Mulmul',
-      description: 'Airy, breathable silhouettes designed for morning walks, work-from-home, and daily grace.',
+      name: 'Bestseller',
+      target: 'bestseller',
+      tag: 'Most-Loved Silhouettes',
+      description: 'Our top customer favourites and artisanal bestsellers tailored for perfection.',
+      image: maroonImg,
+    },
+    {
+      name: 'Everyday Wear',
+      target: 'Everyday Wear',
+      tag: 'Kurti Sets, Bottoms & Coords',
+      description: 'Airy, breathable pure cotton kurti sets, cigarette pants, palazzos, and everyday coords for daily grace.',
       image: ivoryImg,
     },
     {
-      name: 'Office & College Wear',
-      tag: 'Tailored Cuts & Slub Linens',
-      description: 'Smart straight kurtis and co-ord pant sets equipped with functional pockets for busy days.',
+      name: 'Festive & Wedding Edits',
+      target: 'Festive & Wedding Edits',
+      tag: 'Suits, Kurta Sets & Shararas',
+      description: 'Regal Chanderi suits, zardozi kurta sets, micro-velvet coords, and heavy festive sharara sets.',
       image: sageImg,
-    },
-    {
-      name: 'Festive Edit',
-      tag: 'Chanderi, Zari & Gotta Patti',
-      description: 'Rich jewel tones and delicate festive embroidery crafted for family celebrations and pujas.',
-      image: maroonImg,
     },
   ];
 
@@ -94,7 +103,7 @@ export const HomePage: React.FC = () => {
           {collectionsList.map((col) => (
             <div
               key={col.name}
-              onClick={() => handleCollectionClick(col.name)}
+              onClick={() => handleCollectionClick(col.target)}
               className="group relative cursor-pointer overflow-hidden bg-white border border-[#E8DED2] hover:border-[#C9A76A] transition-all duration-300 shadow-xs hover:shadow-md"
             >
               <div className="relative aspect-[3/4] overflow-hidden bg-[#FAF7F2]">

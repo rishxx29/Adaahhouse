@@ -22,6 +22,8 @@ interface StoreContextType {
   setActivePage: (page: ActivePage) => void;
   selectedCollectionFilter: string;
   setSelectedCollectionFilter: (col: string) => void;
+  selectedCategoryFilter: string;
+  setSelectedCategoryFilter: (cat: string) => void;
   searchQuery: string;
   setSearchQuery: (q: string) => void;
   
@@ -142,13 +144,22 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Navigation
   const [activePage, setActivePage] = useState<ActivePage>('home');
   const [selectedCollectionFilter, setSelectedCollectionFilter] = useState<string>('all');
+  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  // Products (Persisted in LocalStorage)
+  // Products (Persisted in LocalStorage with version check)
   const [products, setProducts] = useState<Product[]>(() => {
     try {
-      const saved = localStorage.getItem('adaah_products');
-      if (saved) return JSON.parse(saved);
+      const CATALOG_VERSION = 'v3_tabs_subtabs';
+      const savedVersion = localStorage.getItem('adaah_products_version');
+      if (savedVersion === CATALOG_VERSION) {
+        const saved = localStorage.getItem('adaah_products');
+        if (saved) return JSON.parse(saved);
+      } else {
+        localStorage.setItem('adaah_products_version', CATALOG_VERSION);
+        localStorage.setItem('adaah_products', JSON.stringify(INITIAL_PRODUCTS));
+        return INITIAL_PRODUCTS;
+      }
     } catch {
       // fallback
     }
@@ -694,6 +705,8 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         setActivePage,
         selectedCollectionFilter,
         setSelectedCollectionFilter,
+        selectedCategoryFilter,
+        setSelectedCategoryFilter,
         searchQuery,
         setSearchQuery,
         products,

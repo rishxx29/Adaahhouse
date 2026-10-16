@@ -98,7 +98,7 @@ export const Footer: React.FC = () => {
           {/* Quick Links */}
           <div className="space-y-3">
             <h4 className="font-serif text-sm font-semibold tracking-wider uppercase text-[#C9A76A]">
-              Collections
+              Collections & Edits
             </h4>
             <ul className="space-y-2 text-xs text-[#E8DED2]/80 font-medium">
               <li>
@@ -111,26 +111,26 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <button
-                  onClick={() => handleNav('shop', 'Everyday Elegance')}
+                  onClick={() => handleNav('shop', 'bestseller')}
                   className="hover:text-white transition-colors"
                 >
-                  Everyday Elegance
+                  🔥 Bestsellers
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleNav('shop', 'Festive Edit')}
+                  onClick={() => handleNav('shop', 'Everyday Wear')}
                   className="hover:text-white transition-colors"
                 >
-                  Festive Edit
+                  Everyday Wear
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleNav('shop', 'Office & College Wear')}
+                  onClick={() => handleNav('shop', 'Festive & Wedding Edits')}
                   className="hover:text-white transition-colors"
                 >
-                  Office & College Wear
+                  Festive & Wedding Edits
                 </button>
               </li>
             </ul>
