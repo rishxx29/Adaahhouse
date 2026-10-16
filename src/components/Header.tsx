@@ -115,9 +115,9 @@ export const Header: React.FC = () => {
       )}
 
       {/* Main Header Bar matching visual reference: Left Logo | Center Nav Links | Right Search + Icons */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-22 flex items-center justify-between gap-4">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 h-20 sm:h-22 flex items-center justify-between gap-3 lg:gap-6">
         {/* Left: HOUSE OF RII Brand Name & Lotus Emblem */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           {/* Mobile Menu Hamburger */}
           <button
             onClick={() => setIsSideNavOpen(true)}
@@ -137,7 +137,7 @@ export const Header: React.FC = () => {
                 <HouseOfRiiLotus size={28} color="#8C5A7D" />
               </div>
               <div className="flex flex-col items-start">
-                <span className="font-serif text-xl sm:text-2xl lg:text-[26px] font-normal tracking-[0.16em] text-[#8C5A7D] leading-none transition-colors group-hover:text-[#554052]">
+                <span className="font-serif text-xl sm:text-2xl lg:text-[26px] font-normal tracking-[0.16em] text-[#8C5A7D] leading-none transition-colors group-hover:text-[#554052] whitespace-nowrap">
                   HOUSE OF RII
                 </span>
                 <span className="text-[7.5px] sm:text-[8.5px] uppercase tracking-[0.32em] text-[#554052]/75 font-medium mt-1">
@@ -149,7 +149,7 @@ export const Header: React.FC = () => {
         </div>
 
         {/* Center: Desktop Navigation Links matching Reference Image */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-xs font-medium tracking-wider text-[#554052]">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-7 text-xs font-medium tracking-wider text-[#554052] whitespace-nowrap shrink-0">
           <button
             onClick={() => handleNavClick('shop', 'all', 'all')}
             className="hover:text-[#8C5A7D] transition-colors py-1 cursor-pointer"
@@ -195,9 +195,9 @@ export const Header: React.FC = () => {
         </nav>
 
         {/* Right Corner: Search Input Pill + Wishlist + Bag + Account */}
-        <div className="flex items-center justify-end gap-2 sm:gap-3">
+        <div className="flex items-center justify-end gap-2 sm:gap-3 shrink-0">
           {/* Desktop Search Input Pill */}
-          <div className="hidden md:flex items-center relative w-48 lg:w-56 xl:w-64">
+          <div className="hidden md:flex items-center relative w-40 lg:w-48 xl:w-56">
             <Search className="w-4 h-4 text-[#A185A4] absolute left-3 pointer-events-none" />
             <input
               type="text"
@@ -206,8 +206,8 @@ export const Header: React.FC = () => {
                 setSearchQuery(e.target.value);
                 if (activePage !== 'shop') setActivePage('shop');
               }}
-              placeholder="Search for kurtas, sets and more..."
-              className="w-full pl-9 pr-3 py-1.5 bg-white/70 border border-[#D5C2D7] rounded-full text-xs text-[#554052] placeholder:text-[#A185A4] outline-none focus:border-[#8C5A7D] focus:bg-white transition-all"
+              placeholder="Search kurtas, sets..."
+              className="w-full pl-9 pr-3 py-1.5 bg-[#FAF5F8] border border-[#D5C2D7] rounded-full text-xs text-[#554052] placeholder:text-[#A185A4] outline-none focus:border-[#8C5A7D] focus:bg-[#FAF5F8] transition-all"
             />
           </div>
 
@@ -226,7 +226,7 @@ export const Header: React.FC = () => {
             <div className="relative group">
               <button
                 onClick={() => handleNavClick('account')}
-                className="flex items-center gap-1.5 p-1 px-2 bg-white border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] transition-colors rounded-full shadow-2xs cursor-pointer"
+                className="flex items-center gap-1.5 p-1 px-2 bg-[#FAF5F8] border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] transition-colors rounded-full shadow-2xs cursor-pointer"
                 title={`Signed in as ${currentUser.fullName}`}
               >
                 <div className="w-5 h-5 rounded-full bg-[#8C5A7D] text-[#F6F0F4] flex items-center justify-center text-[10px] font-bold">
@@ -239,7 +239,7 @@ export const Header: React.FC = () => {
               </button>
 
               {/* Dropdown Menu */}
-              <div className="absolute right-0 top-full mt-1 w-44 bg-white border border-[#D5C2D7] shadow-lg rounded-xs py-1.5 hidden group-hover:block z-50 text-xs">
+              <div className="absolute right-0 top-full mt-1 w-44 bg-[#FAF5F8] border border-[#D5C2D7] shadow-lg rounded-xs py-1.5 hidden group-hover:block z-50 text-xs">
                 <div className="px-3 py-1.5 border-b border-[#D5C2D7] text-[11px] text-[#A185A4] truncate">
                   {currentUser.email}
                 </div>

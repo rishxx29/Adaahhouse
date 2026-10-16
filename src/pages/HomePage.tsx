@@ -118,18 +118,18 @@ export const HomePage: React.FC = () => {
     showToast('Welcome to the House of Rii Circle! Use code RII10 for 10% off.');
   };
 
-  // 10 Circular Category Tiles matching reference image
+  // 10 Circular Category Tiles matching Reference Image 1
   const categoryCircles = [
-    { name: 'KURTAS', img: heroPinkSuit },
-    { name: 'KURTA SETS', img: ivoryImg },
-    { name: 'CO-ORDS', img: sageImg },
-    { name: 'FESTIVE WEAR', img: maroonImg },
-    { name: 'NEW IN', img: dustyRoseImg },
-    { name: 'BESTSELLERS', img: heroPinkSuit },
-    { name: 'COTTON WEAR', img: ivoryImg },
-    { name: 'CHIKANKARI', img: dustyRoseImg },
-    { name: 'PRINTED EDIT', img: sageImg },
-    { name: 'ACCESSORIES', img: maroonImg },
+    { name: 'KURTAS', img: '/categories/kurtas.jpg' },
+    { name: 'KURTA SETS', img: '/categories/kurta_sets.jpg' },
+    { name: 'CO-ORDS', img: '/categories/coords.jpg' },
+    { name: 'FESTIVE WEAR', img: '/categories/festive_wear.jpg' },
+    { name: 'NEW IN', img: '/categories/new_in.jpg' },
+    { name: 'BESTSELLERS', img: '/categories/bestsellers.jpg' },
+    { name: 'COTTON WEAR', img: '/categories/cotton_wear.jpg' },
+    { name: 'CHIKANKARI', img: '/categories/chikankari.jpg' },
+    { name: 'PRINTED EDIT', img: '/categories/printed_edit.jpg' },
+    { name: 'ACCESSORIES', img: '/categories/accessories.jpg' },
   ];
 
   // Customer Reviews
@@ -163,7 +163,7 @@ export const HomePage: React.FC = () => {
       <HeroSection />
 
       {/* SECTION 2: SHOP BY CATEGORY (10 Circular Tiles matching Reference Image) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-6 pb-2 border-b border-[#D5C2D7]">
           <h2 className="font-serif text-lg sm:text-xl font-bold uppercase tracking-[0.16em] text-[#554052]">
             SHOP BY CATEGORY
@@ -182,15 +182,15 @@ export const HomePage: React.FC = () => {
           </button>
         </div>
 
-        {/* Circular Category Tiles Scrollable Grid */}
-        <div className="flex items-center gap-4 sm:gap-6 overflow-x-auto pb-4 pt-1 scrollbar-none scroll-smooth">
+        {/* Circular Category Tiles: All 10 displayed across desktop in a row */}
+        <div className="flex items-center justify-between gap-3 sm:gap-4 overflow-x-auto lg:overflow-x-visible pb-4 pt-1 scrollbar-none scroll-smooth">
           {categoryCircles.map((cat, idx) => (
             <div
               key={idx}
               onClick={() => handleCategoryCircleClick(cat.name)}
               className="flex flex-col items-center gap-2.5 shrink-0 group cursor-pointer"
             >
-              <div className="w-18 h-18 sm:w-22 sm:h-22 rounded-full p-0.5 border-2 border-[#D5C2D7] group-hover:border-[#8C5A7D] transition-all duration-300 shadow-2xs group-hover:shadow-md bg-white">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-[84px] lg:h-[84px] rounded-full p-0.5 border-2 border-[#D5C2D7] group-hover:border-[#8C5A7D] transition-all duration-300 shadow-2xs group-hover:shadow-md bg-[#FAF5F8]">
                 <div className="w-full h-full rounded-full overflow-hidden bg-[#F6F0F4]">
                   <img
                     src={cat.img}
@@ -208,7 +208,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* SECTION 3: NEW COLLECTION (Grid matching reference layout with VIEW ALL) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-3 border-b border-[#D5C2D7]">
           <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
             <h2 className="font-serif text-2xl sm:text-3xl font-normal tracking-wide text-[#554052]">
@@ -241,7 +241,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* SECTION 4: BESTSELLERS WITH INTERACTIVE TABS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-xl mx-auto space-y-2 mb-8">
           <div className="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.25em] text-[#8C5A7D] font-semibold">
             <HouseOfRiiLotus size={16} color="#8C5A7D" />
@@ -265,7 +265,7 @@ export const HomePage: React.FC = () => {
             className={`px-5 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-full transition-all cursor-pointer ${
               activeMainTab === 'bestseller'
                 ? 'bg-[#8C5A7D] text-white shadow-xs'
-                : 'bg-white text-[#554052] border border-[#D5C2D7] hover:border-[#8C5A7D]'
+                : 'bg-[#FAF5F8] text-[#554052] border border-[#D5C2D7] hover:border-[#8C5A7D]'
             }`}
           >
             Bestseller
@@ -279,7 +279,7 @@ export const HomePage: React.FC = () => {
             className={`px-5 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-full transition-all cursor-pointer ${
               activeMainTab === 'everyday'
                 ? 'bg-[#8C5A7D] text-white shadow-xs'
-                : 'bg-white text-[#554052] border border-[#D5C2D7] hover:border-[#8C5A7D]'
+                : 'bg-[#FAF5F8] text-[#554052] border border-[#D5C2D7] hover:border-[#8C5A7D]'
             }`}
           >
             Everyday Wear
@@ -293,7 +293,7 @@ export const HomePage: React.FC = () => {
             className={`px-5 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-full transition-all cursor-pointer ${
               activeMainTab === 'festive'
                 ? 'bg-[#8C5A7D] text-white shadow-xs'
-                : 'bg-white text-[#554052] border border-[#D5C2D7] hover:border-[#8C5A7D]'
+                : 'bg-[#FAF5F8] text-[#554052] border border-[#D5C2D7] hover:border-[#8C5A7D]'
             }`}
           >
             Festive &amp; Wedding Edits
@@ -317,7 +317,7 @@ export const HomePage: React.FC = () => {
                   className={`px-3.5 py-1.5 text-[11px] font-medium tracking-wider rounded-full transition-all cursor-pointer ${
                     activeSubTab === subKey
                       ? 'bg-[#554052] text-white shadow-xs'
-                      : 'bg-white/80 text-[#554052] border border-[#D5C2D7] hover:bg-white'
+                      : 'bg-[#FAF5F8] text-[#554052] border border-[#D5C2D7] hover:bg-[#FAF5F8]'
                   }`}
                 >
                   {labels[subKey]}
@@ -345,7 +345,7 @@ export const HomePage: React.FC = () => {
                   className={`px-3.5 py-1.5 text-[11px] font-medium tracking-wider rounded-full transition-all cursor-pointer ${
                     activeSubTab === subKey
                       ? 'bg-[#554052] text-white shadow-xs'
-                      : 'bg-white/80 text-[#554052] border border-[#D5C2D7] hover:bg-white'
+                      : 'bg-[#FAF5F8] text-[#554052] border border-[#D5C2D7] hover:bg-[#FAF5F8]'
                   }`}
                 >
                   {labels[subKey]}
@@ -364,7 +364,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* SECTION 5: PROMOTIONAL BANNER FOR FESTIVE & OCCASION WEAR */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-xs bg-[#554052] text-[#F6F0F4] border border-[#D5C2D7] shadow-md">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
             <div className="lg:col-span-7 p-8 sm:p-12 lg:p-16 space-y-4">
@@ -386,7 +386,7 @@ export const HomePage: React.FC = () => {
                     setActivePage('shop');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
-                  className="px-8 py-3.5 bg-[#8C5A7D] hover:bg-white hover:text-[#554052] text-white text-xs uppercase tracking-[0.2em] font-semibold transition-all duration-300 shadow-sm cursor-pointer"
+                  className="px-8 py-3.5 bg-[#8C5A7D] hover:bg-[#FAF5F8] hover:text-[#554052] text-white text-xs uppercase tracking-[0.2em] font-semibold transition-all duration-300 shadow-sm cursor-pointer"
                 >
                   EXPLORE FESTIVE EDIT →
                 </button>
@@ -406,7 +406,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* SECTION 6: THE RII EDIT (Styling Inspiration & Stories) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-xl mx-auto space-y-2 mb-10">
           <span className="text-xs uppercase tracking-[0.25em] text-[#8C5A7D] font-semibold">
             STYLE JOURNAL
@@ -451,7 +451,7 @@ export const HomePage: React.FC = () => {
                 setActivePage('shop');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="bg-white border border-[#D5C2D7] overflow-hidden group cursor-pointer shadow-2xs hover:shadow-md transition-all duration-300"
+              className="bg-[#FAF5F8] border border-[#D5C2D7] overflow-hidden group cursor-pointer shadow-2xs hover:shadow-xs transition-all duration-300 rounded-xs"
             >
               <div className="relative aspect-[4/3] overflow-hidden bg-[#F6F0F4]">
                 <img
@@ -459,7 +459,7 @@ export const HomePage: React.FC = () => {
                   alt={edit.title}
                   className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
-                <span className="absolute top-3 left-3 px-2.5 py-1 bg-white/90 backdrop-blur-xs text-[10px] uppercase tracking-wider font-semibold text-[#8C5A7D]">
+                <span className="absolute top-3 left-3 px-2.5 py-1 bg-[#FAF5F8]/90 backdrop-blur-xs text-[10px] uppercase tracking-wider font-semibold text-[#8C5A7D] border border-[#D5C2D7]/60">
                   {edit.tag}
                 </span>
               </div>
@@ -481,8 +481,8 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* SECTION 7: CLIENT LOVE & REVIEWS */}
-      <section className="bg-white border-y border-[#D5C2D7] py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <section className="bg-[#FAF5F8] border-y border-[#D5C2D7] py-16">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center max-w-xl mx-auto space-y-2">
             <span className="text-xs uppercase tracking-[0.25em] text-[#8C5A7D] font-semibold">
               GENUINE EXPERIENCES
@@ -522,7 +522,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* SECTION 8: INSTAGRAM GALLERY */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="text-center space-y-1">
           <span className="text-xs uppercase tracking-[0.25em] text-[#8C5A7D] font-semibold">
             FOLLOW OUR JOURNEY
@@ -547,7 +547,7 @@ export const HomePage: React.FC = () => {
               href={BRAND_CONFIG.social.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative aspect-square overflow-hidden bg-white border border-[#D5C2D7] group block"
+              className="relative aspect-square overflow-hidden bg-[#FAF5F8] border border-[#D5C2D7] group block rounded-xs shadow-2xs"
             >
               <img
                 src={item.img}
@@ -565,7 +565,7 @@ export const HomePage: React.FC = () => {
 
       {/* SECTION 9: NEWSLETTER SUBSCRIPTION */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6">
-        <div className="bg-white border border-[#D5C2D7] p-8 sm:p-12 text-center space-y-4 rounded-xs shadow-xs">
+        <div className="bg-[#FAF5F8] border border-[#D5C2D7] p-8 sm:p-12 text-center space-y-4 rounded-xs shadow-xs">
           <div className="w-10 h-10 rounded-full bg-[#8C5A7D]/10 flex items-center justify-center mx-auto text-[#8C5A7D]">
             <HouseOfRiiLotus size={24} color="#8C5A7D" />
           </div>

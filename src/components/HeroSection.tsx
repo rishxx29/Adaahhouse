@@ -49,7 +49,7 @@ export const HeroSection: React.FC = () => {
         </button>
 
         {/* Hero Content Container */}
-        <div className="max-w-7xl mx-auto w-full px-4 sm:px-8 lg:px-12 py-10 sm:py-14 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+        <div className="max-w-[1440px] mx-auto w-full px-4 sm:px-8 lg:px-12 py-10 sm:py-14 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
           {/* Left Text Block */}
           <div className="lg:col-span-6 space-y-4 sm:space-y-6 text-center lg:text-left pt-2 lg:pt-0">
             {/* Spaced small-caps kicker */}
@@ -82,7 +82,7 @@ export const HeroSection: React.FC = () => {
 
           {/* Center-Right: Model in Pink Suit Set with Grace in Every Thread Quote */}
           <div className="lg:col-span-6 flex items-center justify-center lg:justify-end relative">
-            <div className="relative w-full max-w-md sm:max-w-lg lg:max-w-none aspect-[4/3] sm:aspect-[16/10] lg:aspect-[16/11] rounded-xs overflow-hidden shadow-xs border border-[#D5C2D7]/80 bg-white/50 group">
+            <div className="relative w-full max-w-md sm:max-w-lg lg:max-w-none aspect-[4/3] sm:aspect-[16/10] lg:aspect-[16/11] rounded-xs overflow-hidden shadow-xs border border-[#D5C2D7]/80 bg-[#FAF5F8] group">
               <img
                 src={heroPinkSuit}
                 alt="House of Rii Pink Embroidered Kurta Set Editorial"
@@ -93,7 +93,7 @@ export const HeroSection: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-[#F6F0F4]/40 via-transparent to-[#F6F0F4]/20 pointer-events-none" />
 
               {/* Grace in Every Thread floating quote on the right edge */}
-              <div className="absolute right-3 sm:right-5 top-6 sm:top-8 text-right hidden sm:block bg-white/60 backdrop-blur-xs p-3 rounded-xs border border-white/60">
+              <div className="absolute right-3 sm:right-5 top-6 sm:top-8 text-right hidden sm:block bg-[#FAF5F8]/80 backdrop-blur-xs p-3 rounded-xs border border-[#D5C2D7]/60">
                 <p className="font-serif italic text-sm sm:text-base text-[#554052] leading-tight">
                   Grace <br />
                   in Every <br />
@@ -107,8 +107,8 @@ export const HeroSection: React.FC = () => {
       </section>
 
       {/* 2. Benefits Strip (4 Pillars from visual reference) */}
-      <section className="bg-white border-t border-[#D5C2D7] py-4 px-4 sm:px-8">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-[#D5C2D7]/60">
+      <section className="bg-[#FAF5F8] border-t border-[#D5C2D7] py-4 px-4 sm:px-8">
+        <div className="max-w-[1440px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-[#D5C2D7]/60">
           {/* Pillar 1: Premium Fabrics */}
           <div className="flex items-center gap-3.5 p-2 sm:px-4 justify-start sm:justify-center">
             <div className="w-10 h-10 rounded-full bg-[#F6F0F4] border border-[#D5C2D7] flex items-center justify-center text-[#8C5A7D] shrink-0">
