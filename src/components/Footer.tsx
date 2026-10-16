@@ -70,7 +70,7 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
-            <HouseOfRiiLogo variant="horizontal" theme="dark" showTagline={true} />
+            <HouseOfRiiLogo variant="primary" theme="dark" showTagline={true} className="items-start max-w-[210px]" />
             <p className="text-xs text-[#D5C2D7]/85 leading-relaxed max-w-sm mt-3 font-body">
               HOUSE OF RII celebrates everyday Indian dressing with curated ready-made kurtas, sets, and festive ensembles. Tradition, styled your way.
             </p>

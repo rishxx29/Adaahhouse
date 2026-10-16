@@ -70,12 +70,9 @@ export const AboutPage: React.FC = () => {
             {/* Hang Tag Front */}
             <div className="bg-[#F3E9EB] p-8 border border-[#D5C2D7] text-center flex flex-col items-center justify-between shadow-xs">
               <div className="w-2 h-2 rounded-full border border-[#A185A4] mb-4" />
-              <div className="space-y-2">
-                <HouseOfRiiLogo variant="primary" showTagline={true} />
+              <div className="py-2">
+                <HouseOfRiiLogo variant="primary" showTagline={true} className="max-w-[220px]" />
               </div>
-              <p className="font-serif italic text-xs text-[#8C5A7D] mt-6">
-                Tradition, Styled Your Way.
-              </p>
             </div>
 
             {/* Hang Tag Back */}

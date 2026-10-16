@@ -23,7 +23,7 @@ import {
 } from 'lucide-react';
 import { useStore, ActivePage } from '../context/StoreContext';
 import { BRAND_CONFIG } from '../config/brand';
-import { HouseOfRiiLotus } from './AdaahLogo';
+import { HouseOfRiiLogo, HouseOfRiiLotus } from './AdaahLogo';
 
 export const Header: React.FC = () => {
   const {
@@ -129,18 +129,10 @@ export const Header: React.FC = () => {
 
           <button
             onClick={() => handleNavClick('home')}
-            className="inline-flex flex-col items-center text-center group cursor-pointer focus-visible:outline-none py-1"
+            className="inline-flex items-center text-left group cursor-pointer focus-visible:outline-none py-1"
             aria-label="HOUSE OF RII Home"
           >
-            <HouseOfRiiLotus size={36} color="#7D4E68" className="transition-transform group-hover:scale-105 mb-0.5" />
-            <span className="font-serif text-lg sm:text-xl lg:text-[22px] font-normal tracking-[0.18em] text-[#7D4E68] leading-none whitespace-nowrap">
-              HOUSE OF RII
-            </span>
-            <div className="flex items-center justify-center gap-1.5 text-[7px] sm:text-[7.5px] uppercase tracking-[0.34em] text-[#554052]/80 font-medium mt-1 w-full">
-              <span className="h-[0.5px] w-2.5 bg-[#A185A4]/60" />
-              <span>ETHNIC WEAR</span>
-              <span className="h-[0.5px] w-2.5 bg-[#A185A4]/60" />
-            </div>
+            <HouseOfRiiLogo variant="header" className="h-14 sm:h-16 w-auto" />
           </button>
         </div>
 
@@ -321,19 +313,10 @@ export const Header: React.FC = () => {
             <div className="p-5 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F3E9EB] shrink-0">
               <button
                 onClick={() => handleNavClick('home')}
-                className="flex items-center gap-3 text-left focus:outline-none cursor-pointer"
+                className="flex items-center text-left focus:outline-none cursor-pointer"
+                aria-label="HOUSE OF RII Home"
               >
-                <div className="w-10 h-10 rounded-full bg-[#8C5A7D]/10 flex items-center justify-center text-[#8C5A7D] border border-[#A185A4]/40">
-                  <span className="font-serif font-bold text-sm text-[#8C5A7D]">Rii</span>
-                </div>
-                <div>
-                  <h3 className="font-serif text-lg font-bold text-[#8C5A7D] tracking-wider leading-none">
-                    HOUSE OF RII
-                  </h3>
-                  <p className="text-[9px] uppercase tracking-[0.28em] text-[#A185A4] font-semibold mt-0.5">
-                    ETHNIC WEAR
-                  </p>
-                </div>
+                <HouseOfRiiLogo variant="header" className="h-12 w-auto" />
               </button>
 
               <button

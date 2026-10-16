@@ -177,15 +177,9 @@ export const CustomerAuthModal: React.FC = () => {
 
         {/* Modal Scrollable Body */}
         <div className="p-6 overflow-y-auto space-y-5 text-xs text-[#554052]">
-          {/* Brand Emblem */}
-          <div className="text-center">
-            <AdaahLogo variant="monogram" className="mx-auto scale-90" showTagline={false} />
-            <p className="font-serif text-base font-bold text-[#554052] mt-1">
-              HOUSE OF RII
-            </p>
-            <p className="text-[11px] text-[#A185A4] uppercase tracking-widest mt-0.5">
-              Tradition, Styled Your Way.
-            </p>
+          {/* Brand Logo */}
+          <div className="text-center flex justify-center py-1">
+            <AdaahLogo variant="primary" showTagline={true} className="mx-auto max-w-[210px]" />
           </div>
 
           {/* VIEW A: SIGN IN FORM */}
