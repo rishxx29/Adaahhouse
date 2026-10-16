@@ -113,7 +113,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
           {/* Available Sizes List */}
           <div className="mt-2.5 flex items-center gap-1 sm:gap-1.5 flex-wrap">
-            <span className="text-[9.5px] uppercase tracking-wider text-[#A185A4] mr-0.5">Sizes:</span>
+            <span className="text-[10px] uppercase tracking-wider text-[#A185A4] mr-0.5 font-medium">Sizes:</span>
             {product.sizes.map((size) => (
               <button
                 key={size}
@@ -122,10 +122,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                   e.stopPropagation();
                   setSelectedQuickSize(size);
                 }}
-                className={`text-[9.5px] font-medium w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center transition-colors border cursor-pointer ${
+                className={`text-[10px] font-semibold w-6 h-6 flex items-center justify-center transition-colors border cursor-pointer ${
                   selectedQuickSize === size
-                    ? 'border-[#8C5A7D] bg-[#8C5A7D] text-white'
-                    : 'border-[#D5C2D7] text-[#554052] hover:border-[#8C5A7D]'
+                    ? 'border-[#8C5A7D] bg-[#8C5A7D] text-white shadow-2xs'
+                    : 'border-[#D5C2D7] text-[#554052] hover:border-[#8C5A7D] bg-white/70'
                 }`}
                 title={`Select size ${size}`}
               >
@@ -152,11 +152,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {/* Quick Add Button */}
           <button
             onClick={() => addToCart(product, selectedQuickSize, 1)}
-            className="p-1.5 sm:px-3 sm:py-1.5 bg-[#FAF5F8] hover:bg-[#8C5A7D] text-[#554052] hover:text-white border border-[#D5C2D7] hover:border-[#8C5A7D] text-[10px] sm:text-xs uppercase tracking-wider font-semibold transition-all duration-200 flex items-center gap-1.5 cursor-pointer shadow-2xs"
+            className="px-2.5 sm:px-3 py-1.5 bg-[#8C5A7D] hover:bg-[#554052] text-white text-[10.5px] sm:text-xs uppercase tracking-wider font-semibold transition-all duration-200 flex items-center gap-1.5 cursor-pointer shadow-xs whitespace-nowrap shrink-0"
             title={`Add size ${selectedQuickSize} to bag`}
           >
-            <ShoppingBag className="w-3.5 h-3.5 text-[#8C5A7D] group-hover:text-white" />
-            <span className="hidden sm:inline">Add</span>
+            <ShoppingBag className="w-3.5 h-3.5 text-white shrink-0" />
+            <span className="whitespace-nowrap font-medium">Add to Bag</span>
           </button>
         </div>
       </div>
