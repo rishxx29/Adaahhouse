@@ -84,3 +84,8 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #8C5A7D;
 }
+
+.font-cursive {
+  font-family: 'Alex Brush', 'Great Vibes', cursive;
+}
+
