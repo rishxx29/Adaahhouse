@@ -16,57 +16,73 @@ export const HeroSection: React.FC = () => {
   return (
     <div className="relative bg-[#F3E9EB] border-b border-[#D5C2D7] overflow-hidden select-none">
       {/* 1. Main Editorial Hero Banner matching attached reference image */}
-      <section className="relative w-full aspect-[1024/251] min-h-[200px] sm:min-h-[240px] lg:min-h-[250px] overflow-hidden bg-[#E6D8D7]">
-        {/* Full-bleed Panorama Reference Image */}
+      <section className="relative w-full aspect-[2048/607] min-h-[260px] sm:min-h-[320px] lg:min-h-[380px] xl:min-h-[420px] overflow-hidden bg-[#E6D8D7]">
+        {/* Full-bleed 2048px Ultra-HD Panorama Reference Background */}
         <img
-          src="/hero_exact_banner.jpg"
+          src="/hero_panorama_hd.jpg"
           alt="HOUSE OF RII — Tradition Styled Your Way"
-          className="w-full h-full object-cover sm:object-fill select-none pointer-events-none"
+          className="w-full h-full object-cover object-right sm:object-center select-none pointer-events-none"
         />
 
-        {/* Interactive Clickable SHOP NEW IN Button Overlay */}
-        <button
-          onClick={handleShopNewIn}
-          style={{
-            position: 'absolute',
-            left: '12.0%',
-            top: '66.9%',
-            width: '17.1%',
-            height: '21.9%',
-          }}
-          className="cursor-pointer bg-transparent hover:bg-white/10 transition-colors focus:outline-none"
-          title="Shop New In"
-          aria-label="Shop New In"
-        />
+        {/* Crisp Vector Typography & Content (Left side, pixel-aligned with reference) */}
+        <div className="absolute inset-y-0 left-0 right-0 max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 flex items-center pointer-events-none">
+          <div className="w-full sm:w-[58%] lg:w-[48%] pointer-events-auto pl-4 sm:pl-6 lg:pl-10">
+            {/* Small caps kicker */}
+            <p className="text-[9.5px] sm:text-[11px] lg:text-[11.5px] uppercase tracking-[0.28em] text-[#8C5A7D] font-medium mb-1.5 sm:mb-2.5">
+              TRADITIONAL WEAR FOR EVERY YOU
+            </p>
 
-        {/* Carousel Prev Button */}
+            {/* Display Headline: Tradition (italic) Styled Your Way (regular) */}
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[54px] text-[#554052] leading-[1.08] tracking-tight [text-wrap:balance]">
+              <span className="italic font-normal">Tradition</span> <br />
+              <span className="font-normal">Styled Your Way</span>
+            </h1>
+
+            {/* Supporting Description */}
+            <p className="font-serif italic text-xs sm:text-sm lg:text-[14px] text-[#554052]/85 max-w-sm sm:max-w-md mt-2 sm:mt-3 leading-relaxed">
+              Elegant Kurtas, Kurta Sets &amp; Co-ords <br className="hidden sm:inline" />
+              for Everyday and Every Occasion.
+            </p>
+
+            {/* Signature Plum CTA Button */}
+            <div className="mt-3.5 sm:mt-5 lg:mt-6">
+              <button
+                onClick={handleShopNewIn}
+                className="px-6 sm:px-7 py-2.5 sm:py-3 bg-[#7D4E68] hover:bg-[#554052] text-white text-[10.5px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold transition-all duration-300 flex items-center gap-2 group shadow-xs cursor-pointer"
+              >
+                <span>SHOP NEW IN</span>
+                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Grace in Every Thread Quote (Right edge of model) */}
+        <div className="absolute right-6 sm:right-10 lg:right-16 top-1/2 -translate-y-1/2 text-right pointer-events-none select-none hidden md:block">
+          <p className="font-serif italic text-base sm:text-lg lg:text-2xl text-white/95 leading-tight drop-shadow-xs">
+            Grace <br />
+            in Every <br />
+            Thread
+          </p>
+          <div className="h-[1.5px] w-8 sm:w-10 bg-white/85 ml-auto mt-2" />
+        </div>
+
+        {/* Carousel Prev Button (Only 1 Single Arrow on Left) */}
         <button
           onClick={handleShopNewIn}
-          style={{
-            position: 'absolute',
-            left: '1.2%',
-            top: '48%',
-            transform: 'translateY(-50%)',
-          }}
-          className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 rounded-full bg-white/90 hover:bg-white text-[#554052] shadow-sm flex items-center justify-center transition-all cursor-pointer opacity-90 hover:opacity-100"
+          className="absolute left-2 sm:left-3.5 top-1/2 -translate-y-1/2 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 hover:bg-white text-[#554052] hover:text-[#7D4E68] shadow-sm flex items-center justify-center transition-all cursor-pointer"
           aria-label="Previous slide"
         >
-          <ChevronLeft className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+          <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
         </button>
 
-        {/* Carousel Next Button */}
+        {/* Carousel Next Button (Only 1 Single Arrow on Right) */}
         <button
           onClick={handleShopNewIn}
-          style={{
-            position: 'absolute',
-            right: '1.2%',
-            top: '48%',
-            transform: 'translateY(-50%)',
-          }}
-          className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 rounded-full bg-white/90 hover:bg-white text-[#554052] shadow-sm flex items-center justify-center transition-all cursor-pointer opacity-90 hover:opacity-100"
+          className="absolute right-2 sm:right-3.5 top-1/2 -translate-y-1/2 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 hover:bg-white text-[#554052] hover:text-[#7D4E68] shadow-sm flex items-center justify-center transition-all cursor-pointer"
           aria-label="Next slide"
         >
-          <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+          <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
         </button>
       </section>
 
