@@ -114,100 +114,125 @@ export const Header: React.FC = () => {
         </div>
       )}
 
-      {/* Main Header Bar: Corner Menu | Middle Website Name | Corner Utility Icons */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-22 flex items-center justify-between">
-        {/* Left Corner: Elegant Menu Button */}
-        <div className="w-1/4 sm:w-1/3 flex items-center justify-start">
+      {/* Main Header Bar matching visual reference: Left Logo | Center Nav Links | Right Search + Icons */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-22 flex items-center justify-between gap-4">
+        {/* Left: HOUSE OF RII Brand Name & Lotus Emblem */}
+        <div className="flex items-center gap-3">
+          {/* Mobile Menu Hamburger */}
           <button
             onClick={() => setIsSideNavOpen(true)}
-            className="flex items-center gap-2.5 p-1.5 -ml-2 text-[#554052] hover:text-[#8C5A7D] transition-colors group cursor-pointer"
+            className="lg:hidden p-2 -ml-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
             aria-label="Open Navigation Menu"
-            title="Explore all sections & collections"
           >
-            <div className="w-10 h-10 rounded-full bg-white border border-[#D5C2D7] group-hover:border-[#8C5A7D] group-hover:bg-[#8C5A7D]/5 flex items-center justify-center transition-all shadow-2xs">
-              <Menu className="w-5 h-5 text-[#554052] group-hover:text-[#8C5A7D] stroke-[1.8]" />
-            </div>
-            <span className="hidden sm:inline font-serif uppercase tracking-[0.24em] text-xs font-semibold text-[#554052] group-hover:text-[#8C5A7D]">
-              Menu
-            </span>
+            <Menu className="w-5 h-5" />
           </button>
-        </div>
 
-        {/* Center: HOUSE OF RII Brand Name & Lotus Emblem */}
-        <div className="flex-1 flex flex-col items-center justify-center text-center px-2">
           <button
             onClick={() => handleNavClick('home')}
-            className="inline-flex flex-col items-center justify-center text-center group cursor-pointer focus-visible:outline-none"
+            className="inline-flex flex-col items-center sm:items-start text-left group cursor-pointer focus-visible:outline-none"
             aria-label="HOUSE OF RII Home"
           >
-            <div className="mb-0.5 opacity-90 group-hover:opacity-100 transition-opacity">
-              <HouseOfRiiLotus size={28} color="#8C5A7D" />
+            <div className="flex items-center gap-2">
+              <div className="opacity-90 group-hover:opacity-100 transition-opacity">
+                <HouseOfRiiLotus size={28} color="#8C5A7D" />
+              </div>
+              <div className="flex flex-col items-start">
+                <span className="font-serif text-xl sm:text-2xl lg:text-[26px] font-normal tracking-[0.16em] text-[#8C5A7D] leading-none transition-colors group-hover:text-[#554052]">
+                  HOUSE OF RII
+                </span>
+                <span className="text-[7.5px] sm:text-[8.5px] uppercase tracking-[0.32em] text-[#554052]/75 font-medium mt-1">
+                  ETHNIC WEAR
+                </span>
+              </div>
             </div>
-            <div className="flex items-baseline justify-center">
-              <span className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal tracking-[0.18em] text-[#8C5A7D] leading-none transition-colors group-hover:text-[#554052]">
-                HOUSE OF RII
-              </span>
-            </div>
-            <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.38em] text-[#554052]/80 font-medium mt-1">
-              ETHNIC WEAR
-            </span>
           </button>
         </div>
 
-        {/* Right Corner: Utility Actions (Search, Wishlist, Bag, Account, Admin) */}
-        <div className="w-1/4 sm:w-1/3 flex items-center justify-end gap-1.5 sm:gap-2.5">
-          {/* Search Trigger */}
+        {/* Center: Desktop Navigation Links matching Reference Image */}
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-xs font-medium tracking-wider text-[#554052]">
+          <button
+            onClick={() => handleNavClick('shop', 'all', 'all')}
+            className="hover:text-[#8C5A7D] transition-colors py-1 cursor-pointer"
+          >
+            New In
+          </button>
+          <button
+            onClick={() => handleNavClick('shop', 'all', 'Kurti')}
+            className="hover:text-[#8C5A7D] transition-colors py-1 cursor-pointer"
+          >
+            Kurtas
+          </button>
+          <button
+            onClick={() => handleNavClick('shop', 'all', 'Kurti Set')}
+            className="hover:text-[#8C5A7D] transition-colors py-1 cursor-pointer"
+          >
+            Kurta Sets
+          </button>
+          <button
+            onClick={() => handleNavClick('shop', 'all', 'Coord Set')}
+            className="hover:text-[#8C5A7D] transition-colors py-1 cursor-pointer"
+          >
+            Co-ords
+          </button>
+          <button
+            onClick={() => handleNavClick('shop', 'Festive & Wedding Edits', 'all')}
+            className="hover:text-[#8C5A7D] transition-colors py-1 cursor-pointer"
+          >
+            Festive Edit
+          </button>
+          <button
+            onClick={() => handleNavClick('shop', 'all', 'all')}
+            className="hover:text-[#8C5A7D] transition-colors py-1 cursor-pointer"
+          >
+            Collections
+          </button>
+          <button
+            onClick={() => handleNavClick('about')}
+            className="hover:text-[#8C5A7D] transition-colors py-1 cursor-pointer"
+          >
+            About
+          </button>
+        </nav>
+
+        {/* Right Corner: Search Input Pill + Wishlist + Bag + Account */}
+        <div className="flex items-center justify-end gap-2 sm:gap-3">
+          {/* Desktop Search Input Pill */}
+          <div className="hidden md:flex items-center relative w-48 lg:w-56 xl:w-64">
+            <Search className="w-4 h-4 text-[#A185A4] absolute left-3 pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                if (activePage !== 'shop') setActivePage('shop');
+              }}
+              placeholder="Search for kurtas, sets and more..."
+              className="w-full pl-9 pr-3 py-1.5 bg-white/70 border border-[#D5C2D7] rounded-full text-xs text-[#554052] placeholder:text-[#A185A4] outline-none focus:border-[#8C5A7D] focus:bg-white transition-all"
+            />
+          </div>
+
+          {/* Mobile Search Toggle */}
           <button
             onClick={() => setIsSearchOpen(!isSearchOpen)}
-            className="p-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
+            className="md:hidden p-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
             title="Search Products"
             aria-label="Search"
           >
             <Search className="w-5 h-5 stroke-[1.75]" />
           </button>
 
-          {/* Wishlist Icon */}
-          <button
-            onClick={() => setIsWishlistOpen(true)}
-            className="relative p-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
-            title="View Wishlist"
-            aria-label="Wishlist"
-          >
-            <Heart className="w-5 h-5 stroke-[1.75]" />
-            {wishlist.length > 0 && (
-              <span className="absolute top-1 right-1 w-4 h-4 bg-[#8C5A7D] text-white text-[10px] font-semibold rounded-full flex items-center justify-center animate-in zoom-in-75 duration-150">
-                {wishlist.length}
-              </span>
-            )}
-          </button>
-
-          {/* Shopping Bag Button */}
-          <button
-            onClick={() => setIsCartOpen(true)}
-            className="relative p-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
-            title="Shopping Bag"
-            aria-label="Shopping Bag"
-          >
-            <ShoppingBag className="w-5 h-5 stroke-[1.75]" />
-            {cartCount > 0 && (
-              <span className="absolute top-1 right-1 w-4 h-4 bg-[#8C5A7D] text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-xs">
-                {cartCount}
-              </span>
-            )}
-          </button>
-
           {/* Customer Account Trigger */}
           {currentUser ? (
-            <div className="relative group hidden sm:block">
+            <div className="relative group">
               <button
                 onClick={() => handleNavClick('account')}
-                className="flex items-center gap-1.5 p-1 px-2 bg-white border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] transition-colors rounded-xs shadow-2xs cursor-pointer"
+                className="flex items-center gap-1.5 p-1 px-2 bg-white border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] transition-colors rounded-full shadow-2xs cursor-pointer"
                 title={`Signed in as ${currentUser.fullName}`}
               >
                 <div className="w-5 h-5 rounded-full bg-[#8C5A7D] text-[#F6F0F4] flex items-center justify-center text-[10px] font-bold">
                   {currentUser.fullName.charAt(0)}
                 </div>
-                <span className="max-w-[70px] truncate text-[11px]">
+                <span className="hidden sm:inline max-w-[70px] truncate text-[11px]">
                   {currentUser.fullName.split(' ')[0]}
                 </span>
                 <ChevronDown className="w-3 h-3 text-[#A185A4]" />
@@ -248,30 +273,38 @@ export const Header: React.FC = () => {
                 setAuthModalMode('login');
                 setIsAuthModalOpen(true);
               }}
-              className="hidden sm:flex items-center gap-1.5 p-1.5 px-2.5 bg-white border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#554052] hover:text-[#8C5A7D] transition-colors rounded-xs shadow-2xs cursor-pointer"
+              className="p-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
               title="Customer Sign In / Register"
+              aria-label="Sign In"
             >
-              <User className="w-4 h-4 text-[#8C5A7D]" />
-              <span className="text-[11px]">Sign In</span>
+              <User className="w-5 h-5 stroke-[1.75]" />
             </button>
           )}
 
-          {/* Admin Lock / Studio Trigger */}
+          {/* Wishlist Icon */}
           <button
-            onClick={() => handleNavClick('admin')}
-            className={`p-2 rounded-xs transition-colors cursor-pointer ${
-              isOwnerLoggedIn
-                ? 'bg-[#8C5A7D] text-[#F6F0F4] hover:bg-[#554052]'
-                : 'text-[#A185A4] hover:text-[#8C5A7D]'
-            }`}
-            title={isOwnerLoggedIn ? 'Admin Studio Active' : 'Owner & Admin Portal'}
-            aria-label="Admin Portal"
+            onClick={() => setIsWishlistOpen(true)}
+            className="relative p-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
+            title="View Wishlist"
+            aria-label="Wishlist"
           >
-            {isOwnerLoggedIn ? (
-              <SlidersHorizontal className="w-4 h-4 text-[#D5C2D7]" />
-            ) : (
-              <Lock className="w-4 h-4" />
-            )}
+            <Heart className="w-5 h-5 stroke-[1.75]" />
+            <span className="absolute top-1 right-1 w-4 h-4 bg-[#8C5A7D] text-white text-[10px] font-semibold rounded-full flex items-center justify-center animate-in zoom-in-75 duration-150">
+              {wishlist.length}
+            </span>
+          </button>
+
+          {/* Shopping Bag Button */}
+          <button
+            onClick={() => setIsCartOpen(true)}
+            className="relative p-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
+            title="Shopping Bag"
+            aria-label="Shopping Bag"
+          >
+            <ShoppingBag className="w-5 h-5 stroke-[1.75]" />
+            <span className="absolute top-1 right-1 w-4 h-4 bg-[#8C5A7D] text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-xs">
+              {cartCount}
+            </span>
           </button>
         </div>
       </div>
