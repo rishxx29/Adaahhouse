@@ -1,16 +1,34 @@
 @import "tailwindcss";
 
+:root {
+  --color-bg-warm: #F3E8E3;
+  --color-bg-lilac: #F6F0F4;
+  --color-bg-beige-rose: #EADBD5;
+  --color-bg-sand: #E8D8CC;
+  --color-mauve: #D5C2D7;
+  --color-violet: #A185A4;
+  --color-plum: #8C5A7D;
+  --color-deep-plum: #554052;
+}
+
 @theme {
   --font-serif: "Playfair Display", "Cormorant Garamond", Georgia, serif;
   --font-sans: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-body: "Lora", Georgia, serif;
   
-  /* Official House of Rii Mauve & Plum Palette */
+  /* Exact House of Rii Mauve, Beige & Plum Palette */
+  --color-bg-warm: #F3E8E3;
+  --color-bg-lilac: #F6F0F4;
+  --color-bg-beige-rose: #EADBD5;
+  --color-bg-sand: #E8D8CC;
+  --color-mauve: #D5C2D7;
+  --color-violet: #A185A4;
+  --color-plum: #8C5A7D;
+  --color-deep-plum: #554052;
+  
   --color-soft-lilac: #F6F0F4;
   --color-dusty-mauve: #D5C2D7;
   --color-muted-violet: #A185A4;
-  --color-plum: #8C5A7D;
-  --color-deep-plum: #554052;
   
   /* Compatibility mappings */
   --color-maroon: #8C5A7D;
@@ -19,10 +37,10 @@
   
   --color-ivory: #F6F0F4;
   --color-ivory-muted: #EFE7ED;
-  --color-ivory-warm: #F6F0F4;
+  --color-ivory-warm: #F3E8E3;
   
   --color-beige: #D5C2D7;
-  --color-beige-subtle: #EADEEB;
+  --color-beige-subtle: #EADBD5;
   
   --color-gold: #A185A4;
   --color-gold-dark: #8C5A7D;

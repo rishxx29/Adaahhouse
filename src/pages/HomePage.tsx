@@ -41,9 +41,9 @@ export const HomePage: React.FC = () => {
   const [activeMainTab, setActiveMainTab] = useState<'bestseller' | 'everyday' | 'festive'>('bestseller');
   const [activeSubTab, setActiveSubTab] = useState<string>('ALL');
 
-  // Filter products for New Collection and Bestsellers (4 spacious cards per row)
+  // Filter products for New Collection and Bestsellers (5 spacious cards matching 4-5 items per row)
   const newArrivals = products.filter((p) => p.isNewArrival);
-  const displayNewArrivals = newArrivals.length > 0 ? newArrivals.slice(0, 4) : products.slice(0, 4);
+  const displayNewArrivals = newArrivals.length > 0 ? newArrivals.slice(0, 5) : products.slice(0, 5);
 
   // Tab filtering for Bestsellers
   const filteredBestsellers = products.filter((product) => {
@@ -233,7 +233,7 @@ export const HomePage: React.FC = () => {
           </button>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5 lg:gap-6">
           {displayNewArrivals.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

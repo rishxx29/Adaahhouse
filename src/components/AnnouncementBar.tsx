@@ -7,7 +7,7 @@ export const AnnouncementBar: React.FC = () => {
   const { setActivePage } = useStore();
 
   return (
-    <div className="bg-[#554052] text-[#F6F0F4] text-[11px] py-2 px-4 border-b border-[#D5C2D7]/20">
+    <div className="bg-[#8C5A7D] text-[#F6F0F4] text-[11px] py-2 px-4 border-b border-[#D5C2D7]/20">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Left filler for desktop balance */}
         <div className="hidden lg:block w-1/4 text-[10px] tracking-widest uppercase text-[#D5C2D7]/90 font-medium">

@@ -69,7 +69,7 @@ const MainLayout: React.FC = () => {
   }, [isOwnerLoggedIn, setActivePage, setIsOwnerLoginModalOpen, openAuthModal]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#292522]">
+    <div className="min-h-screen flex flex-col bg-[#F6F0F4] text-[#554052]">
       {/* 1. Slim Announcement Bar */}
       <AnnouncementBar />
 
