@@ -16,10 +16,10 @@ export const HeroSection: React.FC = () => {
   return (
     <div className="relative bg-[#F3E9EB] border-b border-[#D5C2D7] overflow-hidden select-none">
       {/* 1. Main Editorial Hero Banner matching attached reference image */}
-      <section className="relative w-full aspect-[2048/607] min-h-[260px] sm:min-h-[320px] lg:min-h-[380px] xl:min-h-[420px] overflow-hidden bg-[#E6D8D7]">
+      <section className="relative w-full aspect-[2048/682] min-h-[260px] sm:min-h-[320px] lg:min-h-[380px] xl:min-h-[420px] overflow-hidden bg-[#E6D8D7]">
         {/* Full-bleed 2048px Ultra-HD Panorama Reference Background */}
         <img
-          src="/hero_panorama_hd.jpg"
+          src="/hero_panorama_hd.jpg?v=5"
           alt="HOUSE OF RII — Tradition Styled Your Way"
           className="w-full h-full object-cover object-right sm:object-center select-none pointer-events-none"
         />
