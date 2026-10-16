@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, MessageCircle, Heart, ArrowRight, ShieldCheck, Truck, RotateCcw, Check, Lock } from 'lucide-react';
+import { Mail, Instagram, MessageCircle, Heart, ArrowRight, ShieldCheck, Truck, RotateCcw, Check, Lock } from 'lucide-react';
 import { HouseOfRiiLogo } from './AdaahLogo';
 import { BRAND_CONFIG } from '../config/brand';
 import { useStore, ActivePage } from '../context/StoreContext';
@@ -74,24 +74,43 @@ export const Footer: React.FC = () => {
             <p className="text-xs text-[#D5C2D7]/85 leading-relaxed max-w-sm mt-3 font-body">
               HOUSE OF RII celebrates everyday Indian dressing with curated ready-made kurtas, sets, and festive ensembles. Tradition, styled your way.
             </p>
-            <div className="pt-2 text-xs space-y-1 text-[#D5C2D7]/80">
-              <p className="flex items-center gap-2">
-                <span className="text-[#A185A4] font-semibold">WhatsApp:</span>
-                <a
-                  href={BRAND_CONFIG.social.whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white underline font-mono"
-                >
-                  +91 {BRAND_CONFIG.contact.phone}
-                </a>
-              </p>
-              <p className="flex items-center gap-2">
-                <span className="text-[#A185A4] font-semibold">Email:</span>
-                <a href={`mailto:${BRAND_CONFIG.contact.email}`} className="hover:text-white underline">
-                  {BRAND_CONFIG.contact.email}
-                </a>
-              </p>
+            {/* Contact & Social Redirect Icons */}
+            <div className="pt-2 flex items-center gap-2.5 text-[#D5C2D7]">
+              {/* WhatsApp Icon */}
+              <a
+                href={BRAND_CONFIG.social.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp (+91 7357804296)"
+                title="WhatsApp: +91 7357804296"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#8C5A7D] text-[#D5C2D7] hover:text-white border border-white/15 flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-105"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.97.531 1.77.82 2.796.821 3.184 0 5.768-2.587 5.768-5.766.001-3.187-2.575-5.77-5.768-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z" />
+                </svg>
+              </a>
+
+              {/* Email Icon */}
+              <a
+                href={`mailto:${BRAND_CONFIG.contact.email}`}
+                aria-label="Email (aadahhouse@gmail.com)"
+                title="Email: aadahhouse@gmail.com"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#8C5A7D] text-[#D5C2D7] hover:text-white border border-white/15 flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-105"
+              >
+                <Mail className="w-4 h-4" />
+              </a>
+
+              {/* Instagram Icon */}
+              <a
+                href={BRAND_CONFIG.social.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram (@houseofrii)"
+                title="Instagram: @houseofrii"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#8C5A7D] text-[#D5C2D7] hover:text-white border border-white/15 flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-105"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
             </div>
           </div>
 
