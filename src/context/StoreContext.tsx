@@ -99,13 +99,23 @@ interface StoreContextType {
   updateCustomerProfile: (updated: Partial<CustomerUser>) => void;
   isAuthModalOpen: boolean;
   setIsAuthModalOpen: (open: boolean) => void;
-  authModalMode: 'login' | 'register';
-  setAuthModalMode: (mode: 'login' | 'register') => void;
+  authModalMode: 'login' | 'register' | 'forgot';
+  setAuthModalMode: (mode: 'login' | 'register' | 'forgot') => void;
   openAuthModal: (
-    mode?: 'login' | 'register',
+    mode?: 'login' | 'register' | 'forgot',
     pendingAction?: 'checkout' | null,
     noticeMsg?: string | null
   ) => void;
+  sendPasswordResetOtp: (identifier: string) => {
+    success: boolean;
+    message: string;
+    otp?: string;
+    targetUser?: CustomerUser;
+  };
+  resetCustomerPassword: (
+    identifier: string,
+    newPassword: string
+  ) => { success: boolean; message: string };
   pendingAuthAction: 'checkout' | null;
   setPendingAuthAction: (action: 'checkout' | null) => void;
   authNoticeMessage: string | null;
@@ -232,7 +242,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [currentUser]);
 
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [authModalMode, setAuthModalMode] = useState<'login' | 'register'>('login');
+  const [authModalMode, setAuthModalMode] = useState<'login' | 'register' | 'forgot'>('login');
   const [pendingAuthAction, setPendingAuthAction] = useState<'checkout' | null>(null);
   const [authNoticeMessage, setAuthNoticeMessage] = useState<string | null>(null);
 
@@ -249,6 +259,19 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const cleanEmail = userData.email.trim().toLowerCase();
     const cleanPhone = userData.phone.replace(/\D/g, '');
 
+    if (!userData.fullName.trim()) {
+      return { success: false, message: 'Full name is required' };
+    }
+    if (!cleanEmail || !cleanEmail.includes('@')) {
+      return { success: false, message: 'Please enter a valid email address' };
+    }
+    if (!cleanPhone || cleanPhone.length < 10) {
+      return { success: false, message: 'Please enter a valid 10-digit Indian mobile number' };
+    }
+    if (!userData.password || userData.password.length < 6) {
+      return { success: false, message: 'Password must be at least 6 characters' };
+    }
+
     // Check duplicate
     const exists = users.find(
       (u) =>
@@ -259,7 +282,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (exists) {
       return {
         success: false,
-        message: 'An account with this email or phone number already exists. Please log in.',
+        message: 'An account with this email or mobile number already exists. Please log in.',
       };
     }
 
@@ -268,7 +291,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       fullName: userData.fullName.trim(),
       email: cleanEmail,
       phone: userData.phone.trim(),
-      password: userData.password || 'password123',
+      password: userData.password,
       savedAddress: userData.addressLine
         ? {
             fullName: userData.fullName.trim(),
@@ -284,18 +307,8 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     };
 
     setUsers((prev) => [newUser, ...prev]);
-    setCurrentUser(newUser);
-    setIsAuthModalOpen(false);
-    setAuthNoticeMessage(null);
-    showToast(`Welcome to HOUSE OF RII, ${newUser.fullName}!`);
-
-    if (pendingAuthAction === 'checkout') {
-      setPendingAuthAction(null);
-      setIsCartOpen(false);
-      setIsCheckoutOpen(true);
-    }
-
-    return { success: true, message: 'Account created successfully' };
+    showToast(`Account created for ${newUser.fullName}! Please sign in with your password.`);
+    return { success: true, message: 'Account created successfully! Please sign in with your credentials.' };
   };
 
   const loginCustomer = (
@@ -308,11 +321,18 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (!cleanId && !cleanDigits) {
       return {
         success: false,
-        message: 'Please enter your mobile number or email address',
+        message: 'Please enter your registered mobile number or email address',
       };
     }
 
-    let found = users.find((u) => {
+    if (!password || !password.trim()) {
+      return {
+        success: false,
+        message: 'Please enter your account password',
+      };
+    }
+
+    const found = users.find((u) => {
       // Match email
       if (cleanId && u.email.toLowerCase() === cleanId) return true;
       // Match phone
@@ -323,46 +343,17 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       return false;
     });
 
-    // "WITHOUT CREATING ACCOUNT USER SHOULD BE ABLE TO LOGIN"
-    // If not found in existing users, automatically create a new customer account on the fly!
     if (!found) {
-      const isEmail = cleanId.includes('@');
-      let derivedFullName = 'Valued Customer';
-      let derivedEmail = '';
-      let derivedPhone = '';
-
-      if (isEmail) {
-        derivedEmail = cleanId;
-        const namePart = cleanId.split('@')[0].replace(/[._-]/g, ' ').trim();
-        if (namePart) {
-          derivedFullName = namePart
-            .split(' ')
-            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-            .join(' ');
-        }
-        derivedPhone = cleanDigits.slice(-10) || '9876543210';
-      } else {
-        const phone10 = cleanDigits.slice(-10) || '9876543210';
-        derivedPhone = phone10;
-        derivedEmail = `customer.${phone10}@houseofrii.in`;
-        derivedFullName = `Customer ${phone10.slice(-4)}`;
-      }
-
-      const newUser: CustomerUser = {
-        id: `usr-${Date.now()}`,
-        fullName: derivedFullName,
-        email: derivedEmail,
-        phone: derivedPhone,
-        password: password || 'instant_login',
-        createdAt: new Date().toISOString(),
-      };
-
-      setUsers((prev) => [newUser, ...prev]);
-      found = newUser;
-    } else if (password && found.password && password !== found.password && password !== 'instant_login') {
       return {
         success: false,
-        message: 'Incorrect password. You can also sign in instantly without password!',
+        message: 'No account found with this email or mobile number. Please create an account first.',
+      };
+    }
+
+    if (found.password && password !== found.password) {
+      return {
+        success: false,
+        message: 'Incorrect password. Please verify your password or click "Forgot Password?".',
       };
     }
 
@@ -379,6 +370,87 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
 
     return { success: true, message: `Welcome back, ${found.fullName}!` };
+  };
+
+  const sendPasswordResetOtp = (
+    identifier: string
+  ): { success: boolean; message: string; otp?: string; targetUser?: CustomerUser } => {
+    const cleanId = identifier.trim().toLowerCase();
+    const cleanDigits = identifier.replace(/\D/g, '');
+
+    if (!cleanId && !cleanDigits) {
+      return {
+        success: false,
+        message: 'Please enter your registered mobile number or email address',
+      };
+    }
+
+    const found = users.find((u) => {
+      if (cleanId && u.email.toLowerCase() === cleanId) return true;
+      const uPhoneDigits = u.phone.replace(/\D/g, '');
+      if (cleanDigits && cleanDigits.length >= 10 && (uPhoneDigits === cleanDigits || uPhoneDigits.endsWith(cleanDigits) || cleanDigits.endsWith(uPhoneDigits))) {
+        return true;
+      }
+      return false;
+    });
+
+    if (!found) {
+      return {
+        success: false,
+        message: 'No registered account found with this email or mobile number. Please check or create an account.',
+      };
+    }
+
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    showToast(`Password Reset OTP for ${found.phone || found.email}: ${otp}`);
+    return {
+      success: true,
+      message: 'OTP sent successfully',
+      otp,
+      targetUser: found,
+    };
+  };
+
+  const resetCustomerPassword = (
+    identifier: string,
+    newPassword: string
+  ): { success: boolean; message: string } => {
+    const cleanId = identifier.trim().toLowerCase();
+    const cleanDigits = identifier.replace(/\D/g, '');
+
+    if (!newPassword || newPassword.length < 6) {
+      return {
+        success: false,
+        message: 'New password must be at least 6 characters',
+      };
+    }
+
+    const found = users.find((u) => {
+      if (cleanId && u.email.toLowerCase() === cleanId) return true;
+      const uPhoneDigits = u.phone.replace(/\D/g, '');
+      if (cleanDigits && cleanDigits.length >= 10 && (uPhoneDigits === cleanDigits || uPhoneDigits.endsWith(cleanDigits) || cleanDigits.endsWith(uPhoneDigits))) {
+        return true;
+      }
+      return false;
+    });
+
+    if (!found) {
+      return {
+        success: false,
+        message: 'User account not found',
+      };
+    }
+
+    const updatedUser: CustomerUser = { ...found, password: newPassword };
+    setUsers((prev) => prev.map((u) => (u.id === found.id ? updatedUser : u)));
+    if (currentUser?.id === found.id) {
+      setCurrentUser(updatedUser);
+    }
+    showToast('Password reset successfully! Please sign in with your new password.');
+    return {
+      success: true,
+      message: 'Password reset successfully! Please sign in with your new password.',
+    };
   };
 
   const logoutCustomer = () => {
@@ -764,7 +836,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const openAuthModal = (
-    mode: 'login' | 'register' = 'login',
+    mode: 'login' | 'register' | 'forgot' = 'login',
     pendingAction: 'checkout' | null = null,
     noticeMsg: string | null = null
   ) => {
@@ -829,6 +901,8 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         currentUser,
         registerCustomer,
         loginCustomer,
+        sendPasswordResetOtp,
+        resetCustomerPassword,
         logoutCustomer,
         updateCustomerProfile,
         isAuthModalOpen,

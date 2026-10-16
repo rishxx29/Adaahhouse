@@ -399,17 +399,17 @@ export const CheckoutModal: React.FC = () => {
                 <div>
                   <span className="font-bold block">Login Required to Place Order</span>
                   <span className="text-[11px] text-amber-800">
-                    Sign in instantly with your mobile or email. No account creation needed!
+                    Please sign in or create an account to complete your order.
                   </span>
                 </div>
               </div>
               <button
                 type="button"
-                onClick={() => openAuthModal('login', 'checkout', 'Please log in with your mobile number or email to place your order.')}
+                onClick={() => openAuthModal('login', 'checkout', 'Please sign in or create an account to place your order.')}
                 className="px-3.5 py-1.5 bg-[#8C5A7D] hover:bg-[#554052] text-white text-xs font-semibold uppercase tracking-wider shrink-0 transition-colors flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
               >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Instant Login (5s)</span>
+                <Lock className="w-3.5 h-3.5" />
+                <span>Sign In / Register</span>
               </button>
             </div>
           ) : (
@@ -563,15 +563,15 @@ export const CheckoutModal: React.FC = () => {
                   <>
                     <span className="text-[11px] text-amber-800 font-medium flex items-center gap-1.5">
                       <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-                      <span>Instant login required to place order</span>
+                      <span>Account login required before placing order</span>
                     </span>
                     <button
                       type="button"
-                      onClick={() => openAuthModal('login', 'checkout', 'Please log in with your mobile number or email to complete your order.')}
+                      onClick={() => openAuthModal('login', 'checkout', 'Please log in or create an account to complete your order.')}
                       className="w-full sm:w-auto px-6 py-3 bg-[#8C5A7D] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#554052] transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                     >
-                      <Sparkles className="w-3.5 h-3.5" />
-                      <span>Instant Login to Continue →</span>
+                      <Lock className="w-3.5 h-3.5" />
+                      <span>Sign In to Continue →</span>
                     </button>
                   </>
                 ) : (
