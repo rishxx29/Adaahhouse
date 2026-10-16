@@ -7,23 +7,21 @@ export const AnnouncementBar: React.FC = () => {
   const { setActivePage } = useStore();
 
   return (
-    <div className="bg-[#8C5A7D] text-[#F6F0F4] text-[11px] py-2 px-4 border-b border-[#D5C2D7]/20">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Left filler for desktop balance */}
-        <div className="hidden lg:block w-1/4 text-[10px] tracking-widest uppercase text-[#D5C2D7]/90 font-medium">
-          HOUSE OF RII · ETHNIC BOUTIQUE
-        </div>
+    <div className="bg-[#A27E8C] text-white text-[10px] py-1.5 px-4 border-b border-[#D5C2D7]/20 select-none">
+      <div className="max-w-[1440px] mx-auto flex items-center justify-between">
+        {/* Left balance placeholder */}
+        <div className="hidden lg:block w-1/4" />
 
         {/* Center promotional message matching reference image */}
-        <div className="flex-1 text-center font-medium tracking-[0.16em] uppercase text-[10px] sm:text-[11px] flex items-center justify-center gap-2 text-white">
-          <span className="text-[#D5C2D7] text-xs">✧</span>
+        <div className="flex-1 text-center font-medium tracking-[0.18em] uppercase text-[10px] sm:text-[10.5px] flex items-center justify-center gap-2 text-white">
+          <span className="text-white/80 text-xs">✧</span>
           <span>FREE SHIPPING ON ALL ORDERS ABOVE ₹1,999</span>
-          <span className="text-[#D5C2D7] text-xs">✧</span>
+          <span className="text-white/80 text-xs">✧</span>
         </div>
 
         {/* Right side: Follow Us + Socials | Help & Support */}
-        <div className="hidden sm:flex items-center justify-end gap-3 text-[11px] text-[#D5C2D7] w-auto lg:w-1/4">
-          <span className="text-[10px] uppercase tracking-wider text-[#D5C2D7]/90">Follow Us</span>
+        <div className="hidden sm:flex items-center justify-end gap-3 text-[10px] text-white/95 w-auto lg:w-1/4">
+          <span className="uppercase tracking-wider text-white/90">Follow Us</span>
           <div className="flex items-center gap-2">
             <a
               href={BRAND_CONFIG.social.instagramUrl}

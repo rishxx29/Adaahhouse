@@ -158,57 +158,59 @@ export const HomePage: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-14 sm:space-y-20 pb-16 bg-[#F6F0F4]">
+    <div className="pb-16 bg-[#F6F0F4]">
       {/* SECTION 1: EDITORIAL HERO BANNER & 4-PILLAR BENEFITS STRIP */}
       <HeroSection />
 
-      {/* SECTION 2: SHOP BY CATEGORY (10 Circular Tiles matching Reference Image) */}
-      <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-6 pb-2 border-b border-[#D5C2D7]">
-          <h2 className="font-serif text-lg sm:text-xl font-bold uppercase tracking-[0.16em] text-[#554052]">
-            SHOP BY CATEGORY
-          </h2>
-          <button
-            onClick={() => {
-              setSelectedCollectionFilter('all');
-              setSelectedCategoryFilter('all');
-              setActivePage('shop');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="text-xs uppercase tracking-wider font-semibold text-[#8C5A7D] hover:text-[#554052] flex items-center gap-1 cursor-pointer transition-colors"
-          >
-            <span>View All</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
-
-        {/* Circular Category Tiles: All 10 displayed across desktop in a row */}
-        <div className="flex items-center justify-between gap-3 sm:gap-4 overflow-x-auto lg:overflow-x-visible pb-4 pt-1 scrollbar-none scroll-smooth">
-          {categoryCircles.map((cat, idx) => (
-            <div
-              key={idx}
-              onClick={() => handleCategoryCircleClick(cat.name)}
-              className="flex flex-col items-center gap-2.5 shrink-0 group cursor-pointer"
+      {/* SECTION 2: SHOP BY CATEGORY (Exact copy from reference image) */}
+      <section className="bg-[#F7F0F1] border-b border-[#D5C2D7] py-6 sm:py-8 px-4 sm:px-6 lg:px-8 select-none">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="flex items-center justify-between mb-5 sm:mb-6">
+            <h2 className="font-sans text-xs sm:text-[13px] font-medium uppercase tracking-[0.26em] text-[#554052]">
+              SHOP BY CATEGORY
+            </h2>
+            <button
+              onClick={() => {
+                setSelectedCollectionFilter('all');
+                setSelectedCategoryFilter('all');
+                setActivePage('shop');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="text-xs uppercase tracking-wider font-normal text-[#554052] hover:text-[#8C5A7D] flex items-center gap-1.5 cursor-pointer transition-colors"
             >
-              <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-[84px] lg:h-[84px] rounded-full p-0.5 border-2 border-[#D5C2D7] group-hover:border-[#8C5A7D] transition-all duration-300 shadow-2xs group-hover:shadow-md bg-[#FAF5F8]">
-                <div className="w-full h-full rounded-full overflow-hidden bg-[#F6F0F4]">
+              <span>View All</span>
+              <ArrowRight className="w-3.5 h-3.5 text-[#554052]" />
+            </button>
+          </div>
+
+          {/* Circular Category Tiles: All 10 displayed across desktop in a row */}
+          <div className="flex items-center justify-between gap-2.5 sm:gap-3 lg:gap-4 overflow-x-auto lg:overflow-x-visible pb-3 pt-1 scrollbar-none scroll-smooth">
+            {categoryCircles.map((cat, idx) => (
+              <div
+                key={idx}
+                onClick={() => handleCategoryCircleClick(cat.name)}
+                className="flex flex-col items-center gap-2 shrink-0 group cursor-pointer"
+              >
+                <div className="w-16 h-16 sm:w-[72px] sm:h-[72px] lg:w-[80px] lg:h-[80px] rounded-full overflow-hidden shadow-2xs group-hover:scale-105 transition-all duration-300 bg-[#FAF5F8]">
                   <img
                     src={cat.img}
                     alt={cat.name}
-                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover object-center"
                   />
                 </div>
+                <span className="text-[9px] sm:text-[10px] font-medium uppercase tracking-[0.14em] text-[#554052] group-hover:text-[#8C5A7D] transition-colors text-center whitespace-nowrap">
+                  {cat.name}
+                </span>
               </div>
-              <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.12em] text-[#554052] group-hover:text-[#8C5A7D] transition-colors text-center whitespace-nowrap">
-                {cat.name}
-              </span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* SECTION 3: NEW COLLECTION (Grid matching reference layout with VIEW ALL) */}
-      <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+      {/* LOWER HOMEPAGE SECTIONS WITH PROPER BOUTIQUE SPACING */}
+      <div className="space-y-14 sm:space-y-20 pt-12 sm:pt-16">
+        {/* SECTION 3: NEW COLLECTION (Grid matching reference layout with VIEW ALL) */}
+        <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-3 border-b border-[#D5C2D7]">
           <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
             <h2 className="font-serif text-2xl sm:text-3xl font-normal tracking-wide text-[#554052]">
@@ -609,5 +611,6 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
     </div>
-  );
+  </div>
+);
 };

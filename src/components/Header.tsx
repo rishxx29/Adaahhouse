@@ -78,10 +78,10 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#F6F0F4] border-b border-[#D5C2D7] transition-all shadow-xs">
+    <header className="sticky top-0 z-40 bg-[#F3E9EB] border-b border-[#D5C2D7] transition-all shadow-2xs select-none">
       {/* Search Bar Slide-Down Overlay */}
       {isSearchOpen && (
-        <div className="bg-[#F6F0F4] border-b border-[#D5C2D7] px-4 py-3 animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="bg-[#F3E9EB] border-b border-[#D5C2D7] px-4 py-3 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="max-w-3xl mx-auto flex items-center gap-3">
             <Search className="w-4 h-4 text-[#8C5A7D]" />
             <input
@@ -91,7 +91,7 @@ export const Header: React.FC = () => {
                 setSearchQuery(e.target.value);
                 if (activePage !== 'shop') setActivePage('shop');
               }}
-              placeholder="Search kurtas, sets, fabrics, co-ords..."
+              placeholder="Search for kurtas, sets and more..."
               className="flex-1 bg-transparent border-none outline-none text-sm text-[#554052] placeholder:text-[#A185A4]"
               autoFocus
             />
@@ -115,8 +115,8 @@ export const Header: React.FC = () => {
       )}
 
       {/* Main Header Bar matching visual reference: Left Logo | Center Nav Links | Right Search + Icons */}
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 h-20 sm:h-22 flex items-center justify-between gap-3 lg:gap-6">
-        {/* Left: HOUSE OF RII Brand Name & Lotus Emblem */}
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 h-20 sm:h-[88px] flex items-center justify-between gap-3 lg:gap-6">
+        {/* Left: Stacked HOUSE OF RII Logo from official visual reference */}
         <div className="flex items-center gap-3 shrink-0">
           {/* Mobile Menu Hamburger */}
           <button
@@ -129,21 +129,17 @@ export const Header: React.FC = () => {
 
           <button
             onClick={() => handleNavClick('home')}
-            className="inline-flex flex-col items-center sm:items-start text-left group cursor-pointer focus-visible:outline-none"
+            className="inline-flex flex-col items-center text-center group cursor-pointer focus-visible:outline-none py-1"
             aria-label="HOUSE OF RII Home"
           >
-            <div className="flex items-center gap-2">
-              <div className="opacity-90 group-hover:opacity-100 transition-opacity">
-                <HouseOfRiiLotus size={28} color="#8C5A7D" />
-              </div>
-              <div className="flex flex-col items-start">
-                <span className="font-serif text-xl sm:text-2xl lg:text-[26px] font-normal tracking-[0.16em] text-[#8C5A7D] leading-none transition-colors group-hover:text-[#554052] whitespace-nowrap">
-                  HOUSE OF RII
-                </span>
-                <span className="text-[7.5px] sm:text-[8.5px] uppercase tracking-[0.32em] text-[#554052]/75 font-medium mt-1">
-                  ETHNIC WEAR
-                </span>
-              </div>
+            <HouseOfRiiLotus size={36} color="#7D4E68" className="transition-transform group-hover:scale-105 mb-0.5" />
+            <span className="font-serif text-lg sm:text-xl lg:text-[22px] font-normal tracking-[0.18em] text-[#7D4E68] leading-none whitespace-nowrap">
+              HOUSE OF RII
+            </span>
+            <div className="flex items-center justify-center gap-1.5 text-[7px] sm:text-[7.5px] uppercase tracking-[0.34em] text-[#554052]/80 font-medium mt-1 w-full">
+              <span className="h-[0.5px] w-2.5 bg-[#A185A4]/60" />
+              <span>ETHNIC WEAR</span>
+              <span className="h-[0.5px] w-2.5 bg-[#A185A4]/60" />
             </div>
           </button>
         </div>
@@ -197,8 +193,8 @@ export const Header: React.FC = () => {
         {/* Right Corner: Search Input Pill + Wishlist + Bag + Account */}
         <div className="flex items-center justify-end gap-2 sm:gap-3 shrink-0">
           {/* Desktop Search Input Pill */}
-          <div className="hidden md:flex items-center relative w-40 lg:w-48 xl:w-56">
-            <Search className="w-4 h-4 text-[#A185A4] absolute left-3 pointer-events-none" />
+          <div className="hidden md:flex items-center relative w-48 lg:w-56 xl:w-64">
+            <Search className="w-3.5 h-3.5 text-[#554052] absolute left-3 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
@@ -206,8 +202,8 @@ export const Header: React.FC = () => {
                 setSearchQuery(e.target.value);
                 if (activePage !== 'shop') setActivePage('shop');
               }}
-              placeholder="Search kurtas, sets..."
-              className="w-full pl-9 pr-3 py-1.5 bg-[#FAF5F8] border border-[#D5C2D7] rounded-full text-xs text-[#554052] placeholder:text-[#A185A4] outline-none focus:border-[#8C5A7D] focus:bg-[#FAF5F8] transition-all"
+              placeholder="Search for kurtas, sets and more..."
+              className="w-full pl-8 pr-3 py-1.5 bg-[#F6ECEF] border border-[#D5C2D7] rounded-full text-[11px] text-[#554052] placeholder:text-[#8C5A7D]/70 outline-none focus:border-[#8C5A7D] transition-all"
             />
           </div>
 
@@ -218,7 +214,7 @@ export const Header: React.FC = () => {
             title="Search Products"
             aria-label="Search"
           >
-            <Search className="w-5 h-5 stroke-[1.75]" />
+            <Search className="w-4 h-4 stroke-[1.75]" />
           </button>
 
           {/* Customer Account Trigger */}
@@ -226,10 +222,10 @@ export const Header: React.FC = () => {
             <div className="relative group">
               <button
                 onClick={() => handleNavClick('account')}
-                className="flex items-center gap-1.5 p-1 px-2 bg-[#FAF5F8] border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] transition-colors rounded-full shadow-2xs cursor-pointer"
+                className="flex items-center gap-1.5 p-1 px-2 bg-[#F6ECEF] border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] transition-colors rounded-full shadow-2xs cursor-pointer"
                 title={`Signed in as ${currentUser.fullName}`}
               >
-                <div className="w-5 h-5 rounded-full bg-[#8C5A7D] text-[#F6F0F4] flex items-center justify-center text-[10px] font-bold">
+                <div className="w-4 h-4 rounded-full bg-[#8C5A7D] text-[#F6F0F4] flex items-center justify-center text-[9px] font-bold">
                   {currentUser.fullName.charAt(0)}
                 </div>
                 <span className="hidden sm:inline max-w-[70px] truncate text-[11px]">
@@ -239,20 +235,20 @@ export const Header: React.FC = () => {
               </button>
 
               {/* Dropdown Menu */}
-              <div className="absolute right-0 top-full mt-1 w-44 bg-[#FAF5F8] border border-[#D5C2D7] shadow-lg rounded-xs py-1.5 hidden group-hover:block z-50 text-xs">
+              <div className="absolute right-0 top-full mt-1 w-44 bg-[#F6ECEF] border border-[#D5C2D7] shadow-lg rounded-xs py-1.5 hidden group-hover:block z-50 text-xs">
                 <div className="px-3 py-1.5 border-b border-[#D5C2D7] text-[11px] text-[#A185A4] truncate">
                   {currentUser.email}
                 </div>
                 <button
                   onClick={() => handleNavClick('orders')}
-                  className="w-full text-left px-3 py-2 hover:bg-[#F6F0F4] text-[#554052] flex items-center gap-2"
+                  className="w-full text-left px-3 py-2 hover:bg-[#F3E9EB] text-[#554052] flex items-center gap-2"
                 >
                   <Package className="w-3.5 h-3.5 text-[#8C5A7D]" />
                   <span>My Orders</span>
                 </button>
                 <button
                   onClick={() => handleNavClick('account')}
-                  className="w-full text-left px-3 py-2 hover:bg-[#F6F0F4] text-[#554052] flex items-center gap-2"
+                  className="w-full text-left px-3 py-2 hover:bg-[#F3E9EB] text-[#554052] flex items-center gap-2"
                 >
                   <User className="w-3.5 h-3.5 text-[#8C5A7D]" />
                   <span>Account Profile</span>
@@ -273,36 +269,36 @@ export const Header: React.FC = () => {
                 setAuthModalMode('login');
                 setIsAuthModalOpen(true);
               }}
-              className="p-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
+              className="p-1.5 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
               title="Customer Sign In / Register"
               aria-label="Sign In"
             >
-              <User className="w-5 h-5 stroke-[1.75]" />
+              <User className="w-4 h-4 stroke-[1.75]" />
             </button>
           )}
 
-          {/* Wishlist Icon */}
+          {/* Wishlist Icon with plum badge */}
           <button
             onClick={() => setIsWishlistOpen(true)}
-            className="relative p-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
+            className="relative p-1.5 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
             title="View Wishlist"
             aria-label="Wishlist"
           >
-            <Heart className="w-5 h-5 stroke-[1.75]" />
-            <span className="absolute top-1 right-1 w-4 h-4 bg-[#8C5A7D] text-white text-[10px] font-semibold rounded-full flex items-center justify-center animate-in zoom-in-75 duration-150">
+            <Heart className="w-4 h-4 stroke-[1.75]" />
+            <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-[#8C5A7D] text-white text-[9px] font-bold rounded-full flex items-center justify-center shadow-xs">
               {wishlist.length}
             </span>
           </button>
 
-          {/* Shopping Bag Button */}
+          {/* Shopping Bag Button with plum badge */}
           <button
             onClick={() => setIsCartOpen(true)}
-            className="relative p-2 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
+            className="relative p-1.5 text-[#554052] hover:text-[#8C5A7D] transition-colors cursor-pointer"
             title="Shopping Bag"
             aria-label="Shopping Bag"
           >
-            <ShoppingBag className="w-5 h-5 stroke-[1.75]" />
-            <span className="absolute top-1 right-1 w-4 h-4 bg-[#8C5A7D] text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-xs">
+            <ShoppingBag className="w-4 h-4 stroke-[1.75]" />
+            <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-[#8C5A7D] text-white text-[9px] font-bold rounded-full flex items-center justify-center shadow-xs">
               {cartCount}
             </span>
           </button>
