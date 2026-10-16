@@ -20,6 +20,7 @@ import {
   ChevronRight,
   MessageCircle,
   Flame,
+  Megaphone,
 } from 'lucide-react';
 import { useStore, ActivePage } from '../context/StoreContext';
 import { BRAND_CONFIG } from '../config/brand';
@@ -755,15 +756,26 @@ export const Header: React.FC = () => {
 
             {/* Bottom Contact / Concierge Strip */}
             <div className="p-5 border-t border-[#E8DED2] bg-white space-y-3 shrink-0">
-              <a
-                href={BRAND_CONFIG.social.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2.5 px-3 bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-semibold uppercase tracking-wider rounded-xs flex items-center justify-center gap-2 transition-colors shadow-xs"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span>Chat on WhatsApp</span>
-              </a>
+              <div className="grid grid-cols-2 gap-2">
+                <a
+                  href={BRAND_CONFIG.social.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="py-2.5 px-2 bg-[#25D366] hover:bg-[#20ba59] text-white text-[11px] font-semibold uppercase tracking-wider rounded-xs flex items-center justify-center gap-1.5 transition-colors shadow-xs"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>WhatsApp</span>
+                </a>
+                <a
+                  href={BRAND_CONFIG.social.whatsappChannelUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="py-2.5 px-2 bg-[#554052] hover:bg-[#8C5A7D] text-white text-[11px] font-semibold uppercase tracking-wider rounded-xs flex items-center justify-center gap-1.5 transition-colors shadow-xs"
+                >
+                  <Megaphone className="w-3.5 h-3.5 text-[#25D366]" />
+                  <span>WA Channel</span>
+                </a>
+              </div>
 
               <div className="text-[11px] text-[#9E897A] text-center space-y-0.5">
                 <p>Official Boutique: {BRAND_CONFIG.contact.email}</p>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageCircle, Mail, Phone, MapPin, Send, CheckCircle2, ChevronDown } from 'lucide-react';
+import { MessageCircle, Mail, Phone, MapPin, Send, CheckCircle2, ChevronDown, Megaphone } from 'lucide-react';
 import { BRAND_CONFIG } from '../config/brand';
 import { useStore } from '../context/StoreContext';
 
@@ -21,7 +21,7 @@ export const ContactPage: React.FC = () => {
     },
     {
       q: 'Can I place an order directly on WhatsApp?',
-      a: `Absolutely! You can click the "Order via WhatsApp" button on any kurti or message us directly at +91 ${BRAND_CONFIG.contact.phone}. Simply share the screenshot or product name, your desired size (S to XXL), and your delivery address.`,
+      a: `Absolutely! You can click the "Order via WhatsApp" button on any kurti or message us directly at +91 ${BRAND_CONFIG.contact.phone}. Simply share the screenshot or product name, your desired size (S to XXL), and your delivery address. You can also join our official WhatsApp Channel for daily new drops, early bird festive curations, and exclusive discounts.`,
     },
     {
       q: 'What are the delivery timelines and charges?',
@@ -77,14 +77,26 @@ export const ContactPage: React.FC = () => {
                 +91 {BRAND_CONFIG.contact.phone}
               </p>
             </div>
-            <a
-              href={BRAND_CONFIG.social.whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center justify-center py-2.5 px-4 bg-[#25D366] text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#20ba59] transition-colors"
-            >
-              Open WhatsApp Chat
-            </a>
+            <div className="mt-6 flex flex-col gap-2">
+              <a
+                href={BRAND_CONFIG.social.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center py-2.5 px-4 bg-[#25D366] text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#20ba59] transition-colors gap-2"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>Open WhatsApp Chat</span>
+              </a>
+              <a
+                href={BRAND_CONFIG.social.whatsappChannelUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center py-2 px-4 bg-[#554052] text-white text-xs font-medium uppercase tracking-wider hover:bg-[#8C5A7D] transition-colors gap-2"
+              >
+                <Megaphone className="w-3.5 h-3.5 text-[#25D366]" />
+                <span>Join WhatsApp Channel</span>
+              </a>
+            </div>
           </div>
 
           {/* Email Support */}

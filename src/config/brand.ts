@@ -18,6 +18,7 @@ export const BRAND_CONFIG = {
     instagram: '@houseofrii',
     instagramUrl: 'https://instagram.com/houseofrii',
     whatsappUrl: 'https://wa.me/917357804296',
+    whatsappChannelUrl: 'https://whatsapp.com/channel/0029Vb8S0ZL42Dcbsmt9hW0S',
   },
 
   payment: {
