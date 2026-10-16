@@ -172,7 +172,7 @@ export const CheckoutModal: React.FC = () => {
         estimatedDeliveryDate: deliveryEst,
       });
 
-      // Dispatch automated order notification emails to owner (aadahhouse@gmail.com) and customer
+      // Dispatch automated order notification emails to owner (houseofrii29@gmail.com) and customer
       sendOrderEmails(newOrder).catch((err) => {
         console.warn('Initial background notification dispatch error:', err);
       });

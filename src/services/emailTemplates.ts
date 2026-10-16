@@ -2,7 +2,7 @@ import { Order } from '../types';
 import { BRAND_CONFIG } from '../config/brand';
 
 /**
- * Generate formatted HTML and Plaintext email for the Owner (aadahhouse@gmail.com)
+ * Generate formatted HTML and Plaintext email for the Owner (houseofrii29@gmail.com)
  */
 export function generateOwnerOrderEmail(order: Order) {
   const itemsRowsHtml = order.items

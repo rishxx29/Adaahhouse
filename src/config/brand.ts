@@ -8,7 +8,7 @@ export const BRAND_CONFIG = {
     phone: '7357804296',
     whatsappFormatted: '+91 73578 04296',
     whatsappRaw: '917357804296',
-    email: 'aadahhouse@gmail.com', // Active operational inbox
+    email: 'houseofrii29@gmail.com', // Active operational inbox
     brandEmail: 'care@houseofrii.com',
     supportHours: 'Mon – Sat, 10:00 AM – 7:00 PM IST',
     location: 'Rajasthan, India',

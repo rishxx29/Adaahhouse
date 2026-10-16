@@ -67,7 +67,7 @@ export const AdminProductManager: React.FC = () => {
   const [orderSearchQuery, setOrderSearchQuery] = useState('');
 
   // Authentication gate state
-  const [adminIdentifier, setAdminIdentifier] = useState('aadahhouse@gmail.com');
+  const [adminIdentifier, setAdminIdentifier] = useState(BRAND_CONFIG.contact.email);
   const [gatePasscode, setGatePasscode] = useState('');
   const [showGatePasscode, setShowGatePasscode] = useState(false);
   const [gateError, setGateError] = useState<string | null>(null);
@@ -334,7 +334,7 @@ export const AdminProductManager: React.FC = () => {
                 type="text"
                 value={adminIdentifier}
                 onChange={(e) => setAdminIdentifier(e.target.value)}
-                placeholder="aadahhouse@gmail.com"
+                placeholder={BRAND_CONFIG.contact.email}
                 className="w-full bg-white border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
               />
             </div>
@@ -807,7 +807,7 @@ export const AdminProductManager: React.FC = () => {
                             }
                           }}
                           className="px-3 py-1.5 border border-[#8C5A7D]/60 hover:bg-[#F6F0F4] text-[#8C5A7D] font-semibold flex items-center gap-1.5 transition-colors"
-                          title="Resend email alert to aadahhouse@gmail.com and customer"
+                          title={`Resend email alert to ${BRAND_CONFIG.contact.email} and customer`}
                         >
                           <Mail className="w-3.5 h-3.5 text-[#8C5A7D]" />
                           <span>Resend Email Alerts</span>

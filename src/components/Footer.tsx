@@ -106,8 +106,8 @@ export const Footer: React.FC = () => {
               {/* Email Icon */}
               <a
                 href={`mailto:${BRAND_CONFIG.contact.email}`}
-                aria-label="Email (aadahhouse@gmail.com)"
-                title="Email: aadahhouse@gmail.com"
+                aria-label={`Email (${BRAND_CONFIG.contact.email})`}
+                title={`Email: ${BRAND_CONFIG.contact.email}`}
                 className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#8C5A7D] text-[#D5C2D7] hover:text-white border border-white/15 flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-105"
               >
                 <Mail className="w-4 h-4" />

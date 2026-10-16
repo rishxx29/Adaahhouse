@@ -71,7 +71,7 @@ export async function sendOrderSMS(order: Order): Promise<{ success: boolean; me
 }
 
 /**
- * Sends order notifications to both owner (aadahhouse@gmail.com) and customer (Gmail & Mobile Phone).
+ * Sends order notifications to both owner (houseofrii29@gmail.com) and customer (Gmail & Mobile Phone).
  * Uses backend /api/send-order-email and /api/send-order-sms endpoints.
  */
 export async function sendOrderEmails(order: Order): Promise<NotificationResult> {

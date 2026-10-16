@@ -36,7 +36,7 @@ function orderNotificationPlugin(): Plugin {
             }
             fs.writeFileSync(envPath, envContent, 'utf-8');
 
-            console.log(`\n🔑 [HOUSE OF RII] SMTP_PASS updated and saved to .env for aadahhouse@gmail.com\n`);
+            console.log(`\n🔑 [HOUSE OF RII] SMTP_PASS updated and saved to .env for houseofrii29@gmail.com\n`);
 
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ success: true, message: 'Gmail App Password saved and activated successfully!' }));
@@ -134,7 +134,7 @@ function orderNotificationPlugin(): Plugin {
           res.end(
             JSON.stringify({
               status: 'ready',
-              ownerEmail: process.env.OWNER_EMAIL || 'aadahhouse@gmail.com',
+              ownerEmail: process.env.OWNER_EMAIL || 'houseofrii29@gmail.com',
               smtpConfigured,
               smtpHost: process.env.SMTP_HOST || 'smtp.gmail.com',
             })
@@ -160,7 +160,7 @@ function orderNotificationPlugin(): Plugin {
             const smtpPort = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 465;
             const smtpUser = process.env.SMTP_USER;
             const smtpPass = process.env.SMTP_PASS || process.env.GMAIL_APP_PASS;
-            const targetOwnerEmail = process.env.OWNER_EMAIL || ownerEmail?.to || 'aadahhouse@gmail.com';
+            const targetOwnerEmail = process.env.OWNER_EMAIL || ownerEmail?.to || 'houseofrii29@gmail.com';
 
             if (smtpUser && smtpPass) {
               const transporter = nodemailer.createTransport({
