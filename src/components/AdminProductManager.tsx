@@ -528,61 +528,6 @@ export const AdminProductManager: React.FC = () => {
       {/* VIEW 1: CUSTOMER ORDERS MANAGEMENT */}
       {activeStudioTab === 'orders' && (
         <div className="space-y-6 animate-in fade-in duration-200">
-          {/* Owner Quick Guidance Card */}
-          <div className="bg-white border border-[#8C5A7D]/60 p-4 sm:p-5 shadow-xs space-y-2">
-            <div className="flex items-center justify-between flex-wrap gap-2">
-              <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 bg-[#8C5A7D] text-[#F6F0F4] text-[10px] font-bold uppercase tracking-wider rounded-xs">
-                  Owner Confidential Portal
-                </span>
-                <span className="text-xs text-[#7A8061] font-semibold flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>Passcode Protected</span>
-                </span>
-              </div>
-              <span className="text-xs text-[#A185A4]">
-                Receiver UPI: <strong className="font-mono text-[#8C5A7D]">{BRAND_CONFIG.payment.upiId}</strong>
-              </span>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1 text-xs text-[#554052]/85">
-              <div className="p-3 bg-[#F6F0F4] border border-[#D5C2D7] space-y-1">
-                <p className="font-bold text-[#8C5A7D] flex items-center gap-1">
-                  <span>1. Where You See Orders</span>
-                </p>
-                <p className="text-[11px] leading-relaxed">
-                  Every order placed appears immediately in the list below with customer address, phone number, kurti sizes, and 1-click WhatsApp customer messaging.
-                </p>
-              </div>
-
-              <div className="p-3 bg-[#F6F0F4] border border-[#D5C2D7] space-y-1">
-                <p className="font-bold text-[#8C5A7D] flex items-center gap-1">
-                  <span>2. Direct UPI Payments</span>
-                </p>
-                <p className="text-[11px] leading-relaxed">
-                  UPI payments deposit <strong>directly into your linked bank account</strong> ({BRAND_CONFIG.payment.upiId}). Cross-check the customer's UTR on the card with your PhonePe / bank alert.
-                </p>
-              </div>
-
-              <div className="p-3 bg-[#F6F0F4] border border-[#D5C2D7] space-y-1">
-                <p className="font-bold text-[#8C5A7D] flex items-center gap-1">
-                  <span>3. Dual Email Notifications</span>
-                </p>
-                <p className="text-[11px] leading-relaxed">
-                  Order alerts are dispatched to <strong>{BRAND_CONFIG.contact.email}</strong>, while customers receive an itemized receipt at their provided email address and WhatsApp.
-                </p>
-              </div>
-
-              <div className="p-3 bg-[#F6F0F4] border border-[#D5C2D7] space-y-1">
-                <p className="font-bold text-[#8C5A7D] flex items-center gap-1">
-                  <span>4. Owner Security</span>
-                </p>
-                <p className="text-[11px] leading-relaxed">
-                  The Store Manager is protected. Only you can view orders, add kurti photos, change prices, or edit inventory after entering your owner passcode.
-                </p>
-              </div>
-            </div>
-          </div>
-
           {/* Top KPI Metric Cards */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-white p-4 border border-[#D5C2D7] shadow-xs">
