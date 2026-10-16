@@ -6,7 +6,7 @@ import editorialImg from '../assets/images/hero_kurti_editorial_1792057768559.jp
 
 export const AboutPage: React.FC = () => {
   return (
-    <div className="bg-[#F6F0F4] py-12 sm:py-20 animate-in fade-in duration-300">
+    <div className="bg-[#F3E9EB] py-12 sm:py-20 animate-in fade-in duration-300">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         {/* Brand Monogram & Lead Banner */}
         <div className="text-center space-y-4 max-w-2xl mx-auto">
@@ -68,7 +68,7 @@ export const AboutPage: React.FC = () => {
           {/* Visual hang tag preview card replicating user's uploaded asset */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {/* Hang Tag Front */}
-            <div className="bg-[#F6F0F4] p-8 border border-[#D5C2D7] text-center flex flex-col items-center justify-between shadow-xs">
+            <div className="bg-[#F3E9EB] p-8 border border-[#D5C2D7] text-center flex flex-col items-center justify-between shadow-xs">
               <div className="w-2 h-2 rounded-full border border-[#A185A4] mb-4" />
               <div className="space-y-2">
                 <HouseOfRiiLogo variant="primary" showTagline={true} />
@@ -79,7 +79,7 @@ export const AboutPage: React.FC = () => {
             </div>
 
             {/* Hang Tag Back */}
-            <div className="bg-[#F6F0F4] p-8 border border-[#D5C2D7] text-center flex flex-col justify-between shadow-xs">
+            <div className="bg-[#F3E9EB] p-8 border border-[#D5C2D7] text-center flex flex-col justify-between shadow-xs">
               <div className="w-2 h-2 rounded-full border border-[#A185A4] mx-auto mb-4" />
               <div className="space-y-3">
                 <span className="text-[10px] uppercase tracking-widest text-[#8C5A7D] font-semibold">

@@ -47,9 +47,9 @@ export const WishlistDrawer: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-[#F6F0F4] w-full max-w-md h-full shadow-2xl flex flex-col border-l border-[#D5C2D7] animate-in slide-in-from-right duration-300">
+      <div className="bg-[#F3E9EB] w-full max-w-md h-full shadow-2xl flex flex-col border-l border-[#D5C2D7] animate-in slide-in-from-right duration-300">
         {/* Drawer Header */}
-        <div className="p-5 border-b border-[#D5C2D7] flex items-center justify-between bg-white">
+        <div className="p-5 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F3E9EB]">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-[#8C5A7D]/10 flex items-center justify-center text-[#8C5A7D]">
               <Heart className="w-4 h-4 fill-[#8C5A7D]" />
@@ -65,7 +65,7 @@ export const WishlistDrawer: React.FC = () => {
           </div>
           <button
             onClick={() => setIsWishlistOpen(false)}
-            className="p-1.5 text-[#554052] hover:text-[#8C5A7D] transition-colors rounded-xs hover:bg-[#F6F0F4]"
+            className="p-1.5 text-[#554052] hover:text-[#8C5A7D] transition-colors rounded-xs hover:bg-[#F3E9EB]"
             aria-label="Close Wishlist"
           >
             <X className="w-5 h-5" />
@@ -74,7 +74,7 @@ export const WishlistDrawer: React.FC = () => {
 
         {/* Wishlist Sub-banner */}
         {wishlistProducts.length > 0 && (
-          <div className="bg-[#F6F0F4] px-5 py-2.5 border-b border-[#D5C2D7] flex items-center justify-between text-xs">
+          <div className="bg-[#F3E9EB] px-5 py-2.5 border-b border-[#D5C2D7] flex items-center justify-between text-xs">
             <span className="text-[#8C5A7D] font-medium flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-[#8C5A7D]" />
               <span>Saved in your private wardrobe</span>
@@ -213,7 +213,7 @@ export const WishlistDrawer: React.FC = () => {
 
         {/* Drawer Footer Actions */}
         {wishlistProducts.length > 0 && (
-          <div className="p-5 border-t border-[#D5C2D7] bg-white space-y-2.5">
+          <div className="p-5 border-t border-[#D5C2D7] bg-[#F3E9EB] space-y-2.5">
             <button
               onClick={handleMoveAllToBag}
               className="w-full py-3 bg-[#8C5A7D] text-[#F6F0F4] text-xs uppercase tracking-widest font-semibold hover:bg-[#554052] transition-all flex items-center justify-center gap-2 shadow-sm"

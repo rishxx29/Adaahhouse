@@ -123,9 +123,9 @@ export const CustomerAuthModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-[#F6F0F4] max-w-md w-full border border-[#D5C2D7] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 max-h-[92vh] flex flex-col">
+      <div className="bg-[#F3E9EB] max-w-md w-full border border-[#D5C2D7] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 max-h-[92vh] flex flex-col">
         {/* Modal Header */}
-        <div className="px-6 py-4 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F6F0F4]">
+        <div className="px-6 py-4 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F3E9EB]">
           <div className="flex items-center gap-2">
             <User className="w-4 h-4 text-[#8C5A7D]" />
             <h3 className="font-serif text-lg font-bold text-[#554052]">
@@ -154,7 +154,7 @@ export const CustomerAuthModal: React.FC = () => {
             }}
             className={`py-3 transition-colors ${
               authModalMode === 'login'
-                ? 'text-[#8C5A7D] border-b-2 border-[#8C5A7D] bg-[#F6F0F4] font-bold'
+                ? 'text-[#8C5A7D] border-b-2 border-[#8C5A7D] bg-[#F3E9EB] font-bold'
                 : 'text-[#A185A4] hover:text-[#554052]'
             }`}
           >
@@ -167,7 +167,7 @@ export const CustomerAuthModal: React.FC = () => {
             }}
             className={`py-3 transition-colors ${
               authModalMode === 'register'
-                ? 'text-[#8C5A7D] border-b-2 border-[#8C5A7D] bg-[#F6F0F4] font-bold'
+                ? 'text-[#8C5A7D] border-b-2 border-[#8C5A7D] bg-[#F3E9EB] font-bold'
                 : 'text-[#A185A4] hover:text-[#554052]'
             }`}
           >
@@ -259,7 +259,7 @@ export const CustomerAuthModal: React.FC = () => {
               </button>
 
               {/* Fast Demo Account helper */}
-              <div className="p-3 bg-[#F6F0F4] border border-[#D5C2D7] text-[11px] space-y-1">
+              <div className="p-3 bg-[#F3E9EB] border border-[#D5C2D7] text-[11px] space-y-1">
                 <span className="font-semibold text-[#8C5A7D] block">Testing customer account?</span>
                 <p className="text-[#A185A4]">
                   Click below to fill sample account details:
@@ -402,7 +402,7 @@ export const CustomerAuthModal: React.FC = () => {
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 bg-[#F6F0F4] border-t border-[#D5C2D7] text-center text-[11px] text-[#A185A4]">
+        <div className="p-4 bg-[#F3E9EB] border-t border-[#D5C2D7] text-center text-[11px] text-[#A185A4]">
           <span>Protected by HOUSE OF RII Customer Privacy Guidelines.</span>
         </div>
       </div>

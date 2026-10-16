@@ -36,9 +36,9 @@ export const OwnerLoginModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-[#F6F0F4] max-w-md w-full border border-[#D5C2D7] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+      <div className="bg-[#F3E9EB] max-w-md w-full border border-[#D5C2D7] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F6F0F4]">
+        <div className="px-6 py-4 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F3E9EB]">
           <div className="flex items-center gap-2">
             <Lock className="w-4 h-4 text-[#8C5A7D]" />
             <h3 className="font-serif text-lg font-bold text-[#554052]">
@@ -105,7 +105,7 @@ export const OwnerLoginModal: React.FC = () => {
                 setError(null);
                 setPin('');
               }}
-              className="px-4 py-2 text-xs font-medium text-[#554052] hover:bg-[#FAF5F8] transition-colors"
+              className="px-4 py-2 text-xs font-medium text-[#554052] hover:bg-[#F3E9EB] transition-colors"
             >
               Cancel
             </button>

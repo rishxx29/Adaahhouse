@@ -326,7 +326,7 @@ export const CheckoutModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-[#F6F0F4] max-w-4xl w-full max-h-[92vh] overflow-y-auto border border-[#D5C2D7] shadow-2xl flex flex-col md:flex-row">
+      <div className="bg-[#F3E9EB] max-w-4xl w-full max-h-[92vh] overflow-y-auto border border-[#D5C2D7] shadow-2xl flex flex-col md:flex-row">
         {/* Left Column: Form Steps */}
         <div className="md:w-7/12 p-6 sm:p-8 border-b md:border-b-0 md:border-r border-[#D5C2D7]">
           {/* Header */}
@@ -345,7 +345,7 @@ export const CheckoutModal: React.FC = () => {
                       ? 'bg-red-50 text-red-700 border-red-300'
                       : secondsLeft <= 60
                       ? 'bg-amber-50 text-amber-900 border-amber-300 animate-pulse'
-                      : 'bg-[#F6F0F4] text-[#8C5A7D] border-[#D5C2D7]'
+                      : 'bg-[#F3E9EB] text-[#8C5A7D] border-[#D5C2D7]'
                   }`}
                   title="5-minute payment time limit"
                 >
@@ -510,7 +510,7 @@ export const CheckoutModal: React.FC = () => {
                     ? 'bg-red-50/90 border-red-300 text-red-900'
                     : secondsLeft <= 60
                     ? 'bg-amber-50/95 border-amber-300 text-amber-900 shadow-xs'
-                    : 'bg-[#F6F0F4] border-[#D5C2D7] text-[#554052]'
+                    : 'bg-[#F3E9EB] border-[#D5C2D7] text-[#554052]'
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -588,7 +588,7 @@ export const CheckoutModal: React.FC = () => {
               )}
 
               {/* Sandbox notice */}
-              <div className="p-3 bg-[#F6F0F4] border border-[#D5C2D7] text-xs text-[#554052]/90 space-y-1">
+              <div className="p-3 bg-[#F3E9EB] border border-[#D5C2D7] text-xs text-[#554052]/90 space-y-1">
                 <div className="flex items-center gap-1.5 font-semibold text-[#8C5A7D]">
                   <ShieldCheck className="w-4 h-4 text-[#8C5A7D]" />
                   <span>Interactive Payment Gateway (Demo / Sandbox Mode)</span>
@@ -685,7 +685,7 @@ export const CheckoutModal: React.FC = () => {
                     )}
 
                     {/* Official Business UPI Details */}
-                    <div className="bg-[#F6F0F4] p-3 border border-[#D5C2D7] space-y-2">
+                    <div className="bg-[#F3E9EB] p-3 border border-[#D5C2D7] space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="text-[11px] uppercase tracking-wider text-[#A185A4] font-semibold">
                           HOUSE OF RII Official UPI ID
@@ -719,7 +719,7 @@ export const CheckoutModal: React.FC = () => {
                     </div>
 
                     {/* QR Code and Direct Pay Options */}
-                    <div className="flex flex-col sm:flex-row items-center gap-4 bg-[#F6F0F4]/60 p-3.5 border border-[#D5C2D7]">
+                    <div className="flex flex-col sm:flex-row items-center gap-4 bg-[#F3E9EB]/60 p-3.5 border border-[#D5C2D7]">
                       <div className="w-32 h-32 bg-white border border-[#D5C2D7] p-1.5 shrink-0 flex items-center justify-center shadow-xs">
                         <img
                           src={upiQrUrl}
@@ -751,7 +751,7 @@ export const CheckoutModal: React.FC = () => {
                     </div>
 
                     {/* Step-by-Step Payment Instructions Card */}
-                    <div className="p-3 bg-[#F6F0F4] border border-[#D5C2D7] rounded-xs space-y-1.5">
+                    <div className="p-3 bg-[#F3E9EB] border border-[#D5C2D7] rounded-xs space-y-1.5">
                       <div className="flex items-center gap-1.5 text-xs font-bold text-[#8C5A7D]">
                         <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                         <span>Simple Steps to Pay (Hands-Free):</span>
@@ -773,7 +773,7 @@ export const CheckoutModal: React.FC = () => {
                         value={upiId}
                         onChange={(e) => setUpiId(e.target.value)}
                         placeholder="e.g. 429381048291 or your UPI ID"
-                        className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2 text-xs outline-none focus:border-[#8C5A7D] font-mono text-[#554052]"
+                        className="w-full bg-[#F3E9EB] border border-[#D5C2D7] p-2 text-xs outline-none focus:border-[#8C5A7D] font-mono text-[#554052]"
                       />
                     </div>
 
@@ -819,7 +819,7 @@ export const CheckoutModal: React.FC = () => {
                         value={cardNumber}
                         onChange={(e) => setCardNumber(e.target.value)}
                         placeholder="4532 •••• •••• 8892"
-                        className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2 text-xs font-mono outline-none focus:border-[#8C5A7D] text-[#554052]"
+                        className="w-full bg-[#F3E9EB] border border-[#D5C2D7] p-2 text-xs font-mono outline-none focus:border-[#8C5A7D] text-[#554052]"
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-3">
@@ -831,7 +831,7 @@ export const CheckoutModal: React.FC = () => {
                           value={cardExpiry}
                           onChange={(e) => setCardExpiry(e.target.value)}
                           placeholder="MM/YY"
-                          className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2 text-xs font-mono outline-none text-[#554052]"
+                          className="w-full bg-[#F3E9EB] border border-[#D5C2D7] p-2 text-xs font-mono outline-none text-[#554052]"
                         />
                       </div>
                       <div>
@@ -842,7 +842,7 @@ export const CheckoutModal: React.FC = () => {
                           value={cardCvv}
                           onChange={(e) => setCardCvv(e.target.value)}
                           placeholder="•••"
-                          className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2 text-xs font-mono outline-none text-[#554052]"
+                          className="w-full bg-[#F3E9EB] border border-[#D5C2D7] p-2 text-xs font-mono outline-none text-[#554052]"
                         />
                       </div>
                     </div>
@@ -922,7 +922,7 @@ export const CheckoutModal: React.FC = () => {
                       type="button"
                       onClick={() => handleConfirmUpiPayment()}
                       disabled={isProcessing || upiAutoState === 'RECEIVED'}
-                      className="px-5 py-3 bg-white hover:bg-[#F6F0F4] border border-[#8C5A7D] text-[#8C5A7D] text-xs uppercase tracking-wider font-semibold transition-all flex items-center gap-2 cursor-pointer shadow-xs"
+                      className="px-5 py-3 bg-[#F3E9EB] hover:bg-white border border-[#8C5A7D] text-[#8C5A7D] text-xs uppercase tracking-wider font-semibold transition-all flex items-center gap-2 cursor-pointer shadow-xs"
                     >
                       <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                       <span>Confirm QR Payment Paid</span>
@@ -953,14 +953,14 @@ export const CheckoutModal: React.FC = () => {
         </div>
 
         {/* Right Column: Order Summary */}
-        <div className="md:w-5/12 p-6 sm:p-8 bg-white flex flex-col justify-between">
+        <div className="md:w-5/12 p-6 sm:p-8 bg-[#F3E9EB] flex flex-col justify-between">
           <div>
             <h4 className="font-serif text-lg font-bold text-[#554052] pb-3 border-b border-[#D5C2D7]">
               Order Summary ({cart.length} items)
             </h4>
 
             {step === 'payment' && (
-              <div className="mt-2.5 p-2 bg-[#F6F0F4] border border-[#D5C2D7] flex items-center justify-between text-xs">
+              <div className="mt-2.5 p-2 bg-[#F3E9EB] border border-[#D5C2D7] flex items-center justify-between text-xs">
                 <span className="text-[#A185A4] flex items-center gap-1.5 font-medium">
                   <Clock className="w-3.5 h-3.5 text-[#8C5A7D]" />
                   <span>Time Left:</span>

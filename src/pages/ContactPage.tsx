@@ -46,7 +46,7 @@ export const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#F6F0F4] py-12 sm:py-16 animate-in fade-in duration-200">
+    <div className="bg-[#F3E9EB] py-12 sm:py-16 animate-in fade-in duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto space-y-2">
@@ -124,7 +124,7 @@ export const ContactPage: React.FC = () => {
                 <p>Instagram: {BRAND_CONFIG.social.instagram}</p>
               </div>
             </div>
-            <div className="mt-6 text-[11px] text-[#8C5A7D] font-medium py-2 px-3 bg-[#F6F0F4] border border-[#D5C2D7]">
+            <div className="mt-6 text-[11px] text-[#8C5A7D] font-medium py-2 px-3 bg-[#F3E9EB] border border-[#D5C2D7]">
               ✓ Ready for pan-India courier dispatch
             </div>
           </div>
@@ -133,7 +133,7 @@ export const ContactPage: React.FC = () => {
         {/* Contact Form & FAQ Split */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Contact Form */}
-          <div className="lg:col-span-6 bg-white p-6 sm:p-8 border border-[#D5C2D7] shadow-xs">
+          <div className="lg:col-span-6 bg-[#F3E9EB] p-6 sm:p-8 border border-[#D5C2D7] shadow-xs">
             <h3 className="font-serif text-xl font-bold text-[#554052] mb-1">
               Send us a Message
             </h3>
@@ -142,7 +142,7 @@ export const ContactPage: React.FC = () => {
             </p>
 
             {isSubmitted ? (
-              <div className="p-8 text-center bg-[#F6F0F4] border border-[#A185A4]/40 space-y-3">
+              <div className="p-8 text-center bg-[#F3E9EB] border border-[#A185A4]/40 space-y-3">
                 <CheckCircle2 className="w-10 h-10 text-[#8C5A7D] mx-auto" />
                 <h4 className="font-serif text-lg font-bold text-[#554052]">Thank You!</h4>
                 <p className="text-xs text-[#554052]/80">
@@ -165,7 +165,7 @@ export const ContactPage: React.FC = () => {
                     onChange={(e) => setName(e.target.value)}
                     required
                     placeholder="e.g. Ananya Mehra"
-                    className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 outline-none focus:border-[#8C5A7D] text-[#554052]"
+                    className="w-full bg-[#F3E9EB] border border-[#D5C2D7] p-2.5 outline-none focus:border-[#8C5A7D] text-[#554052]"
                   />
                 </div>
 
@@ -178,7 +178,7 @@ export const ContactPage: React.FC = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       required
                       placeholder="your@email.com"
-                      className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 outline-none focus:border-[#8C5A7D] text-[#554052]"
+                      className="w-full bg-[#F3E9EB] border border-[#D5C2D7] p-2.5 outline-none focus:border-[#8C5A7D] text-[#554052]"
                     />
                   </div>
                   <div>
@@ -188,7 +188,7 @@ export const ContactPage: React.FC = () => {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="10-digit number"
-                      className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 outline-none focus:border-[#8C5A7D] text-[#554052]"
+                      className="w-full bg-[#F3E9EB] border border-[#D5C2D7] p-2.5 outline-none focus:border-[#8C5A7D] text-[#554052]"
                     />
                   </div>
                 </div>
@@ -200,7 +200,7 @@ export const ContactPage: React.FC = () => {
                     value={orderNumber}
                     onChange={(e) => setOrderNumber(e.target.value)}
                     placeholder="e.g. RII-2026-1042"
-                    className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 outline-none focus:border-[#8C5A7D] text-[#554052]"
+                    className="w-full bg-[#F3E9EB] border border-[#D5C2D7] p-2.5 outline-none focus:border-[#8C5A7D] text-[#554052]"
                   />
                 </div>
 
@@ -212,7 +212,7 @@ export const ContactPage: React.FC = () => {
                     onChange={(e) => setMessage(e.target.value)}
                     required
                     placeholder="Tell us about your sizing question or inquiry..."
-                    className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 outline-none focus:border-[#8C5A7D] text-[#554052]"
+                    className="w-full bg-[#F3E9EB] border border-[#D5C2D7] p-2.5 outline-none focus:border-[#8C5A7D] text-[#554052]"
                   />
                 </div>
 

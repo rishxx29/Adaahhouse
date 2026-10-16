@@ -89,20 +89,20 @@ export const ProductDetailsModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-[#F6F0F4] max-w-4xl w-full max-h-[92vh] overflow-y-auto border border-[#D5C2D7] shadow-2xl relative flex flex-col md:flex-row">
+      <div className="bg-[#F3E9EB] max-w-4xl w-full max-h-[92vh] overflow-y-auto border border-[#D5C2D7] shadow-2xl relative flex flex-col md:flex-row">
         {/* Close Button */}
         <button
           onClick={closeProductDetails}
-          className="absolute top-4 right-4 z-10 p-2 bg-white/90 rounded-full text-[#554052] hover:text-[#8C5A7D] hover:bg-white shadow-xs transition-colors cursor-pointer"
+          className="absolute top-4 right-4 z-10 p-2 bg-[#F3E9EB]/90 rounded-full text-[#554052] hover:text-[#8C5A7D] hover:bg-white shadow-xs transition-colors cursor-pointer"
           aria-label="Close details"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Left Column: Image Gallery */}
-        <div className="md:w-1/2 p-6 flex flex-col justify-between bg-white border-b md:border-b-0 md:border-r border-[#D5C2D7]">
+        <div className="md:w-1/2 p-6 flex flex-col justify-between bg-[#F3E9EB] border-b md:border-b-0 md:border-r border-[#D5C2D7]">
           {/* Main Selected Image */}
-          <div className="relative aspect-[3/4] bg-[#F6F0F4] overflow-hidden rounded-xs border border-[#D5C2D7]/60">
+          <div className="relative aspect-[3/4] bg-[#F3E9EB] overflow-hidden rounded-xs border border-[#D5C2D7]/60">
             <img
               src={selectedProduct.images[activeImageIdx] || selectedProduct.images[0]}
               alt={selectedProduct.name}
@@ -172,7 +172,7 @@ export const ProductDetailsModal: React.FC = () => {
             </p>
 
             {/* Fabric & Fit highlights */}
-            <div className="bg-[#F6F0F4] p-3 border border-[#D5C2D7] text-xs space-y-1">
+            <div className="bg-[#F3E9EB] p-3 border border-[#D5C2D7] text-xs space-y-1">
               <div>
                 <strong className="text-[#8C5A7D]">Fabric:</strong> {selectedProduct.fabric}
               </div>
@@ -233,7 +233,7 @@ export const ProductDetailsModal: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="px-3 py-1.5 text-[#554052] hover:bg-[#F6F0F4] font-semibold cursor-pointer"
+                  className="px-3 py-1.5 text-[#554052] hover:bg-[#F3E9EB] font-semibold cursor-pointer"
                 >
                   -
                 </button>
@@ -243,7 +243,7 @@ export const ProductDetailsModal: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setQuantity((q) => Math.min(10, q + 1))}
-                  className="px-3 py-1.5 text-[#554052] hover:bg-[#F6F0F4] font-semibold cursor-pointer"
+                  className="px-3 py-1.5 text-[#554052] hover:bg-[#F3E9EB] font-semibold cursor-pointer"
                 >
                   +
                 </button>
@@ -256,7 +256,7 @@ export const ProductDetailsModal: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleAddToCart}
-                  className="flex-1 py-3 bg-[#F6F0F4] hover:bg-[#EFE7ED] text-[#8C5A7D] border border-[#8C5A7D] text-xs uppercase tracking-[0.16em] font-bold flex items-center justify-center gap-2 transition-colors shadow-xs cursor-pointer"
+                  className="flex-1 py-3 bg-[#F3E9EB] hover:bg-[#EFE7ED] text-[#8C5A7D] border border-[#8C5A7D] text-xs uppercase tracking-[0.16em] font-bold flex items-center justify-center gap-2 transition-colors shadow-xs cursor-pointer"
                 >
                   <ShoppingBag className="w-4 h-4 text-[#8C5A7D]" />
                   <span>Add to Bag</span>

@@ -41,9 +41,9 @@ export const CartDrawer: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-[#F6F0F4] w-full max-w-md h-full shadow-2xl flex flex-col border-l border-[#D5C2D7] animate-in slide-in-from-right duration-300">
+      <div className="bg-[#F3E9EB] w-full max-w-md h-full shadow-2xl flex flex-col border-l border-[#D5C2D7] animate-in slide-in-from-right duration-300">
         {/* Drawer Header */}
-        <div className="p-5 border-b border-[#D5C2D7] flex items-center justify-between bg-white">
+        <div className="p-5 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F3E9EB]">
           <div className="flex items-center gap-2">
             <ShoppingBag className="w-5 h-5 text-[#8C5A7D]" />
             <h3 className="font-serif text-lg font-bold text-[#554052]">
@@ -60,7 +60,7 @@ export const CartDrawer: React.FC = () => {
         </div>
 
         {/* Free Shipping Banner */}
-        <div className="bg-[#F6F0F4] px-5 py-2.5 border-b border-[#D5C2D7] text-xs">
+        <div className="bg-[#F3E9EB] px-5 py-2.5 border-b border-[#D5C2D7] text-xs">
           <div className="flex items-center gap-2 text-[#554052]">
             <Truck className="w-4 h-4 text-[#8C5A7D] shrink-0" />
             <span className="text-[#8C5A7D] font-semibold text-xs">
@@ -135,7 +135,7 @@ export const CartDrawer: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => updateCartQuantity(item.id, item.quantity - 1)}
-                        className="px-2 py-1 text-[#554052] hover:bg-[#F6F0F4] font-semibold"
+                        className="px-2 py-1 text-[#554052] hover:bg-[#F3E9EB] font-semibold"
                       >
                         -
                       </button>
@@ -163,11 +163,11 @@ export const CartDrawer: React.FC = () => {
 
         {/* Drawer Footer: Coupon + Summary + Checkout CTA */}
         {cart.length > 0 && (
-          <div className="p-5 border-t border-[#D5C2D7] bg-white space-y-4">
+          <div className="p-5 border-t border-[#D5C2D7] bg-[#F3E9EB] space-y-4">
             {/* Coupon Code Input */}
             <div>
               {activeCoupon ? (
-                <div className="flex items-center justify-between p-2.5 bg-[#F6F0F4] border border-[#D5C2D7] text-xs">
+                <div className="flex items-center justify-between p-2.5 bg-[#F3E9EB] border border-[#D5C2D7] text-xs">
                   <div className="flex items-center gap-2">
                     <Tag className="w-3.5 h-3.5 text-[#8C5A7D]" />
                     <span className="font-mono font-bold text-[#8C5A7D]">{activeCoupon.code}</span>
@@ -187,7 +187,7 @@ export const CartDrawer: React.FC = () => {
                     value={couponInput}
                     onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
                     placeholder="Enter Coupon (e.g. RII10)"
-                    className="flex-1 bg-[#F6F0F4] border border-[#D5C2D7] px-3 py-2 text-xs uppercase font-mono outline-none focus:border-[#8C5A7D] text-[#554052]"
+                    className="flex-1 bg-[#F3E9EB] border border-[#D5C2D7] px-3 py-2 text-xs uppercase font-mono outline-none focus:border-[#8C5A7D] text-[#554052]"
                   />
                   <button
                     type="submit"

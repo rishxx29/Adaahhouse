@@ -158,12 +158,12 @@ export const HomePage: React.FC = () => {
   ];
 
   return (
-    <div className="pb-16 bg-[#F6F0F4]">
+    <div className="pb-16 bg-[#F3E9EB]">
       {/* SECTION 1: EDITORIAL HERO BANNER & 4-PILLAR BENEFITS STRIP */}
       <HeroSection />
 
       {/* SECTION 2: SHOP BY CATEGORY (Exact copy from reference image) */}
-      <section className="bg-[#F7F0F1] border-b border-[#D5C2D7] py-6 sm:py-8 px-4 sm:px-6 lg:px-8 select-none">
+      <section className="bg-[#F3E9EB] border-b border-[#D5C2D7] py-6 sm:py-8 px-4 sm:px-6 lg:px-8 select-none">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-center justify-between mb-5 sm:mb-6">
             <h2 className="font-sans text-xs sm:text-[13px] font-medium uppercase tracking-[0.26em] text-[#554052]">
@@ -191,7 +191,7 @@ export const HomePage: React.FC = () => {
                 onClick={() => handleCategoryCircleClick(cat.name)}
                 className="flex flex-col items-center gap-2 shrink-0 group cursor-pointer"
               >
-                <div className="w-16 h-16 sm:w-[72px] sm:h-[72px] lg:w-[80px] lg:h-[80px] rounded-full overflow-hidden shadow-2xs group-hover:scale-105 transition-all duration-300 bg-[#FAF5F8]">
+                <div className="w-16 h-16 sm:w-[72px] sm:h-[72px] lg:w-[80px] lg:h-[80px] rounded-full overflow-hidden shadow-2xs group-hover:scale-105 transition-all duration-300 bg-[#F3E9EB]">
                   <img
                     src={cat.img}
                     alt={cat.name}
@@ -267,7 +267,7 @@ export const HomePage: React.FC = () => {
             className={`px-5 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-full transition-all cursor-pointer ${
               activeMainTab === 'bestseller'
                 ? 'bg-[#8C5A7D] text-white shadow-xs'
-                : 'bg-[#FAF5F8] text-[#554052] border border-[#D5C2D7] hover:border-[#8C5A7D]'
+                : 'bg-[#F3E9EB] text-[#554052] border border-[#D5C2D7] hover:border-[#8C5A7D]'
             }`}
           >
             Bestseller
@@ -281,7 +281,7 @@ export const HomePage: React.FC = () => {
             className={`px-5 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-full transition-all cursor-pointer ${
               activeMainTab === 'everyday'
                 ? 'bg-[#8C5A7D] text-white shadow-xs'
-                : 'bg-[#FAF5F8] text-[#554052] border border-[#D5C2D7] hover:border-[#8C5A7D]'
+                : 'bg-[#F3E9EB] text-[#554052] border border-[#D5C2D7] hover:border-[#8C5A7D]'
             }`}
           >
             Everyday Wear
@@ -295,7 +295,7 @@ export const HomePage: React.FC = () => {
             className={`px-5 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-full transition-all cursor-pointer ${
               activeMainTab === 'festive'
                 ? 'bg-[#8C5A7D] text-white shadow-xs'
-                : 'bg-[#FAF5F8] text-[#554052] border border-[#D5C2D7] hover:border-[#8C5A7D]'
+                : 'bg-[#F3E9EB] text-[#554052] border border-[#D5C2D7] hover:border-[#8C5A7D]'
             }`}
           >
             Festive &amp; Wedding Edits
@@ -319,7 +319,7 @@ export const HomePage: React.FC = () => {
                   className={`px-3.5 py-1.5 text-[11px] font-medium tracking-wider rounded-full transition-all cursor-pointer ${
                     activeSubTab === subKey
                       ? 'bg-[#554052] text-white shadow-xs'
-                      : 'bg-[#FAF5F8] text-[#554052] border border-[#D5C2D7] hover:bg-[#FAF5F8]'
+                      : 'bg-[#F3E9EB] text-[#554052] border border-[#D5C2D7] hover:bg-[#F3E9EB]'
                   }`}
                 >
                   {labels[subKey]}
@@ -347,7 +347,7 @@ export const HomePage: React.FC = () => {
                   className={`px-3.5 py-1.5 text-[11px] font-medium tracking-wider rounded-full transition-all cursor-pointer ${
                     activeSubTab === subKey
                       ? 'bg-[#554052] text-white shadow-xs'
-                      : 'bg-[#FAF5F8] text-[#554052] border border-[#D5C2D7] hover:bg-[#FAF5F8]'
+                      : 'bg-[#F3E9EB] text-[#554052] border border-[#D5C2D7] hover:bg-[#F3E9EB]'
                   }`}
                 >
                   {labels[subKey]}
@@ -388,7 +388,7 @@ export const HomePage: React.FC = () => {
                     setActivePage('shop');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
-                  className="px-8 py-3.5 bg-[#8C5A7D] hover:bg-[#FAF5F8] hover:text-[#554052] text-white text-xs uppercase tracking-[0.2em] font-semibold transition-all duration-300 shadow-sm cursor-pointer"
+                  className="px-8 py-3.5 bg-[#8C5A7D] hover:bg-[#F3E9EB] hover:text-[#554052] text-white text-xs uppercase tracking-[0.2em] font-semibold transition-all duration-300 shadow-sm cursor-pointer"
                 >
                   EXPLORE FESTIVE EDIT →
                 </button>
@@ -453,15 +453,15 @@ export const HomePage: React.FC = () => {
                 setActivePage('shop');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="bg-[#FAF5F8] border border-[#D5C2D7] overflow-hidden group cursor-pointer shadow-2xs hover:shadow-xs transition-all duration-300 rounded-xs"
+              className="bg-[#F3E9EB] border border-[#D5C2D7] overflow-hidden group cursor-pointer shadow-2xs hover:shadow-xs transition-all duration-300 rounded-xs"
             >
-              <div className="relative aspect-[4/3] overflow-hidden bg-[#F6F0F4]">
+              <div className="relative aspect-[4/3] overflow-hidden bg-[#F3E9EB]">
                 <img
                   src={edit.img}
                   alt={edit.title}
                   className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
-                <span className="absolute top-3 left-3 px-2.5 py-1 bg-[#FAF5F8]/90 backdrop-blur-xs text-[10px] uppercase tracking-wider font-semibold text-[#8C5A7D] border border-[#D5C2D7]/60">
+                <span className="absolute top-3 left-3 px-2.5 py-1 bg-[#F3E9EB]/90 backdrop-blur-xs text-[10px] uppercase tracking-wider font-semibold text-[#8C5A7D] border border-[#D5C2D7]/60">
                   {edit.tag}
                 </span>
               </div>
@@ -483,7 +483,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* SECTION 7: CLIENT LOVE & REVIEWS */}
-      <section className="bg-[#FAF5F8] border-y border-[#D5C2D7] py-16">
+      <section className="bg-[#F3E9EB] border-y border-[#D5C2D7] py-16">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center max-w-xl mx-auto space-y-2">
             <span className="text-xs uppercase tracking-[0.25em] text-[#8C5A7D] font-semibold">
@@ -501,7 +501,7 @@ export const HomePage: React.FC = () => {
             {verifiedReviews.map((rev, idx) => (
               <div
                 key={idx}
-                className="bg-[#F6F0F4] p-6 border border-[#D5C2D7] flex flex-col justify-between space-y-4 rounded-xs shadow-2xs"
+                className="bg-[#F3E9EB] p-6 border border-[#D5C2D7] flex flex-col justify-between space-y-4 rounded-xs shadow-2xs"
               >
                 <div className="space-y-3">
                   <div className="flex items-center gap-1 text-[#8C5A7D]">
@@ -549,7 +549,7 @@ export const HomePage: React.FC = () => {
               href={BRAND_CONFIG.social.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative aspect-square overflow-hidden bg-[#FAF5F8] border border-[#D5C2D7] group block rounded-xs shadow-2xs"
+              className="relative aspect-square overflow-hidden bg-[#F3E9EB] border border-[#D5C2D7] group block rounded-xs shadow-2xs"
             >
               <img
                 src={item.img}
@@ -567,7 +567,7 @@ export const HomePage: React.FC = () => {
 
       {/* SECTION 9: NEWSLETTER SUBSCRIPTION */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6">
-        <div className="bg-[#FAF5F8] border border-[#D5C2D7] p-8 sm:p-12 text-center space-y-4 rounded-xs shadow-xs">
+        <div className="bg-[#F3E9EB] border border-[#D5C2D7] p-8 sm:p-12 text-center space-y-4 rounded-xs shadow-xs">
           <div className="w-10 h-10 rounded-full bg-[#8C5A7D]/10 flex items-center justify-center mx-auto text-[#8C5A7D]">
             <HouseOfRiiLotus size={24} color="#8C5A7D" />
           </div>
@@ -581,7 +581,7 @@ export const HomePage: React.FC = () => {
           </div>
 
           {isSubscribed ? (
-            <div className="p-4 bg-[#F6F0F4] border border-[#D5C2D7] text-xs font-semibold text-[#8C5A7D] flex items-center justify-center gap-2 max-w-md mx-auto">
+            <div className="p-4 bg-[#F3E9EB] border border-[#D5C2D7] text-xs font-semibold text-[#8C5A7D] flex items-center justify-center gap-2 max-w-md mx-auto">
               <Check className="w-4 h-4" />
               <span>You're in! Use coupon code <strong>RII10</strong> at checkout for 10% off.</span>
             </div>
@@ -593,7 +593,7 @@ export const HomePage: React.FC = () => {
                 onChange={(e) => setNewsletterEmail(e.target.value)}
                 placeholder="Enter your email address"
                 required
-                className="flex-1 bg-[#F6F0F4] border border-[#D5C2D7] px-4 py-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D] placeholder:text-[#A185A4]"
+                className="flex-1 bg-[#F3E9EB] border border-[#D5C2D7] px-4 py-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D] placeholder:text-[#A185A4]"
               />
               <button
                 type="submit"

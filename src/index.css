@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --color-bg-warm: #F3E8E3;
-  --color-bg-lilac: #F6F0F4;
+  --color-bg-warm: #F3E9EB;
+  --color-bg-lilac: #F3E9EB;
   --color-bg-beige-rose: #EADBD5;
   --color-bg-sand: #E8D8CC;
   --color-mauve: #D5C2D7;
@@ -17,8 +17,8 @@
   --font-body: "Lora", Georgia, serif;
   
   /* Exact House of Rii Mauve, Beige & Plum Palette */
-  --color-bg-warm: #F3E8E3;
-  --color-bg-lilac: #F6F0F4;
+  --color-bg-warm: #F3E9EB;
+  --color-bg-lilac: #F3E9EB;
   --color-bg-beige-rose: #EADBD5;
   --color-bg-sand: #E8D8CC;
   --color-mauve: #D5C2D7;
@@ -26,7 +26,7 @@
   --color-plum: #8C5A7D;
   --color-deep-plum: #554052;
   
-  --color-soft-lilac: #F6F0F4;
+  --color-soft-lilac: #F3E9EB;
   --color-dusty-mauve: #D5C2D7;
   --color-muted-violet: #A185A4;
   
@@ -35,9 +35,9 @@
   --color-maroon-dark: #554052;
   --color-maroon-light: #A185A4;
   
-  --color-ivory: #F6F0F4;
+  --color-ivory: #F3E9EB;
   --color-ivory-muted: #EFE7ED;
-  --color-ivory-warm: #F3E8E3;
+  --color-ivory-warm: #F3E9EB;
   
   --color-beige: #D5C2D7;
   --color-beige-subtle: #EADBD5;
@@ -56,7 +56,7 @@
   html {
     scroll-behavior: smooth;
     font-family: var(--font-sans);
-    background-color: #F6F0F4;
+    background-color: #F3E9EB;
     color: #554052;
   }
 
@@ -75,7 +75,7 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F6F0F4;
+  background: #F3E9EB;
 }
 ::-webkit-scrollbar-thumb {
   background: #D5C2D7;

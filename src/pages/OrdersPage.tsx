@@ -129,13 +129,13 @@ export const OrdersPage: React.FC = () => {
         {/* Progress Timeline */}
         <div className="py-2">
           <div className="grid grid-cols-3 gap-2 text-center text-[11px]">
-            <div className={`p-2 border rounded-xs ${order.status ? 'bg-[#F6F0F4] border-[#8C5A7D] text-[#8C5A7D] font-semibold' : 'border-[#D5C2D7] text-[#A185A4]'}`}>
+            <div className={`p-2 border rounded-xs ${order.status ? 'bg-[#F3E9EB] border-[#8C5A7D] text-[#8C5A7D] font-semibold' : 'border-[#D5C2D7] text-[#A185A4]'}`}>
               <span>1. Confirmed</span>
             </div>
-            <div className={`p-2 border rounded-xs ${order.status === 'DISPATCHED' || order.status === 'DELIVERED' ? 'bg-[#F6F0F4] border-[#8C5A7D] text-[#8C5A7D] font-semibold' : 'border-[#D5C2D7] text-[#A185A4]'}`}>
+            <div className={`p-2 border rounded-xs ${order.status === 'DISPATCHED' || order.status === 'DELIVERED' ? 'bg-[#F3E9EB] border-[#8C5A7D] text-[#8C5A7D] font-semibold' : 'border-[#D5C2D7] text-[#A185A4]'}`}>
               <span>2. Dispatched</span>
             </div>
-            <div className={`p-2 border rounded-xs ${order.status === 'DELIVERED' ? 'bg-[#F6F0F4] border-[#8C5A7D] text-[#8C5A7D] font-semibold' : 'border-[#D5C2D7] text-[#A185A4]'}`}>
+            <div className={`p-2 border rounded-xs ${order.status === 'DELIVERED' ? 'bg-[#F3E9EB] border-[#8C5A7D] text-[#8C5A7D] font-semibold' : 'border-[#D5C2D7] text-[#A185A4]'}`}>
               <span>3. Delivered</span>
             </div>
           </div>
@@ -222,7 +222,7 @@ export const OrdersPage: React.FC = () => {
 
             <button
               onClick={() => window.print()}
-              className="px-3 py-1.5 border border-[#D5C2D7] hover:bg-[#F6F0F4] text-[#554052] font-medium flex items-center gap-1.5 transition-colors"
+              className="px-3 py-1.5 border border-[#D5C2D7] hover:bg-[#F3E9EB] text-[#554052] font-medium flex items-center gap-1.5 transition-colors"
             >
               <Printer className="w-3.5 h-3.5 text-[#8C5A7D]" />
               <span>Print Invoice</span>
@@ -242,7 +242,7 @@ export const OrdersPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#F6F0F4] py-12 sm:py-16 animate-in fade-in duration-200">
+    <div className="bg-[#F3E9EB] py-12 sm:py-16 animate-in fade-in duration-200">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Page Title */}
@@ -280,7 +280,7 @@ export const OrdersPage: React.FC = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setActivePage('account')}
-                  className="px-3.5 py-1.5 border border-[#D5C2D7] hover:bg-[#F6F0F4] text-xs font-semibold text-[#554052] transition-colors"
+                  className="px-3.5 py-1.5 border border-[#D5C2D7] hover:bg-[#F3E9EB] text-xs font-semibold text-[#554052] transition-colors"
                 >
                   Manage Profile
                 </button>
@@ -339,8 +339,8 @@ export const OrdersPage: React.FC = () => {
         ) : (
           /* NOT LOGGED IN: Sign In Promotion + Guest Order Lookup */
           <div className="space-y-8">
-            <div className="bg-white p-8 border border-[#D5C2D7] text-center space-y-4 shadow-xs">
-              <div className="w-14 h-14 rounded-full bg-[#F6F0F4] border border-[#D5C2D7] flex items-center justify-center mx-auto text-[#8C5A7D]">
+            <div className="bg-[#F3E9EB] p-8 border border-[#D5C2D7] text-center space-y-4 shadow-xs">
+              <div className="w-14 h-14 rounded-full bg-[#F3E9EB] border border-[#D5C2D7] flex items-center justify-center mx-auto text-[#8C5A7D]">
                 <User className="w-7 h-7" />
               </div>
               <h3 className="font-serif text-2xl font-bold text-[#554052]">
@@ -364,7 +364,7 @@ export const OrdersPage: React.FC = () => {
                     setAuthModalMode('register');
                     setIsAuthModalOpen(true);
                   }}
-                  className="w-full sm:w-auto px-6 py-3 border border-[#8C5A7D] text-[#8C5A7D] text-xs uppercase tracking-wider font-semibold hover:bg-[#F6F0F4] transition-colors"
+                  className="w-full sm:w-auto px-6 py-3 border border-[#8C5A7D] text-[#8C5A7D] text-xs uppercase tracking-wider font-semibold hover:bg-[#F3E9EB] transition-colors"
                 >
                   New Customer? Register
                 </button>
@@ -372,7 +372,7 @@ export const OrdersPage: React.FC = () => {
             </div>
 
             {/* Quick Guest Order Lookup Form */}
-            <div className="bg-white p-6 sm:p-8 border border-[#D5C2D7] space-y-4 shadow-xs">
+            <div className="bg-[#F3E9EB] p-6 sm:p-8 border border-[#D5C2D7] space-y-4 shadow-xs">
               <div className="border-b border-[#D5C2D7] pb-3">
                 <h4 className="font-serif text-lg font-bold text-[#554052] flex items-center gap-2">
                   <Search className="w-4 h-4 text-[#8C5A7D]" />
@@ -400,7 +400,7 @@ export const OrdersPage: React.FC = () => {
                       value={lookupOrderNumber}
                       onChange={(e) => setLookupOrderNumber(e.target.value)}
                       placeholder="RII-2026-XXXX"
-                      className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs font-mono uppercase text-[#554052] outline-none focus:border-[#8C5A7D]"
+                      className="w-full bg-[#F3E9EB] border border-[#D5C2D7] p-2.5 text-xs font-mono uppercase text-[#554052] outline-none focus:border-[#8C5A7D]"
                     />
                   </div>
 
@@ -414,7 +414,7 @@ export const OrdersPage: React.FC = () => {
                       onChange={(e) => setLookupPhone(e.target.value)}
                       placeholder="10-digit mobile number"
                       maxLength={10}
-                      className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
+                      className="w-full bg-[#F3E9EB] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                     />
                   </div>
                 </div>

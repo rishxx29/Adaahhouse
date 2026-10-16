@@ -138,11 +138,11 @@ export const OrderConfirmationPage: React.FC = () => {
   const isSimulated = notificationResult?.simulated ?? true;
 
   return (
-    <div className="bg-[#F6F0F4] py-12 sm:py-16 animate-in fade-in duration-300 print:bg-white print:py-0">
+    <div className="bg-[#F3E9EB] py-12 sm:py-16 animate-in fade-in duration-300 print:bg-white print:py-0">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* 1. Success Banner */}
-        <div className="bg-white p-8 sm:p-10 border border-[#D5C2D7] text-center space-y-4 shadow-sm relative overflow-hidden">
+        <div className="bg-[#F3E9EB] p-8 sm:p-10 border border-[#D5C2D7] text-center space-y-4 shadow-sm relative overflow-hidden">
           {/* Decorative luxury gradient top accent */}
           <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#8C5A7D] via-[#A185A4] to-[#8C5A7D]" />
 
@@ -167,10 +167,10 @@ export const OrderConfirmationPage: React.FC = () => {
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-2 pt-1 text-xs">
-            <span className="font-mono px-3.5 py-1.5 bg-[#F6F0F4] border border-[#D5C2D7] text-[#8C5A7D] font-bold">
+            <span className="font-mono px-3.5 py-1.5 bg-[#F3E9EB] border border-[#D5C2D7] text-[#8C5A7D] font-bold">
               Order ID: {lastOrder.orderNumber}
             </span>
-            <span className="px-3.5 py-1.5 bg-[#F6F0F4] border border-[#D5C2D7] text-[#554052] font-medium flex items-center gap-1.5">
+            <span className="px-3.5 py-1.5 bg-[#F3E9EB] border border-[#D5C2D7] text-[#554052] font-medium flex items-center gap-1.5">
               <Truck className="w-3.5 h-3.5 text-[#8C5A7D]" />
               <span>Est. Delivery: <strong>{lastOrder.estimatedDeliveryDate}</strong></span>
             </span>
@@ -194,7 +194,7 @@ export const OrderConfirmationPage: React.FC = () => {
                 setActivePage('orders');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="px-6 py-3 bg-white hover:bg-[#F6F0F4] border border-[#8C5A7D] text-[#8C5A7D] text-xs uppercase tracking-wider font-semibold flex items-center gap-2 transition-colors cursor-pointer"
+              className="px-6 py-3 bg-[#F3E9EB] hover:bg-white border border-[#8C5A7D] text-[#8C5A7D] text-xs uppercase tracking-wider font-semibold flex items-center gap-2 transition-colors cursor-pointer"
             >
               <Package className="w-4 h-4 text-[#8C5A7D]" />
               <span>View in "My Orders"</span>
@@ -205,7 +205,7 @@ export const OrderConfirmationPage: React.FC = () => {
                 setActivePage('shop');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="px-6 py-3 bg-[#F6F0F4] hover:bg-[#D5C2D7] border border-[#D5C2D7] text-[#554052] text-xs uppercase tracking-wider font-semibold flex items-center gap-2 transition-colors cursor-pointer"
+              className="px-6 py-3 bg-[#F3E9EB] hover:bg-[#D5C2D7] border border-[#D5C2D7] text-[#554052] text-xs uppercase tracking-wider font-semibold flex items-center gap-2 transition-colors cursor-pointer"
             >
               <ShoppingBag className="w-4 h-4 text-[#A185A4]" />
               <span>Continue Shopping</span>
@@ -214,7 +214,7 @@ export const OrderConfirmationPage: React.FC = () => {
         </div>
 
         {/* 3. Order Details & Receipt */}
-        <div className="bg-white p-6 sm:p-8 border border-[#D5C2D7] space-y-6 shadow-xs">
+        <div className="bg-[#F3E9EB] p-6 sm:p-8 border border-[#D5C2D7] space-y-6 shadow-xs">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#D5C2D7] text-xs">
             <div>
               <span className="text-[#A185A4] block">Estimated Delivery Date</span>
@@ -239,7 +239,7 @@ export const OrderConfirmationPage: React.FC = () => {
             <div className="print:hidden">
               <button
                 onClick={handlePrint}
-                className="px-3 py-1.5 border border-[#D5C2D7] hover:bg-[#F6F0F4] text-[#554052] flex items-center gap-1.5 font-medium transition-colors"
+                className="px-3 py-1.5 border border-[#D5C2D7] hover:bg-[#F3E9EB] text-[#554052] flex items-center gap-1.5 font-medium transition-colors"
               >
                 <Printer className="w-3.5 h-3.5" />
                 <span>Print Invoice</span>
@@ -337,7 +337,7 @@ export const OrderConfirmationPage: React.FC = () => {
                 setActivePage('orders');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="w-full sm:w-auto px-5 py-3 bg-white hover:bg-[#F6F0F4] border border-[#D5C2D7] text-[#554052] text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+              className="w-full sm:w-auto px-5 py-3 bg-[#F3E9EB] hover:bg-white border border-[#D5C2D7] text-[#554052] text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
               <Package className="w-4 h-4 text-[#8C5A7D]" />
               <span>Track in My Orders</span>
@@ -357,7 +357,7 @@ export const OrderConfirmationPage: React.FC = () => {
 
             <button
               onClick={handlePrint}
-              className="w-full sm:w-auto px-5 py-3 bg-white hover:bg-[#F6F0F4] border border-[#D5C2D7] text-[#554052] text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+              className="w-full sm:w-auto px-5 py-3 bg-[#F3E9EB] hover:bg-white border border-[#D5C2D7] text-[#554052] text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
               <Printer className="w-4 h-4 text-[#8C5A7D]" />
               <span>Print Invoice</span>

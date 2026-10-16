@@ -87,7 +87,7 @@ export const HeroSection: React.FC = () => {
       </section>
 
       {/* 2. Benefits Strip (4 Pillars directly from visual reference) */}
-      <section className="bg-[#F3EAEB] border-t border-[#D5C2D7] py-3 sm:py-3.5 px-4 sm:px-8">
+      <section className="bg-[#F3E9EB] border-t border-[#D5C2D7] py-3 sm:py-3.5 px-4 sm:px-8">
         <div className="max-w-[1440px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-[#D5C2D7]/80">
           {/* Pillar 1: Premium Fabrics */}
           <div className="flex items-center gap-3 p-1.5 sm:px-4 justify-start sm:justify-center">

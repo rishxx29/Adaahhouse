@@ -316,9 +316,9 @@ export const Header: React.FC = () => {
           />
 
           {/* Side Drawer Panel */}
-          <div className="relative w-full max-w-sm sm:max-w-md bg-[#F6F0F4] h-full shadow-2xl flex flex-col justify-between border-r border-[#D5C2D7] overflow-y-auto animate-in slide-in-from-left duration-300 z-10">
+          <div className="relative w-full max-w-sm sm:max-w-md bg-[#F3E9EB] h-full shadow-2xl flex flex-col justify-between border-r border-[#D5C2D7] overflow-y-auto animate-in slide-in-from-left duration-300 z-10">
             {/* Top Header of Drawer */}
-            <div className="p-5 border-b border-[#D5C2D7] flex items-center justify-between bg-white shrink-0">
+            <div className="p-5 border-b border-[#D5C2D7] flex items-center justify-between bg-[#F3E9EB] shrink-0">
               <button
                 onClick={() => handleNavClick('home')}
                 className="flex items-center gap-3 text-left focus:outline-none cursor-pointer"
@@ -653,7 +653,7 @@ export const Header: React.FC = () => {
                     <Package className="w-4 h-4 text-[#8C5A7D]" />
                     <span className="text-[13px] uppercase tracking-wider font-semibold">My Orders</span>
                   </div>
-                  <span className="px-2 py-0.5 bg-[#F6F0F4] border border-[#D5C2D7] text-[#8C5A7D] text-[10px] font-bold rounded-xs">
+                  <span className="px-2 py-0.5 bg-[#F3E9EB] border border-[#D5C2D7] text-[#8C5A7D] text-[10px] font-bold rounded-xs">
                     {orders.length} Placed
                   </span>
                 </button>

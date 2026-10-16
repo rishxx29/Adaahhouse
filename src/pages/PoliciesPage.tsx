@@ -8,7 +8,7 @@ export const PoliciesPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<PolicyTab>('shipping');
 
   return (
-    <div className="bg-[#F6F0F4] py-12 sm:py-16 animate-in fade-in duration-200">
+    <div className="bg-[#F3E9EB] py-12 sm:py-16 animate-in fade-in duration-200">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         {/* Header */}
         <div className="text-center space-y-2">
@@ -24,7 +24,7 @@ export const PoliciesPage: React.FC = () => {
         </div>
 
         {/* Tab Buttons */}
-        <div className="flex items-center justify-center gap-1 sm:gap-2 flex-wrap p-1 bg-[#F6F0F4] border border-[#D5C2D7]">
+        <div className="flex items-center justify-center gap-1 sm:gap-2 flex-wrap p-1 bg-[#F3E9EB] border border-[#D5C2D7]">
           <button
             onClick={() => setActiveTab('shipping')}
             className={`px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all ${
@@ -68,7 +68,7 @@ export const PoliciesPage: React.FC = () => {
         </div>
 
         {/* Policy Content Body */}
-        <div className="bg-white p-6 sm:p-10 border border-[#D5C2D7] shadow-xs text-xs sm:text-sm text-[#554052]/85 leading-relaxed space-y-6">
+        <div className="bg-[#F3E9EB] p-6 sm:p-10 border border-[#D5C2D7] shadow-xs text-xs sm:text-sm text-[#554052]/85 leading-relaxed space-y-6">
           {activeTab === 'shipping' && (
             <div className="space-y-4 animate-in fade-in">
               <div className="flex items-center gap-2 pb-3 border-b border-[#D5C2D7]">

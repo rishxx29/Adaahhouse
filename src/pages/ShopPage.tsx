@@ -205,7 +205,7 @@ export const ShopPage: React.FC = () => {
 
       {/* Primary Collections Tabs */}
       <div className="space-y-3">
-        <div className="flex items-center justify-center gap-1.5 flex-wrap p-1.5 bg-[#EFE7ED]/80 rounded-xs max-w-3xl mx-auto border border-[#D5C2D7]">
+        <div className="flex items-center justify-center gap-1.5 flex-wrap p-1.5 bg-[#F3E9EB] rounded-xs max-w-3xl mx-auto border border-[#D5C2D7]">
           {collections.map((col) => {
             const isActive = selectedCollectionFilter === col.id;
             return (
@@ -398,8 +398,8 @@ export const ShopPage: React.FC = () => {
         <div className="lg:col-span-3">
           {filteredProducts.length === 0 ? (
             selectedCollectionFilter === 'wishlist' ? (
-              <div className="bg-white border border-[#D5C2D7] p-12 text-center space-y-4">
-                <div className="w-16 h-16 rounded-full bg-[#F6F0F4] border border-[#D5C2D7] flex items-center justify-center mx-auto text-[#8C5A7D]">
+              <div className="bg-[#F3E9EB] border border-[#D5C2D7] p-12 text-center space-y-4">
+                <div className="w-16 h-16 rounded-full bg-[#F3E9EB] border border-[#D5C2D7] flex items-center justify-center mx-auto text-[#8C5A7D]">
                   <Heart className="w-7 h-7 stroke-[1.5]" />
                 </div>
                 <div>
@@ -416,7 +416,7 @@ export const ShopPage: React.FC = () => {
                 </button>
               </div>
             ) : (
-              <div className="bg-white border border-[#D5C2D7] p-12 text-center space-y-3">
+              <div className="bg-[#F3E9EB] border border-[#D5C2D7] p-12 text-center space-y-3">
                 <p className="font-serif text-xl font-bold text-[#554052]">No products matched your filters</p>
                 <p className="text-xs text-[#A185A4]">
                   Try resetting your filters or adjusting your size and price criteria.

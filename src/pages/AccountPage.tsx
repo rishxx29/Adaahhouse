@@ -41,7 +41,7 @@ export const AccountPage: React.FC = () => {
   if (!currentUser) {
     return (
       <div className="max-w-xl mx-auto px-4 py-20 text-center space-y-4">
-        <div className="w-16 h-16 rounded-full bg-[#F6F0F4] border border-[#D5C2D7] flex items-center justify-center mx-auto text-[#8C5A7D]">
+        <div className="w-16 h-16 rounded-full bg-[#F3E9EB] border border-[#D5C2D7] flex items-center justify-center mx-auto text-[#8C5A7D]">
           <User className="w-8 h-8" />
         </div>
         <h2 className="font-serif text-2xl font-bold text-[#554052]">
@@ -86,11 +86,11 @@ export const AccountPage: React.FC = () => {
   const userOrdersCount = getCustomerOrders().length;
 
   return (
-    <div className="bg-[#F6F0F4] py-12 sm:py-16 animate-in fade-in duration-200">
+    <div className="bg-[#F3E9EB] py-12 sm:py-16 animate-in fade-in duration-200">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Account Header */}
-        <div className="bg-white p-6 sm:p-8 border border-[#D5C2D7] flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xs">
+        <div className="bg-[#F3E9EB] p-6 sm:p-8 border border-[#D5C2D7] flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xs">
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-full bg-[#8C5A7D] text-[#F6F0F4] flex items-center justify-center font-serif text-2xl font-bold">
               {currentUser.fullName.charAt(0)}
@@ -111,14 +111,14 @@ export const AccountPage: React.FC = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setActivePage('orders')}
-              className="px-4 py-2 bg-[#F6F0F4] border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] flex items-center gap-1.5 transition-colors"
+              className="px-4 py-2 bg-[#F3E9EB] border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] flex items-center gap-1.5 transition-colors"
             >
               <Package className="w-4 h-4" />
               <span>My Orders ({userOrdersCount})</span>
             </button>
             <button
               onClick={() => setIsWishlistOpen(true)}
-              className="px-4 py-2 bg-[#F6F0F4] border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] flex items-center gap-1.5 transition-colors"
+              className="px-4 py-2 bg-[#F3E9EB] border border-[#D5C2D7] hover:border-[#8C5A7D] text-xs font-semibold text-[#8C5A7D] flex items-center gap-1.5 transition-colors"
             >
               <Heart className="w-4 h-4 text-[#8C5A7D]" />
               <span>Wishlist ({wishlist.length})</span>
@@ -135,7 +135,7 @@ export const AccountPage: React.FC = () => {
         </div>
 
         {/* Profile & Saved Shipping Address Form */}
-        <div className="bg-white p-6 sm:p-8 border border-[#D5C2D7] space-y-6 shadow-xs">
+        <div className="bg-[#F3E9EB] p-6 sm:p-8 border border-[#D5C2D7] space-y-6 shadow-xs">
           <div className="border-b border-[#D5C2D7] pb-4 flex items-center justify-between">
             <div>
               <h3 className="font-serif text-lg font-bold text-[#554052]">
@@ -161,7 +161,7 @@ export const AccountPage: React.FC = () => {
                   type="text"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
+                  className="w-full bg-[#F3E9EB] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                   required
                 />
               </div>
@@ -189,7 +189,7 @@ export const AccountPage: React.FC = () => {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   maxLength={10}
-                  className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
+                  className="w-full bg-[#F3E9EB] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                   required
                 />
               </div>
@@ -207,7 +207,7 @@ export const AccountPage: React.FC = () => {
                     value={addressLine}
                     onChange={(e) => setAddressLine(e.target.value)}
                     placeholder="e.g. 104, Royal Apartments, Civil Lines"
-                    className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
+                    className="w-full bg-[#F3E9EB] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                   />
                 </div>
 
@@ -218,7 +218,7 @@ export const AccountPage: React.FC = () => {
                       type="text"
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
-                      className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
+                      className="w-full bg-[#F3E9EB] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                     />
                   </div>
 
@@ -228,7 +228,7 @@ export const AccountPage: React.FC = () => {
                       type="text"
                       value={state}
                       onChange={(e) => setState(e.target.value)}
-                      className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
+                      className="w-full bg-[#F3E9EB] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                     />
                   </div>
 
@@ -239,7 +239,7 @@ export const AccountPage: React.FC = () => {
                       value={pincode}
                       onChange={(e) => setPincode(e.target.value)}
                       maxLength={6}
-                      className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
+                      className="w-full bg-[#F3E9EB] border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
                     />
                   </div>
                 </div>
