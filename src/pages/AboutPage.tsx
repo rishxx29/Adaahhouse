@@ -107,9 +107,9 @@ export const AboutPage: React.FC = () => {
 
           {/* Right Hero Image Card with Editorial Caption */}
           <div className="lg:col-span-6 relative">
-            <div className="relative aspect-[4/4.8] sm:aspect-[4/4.5] overflow-hidden shadow-xs border border-[#D5C2D7]/60 bg-white">
+            <div className="relative aspect-[3/3.8] sm:aspect-[4/4.8] max-h-[600px] overflow-hidden shadow-xs border border-[#D5C2D7]/60 bg-white">
               <img
-                src="/about_hero_photo_hd.jpg"
+                src="/about_hero_photo_hd.jpg?v=3"
                 alt="HOUSE OF RII Founder - More Than A Brand"
                 className="w-full h-full object-cover object-top"
               />
@@ -138,11 +138,11 @@ export const AboutPage: React.FC = () => {
       <section id="our-story" className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
           {/* Left Column: Portrait Photo */}
-          <div className="lg:col-span-4 relative aspect-[3/3.8] overflow-hidden border border-[#D5C2D7]/60 shadow-xs bg-white">
+          <div className="lg:col-span-4 relative aspect-[3/3.8] max-h-[500px] overflow-hidden border border-[#D5C2D7]/60 shadow-xs bg-white">
             <img
-              src="/about_story_photo_hd.jpg"
+              src="/about_story_photo_hd.jpg?v=3"
               alt="HOUSE OF RII Founder - Rishika Jain"
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-cover object-top"
             />
           </div>
 
@@ -433,11 +433,11 @@ export const AboutPage: React.FC = () => {
       <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Column: Portrait Photo */}
-          <div className="lg:col-span-6 relative aspect-[4/3.8] overflow-hidden border border-[#D5C2D7]/60 shadow-xs bg-white">
+          <div className="lg:col-span-6 relative aspect-[3/3.8] sm:aspect-[4/4.8] max-h-[560px] overflow-hidden border border-[#D5C2D7]/60 shadow-xs bg-white">
             <img
-              src="/about_vision_photo_hd.jpg"
+              src="/about_vision_photo_hd.jpg?v=3"
               alt="Rishika Jain - Vision for House of Rii"
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-cover object-top"
             />
           </div>
 
