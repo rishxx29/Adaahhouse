@@ -71,9 +71,15 @@ export const AboutPage: React.FC = () => {
               </svg>
             </div>
 
-            <div className="inline-block">
-              <span className="text-[11px] sm:text-xs uppercase tracking-[0.28em] font-semibold text-[#8C5A7D]">
-                ABOUT US
+            {/* Pinterest vibe pill badges */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/85 backdrop-blur-xs border border-[#D5C2D7] text-[#8C5A7D] text-[10.5px] uppercase tracking-[0.2em] font-semibold rounded-full shadow-2xs">
+                <span>📌</span>
+                <span>MOOD: GRACE IN EVERY THREAD</span>
+              </span>
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#8C5A7D]/10 border border-[#8C5A7D]/25 text-[#8C5A7D] text-[10.5px] font-medium rounded-full">
+                <span>✦</span>
+                <span>JAIPUR CURATION</span>
               </span>
             </div>
 
@@ -94,7 +100,7 @@ export const AboutPage: React.FC = () => {
               HOUSE OF RII is an ethnic wear brand created for every girl who loves beautiful outfits, effortless style and the confidence that comes with Indian fashion.
             </p>
 
-            <div className="pt-2">
+            <div className="pt-2 flex items-center gap-3 flex-wrap">
               <button
                 onClick={scrollToStory}
                 className="inline-flex items-center gap-2 bg-[#7D4E68] hover:bg-[#554052] text-white text-[11px] sm:text-xs uppercase tracking-[0.22em] font-medium px-7 py-3 transition shadow-xs cursor-pointer group"
@@ -102,16 +108,29 @@ export const AboutPage: React.FC = () => {
                 <span>OUR STORY</span>
                 <span className="transition-transform group-hover:translate-x-1">→</span>
               </button>
+              <a
+                href="#moodboard"
+                className="inline-flex items-center gap-1.5 border border-[#8C5A7D]/60 hover:bg-white text-[#7D4E68] text-[11px] sm:text-xs uppercase tracking-[0.18em] font-medium px-5 py-3 transition shadow-2xs cursor-pointer"
+              >
+                <span>✨ VIEW MOODBOARD</span>
+              </a>
             </div>
           </div>
 
-          {/* Right Hero Image Card with Editorial Caption */}
+          {/* Right Hero Image Card with Editorial Caption & Washi Tape */}
           <div className="lg:col-span-6 relative">
-            <div className="relative aspect-[3/3.8] sm:aspect-[4/4.8] max-h-[600px] overflow-hidden shadow-xs border border-[#D5C2D7]/60 bg-white">
+            {/* Washi Tape at Top */}
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 w-28 h-6 bg-[#FAF7F2]/90 border border-[#D5C2D7] shadow-2xs rotate-[-1.5deg] flex items-center justify-center pointer-events-none">
+              <span className="text-[9.5px] uppercase tracking-[0.25em] text-[#8C5A7D] font-mono font-medium">
+                ESTD · 2026
+              </span>
+            </div>
+
+            <div className="relative aspect-[3/3.8] sm:aspect-[4/4.8] max-h-[600px] overflow-hidden shadow-xs border border-[#D5C2D7]/60 bg-white group">
               <img
                 src="/about_hero_photo_hd.jpg?v=3"
                 alt="HOUSE OF RII Founder - More Than A Brand"
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-102"
               />
 
               {/* Editorial script caption overlay on top right */}
@@ -127,6 +146,23 @@ export const AboutPage: React.FC = () => {
                   </svg>
                 </div>
               </div>
+
+              {/* Aesthetic Polaroid bottom caption tag */}
+              <div className="absolute bottom-4 left-4 right-4 bg-white/92 backdrop-blur-xs border border-[#D5C2D7]/70 p-3 shadow-xs">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-cursive text-2xl text-[#554052] leading-none">
+                      daydreaming in jaipur 🌸
+                    </p>
+                    <p className="text-[10px] text-[#8C5A7D] font-mono tracking-wider uppercase mt-1">
+                      curated with grace · house of rii
+                    </p>
+                  </div>
+                  <span className="text-[10.5px] text-[#8C5A7D] bg-[#F3E9EB] border border-[#D5C2D7] px-2.5 py-1 font-mono">
+                    #DesiAesthetic
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -137,20 +173,34 @@ export const AboutPage: React.FC = () => {
           ========================================================================= */}
       <section id="our-story" className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
-          {/* Left Column: Portrait Photo */}
-          <div className="lg:col-span-4 relative aspect-[3/3.8] max-h-[500px] overflow-hidden border border-[#D5C2D7]/60 shadow-xs bg-white">
-            <img
-              src="/about_story_photo_hd.jpg?v=3"
-              alt="HOUSE OF RII Founder - Rishika Jain"
-              className="w-full h-full object-cover object-top"
-            />
+          {/* Left Column: Portrait Photo with Polaroid style */}
+          <div className="lg:col-span-4 relative group">
+            {/* Washi tape at top */}
+            <div className="absolute -top-3 left-8 z-20 w-20 h-5 bg-[#EADBD5]/90 border border-white/60 shadow-2xs rotate-[-3deg] pointer-events-none" />
+            <div className="relative aspect-[3/3.8] max-h-[500px] overflow-hidden border border-[#D5C2D7]/60 shadow-xs bg-white p-2 sm:p-2.5 pb-8 transition-transform duration-300 group-hover:rotate-1">
+              <div className="w-full h-full overflow-hidden">
+                <img
+                  src="/about_story_photo_hd.jpg?v=3"
+                  alt="HOUSE OF RII Founder - Rishika Jain"
+                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-103"
+                />
+              </div>
+              <div className="pt-2 px-1 flex items-center justify-between text-xs">
+                <span className="font-cursive text-xl text-[#554052]">the girl behind the brand ✨</span>
+                <span className="font-mono text-[10px] text-[#8C5A7D]">jaipur · 2026</span>
+              </div>
+            </div>
           </div>
 
           {/* Center Column: Narrative Copy */}
           <div className="lg:col-span-5 flex flex-col justify-center space-y-4">
-            <span className="text-[11px] uppercase tracking-[0.28em] font-semibold text-[#8C5A7D]">
-              OUR STORY
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] uppercase tracking-[0.28em] font-semibold text-[#8C5A7D]">
+                OUR STORY
+              </span>
+              <span className="text-xs text-[#8C5A7D]">✦</span>
+              <span className="font-cursive text-lg text-[#8C5A7D]">since 2026</span>
+            </div>
 
             <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-[#554052] font-normal leading-tight">
               A Dream Turned <br className="hidden sm:inline" />
@@ -173,6 +223,13 @@ export const AboutPage: React.FC = () => {
           {/* Right Column: Signature Quote Card */}
           <div className="lg:col-span-3 flex flex-col justify-center">
             <div className="h-full bg-[#F6ECEB] border border-[#E8D8CC] p-6 sm:p-8 flex flex-col items-center justify-center text-center shadow-xs relative overflow-hidden">
+              {/* Aesthetic Stamp Badge */}
+              <div className="absolute top-4 right-4 w-12 h-12 rounded-full border border-dashed border-[#8C5A7D]/40 flex flex-col items-center justify-center rotate-12 text-[#8C5A7D] text-[7.5px] font-mono uppercase tracking-tighter select-none pointer-events-none">
+                <span>ESTD</span>
+                <span className="font-bold text-[9px]">2026</span>
+                <span>JAIPUR</span>
+              </div>
+
               {/* Lotus at top */}
               <div className="mb-4">
                 <HouseOfRiiLotus size={34} />
@@ -309,7 +366,10 @@ export const AboutPage: React.FC = () => {
             onClick={() => handleCategoryClick('Kurti Sets')}
             className="group cursor-pointer text-center space-y-3"
           >
-            <div className="aspect-[3/3.6] overflow-hidden bg-white border border-[#D5C2D7]/70 shadow-xs">
+            <div className="aspect-[3/3.6] overflow-hidden bg-white border border-[#D5C2D7]/70 shadow-xs relative">
+              <span className="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 bg-white/90 backdrop-blur-xs text-[9.5px] uppercase font-mono tracking-widest text-[#8C5A7D] border border-[#D5C2D7]/70 shadow-2xs">
+                01 · SETS
+              </span>
               <img
                 src="/about_col_kurti_sets_hd.jpg?v=5"
                 alt="Kurti Sets"
@@ -331,7 +391,10 @@ export const AboutPage: React.FC = () => {
             onClick={() => handleCategoryClick('Co-ord Sets')}
             className="group cursor-pointer text-center space-y-3"
           >
-            <div className="aspect-[3/3.6] overflow-hidden bg-white border border-[#D5C2D7]/70 shadow-xs">
+            <div className="aspect-[3/3.6] overflow-hidden bg-white border border-[#D5C2D7]/70 shadow-xs relative">
+              <span className="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 bg-white/90 backdrop-blur-xs text-[9.5px] uppercase font-mono tracking-widest text-[#8C5A7D] border border-[#D5C2D7]/70 shadow-2xs">
+                02 · CO-ORDS
+              </span>
               <img
                 src="/about_col_coord_sets_hd.jpg?v=5"
                 alt="Co-ord Sets"
@@ -353,7 +416,10 @@ export const AboutPage: React.FC = () => {
             onClick={() => handleCategoryClick('Anarkali Suits')}
             className="group cursor-pointer text-center space-y-3"
           >
-            <div className="aspect-[3/3.6] overflow-hidden bg-white border border-[#D5C2D7]/70 shadow-xs">
+            <div className="aspect-[3/3.6] overflow-hidden bg-white border border-[#D5C2D7]/70 shadow-xs relative">
+              <span className="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 bg-white/90 backdrop-blur-xs text-[9.5px] uppercase font-mono tracking-widest text-[#8C5A7D] border border-[#D5C2D7]/70 shadow-2xs">
+                03 · ANARKALIS
+              </span>
               <img
                 src="/about_col_anarkali_suits_hd.jpg?v=5"
                 alt="Anarkali Suits"
@@ -375,7 +441,10 @@ export const AboutPage: React.FC = () => {
             onClick={() => handleCategoryClick('Straight Suit Sets')}
             className="group cursor-pointer text-center space-y-3"
           >
-            <div className="aspect-[3/3.6] overflow-hidden bg-white border border-[#D5C2D7]/70 shadow-xs">
+            <div className="aspect-[3/3.6] overflow-hidden bg-white border border-[#D5C2D7]/70 shadow-xs relative">
+              <span className="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 bg-white/90 backdrop-blur-xs text-[9.5px] uppercase font-mono tracking-widest text-[#8C5A7D] border border-[#D5C2D7]/70 shadow-2xs">
+                04 · STRAIGHT
+              </span>
               <img
                 src="/about_col_straight_suits_hd.jpg?v=5"
                 alt="Straight Suit Sets"
@@ -397,7 +466,10 @@ export const AboutPage: React.FC = () => {
             onClick={() => handleCategoryClick('Festive Wear')}
             className="group cursor-pointer text-center space-y-3 col-span-2 sm:col-span-1"
           >
-            <div className="aspect-[3/3.6] overflow-hidden bg-white border border-[#D5C2D7]/70 shadow-xs">
+            <div className="aspect-[3/3.6] overflow-hidden bg-white border border-[#D5C2D7]/70 shadow-xs relative">
+              <span className="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 bg-white/90 backdrop-blur-xs text-[9.5px] uppercase font-mono tracking-widest text-[#8C5A7D] border border-[#D5C2D7]/70 shadow-2xs">
+                05 · FESTIVE
+              </span>
               <img
                 src="/about_col_festive_wear_hd.jpg?v=5"
                 alt="Festive Wear"
@@ -428,17 +500,208 @@ export const AboutPage: React.FC = () => {
       </section>
 
       {/* =========================================================================
+          PINTEREST VIBE SECTION: THE STUDIO MOODBOARD
+          ========================================================================= */}
+      <section id="moodboard" className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 border-t border-[#D5C2D7]/70 relative">
+        <div className="text-center max-w-2xl mx-auto space-y-2 mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white border border-[#D5C2D7] text-[#8C5A7D] text-[10.5px] uppercase tracking-[0.25em] font-semibold rounded-full shadow-2xs">
+            <span>📌</span>
+            <span>FROM RISHIKA'S MOODBOARD</span>
+            <span>✨</span>
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#554052]">
+            The House of Rii Aesthetic
+          </h2>
+          <p className="font-cursive text-2xl sm:text-3xl text-[#8C5A7D] pt-0.5">
+            a love letter to soft pastels, morning chai & twirl-worthy silhouettes
+          </p>
+          <div className="w-24 mx-auto pt-1">
+            <HouseOfRiiDivider color="#A185A4" />
+          </div>
+        </div>
+
+        {/* Pinterest Moodboard Scrapbook Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7 items-start">
+          
+          {/* Moodboard Item 1: Polaroid Photo (Anarkali Flare) */}
+          <div className="relative group bg-white p-3 pb-8 border border-[#D5C2D7]/70 shadow-sm rotate-[-2deg] hover:rotate-0 hover:scale-[1.02] transition-all duration-300">
+            {/* Washi Tape */}
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#FAF7F2]/90 border border-[#D5C2D7]/80 shadow-2xs rotate-[-3deg] pointer-events-none" />
+            <div className="aspect-[3/3.8] overflow-hidden bg-[#F3E9EB]">
+              <img
+                src="/products/prod_lavender_anarkali.jpg"
+                alt="Lavender Anarkali Flare"
+                className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div className="pt-3 px-1 space-y-1">
+              <p className="font-cursive text-2xl text-[#554052] leading-tight">
+                flares, folds & poetry 🪻
+              </p>
+              <p className="text-[10px] uppercase font-mono tracking-wider text-[#8C5A7D]">
+                #chanderisilk #anarkalilove
+              </p>
+            </div>
+          </div>
+
+          {/* Moodboard Item 2: Signature Colour Palette Card */}
+          <div className="bg-[#FAF7F2] p-6 border border-[#E8D8CC] shadow-sm rotate-[1deg] hover:rotate-0 transition-all duration-300 space-y-5 relative">
+            {/* Cute Tape at top right */}
+            <div className="absolute -top-3 right-6 w-16 h-4 bg-[#EADBD5]/90 border border-white/60 shadow-2xs rotate-6 pointer-events-none" />
+            
+            <div className="space-y-1">
+              <span className="text-[10px] uppercase font-mono tracking-[0.2em] text-[#8C5A7D] font-semibold block">
+                PALETTE NO. 01
+              </span>
+              <h3 className="font-serif text-lg font-semibold text-[#554052]">
+                Our Signature Hues
+              </h3>
+              <p className="text-[11px] text-[#554052]/75 font-body">
+                The calming, regal colors that define every collection.
+              </p>
+            </div>
+
+            {/* Swatches with names */}
+            <div className="space-y-2.5 pt-1">
+              <div className="flex items-center gap-3">
+                <span className="w-7 h-7 rounded-full bg-[#D5C2D7] shadow-inner shrink-0 border border-white" />
+                <div className="text-left text-xs">
+                  <p className="font-medium text-[#554052]">Gulabi Lilac</p>
+                  <p className="text-[10px] text-[#8C5A7D] font-mono">#D5C2D7 · soft dusk skies</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span className="w-7 h-7 rounded-full bg-[#8C5A7D] shadow-inner shrink-0 border border-white" />
+                <div className="text-left text-xs">
+                  <p className="font-medium text-[#554052]">Heritage Plum</p>
+                  <p className="text-[10px] text-[#8C5A7D] font-mono">#8C5A7D · regal warmth</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span className="w-7 h-7 rounded-full bg-[#554052] shadow-inner shrink-0 border border-white" />
+                <div className="text-left text-xs">
+                  <p className="font-medium text-[#554052]">Royal Jamun</p>
+                  <p className="text-[10px] text-[#8C5A7D] font-mono">#554052 · vintage depth</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span className="w-7 h-7 rounded-full bg-[#F3E9EB] border border-[#D5C2D7] shadow-inner shrink-0" />
+                <div className="text-left text-xs">
+                  <p className="font-medium text-[#554052]">Powder Blush</p>
+                  <p className="text-[10px] text-[#8C5A7D] font-mono">#F3E9EB · subtle canvas</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-2 border-t border-[#D5C2D7]/60 flex items-center justify-between text-[10px] text-[#8C5A7D] font-mono">
+              <span>✦ HAND-SELECTED</span>
+              <span>JAIPUR 2026</span>
+            </div>
+          </div>
+
+          {/* Moodboard Item 3: Handwritten Memo / Sticky Note */}
+          <div className="bg-[#F8EFEA] p-6 border border-[#E4D2C7] shadow-sm rotate-[-1.5deg] hover:rotate-0 transition-all duration-300 relative space-y-4">
+            {/* Cute pushpin top */}
+            <div className="w-4 h-4 mx-auto rounded-full bg-[#8C5A7D] shadow-xs flex items-center justify-center -mt-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-white" />
+            </div>
+
+            <span className="text-[10px] uppercase font-mono tracking-[0.2em] text-[#8C5A7D] font-semibold text-center block">
+              FOUNDER'S NOTEBOOK
+            </span>
+
+            <p className="font-cursive text-2xl sm:text-[26px] text-[#554052] leading-snug text-center pt-1">
+              “wear what makes you feel like poetry in motion. grace isn't loud — it's in the quiet way you carry yourself.”
+            </p>
+
+            <div className="w-12 mx-auto">
+              <HouseOfRiiDivider color="#A185A4" />
+            </div>
+
+            <div className="text-center pt-1">
+              <p className="font-signature text-3xl text-[#8C5A7D]">~ Rii</p>
+              <p className="text-[10px] text-[#554052]/70 font-mono tracking-widest uppercase mt-0.5">
+                curator & stylist
+              </p>
+            </div>
+          </div>
+
+          {/* Moodboard Item 4: Polaroid Photo (Co-ord set or floral detail) */}
+          <div className="relative group bg-white p-3 pb-8 border border-[#D5C2D7]/70 shadow-sm rotate-[2.5deg] hover:rotate-0 hover:scale-[1.02] transition-all duration-300">
+            {/* Washi Tape */}
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#FAF7F2]/90 border border-[#D5C2D7]/80 shadow-2xs rotate-[2deg] pointer-events-none" />
+            <div className="aspect-[3/3.8] overflow-hidden bg-[#F3E9EB]">
+              <img
+                src="/products/prod_rose_pink_coord.jpg"
+                alt="Rose Pink Botanical Co-ord"
+                className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div className="pt-3 px-1 space-y-1">
+              <p className="font-cursive text-2xl text-[#554052] leading-tight">
+                modern coords & chai ☕
+              </p>
+              <p className="text-[10px] uppercase font-mono tracking-wider text-[#8C5A7D]">
+                #softglam #everydaydesi
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Moodboard Bottom Pinterest Pin Banner */}
+        <div className="mt-12 bg-white/75 backdrop-blur-xs border border-[#D5C2D7] p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-2xs">
+          <div className="flex items-center gap-3 text-center sm:text-left">
+            <div className="w-10 h-10 rounded-full bg-[#8C5A7D]/10 text-[#8C5A7D] flex items-center justify-center shrink-0">
+              <span className="text-lg">📌</span>
+            </div>
+            <div>
+              <h4 className="font-serif text-sm font-semibold text-[#554052]">
+                Love this aesthetic? Save it to your Pinterest board
+              </h4>
+              <p className="text-xs text-[#554052]/80">
+                Explore our everyday & festive edits styled for the modern Indian girl.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleShopNowClick}
+              className="px-6 py-2.5 bg-[#8C5A7D] hover:bg-[#554052] text-white text-[11px] uppercase tracking-[0.2em] font-semibold transition-colors shadow-2xs cursor-pointer flex items-center gap-1.5"
+            >
+              <span>SHOP THE MOODBOARD</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
           SECTION 5: MY VISION — "Creating a Brand That Feels Like Me"
           ========================================================================= */}
       <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Portrait Photo */}
-          <div className="lg:col-span-6 relative aspect-[3/3.8] sm:aspect-[4/4.8] max-h-[560px] overflow-hidden border border-[#D5C2D7]/60 shadow-xs bg-white">
-            <img
-              src="/about_vision_photo_hd.jpg?v=3"
-              alt="Rishika Jain - Vision for House of Rii"
-              className="w-full h-full object-cover object-top"
-            />
+          {/* Left Column: Portrait Photo with Polaroid style */}
+          <div className="lg:col-span-6 relative group">
+            {/* Washi tape at top */}
+            <div className="absolute -top-3 left-12 z-20 w-24 h-5 bg-[#FAF7F2]/90 border border-[#D5C2D7] shadow-2xs rotate-[-2deg] pointer-events-none" />
+            <div className="relative aspect-[3/3.8] sm:aspect-[4/4.8] max-h-[560px] overflow-hidden border border-[#D5C2D7]/60 shadow-xs bg-white p-2.5 sm:p-3 pb-8 transition-transform duration-300 group-hover:rotate-[-0.5deg]">
+              <div className="w-full h-full overflow-hidden">
+                <img
+                  src="/about_vision_photo_hd.jpg?v=3"
+                  alt="Rishika Jain - Vision for House of Rii"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-102"
+                />
+              </div>
+              <div className="pt-2.5 px-1 flex items-center justify-between text-xs">
+                <span className="font-cursive text-xl text-[#554052]">from sketches to reality ✨</span>
+                <span className="font-mono text-[10px] text-[#8C5A7D]">jaipur · rishika</span>
+              </div>
+            </div>
           </div>
 
           {/* Right Column: Vision Narrative */}
@@ -453,9 +716,13 @@ export const AboutPage: React.FC = () => {
             </div>
 
             <div>
-              <span className="text-[11px] uppercase tracking-[0.28em] font-semibold text-[#8C5A7D]">
-                MY VISION
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] uppercase tracking-[0.28em] font-semibold text-[#8C5A7D]">
+                  MY VISION
+                </span>
+                <span className="text-xs text-[#8C5A7D]">✦</span>
+                <span className="font-cursive text-lg text-[#8C5A7D]">styled by me</span>
+              </div>
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl text-[#554052] font-normal leading-tight mt-1.5">
                 Creating a Brand <br />
                 That Feels Like Me
@@ -480,7 +747,10 @@ export const AboutPage: React.FC = () => {
                 ~ Rishika Jain
               </p>
               <p className="text-[10.5px] uppercase tracking-[0.25em] text-[#554052]/80 font-medium font-sans pt-1">
-                Founder, HOUSE OF RII
+                Founder, Stylist & Creative Director
+              </p>
+              <p className="font-cursive text-lg text-[#8C5A7D] pt-0.5">
+                grace in every thread 🌸
               </p>
             </div>
           </div>
