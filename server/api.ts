@@ -1,21 +1,34 @@
 import crypto from 'crypto';
 import { createClient } from '@supabase/supabase-js';
-import 'dotenv/config';
+import dotenv from 'dotenv';
+dotenv.config({ override: true });
 
-// Server-side private environment variables (NEVER exposed to frontend bundle)
-const SUPABASE_URL = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '';
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
-const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || process.env.VITE_RAZORPAY_KEY_ID || '';
-const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || '';
-const RAZORPAY_WEBHOOK_SECRET = process.env.RAZORPAY_WEBHOOK_SECRET || '';
-const ADMIN_SETUP_SECRET = process.env.ADMIN_SETUP_SECRET || 'house-of-rii-super-secret-admin-setup-key-2026';
+// Dynamic runtime helpers for environment variables
+export const getEnv = (key: string, fallback = ''): string => {
+  dotenv.config({ override: true });
+  return process.env[key] || fallback;
+};
+
+export const getSupabaseUrl = () => getEnv('SUPABASE_URL') || getEnv('VITE_SUPABASE_URL');
+export const getSupabaseServiceRoleKey = () => getEnv('SUPABASE_SERVICE_ROLE_KEY');
+export const getRazorpayKeyId = () => getEnv('RAZORPAY_KEY_ID') || getEnv('VITE_RAZORPAY_KEY_ID');
+export const getRazorpayKeySecret = () => getEnv('RAZORPAY_KEY_SECRET');
+export const getRazorpayWebhookSecret = () => getEnv('RAZORPAY_WEBHOOK_SECRET');
+export const getAdminSetupSecret = () => getEnv('ADMIN_SETUP_SECRET', 'house_of_rii_jaipur_royal_admin_secret_2026');
+
+// Ensure global WebSocket is available in Node.js runtime for Supabase client
+if (typeof (global as any).WebSocket === 'undefined') {
+  (global as any).WebSocket = class {};
+}
 
 // Supabase Admin Client with Service Role (Bypasses RLS for secure backend tasks)
 export const getSupabaseAdmin = () => {
-  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+  const url = getSupabaseUrl();
+  const serviceKey = getSupabaseServiceRoleKey();
+  if (!url || !serviceKey) {
     return null;
   }
-  return createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+  return createClient(url, serviceKey, {
     auth: {
       autoRefreshToken: false,
       persistSession: false,
@@ -48,8 +61,11 @@ export async function createRazorpayOrderBackend(params: {
 }): Promise<RazorpayOrderResponse> {
   const amountInPaise = Math.round(params.amountInRupees * 100);
 
+  const keyId = getRazorpayKeyId();
+  const keySecret = getRazorpayKeySecret();
+
   // If Razorpay credentials are not yet configured, provide simulated sandbox response
-  if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) {
+  if (!keyId || !keySecret) {
     const sandboxOrderId = `order_sim_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
     return {
       success: true,
@@ -63,7 +79,7 @@ export async function createRazorpayOrderBackend(params: {
   }
 
   try {
-    const authHeader = 'Basic ' + Buffer.from(`${RAZORPAY_KEY_ID}:${RAZORPAY_KEY_SECRET}`).toString('base64');
+    const authHeader = 'Basic ' + Buffer.from(`${keyId}:${keySecret}`).toString('base64');
     const response = await fetch('https://api.razorpay.com/v1/orders', {
       method: 'POST',
       headers: {
@@ -93,8 +109,8 @@ export async function createRazorpayOrderBackend(params: {
       orderId: data.id,
       amount: data.amount,
       currency: data.currency,
-      keyId: RAZORPAY_KEY_ID,
-      isTestMode: RAZORPAY_KEY_ID.startsWith('rzp_test_'),
+      keyId: keyId,
+      isTestMode: keyId.startsWith('rzp_test_'),
     };
   } catch (error: any) {
     console.error('[Razorpay] Exception in order creation:', error);
@@ -110,8 +126,10 @@ export function verifyRazorpaySignatureBackend(params: {
   paymentId: string;
   signature: string;
 }): { verified: boolean; message: string } {
+  const keySecret = getRazorpayKeySecret();
+
   // If running in test simulation mode without keys
-  if (!RAZORPAY_KEY_SECRET) {
+  if (!keySecret) {
     const isMock = params.orderId.startsWith('order_sim_') || params.paymentId.startsWith('pay_sim_');
     return {
       verified: isMock,
@@ -121,7 +139,7 @@ export function verifyRazorpaySignatureBackend(params: {
 
   try {
     const expectedSignature = crypto
-      .createHmac('sha256', RAZORPAY_KEY_SECRET)
+      .createHmac('sha256', keySecret)
       .update(`${params.orderId}|${params.paymentId}`)
       .digest('hex');
 
@@ -142,10 +160,11 @@ export function verifyRazorpayWebhookSignature(
   rawBody: string,
   webhookSignature: string
 ): boolean {
-  if (!RAZORPAY_WEBHOOK_SECRET) return false;
+  const webhookSecret = getRazorpayWebhookSecret();
+  if (!webhookSecret) return false;
   try {
     const expected = crypto
-      .createHmac('sha256', RAZORPAY_WEBHOOK_SECRET)
+      .createHmac('sha256', webhookSecret)
       .update(rawBody)
       .digest('hex');
     return expected === webhookSignature;
@@ -166,7 +185,8 @@ export async function promoteUserToAdmin(
   email: string,
   setupSecret: string
 ): Promise<{ success: boolean; message: string }> {
-  if (setupSecret !== ADMIN_SETUP_SECRET) {
+  const adminSecret = getAdminSetupSecret();
+  if (setupSecret !== adminSecret) {
     return { success: false, message: 'Invalid admin setup secret key' };
   }
 
@@ -218,14 +238,25 @@ export async function getSystemHealthStatus() {
   let dbConnected = false;
   let productsCount = 0;
   let ordersCount = 0;
+  let tablesPending = false;
 
   if (supabaseAdmin) {
     try {
-      const { count: pCount } = await supabaseAdmin.from('products').select('*', { count: 'exact', head: true });
-      const { count: oCount } = await supabaseAdmin.from('orders').select('*', { count: 'exact', head: true });
-      dbConnected = true;
-      productsCount = pCount || 0;
-      ordersCount = oCount || 0;
+      const { data: pData, error: pError } = await supabaseAdmin.from('products').select('id').limit(1);
+      const { data: oData, error: oError } = await supabaseAdmin.from('orders').select('id').limit(1);
+      if (!pError) {
+        dbConnected = true;
+        const { count: pCount } = await supabaseAdmin.from('products').select('*', { count: 'exact', head: true });
+        const { count: oCount } = await supabaseAdmin.from('orders').select('*', { count: 'exact', head: true });
+        productsCount = pCount || 0;
+        ordersCount = oCount || 0;
+      } else if (pError.code === 'PGRST205' || pError.message?.includes('not find')) {
+        // Connected to Supabase, but schema tables haven't been created yet
+        dbConnected = true;
+        tablesPending = true;
+      } else {
+        dbConnected = false;
+      }
     } catch {
       dbConnected = false;
     }
@@ -236,15 +267,16 @@ export async function getSystemHealthStatus() {
     timestamp: new Date().toISOString(),
     database: {
       type: 'PostgreSQL / Supabase',
-      configured: Boolean(SUPABASE_URL && (SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY)),
+      configured: Boolean(getSupabaseUrl() && (getSupabaseServiceRoleKey() || getEnv('VITE_SUPABASE_ANON_KEY'))),
       connected: dbConnected,
+      tablesPending,
       productsCount,
       ordersCount,
     },
     payments: {
-      razorpayConfigured: Boolean(RAZORPAY_KEY_ID && RAZORPAY_KEY_SECRET),
-      razorpayKeyId: RAZORPAY_KEY_ID ? `${RAZORPAY_KEY_ID.substring(0, 10)}...` : 'Not set (using test simulation)',
-      isTestMode: !RAZORPAY_KEY_ID || RAZORPAY_KEY_ID.startsWith('rzp_test_'),
+      razorpayConfigured: Boolean(getRazorpayKeyId() && getRazorpayKeySecret()),
+      razorpayKeyId: getRazorpayKeyId() ? `${getRazorpayKeyId().substring(0, 10)}...` : 'Not set (using test simulation)',
+      isTestMode: !getRazorpayKeyId() || getRazorpayKeyId().startsWith('rzp_test_'),
       codEnabled: true,
     },
     email: {
