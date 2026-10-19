@@ -6,10 +6,88 @@ import { defineConfig, Plugin } from 'vite';
 import nodemailer from 'nodemailer';
 import 'dotenv/config';
 
+import {
+  createRazorpayOrderBackend,
+  verifyRazorpaySignatureBackend,
+  verifyRazorpayWebhookSignature,
+  promoteUserToAdmin,
+  getSystemHealthStatus,
+} from './server/api';
+
 function orderNotificationPlugin(): Plugin {
   return {
     name: 'order-notification-plugin',
     configureServer(server) {
+      // 0. System Health Check
+      server.middlewares.use('/api/health', async (req, res, next) => {
+        if (req.method !== 'GET') return next();
+        const health = await getSystemHealthStatus();
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(health));
+      });
+
+      // 0b. Razorpay Order Creation
+      server.middlewares.use('/api/create-razorpay-order', async (req, res, next) => {
+        if (req.method !== 'POST') return next();
+        let body = '';
+        req.on('data', (chunk) => { body += chunk; });
+        req.on('end', async () => {
+          try {
+            const { amount, receipt, notes } = JSON.parse(body || '{}');
+            const result = await createRazorpayOrderBackend({
+              amountInRupees: amount,
+              receipt: receipt || `rec_${Date.now()}`,
+              notes,
+            });
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(result));
+          } catch (err: any) {
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: false, message: err.message }));
+          }
+        });
+      });
+
+      // 0c. Razorpay Payment Verification
+      server.middlewares.use('/api/verify-razorpay-payment', (req, res, next) => {
+        if (req.method !== 'POST') return next();
+        let body = '';
+        req.on('data', (chunk) => { body += chunk; });
+        req.on('end', () => {
+          try {
+            const { orderId, paymentId, signature } = JSON.parse(body || '{}');
+            const verification = verifyRazorpaySignatureBackend({ orderId, paymentId, signature });
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(verification));
+          } catch (err: any) {
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ verified: false, message: err.message }));
+          }
+        });
+      });
+
+      // 0d. Secure First Admin Provisioning
+      server.middlewares.use('/api/admin/setup-first-admin', async (req, res, next) => {
+        if (req.method !== 'POST') return next();
+        let body = '';
+        req.on('data', (chunk) => { body += chunk; });
+        req.on('end', async () => {
+          try {
+            const { email, setupSecret } = JSON.parse(body || '{}');
+            const result = await promoteUserToAdmin(email, setupSecret);
+            res.statusCode = result.success ? 200 : 403;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(result));
+          } catch (err: any) {
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: false, message: err.message }));
+          }
+        });
+      });
+
       server.middlewares.use('/api/save-smtp-config', async (req, res, next) => {
         if (req.method !== 'POST') return next();
         let body = '';

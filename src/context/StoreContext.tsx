@@ -2,6 +2,33 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Product, CartItem, KurtiSize, Coupon, Order, ProductCollection, CustomerUser, CustomerAddress } from '../types';
 import { INITIAL_PRODUCTS } from '../data/initialProducts';
 import { BRAND_CONFIG } from '../config/brand';
+import {
+  isSupabaseConfigured,
+  supabase,
+  signUpCustomer,
+  signInCustomer,
+  signOutCustomer,
+  sendPasswordResetEmail,
+  updateUserPassword,
+  updateUserProfileData,
+  fetchUserProfile,
+  fetchCustomerAddresses,
+  saveCustomerAddressInDB,
+  fetchProductsFromDB,
+  createProductInDB,
+  updateProductInDB,
+  deleteProductInDB,
+  syncUserCartFromDB,
+  saveCartItemInDB,
+  removeCartItemFromDB,
+  clearCartInDB,
+  syncWishlistFromDB,
+  toggleWishlistInDB,
+  createOrderInDatabase,
+  fetchOrdersFromDB,
+  updateOrderStatusInDB,
+  submitExchangeRequest,
+} from '../services/supabase';
 
 export type ActivePage =
   | 'home'
@@ -72,8 +99,8 @@ interface StoreContextType {
   isCheckoutOpen: boolean;
   setIsCheckoutOpen: (open: boolean) => void;
   orders: Order[];
-  placeOrder: (orderData: Omit<Order, 'id' | 'orderNumber' | 'createdAt'>) => Order;
-  updateOrderStatus: (orderId: string, status: Order['status']) => void;
+  placeOrder: (orderData: Omit<Order, 'id' | 'orderNumber' | 'createdAt'>) => Promise<Order> | Order;
+  updateOrderStatus: (orderId: string, status: Order['status'], trackingNum?: string, courier?: string) => void;
   deleteOrder: (orderId: string) => void;
   lastOrder: Order | null;
   getCustomerOrders: () => Order[];
@@ -82,7 +109,7 @@ interface StoreContextType {
   isSizeGuideOpen: boolean;
   setIsSizeGuideOpen: (open: boolean) => void;
   
-  // Customer Authentication
+  // Customer Authentication & Profiles
   currentUser: CustomerUser | null;
   registerCustomer: (userData: {
     fullName: string;
@@ -93,10 +120,14 @@ interface StoreContextType {
     city?: string;
     state?: string;
     pincode?: string;
-  }) => { success: boolean; message: string };
-  loginCustomer: (identifier: string, password?: string) => { success: boolean; message: string };
+  }) => Promise<{ success: boolean; message: string }> | { success: boolean; message: string };
+  loginCustomer: (identifier: string, password?: string) => Promise<{ success: boolean; message: string }> | { success: boolean; message: string };
   logoutCustomer: () => void;
-  updateCustomerProfile: (updated: Partial<CustomerUser>) => void;
+  updateCustomerProfile: (updated: Partial<CustomerUser>) => Promise<void> | void;
+  saveCustomerAddress: (address: CustomerAddress) => Promise<void>;
+  requestExchange: (orderId: string, requestedSize: string, reason: string) => Promise<{ success: boolean; message: string }>;
+  isDatabaseConnected: boolean;
+
   isAuthModalOpen: boolean;
   setIsAuthModalOpen: (open: boolean) => void;
   authModalMode: 'login' | 'register' | 'forgot';
@@ -115,7 +146,7 @@ interface StoreContextType {
   resetCustomerPassword: (
     identifier: string,
     newPassword: string
-  ) => { success: boolean; message: string };
+  ) => Promise<{ success: boolean; message: string }> | { success: boolean; message: string };
   pendingAuthAction: 'checkout' | null;
   setPendingAuthAction: (action: 'checkout' | null) => void;
   authNoticeMessage: string | null;
@@ -184,6 +215,23 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return INITIAL_PRODUCTS;
   });
 
+  const isDatabaseConnected = isSupabaseConfigured();
+
+  // Load products from Supabase on mount (fallback to INITIAL_PRODUCTS)
+  useEffect(() => {
+    if (isSupabaseConfigured()) {
+      fetchProductsFromDB()
+        .then((dbProds) => {
+          if (dbProds && dbProds.length > 0) {
+            setProducts(dbProds);
+          }
+        })
+        .catch((err) => {
+          console.warn('[Store] Supabase products load error, retaining local catalog:', err);
+        });
+    }
+  }, []);
+
   useEffect(() => {
     try {
       localStorage.setItem('adaah_products', JSON.stringify(products));
@@ -241,12 +289,89 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, [currentUser]);
 
+  // Hydrate Supabase user session and sync data
+  const loadSupabaseUser = async (user: any) => {
+    try {
+      const profile = await fetchUserProfile(user.id);
+      const addresses = await fetchCustomerAddresses(user.id);
+      const defaultAddr = addresses.find((a) => a.isDefault) || addresses[0] || (profile ? {
+        fullName: profile.full_name || 'Valued Patron',
+        phone: profile.phone || '',
+        email: profile.email || user.email || '',
+        addressLine: '',
+        city: 'Jaipur',
+        state: 'Rajasthan',
+        pincode: '302001',
+        isDefault: true,
+      } : undefined);
+
+      const hydratedUser: CustomerUser = {
+        id: user.id,
+        fullName: profile?.full_name || user.user_metadata?.full_name || 'Valued Patron',
+        email: user.email || profile?.email || '',
+        phone: profile?.phone || user.user_metadata?.phone || '',
+        role: profile?.role || 'customer',
+        savedAddress: defaultAddr,
+        savedAddresses: addresses,
+        createdAt: profile?.created_at || user.created_at || new Date().toISOString(),
+      };
+      setCurrentUser(hydratedUser);
+
+      // Sync Cart from DB
+      const dbCart = await syncUserCartFromDB(user.id);
+      if (dbCart && dbCart.length > 0) {
+        setCart(dbCart);
+      }
+
+      // Sync Wishlist from DB
+      const dbWishlist = await syncWishlistFromDB(user.id);
+      if (dbWishlist && dbWishlist.length > 0) {
+        setWishlist(dbWishlist);
+      }
+
+      // Sync Orders from DB
+      const dbOrders = await fetchOrdersFromDB(user.id);
+      if (dbOrders && dbOrders.length > 0) {
+        setOrders((prev) => {
+          const dbOrderIds = new Set(dbOrders.map((o) => o.id));
+          const localOnly = prev.filter((o) => !dbOrderIds.has(o.id));
+          return [...dbOrders, ...localOnly];
+        });
+      }
+    } catch (err) {
+      console.warn('[Store] Exception in loadSupabaseUser:', err);
+    }
+  };
+
+  // Listen to Supabase Auth state changes
+  useEffect(() => {
+    if (!isSupabaseConfigured()) return;
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        loadSupabaseUser(session.user);
+      }
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if ((event === 'SIGNED_IN' || event === 'USER_UPDATED') && session?.user) {
+        await loadSupabaseUser(session.user);
+      } else if (event === 'SIGNED_OUT') {
+        setCurrentUser(null);
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<'login' | 'register' | 'forgot'>('login');
   const [pendingAuthAction, setPendingAuthAction] = useState<'checkout' | null>(null);
   const [authNoticeMessage, setAuthNoticeMessage] = useState<string | null>(null);
 
-  const registerCustomer = (userData: {
+  const registerCustomer = async (userData: {
     fullName: string;
     email: string;
     phone: string;
@@ -255,7 +380,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     city?: string;
     state?: string;
     pincode?: string;
-  }): { success: boolean; message: string } => {
+  }): Promise<{ success: boolean; message: string }> => {
     const cleanEmail = userData.email.trim().toLowerCase();
     const cleanPhone = userData.phone.replace(/\D/g, '');
 
@@ -272,7 +397,39 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       return { success: false, message: 'Password must be at least 6 characters' };
     }
 
-    // Check duplicate
+    if (isSupabaseConfigured()) {
+      const res = await signUpCustomer({
+        email: cleanEmail,
+        password: userData.password,
+        fullName: userData.fullName.trim(),
+        phone: cleanPhone,
+      });
+
+      if (!res.success) {
+        return { success: false, message: res.message };
+      }
+
+      if (res.user && userData.addressLine) {
+        await saveCustomerAddressInDB(res.user.id, {
+          fullName: userData.fullName.trim(),
+          phone: cleanPhone,
+          email: cleanEmail,
+          addressLine: userData.addressLine,
+          city: userData.city || 'Jaipur',
+          state: userData.state || 'Rajasthan',
+          pincode: userData.pincode || '302001',
+          isDefault: true,
+        });
+      }
+
+      showToast(`Account created for ${userData.fullName}! Please sign in.`);
+      return {
+        success: true,
+        message: 'Account created successfully in database! Please sign in with your credentials.',
+      };
+    }
+
+    // Local fallback check
     const exists = users.find(
       (u) =>
         u.email.toLowerCase() === cleanEmail ||
@@ -301,6 +458,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             city: userData.city || 'Jaipur',
             state: userData.state || 'Rajasthan',
             pincode: userData.pincode || '302001',
+            isDefault: true,
           }
         : undefined,
       createdAt: new Date().toISOString(),
@@ -311,10 +469,10 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return { success: true, message: 'Account created successfully! Please sign in with your credentials.' };
   };
 
-  const loginCustomer = (
+  const loginCustomer = async (
     identifier: string,
     password?: string
-  ): { success: boolean; message: string } => {
+  ): Promise<{ success: boolean; message: string }> => {
     const cleanId = identifier.trim().toLowerCase();
     const cleanDigits = identifier.replace(/\D/g, '');
 
@@ -332,10 +490,43 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       };
     }
 
+    if (isSupabaseConfigured()) {
+      let emailToUse = cleanId;
+      if (!cleanId.includes('@') && cleanDigits.length >= 10) {
+        try {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('email')
+            .eq('phone', cleanDigits)
+            .single();
+          if (profile?.email) {
+            emailToUse = profile.email;
+          }
+        } catch {
+          // ignore lookup failure and attempt direct login
+        }
+      }
+
+      const res = await signInCustomer(emailToUse, password);
+      if (res.success && res.user) {
+        await loadSupabaseUser(res.user);
+        setIsAuthModalOpen(false);
+        setAuthNoticeMessage(null);
+        showToast(`Welcome back, ${res.profile?.full_name || 'Valued Patron'}!`);
+
+        if (pendingAuthAction === 'checkout') {
+          setPendingAuthAction(null);
+          setIsCartOpen(false);
+          setIsCheckoutOpen(true);
+        }
+
+        return { success: true, message: `Welcome back, ${res.profile?.full_name || 'Valued Patron'}!` };
+      }
+    }
+
+    // Local / Offline fallback
     const found = users.find((u) => {
-      // Match email
       if (cleanId && u.email.toLowerCase() === cleanId) return true;
-      // Match phone
       const uPhoneDigits = u.phone.replace(/\D/g, '');
       if (cleanDigits && cleanDigits.length >= 10 && (uPhoneDigits === cleanDigits || uPhoneDigits.endsWith(cleanDigits) || cleanDigits.endsWith(uPhoneDigits))) {
         return true;
@@ -362,7 +553,6 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setAuthNoticeMessage(null);
     showToast(`Welcome back, ${found.fullName}!`);
 
-    // If checkout was requested before logging in, proceed to checkout now
     if (pendingAuthAction === 'checkout') {
       setPendingAuthAction(null);
       setIsCartOpen(false);
@@ -383,6 +573,10 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         success: false,
         message: 'Please enter your registered mobile number or email address',
       };
+    }
+
+    if (isSupabaseConfigured() && cleanId.includes('@')) {
+      sendPasswordResetEmail(cleanId);
     }
 
     const found = users.find((u) => {
@@ -411,10 +605,10 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     };
   };
 
-  const resetCustomerPassword = (
+  const resetCustomerPassword = async (
     identifier: string,
     newPassword: string
-  ): { success: boolean; message: string } => {
+  ): Promise<{ success: boolean; message: string }> => {
     const cleanId = identifier.trim().toLowerCase();
     const cleanDigits = identifier.replace(/\D/g, '');
 
@@ -423,6 +617,14 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         success: false,
         message: 'New password must be at least 6 characters',
       };
+    }
+
+    if (isSupabaseConfigured()) {
+      const dbRes = await updateUserPassword(newPassword);
+      if (dbRes.success) {
+        showToast('Password updated in database! Please sign in with your new password.');
+        return { success: true, message: 'Password updated successfully!' };
+      }
     }
 
     const found = users.find((u) => {
@@ -453,21 +655,71 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     };
   };
 
-  const logoutCustomer = () => {
+  const logoutCustomer = async () => {
+    if (isSupabaseConfigured()) {
+      await signOutCustomer();
+    }
     setCurrentUser(null);
+    showToast('You have been signed out.');
     if (activePage === 'account' || activePage === 'orders') {
       setActivePage('home');
     }
-    showToast('Logged out of your account');
   };
 
-  const updateCustomerProfile = (updated: Partial<CustomerUser>) => {
+  const updateCustomerProfile = async (updated: Partial<CustomerUser>) => {
     if (!currentUser) return;
-    const merged: CustomerUser = { ...currentUser, ...updated };
-    setCurrentUser(merged);
-    setUsers((prev) => prev.map((u) => (u.id === merged.id ? merged : u)));
+    const newObj: CustomerUser = { ...currentUser, ...updated };
+    setCurrentUser(newObj);
+
+    if (isSupabaseConfigured()) {
+      if (updated.fullName || updated.phone) {
+        await updateUserProfileData(currentUser.id, {
+          full_name: updated.fullName,
+          phone: updated.phone,
+        });
+      }
+      if (updated.savedAddress) {
+        await saveCustomerAddressInDB(currentUser.id, updated.savedAddress);
+        const refreshedAddrs = await fetchCustomerAddresses(currentUser.id);
+        setCurrentUser((prev) => prev ? { ...prev, savedAddresses: refreshedAddrs, savedAddress: refreshedAddrs[0] } : null);
+      }
+    }
+
+    setUsers((prev) => prev.map((u) => (u.id === currentUser.id ? newObj : u)));
     showToast('Profile updated successfully');
   };
+
+  const saveCustomerAddress = async (addr: CustomerAddress) => {
+    if (!currentUser) return;
+    if (isSupabaseConfigured()) {
+      await saveCustomerAddressInDB(currentUser.id, addr);
+      const refreshedAddrs = await fetchCustomerAddresses(currentUser.id);
+      setCurrentUser((prev) => prev ? { ...prev, savedAddresses: refreshedAddrs, savedAddress: addr } : null);
+    } else {
+      const prevAddrs = currentUser.savedAddresses || [];
+      const updatedList = [addr, ...prevAddrs.filter((a) => a.id !== addr.id)];
+      const updatedUser = { ...currentUser, savedAddress: addr, savedAddresses: updatedList };
+      setCurrentUser(updatedUser);
+      setUsers((prev) => prev.map((u) => (u.id === currentUser.id ? updatedUser : u)));
+    }
+    showToast('Address saved successfully');
+  };
+
+  const requestExchange = async (
+    orderId: string,
+    requestedSize: string,
+    reason: string
+  ): Promise<{ success: boolean; message: string }> => {
+    const res = await submitExchangeRequest({
+      orderId,
+      userId: currentUser?.id,
+      requestedSize,
+      reason,
+    });
+    showToast(res.message);
+    return res;
+  };
+
 
   // Owner Authentication (Private session for website owner only)
   const [isOwnerLoggedIn, setIsOwnerLoggedIn] = useState<boolean>(() => {
@@ -640,6 +892,10 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const cartItemId = `${product.id}-${size}`;
     setCart((prev) => {
       const existing = prev.find((item) => item.id === cartItemId);
+      const newQty = existing ? existing.quantity + quantity : quantity;
+      if (currentUser && isSupabaseConfigured()) {
+        saveCartItemInDB(currentUser.id, product.id, size, newQty);
+      }
       if (existing) {
         return prev.map((item) =>
           item.id === cartItemId ? { ...item, quantity: item.quantity + quantity } : item
@@ -653,6 +909,9 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const removeFromCart = (cartItemId: string) => {
     setCart((prev) => prev.filter((item) => item.id !== cartItemId));
+    if (currentUser && isSupabaseConfigured()) {
+      removeCartItemFromDB(cartItemId);
+    }
     showToast('Item removed from shopping bag');
   };
 
@@ -662,13 +921,24 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       return;
     }
     setCart((prev) =>
-      prev.map((item) => (item.id === cartItemId ? { ...item, quantity } : item))
+      prev.map((item) => {
+        if (item.id === cartItemId) {
+          if (currentUser && isSupabaseConfigured()) {
+            saveCartItemInDB(currentUser.id, item.product.id, item.selectedSize, quantity);
+          }
+          return { ...item, quantity };
+        }
+        return item;
+      })
     );
   };
 
   const clearCart = () => {
     setCart([]);
     setActiveCoupon(null);
+    if (currentUser && isSupabaseConfigured()) {
+      clearCartInDB(currentUser.id);
+    }
   };
 
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
@@ -715,6 +985,9 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const toggleWishlist = (productId: string) => {
     setWishlist((prev) => {
       const exists = prev.includes(productId);
+      if (currentUser && isSupabaseConfigured()) {
+        toggleWishlistInDB(currentUser.id, productId, !exists);
+      }
       if (exists) {
         showToast('Removed from wishlist');
         return prev.filter((id) => id !== productId);
@@ -742,15 +1015,28 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   // Admin Product Actions
-  const addProduct = (newProdData: Omit<Product, 'id' | 'sku'>) => {
-    const id = `prod-${Date.now()}`;
-    const sku = `ADH-${newProdData.collection.slice(0, 3).toUpperCase()}-${Math.floor(10 + Math.random() * 90)}`;
-    const fullProduct: Product = {
-      ...newProdData,
-      id,
-      sku,
-    };
-    setProducts((prev) => [fullProduct, ...prev]);
+  const addProduct = async (newProdData: Omit<Product, 'id' | 'sku'>) => {
+    let created: Product;
+    if (isSupabaseConfigured()) {
+      try {
+        const dbProd = await createProductInDB(newProdData);
+        if (dbProd) {
+          created = dbProd;
+        } else {
+          throw new Error('Fallback to local');
+        }
+      } catch (err) {
+        console.warn('[Store] DB create product error, fallback:', err);
+        const id = `prod-${Date.now()}`;
+        const sku = `ADH-${newProdData.collection.slice(0, 3).toUpperCase()}-${Math.floor(10 + Math.random() * 90)}`;
+        created = { ...newProdData, id, sku };
+      }
+    } else {
+      const id = `prod-${Date.now()}`;
+      const sku = `ADH-${newProdData.collection.slice(0, 3).toUpperCase()}-${Math.floor(10 + Math.random() * 90)}`;
+      created = { ...newProdData, id, sku };
+    }
+    setProducts((prev) => [created, ...prev]);
     showToast(`Added "${newProdData.name}" to catalogue`);
   };
 
@@ -759,11 +1045,17 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (selectedProduct?.id === updated.id) {
       setSelectedProduct(updated);
     }
+    if (isSupabaseConfigured()) {
+      updateProductInDB(updated).catch((err) => console.warn('[Store] Update product DB error:', err));
+    }
     showToast(`Updated "${updated.name}"`);
   };
 
   const deleteProduct = (id: string) => {
     setProducts((prev) => prev.filter((p) => p.id !== id));
+    if (isSupabaseConfigured()) {
+      deleteProductInDB(id).catch((err) => console.warn('[Store] Delete product DB error:', err));
+    }
     showToast('Product removed from catalogue');
   };
 
@@ -774,36 +1066,83 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   // Order Placement
-  const placeOrder = (orderData: Omit<Order, 'id' | 'orderNumber' | 'createdAt'>): Order => {
+  const placeOrder = async (orderData: Omit<Order, 'id' | 'orderNumber' | 'createdAt'>): Promise<Order> => {
     if (!currentUser) {
       showToast('Please log in with your phone or email to place an order.');
       openAuthModal('login', 'checkout', 'Please log in with your mobile number or email to complete your order.');
       throw new Error('User must be logged in to place an order.');
     }
 
-    const orderNumber = `ADH-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
-    const newOrder: Order = {
-      ...orderData,
-      id: `ord-${Date.now()}`,
-      orderNumber,
-      userId: currentUser.id,
-      createdAt: new Date().toISOString(),
-    };
-    setOrders((prev) => [newOrder, ...prev]);
-    setLastOrder(newOrder);
+    let finalOrder: Order;
+
+    if (isSupabaseConfigured()) {
+      try {
+        const dbOrder = await createOrderInDatabase({
+          userId: currentUser.id,
+          customerEmail: orderData.shippingAddress.email || currentUser.email,
+          customerPhone: orderData.shippingAddress.phone || currentUser.phone,
+          items: orderData.items,
+          shippingAddress: orderData.shippingAddress,
+          paymentMethod: orderData.paymentMethod,
+          couponCode: orderData.couponCode,
+          customerNotes: orderData.customerNotes,
+          transactionRef: orderData.transactionRef,
+        });
+
+        if (dbOrder) {
+          finalOrder = dbOrder;
+        } else {
+          throw new Error('Offline fallback');
+        }
+      } catch (err) {
+        console.warn('[Store] createOrderInDatabase fallback:', err);
+        const orderNumber = `ADH-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+        finalOrder = {
+          ...orderData,
+          id: `ord-${Date.now()}`,
+          orderNumber,
+          userId: currentUser.id,
+          createdAt: new Date().toISOString(),
+        };
+      }
+    } else {
+      const orderNumber = `ADH-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+      finalOrder = {
+        ...orderData,
+        id: `ord-${Date.now()}`,
+        orderNumber,
+        userId: currentUser.id,
+        createdAt: new Date().toISOString(),
+      };
+    }
+
+    setOrders((prev) => [finalOrder, ...prev]);
+    setLastOrder(finalOrder);
     clearCart();
     setIsCheckoutOpen(false);
     setActivePage('order-confirmation');
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    return newOrder;
+    return finalOrder;
   };
 
-  const updateOrderStatus = (orderId: string, status: Order['status']) => {
+  const updateOrderStatus = (orderId: string, status: Order['status'], trackingNum?: string, courier?: string) => {
     setOrders((prev) =>
-      prev.map((ord) => (ord.id === orderId ? { ...ord, status } : ord))
+      prev.map((ord) =>
+        ord.id === orderId
+          ? {
+              ...ord,
+              status,
+              shipmentTrackingNumber: trackingNum || ord.shipmentTrackingNumber,
+              courierName: courier || ord.courierName,
+            }
+          : ord
+      )
     );
+    if (isSupabaseConfigured()) {
+      updateOrderStatusInDB(orderId, status, trackingNum, courier).catch(() => {});
+    }
     showToast(`Order status updated to ${status}`);
   };
 
@@ -905,6 +1244,9 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         resetCustomerPassword,
         logoutCustomer,
         updateCustomerProfile,
+        saveCustomerAddress,
+        requestExchange,
+        isDatabaseConnected,
         isAuthModalOpen,
         setIsAuthModalOpen,
         authModalMode,

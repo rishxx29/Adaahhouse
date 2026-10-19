@@ -65,6 +65,7 @@ export interface CartItem {
 }
 
 export interface CustomerAddress {
+  id?: string;
   fullName: string;
   phone: string;
   email: string;
@@ -73,6 +74,9 @@ export interface CustomerAddress {
   city: string;
   state: string;
   pincode: string;
+  country?: string;
+  isDefault?: boolean;
+  deliveryInstructions?: string;
 }
 
 export interface CustomerUser {
@@ -81,9 +85,24 @@ export interface CustomerUser {
   email: string;
   phone: string;
   password?: string;
+  role?: 'customer' | 'admin';
   savedAddress?: CustomerAddress;
+  savedAddresses?: CustomerAddress[];
   createdAt: string;
 }
+
+export type OrderStatusType =
+  | 'Pending'
+  | 'Confirmed'
+  | 'Processing'
+  | 'Packed'
+  | 'Shipped'
+  | 'Out for Delivery'
+  | 'Delivered'
+  | 'Cancelled'
+  | 'CONFIRMED'
+  | 'DISPATCHED'
+  | 'DELIVERED';
 
 export interface Order {
   id: string;
@@ -96,12 +115,16 @@ export interface Order {
   couponCode?: string;
   shippingFee: number;
   total: number;
-  paymentMethod: 'ONLINE_UPI' | 'ONLINE_CARD' | 'COD';
-  paymentStatus: 'PAID' | 'PENDING_COD';
+  paymentMethod: 'ONLINE_UPI' | 'ONLINE_CARD' | 'COD' | 'ONLINE_RAZORPAY';
+  paymentStatus: 'PAID' | 'PENDING_COD' | 'FAILED' | 'REFUNDED';
   transactionRef?: string;
   receiverUpi?: string;
   shippingAddress: CustomerAddress;
-  status: 'CONFIRMED' | 'DISPATCHED' | 'DELIVERED';
+  status: OrderStatusType;
+  shipmentTrackingNumber?: string;
+  courierName?: string;
+  customerNotes?: string;
+  adminNotes?: string;
   estimatedDeliveryDate: string;
 }
 
@@ -111,5 +134,20 @@ export interface Coupon {
   type: 'percentage' | 'fixed';
   value: number;
   minOrder: number;
+}
+
+export interface ExchangeRequest {
+  id: string;
+  orderId: string;
+  orderNumber?: string;
+  userId?: string;
+  customerEmail?: string;
+  customerPhone?: string;
+  requestedSize: string;
+  reason: string;
+  supportingImages?: string[];
+  status: 'pending' | 'approved' | 'rejected' | 'completed';
+  adminNotes?: string;
+  createdAt: string;
 }
 

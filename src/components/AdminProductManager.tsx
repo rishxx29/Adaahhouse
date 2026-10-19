@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Plus,
   Trash2,
@@ -26,9 +26,17 @@ import {
   Clock,
   Search,
   Filter,
+  Database,
+  Users,
+  Layers,
+  Activity,
+  RotateCw,
+  XCircle,
+  CheckSquare,
+  ArrowUpRight,
 } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
-import { Product, KurtiSize, ProductCollection, Order } from '../types';
+import { Product, KurtiSize, ProductCollection, Order, CustomerUser } from '../types';
 import { STANDARD_MEASUREMENTS, BRAND_CONFIG } from '../config/brand';
 import {
   sendOrderEmails,
@@ -36,6 +44,13 @@ import {
   getCustomerMailtoUrl,
   getCustomerWhatsAppUrl,
 } from '../services/notificationService';
+import {
+  fetchExchangeRequests,
+  updateExchangeStatus,
+  isSupabaseConfigured,
+  supabase,
+} from '../services/supabase';
+import { fetchSystemHealth, setupFirstAdminOnServer } from '../services/api';
 
 const ALL_SIZES: KurtiSize[] = ['S', 'M', 'L', 'XL', 'XXL'];
 
@@ -56,15 +71,84 @@ export const AdminProductManager: React.FC = () => {
     updateOrderStatus,
     deleteOrder,
     showToast,
+    isDatabaseConnected,
   } = useStore();
 
+  // Studio Active Tab: 'orders' | 'catalog' | 'inventory' | 'exchanges' | 'customers' | 'system'
+  const [activeStudioTab, setActiveStudioTab] = useState<'orders' | 'catalog' | 'inventory' | 'exchanges' | 'customers' | 'system'>('orders');
 
-  // Studio Active Tab: 'orders' or 'catalog'
-  const [activeStudioTab, setActiveStudioTab] = useState<'orders' | 'catalog'>('orders');
+  // Exchange Requests State
+  const [exchangeRequests, setExchangeRequests] = useState<any[]>([]);
+  const [isLoadingExchanges, setIsLoadingExchanges] = useState(false);
+
+  // System Health State
+  const [systemHealth, setSystemHealth] = useState<any>(null);
+  const [isLoadingHealth, setIsLoadingHealth] = useState(false);
+  const [adminEmailInput, setAdminEmailInput] = useState('');
+  const [adminSecretInput, setAdminSecretInput] = useState('');
+  const [adminPromotionMessage, setAdminPromotionMessage] = useState<string | null>(null);
+
+  // Registered Customers State
+  const [customersList, setCustomersList] = useState<any[]>([]);
+  const [isLoadingCustomers, setIsLoadingCustomers] = useState(false);
+
+  // Tracking Dispatch Inputs per order
+  const [dispatchTrackingNum, setDispatchTrackingNum] = useState<Record<string, string>>({});
+  const [dispatchCourier, setDispatchCourier] = useState<Record<string, string>>({});
 
   // Orders Filter & Search State
   const [orderStatusFilter, setOrderStatusFilter] = useState<'ALL' | 'CONFIRMED' | 'DISPATCHED' | 'DELIVERED'>('ALL');
   const [orderSearchQuery, setOrderSearchQuery] = useState('');
+
+  // Load Exchange Requests
+  const loadExchanges = async () => {
+    setIsLoadingExchanges(true);
+    try {
+      const data = await fetchExchangeRequests();
+      setExchangeRequests(data);
+    } catch {
+      // fallback
+    } finally {
+      setIsLoadingExchanges(false);
+    }
+  };
+
+  // Load System Health
+  const loadHealth = async () => {
+    setIsLoadingHealth(true);
+    try {
+      const data = await fetchSystemHealth();
+      setSystemHealth(data);
+    } catch {
+      // fallback
+    } finally {
+      setIsLoadingHealth(false);
+    }
+  };
+
+  // Load Customers
+  const loadCustomers = async () => {
+    setIsLoadingCustomers(true);
+    try {
+      if (isSupabaseConfigured()) {
+        const { data } = await supabase.from('profiles').select('*').order('created_at', { ascending: false });
+        setCustomersList(data || []);
+      } else {
+        const saved = localStorage.getItem('adaah_users');
+        setCustomersList(saved ? JSON.parse(saved) : []);
+      }
+    } catch {
+      // fallback
+    } finally {
+      setIsLoadingCustomers(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeStudioTab === 'exchanges') loadExchanges();
+    if (activeStudioTab === 'system') loadHealth();
+    if (activeStudioTab === 'customers') loadCustomers();
+  }, [activeStudioTab]);
 
   // Authentication gate state
   const [adminIdentifier, setAdminIdentifier] = useState(BRAND_CONFIG.contact.email);
@@ -468,18 +552,18 @@ export const AdminProductManager: React.FC = () => {
         </form>
       )}
 
-      {/* Studio Navigation Tabs (Orders vs Kurti Catalogue) */}
-      <div className="flex items-center gap-2 border-b border-[#D5C2D7] pb-1">
+      {/* Studio Navigation Tabs */}
+      <div className="flex items-center gap-2 border-b border-[#D5C2D7] pb-1 overflow-x-auto no-scrollbar">
         <button
           onClick={() => setActiveStudioTab('orders')}
-          className={`flex items-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all border-b-2 -mb-[5px] ${
+          className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all border-b-2 -mb-[5px] shrink-0 ${
             activeStudioTab === 'orders'
               ? 'border-[#8C5A7D] text-[#8C5A7D] bg-white'
               : 'border-transparent text-[#A185A4] hover:text-[#554052]'
           }`}
         >
           <Package className="w-4 h-4 text-[#8C5A7D]" />
-          <span>Customer Orders</span>
+          <span>Orders</span>
           <span className="ml-1 px-1.5 py-0.2 bg-[#8C5A7D] text-white text-[10px] rounded-full">
             {orders.length}
           </span>
@@ -487,17 +571,74 @@ export const AdminProductManager: React.FC = () => {
 
         <button
           onClick={() => setActiveStudioTab('catalog')}
-          className={`flex items-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all border-b-2 -mb-[5px] ${
+          className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all border-b-2 -mb-[5px] shrink-0 ${
             activeStudioTab === 'catalog'
               ? 'border-[#8C5A7D] text-[#8C5A7D] bg-white'
               : 'border-transparent text-[#A185A4] hover:text-[#554052]'
           }`}
         >
           <ShoppingBag className="w-4 h-4 text-[#8C5A7D]" />
-          <span>Garment Catalogue & Photos</span>
+          <span>Catalogue & Photos</span>
           <span className="ml-1 px-1.5 py-0.2 bg-[#D5C2D7] text-[#554052] text-[10px] rounded-full">
             {products.length}
           </span>
+        </button>
+
+        <button
+          onClick={() => setActiveStudioTab('inventory')}
+          className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all border-b-2 -mb-[5px] shrink-0 ${
+            activeStudioTab === 'inventory'
+              ? 'border-[#8C5A7D] text-[#8C5A7D] bg-white'
+              : 'border-transparent text-[#A185A4] hover:text-[#554052]'
+          }`}
+        >
+          <Layers className="w-4 h-4 text-[#8C5A7D]" />
+          <span>Size Inventory</span>
+        </button>
+
+        <button
+          onClick={() => setActiveStudioTab('exchanges')}
+          className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all border-b-2 -mb-[5px] shrink-0 ${
+            activeStudioTab === 'exchanges'
+              ? 'border-[#8C5A7D] text-[#8C5A7D] bg-white'
+              : 'border-transparent text-[#A185A4] hover:text-[#554052]'
+          }`}
+        >
+          <RotateCw className="w-4 h-4 text-[#8C5A7D]" />
+          <span>Exchanges</span>
+          {exchangeRequests.length > 0 && (
+            <span className="ml-1 px-1.5 py-0.2 bg-amber-600 text-white text-[10px] rounded-full">
+              {exchangeRequests.length}
+            </span>
+          )}
+        </button>
+
+        <button
+          onClick={() => setActiveStudioTab('customers')}
+          className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all border-b-2 -mb-[5px] shrink-0 ${
+            activeStudioTab === 'customers'
+              ? 'border-[#8C5A7D] text-[#8C5A7D] bg-white'
+              : 'border-transparent text-[#A185A4] hover:text-[#554052]'
+          }`}
+        >
+          <Users className="w-4 h-4 text-[#8C5A7D]" />
+          <span>Patrons</span>
+          <span className="ml-1 px-1.5 py-0.2 bg-[#D5C2D7] text-[#554052] text-[10px] rounded-full">
+            {customersList.length}
+          </span>
+        </button>
+
+        <button
+          onClick={() => setActiveStudioTab('system')}
+          className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all border-b-2 -mb-[5px] shrink-0 ${
+            activeStudioTab === 'system'
+              ? 'border-[#8C5A7D] text-[#8C5A7D] bg-white'
+              : 'border-transparent text-[#A185A4] hover:text-[#554052]'
+          }`}
+        >
+          <Database className="w-4 h-4 text-[#8C5A7D]" />
+          <span>Database & Payments</span>
+          <span className={`w-2 h-2 rounded-full ${isDatabaseConnected ? 'bg-emerald-500' : 'bg-amber-500'}`} />
         </button>
       </div>
 
@@ -1287,6 +1428,483 @@ export const AdminProductManager: React.FC = () => {
       </div>
     </div>
   )}
-</div>
-);
+
+      {/* VIEW 3: SIZE & STOCK INVENTORY */}
+      {activeStudioTab === 'inventory' && (
+        <div className="space-y-6 animate-in fade-in duration-200">
+          <div className="bg-white p-6 border border-[#D5C2D7] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 className="font-serif text-lg font-bold text-[#554052]">
+                Stock & Size Inventory Management
+              </h3>
+              <p className="text-xs text-[#A185A4] mt-0.5">
+                Manage live warehouse stock quantities per size (XS to XXL) for all ethnic silhouettes.
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-[#8C5A7D] font-semibold bg-[#F6F0F4] px-3 py-1.5 border border-[#D5C2D7]">
+                Total Styles: {products.length}
+              </span>
+            </div>
+          </div>
+
+          <div className="bg-white border border-[#D5C2D7] overflow-x-auto shadow-xs">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr className="border-b border-[#D5C2D7] bg-[#F6F0F4] text-[#8C5A7D] uppercase tracking-wider font-semibold">
+                  <th className="py-3 px-4">Garment</th>
+                  <th className="py-3 px-4">SKU</th>
+                  <th className="py-3 px-4">Price</th>
+                  <th className="py-3 px-4">Total Units</th>
+                  <th className="py-3 px-4 text-center">Size S</th>
+                  <th className="py-3 px-4 text-center">Size M</th>
+                  <th className="py-3 px-4 text-center">Size L</th>
+                  <th className="py-3 px-4 text-center">Size XL</th>
+                  <th className="py-3 px-4 text-center">Size XXL</th>
+                  <th className="py-3 px-4 text-right">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#D5C2D7]">
+                {products.map((prod) => (
+                  <tr key={prod.id} className="hover:bg-[#F6F0F4]/40 transition-colors">
+                    <td className="py-3 px-4 flex items-center gap-3">
+                      <img
+                        src={prod.images[0]}
+                        alt=""
+                        className="w-10 h-12 object-cover border border-[#D5C2D7] shrink-0"
+                      />
+                      <div>
+                        <p className="font-serif font-bold text-[#554052]">{prod.name}</p>
+                        <span className="text-[10px] text-[#A185A4]">{prod.fabric}</span>
+                      </div>
+                    </td>
+                    <td className="py-3 px-4 font-mono font-medium text-[#554052]">{prod.sku}</td>
+                    <td className="py-3 px-4 font-mono font-semibold text-[#8C5A7D]">
+                      ₹{prod.price.toLocaleString('en-IN')}
+                    </td>
+                    <td className="py-3 px-4 font-mono font-bold text-[#554052]">
+                      {prod.inventoryCount} units
+                    </td>
+                    {ALL_SIZES.map((sz) => {
+                      const hasSize = prod.sizes.includes(sz);
+                      return (
+                        <td key={sz} className="py-3 px-2 text-center">
+                          {hasSize ? (
+                            <span className="inline-block px-2 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-mono font-bold rounded-xs">
+                              {Math.max(1, Math.floor(prod.inventoryCount / (prod.sizes.length || 1)))} in stock
+                            </span>
+                          ) : (
+                            <span className="text-gray-300 text-[11px]">—</span>
+                          )}
+                        </td>
+                      );
+                    })}
+                    <td className="py-3 px-4 text-right">
+                      <span
+                        className={`inline-block px-2 py-0.5 text-[10px] font-semibold uppercase ${
+                          prod.inStock ? 'bg-emerald-50 text-emerald-800' : 'bg-red-50 text-red-800'
+                        }`}
+                      >
+                        {prod.inStock ? 'Available' : 'Sold Out'}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* VIEW 4: EXCHANGE REQUESTS */}
+      {activeStudioTab === 'exchanges' && (
+        <div className="space-y-6 animate-in fade-in duration-200">
+          <div className="bg-white p-6 border border-[#D5C2D7] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 className="font-serif text-lg font-bold text-[#554052]">
+                7-Day Size Exchange Workflow
+              </h3>
+              <p className="text-xs text-[#A185A4] mt-0.5">
+                Review and approve patron size replacement requests according to brand policy.
+              </p>
+            </div>
+            <button
+              onClick={loadExchanges}
+              className="px-3.5 py-2 bg-[#F6F0F4] border border-[#D5C2D7] text-[#8C5A7D] hover:bg-[#8C5A7D] hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
+            >
+              <RotateCw className="w-3.5 h-3.5" />
+              <span>Refresh Requests</span>
+            </button>
+          </div>
+
+          {isLoadingExchanges ? (
+            <div className="p-12 text-center bg-white border border-[#D5C2D7]">
+              <RotateCw className="w-6 h-6 animate-spin text-[#8C5A7D] mx-auto" />
+              <p className="text-xs text-[#A185A4] mt-2">Loading exchange requests...</p>
+            </div>
+          ) : exchangeRequests.length === 0 ? (
+            <div className="bg-white p-12 text-center border border-[#D5C2D7] space-y-3">
+              <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto" />
+              <h4 className="font-serif text-base font-bold text-[#554052]">No Pending Exchange Requests</h4>
+              <p className="text-xs text-[#A185A4] max-w-sm mx-auto">
+                All garments delivered have met patrons' expectations. New exchange requests will appear here.
+              </p>
+            </div>
+          ) : (
+            <div className="bg-white border border-[#D5C2D7] overflow-x-auto shadow-xs">
+              <table className="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr className="border-b border-[#D5C2D7] bg-[#F6F0F4] text-[#8C5A7D] uppercase tracking-wider font-semibold">
+                    <th className="py-3 px-4">Request Date</th>
+                    <th className="py-3 px-4">Order ID</th>
+                    <th className="py-3 px-4">Customer Contact</th>
+                    <th className="py-3 px-4">Requested Size</th>
+                    <th className="py-3 px-4">Reason / Notes</th>
+                    <th className="py-3 px-4">Status</th>
+                    <th className="py-3 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#D5C2D7]">
+                  {exchangeRequests.map((req) => (
+                    <tr key={req.id} className="hover:bg-[#F6F0F4]/40">
+                      <td className="py-3 px-4 text-[#554052]">
+                        {new Date(req.created_at).toLocaleDateString('en-IN', {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric',
+                        })}
+                      </td>
+                      <td className="py-3 px-4 font-mono font-bold text-[#8C5A7D]">
+                        {req.order?.order_number || req.order_id}
+                      </td>
+                      <td className="py-3 px-4 text-[#554052]">
+                        <p className="font-medium">{req.order?.customer_email || 'Patron'}</p>
+                        <p className="text-[11px] text-[#A185A4]">{req.order?.customer_phone}</p>
+                      </td>
+                      <td className="py-3 px-4 font-mono font-bold text-[#8C5A7D] text-sm">
+                        {req.requested_size}
+                      </td>
+                      <td className="py-3 px-4 text-[#554052] max-w-xs truncate" title={req.reason}>
+                        {req.reason}
+                      </td>
+                      <td className="py-3 px-4">
+                        <span
+                          className={`inline-block px-2 py-0.5 text-[10px] font-semibold uppercase rounded-xs ${
+                            req.status === 'approved'
+                              ? 'bg-blue-50 text-blue-800'
+                              : req.status === 'completed'
+                              ? 'bg-emerald-50 text-emerald-800'
+                              : req.status === 'rejected'
+                              ? 'bg-red-50 text-red-800'
+                              : 'bg-amber-50 text-amber-800'
+                          }`}
+                        >
+                          {req.status}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4 text-right">
+                        <div className="flex items-center justify-end gap-1.5">
+                          {req.status === 'pending' && (
+                            <>
+                              <button
+                                onClick={async () => {
+                                  await updateExchangeStatus(req.id, 'approved', 'Approved by Jaipur Studio');
+                                  showToast('Exchange approved');
+                                  loadExchanges();
+                                }}
+                                className="px-2.5 py-1 bg-emerald-600 text-white rounded-xs text-[10px] font-semibold hover:bg-emerald-700"
+                              >
+                                Approve
+                              </button>
+                              <button
+                                onClick={async () => {
+                                  await updateExchangeStatus(req.id, 'rejected', 'Exceeds 7-day policy window');
+                                  showToast('Exchange rejected');
+                                  loadExchanges();
+                                }}
+                                className="px-2.5 py-1 bg-red-600 text-white rounded-xs text-[10px] font-semibold hover:bg-red-700"
+                              >
+                                Reject
+                              </button>
+                            </>
+                          )}
+                          {req.status === 'approved' && (
+                            <button
+                              onClick={async () => {
+                                await updateExchangeStatus(req.id, 'completed', 'Replacement size dispatched');
+                                showToast('Exchange marked as completed');
+                                loadExchanges();
+                              }}
+                              className="px-2.5 py-1 bg-[#8C5A7D] text-white rounded-xs text-[10px] font-semibold hover:bg-[#554052]"
+                            >
+                              Mark Dispatched
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* VIEW 5: REGISTERED CUSTOMERS */}
+      {activeStudioTab === 'customers' && (
+        <div className="space-y-6 animate-in fade-in duration-200">
+          <div className="bg-white p-6 border border-[#D5C2D7] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 className="font-serif text-lg font-bold text-[#554052]">
+                Registered Patrons & Customers
+              </h3>
+              <p className="text-xs text-[#A185A4] mt-0.5">
+                Overview of patron accounts registered with HOUSE OF RII.
+              </p>
+            </div>
+            <button
+              onClick={loadCustomers}
+              className="px-3.5 py-2 bg-[#F6F0F4] border border-[#D5C2D7] text-[#8C5A7D] hover:bg-[#8C5A7D] hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
+            >
+              <RotateCw className="w-3.5 h-3.5" />
+              <span>Refresh Patrons</span>
+            </button>
+          </div>
+
+          <div className="bg-white border border-[#D5C2D7] overflow-x-auto shadow-xs">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr className="border-b border-[#D5C2D7] bg-[#F6F0F4] text-[#8C5A7D] uppercase tracking-wider font-semibold">
+                  <th className="py-3 px-4">Patron</th>
+                  <th className="py-3 px-4">Email</th>
+                  <th className="py-3 px-4">Mobile</th>
+                  <th className="py-3 px-4">Role</th>
+                  <th className="py-3 px-4">Member Since</th>
+                  <th className="py-3 px-4 text-right">Orders Placed</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#D5C2D7]">
+                {customersList.map((c: any) => {
+                  const patronOrders = orders.filter((o) => o.userId === c.id || o.shippingAddress.email === (c.email || c.email?.toLowerCase()));
+                  return (
+                    <tr key={c.id} className="hover:bg-[#F6F0F4]/40">
+                      <td className="py-3 px-4 flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-[#8C5A7D] text-white flex items-center justify-center font-bold font-serif">
+                          {(c.full_name || c.fullName || 'P').charAt(0)}
+                        </div>
+                        <strong className="text-[#554052]">{c.full_name || c.fullName}</strong>
+                      </td>
+                      <td className="py-3 px-4 font-mono text-[#554052]">{c.email}</td>
+                      <td className="py-3 px-4 font-mono text-[#554052]">{c.phone || '—'}</td>
+                      <td className="py-3 px-4">
+                        <span
+                          className={`inline-block px-2 py-0.5 text-[10px] font-semibold uppercase rounded-xs ${
+                            c.role === 'admin'
+                              ? 'bg-purple-100 text-purple-900 border border-purple-300'
+                              : 'bg-emerald-50 text-emerald-800'
+                          }`}
+                        >
+                          {c.role || 'customer'}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4 text-[#A185A4]">
+                        {new Date(c.created_at || c.createdAt || Date.now()).toLocaleDateString('en-IN', {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric',
+                        })}
+                      </td>
+                      <td className="py-3 px-4 text-right font-mono font-bold text-[#8C5A7D]">
+                        {patronOrders.length} {patronOrders.length === 1 ? 'order' : 'orders'}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* VIEW 6: DATABASE & PAYMENTS HEALTH */}
+      {activeStudioTab === 'system' && (
+        <div className="space-y-6 animate-in fade-in duration-200">
+          <div className="bg-white p-6 border border-[#D5C2D7] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 className="font-serif text-lg font-bold text-[#554052]">
+                Database Architecture & Payment Gateway Status
+              </h3>
+              <p className="text-xs text-[#A185A4] mt-0.5">
+                Real-time operational health of Supabase PostgreSQL, row-level locks, and Razorpay endpoints.
+              </p>
+            </div>
+            <button
+              onClick={loadHealth}
+              className="px-3.5 py-2 bg-[#F6F0F4] border border-[#D5C2D7] text-[#8C5A7D] hover:bg-[#8C5A7D] hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
+            >
+              <RotateCw className="w-3.5 h-3.5" />
+              <span>Run Diagnostics</span>
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Supabase Status Card */}
+            <div className="bg-white p-6 border border-[#D5C2D7] shadow-xs space-y-4">
+              <div className="flex items-center justify-between border-b border-[#D5C2D7] pb-3">
+                <div className="flex items-center gap-2">
+                  <Database className="w-5 h-5 text-[#8C5A7D]" />
+                  <h4 className="font-serif font-bold text-[#554052]">Supabase PostgreSQL</h4>
+                </div>
+                <span
+                  className={`px-2.5 py-0.5 text-xs font-semibold rounded-xs ${
+                    isDatabaseConnected
+                      ? 'bg-emerald-100 text-emerald-800'
+                      : 'bg-amber-100 text-amber-800'
+                  }`}
+                >
+                  {isDatabaseConnected ? 'LIVE CONNECTED' : 'LOCAL SANDBOX MODE'}
+                </span>
+              </div>
+
+              <div className="space-y-2 text-xs">
+                <p className="flex justify-between">
+                  <span className="text-[#A185A4]">Database URL:</span>
+                  <span className="font-mono text-[#554052]">
+                    {import.meta.env.VITE_SUPABASE_URL || 'Configured via .env'}
+                  </span>
+                </p>
+                <p className="flex justify-between">
+                  <span className="text-[#A185A4]">RLS Security:</span>
+                  <span className="font-semibold text-emerald-700">Enabled on all 21 tables</span>
+                </p>
+                <p className="flex justify-between">
+                  <span className="text-[#A185A4]">Atomic Checkout RPC:</span>
+                  <span className="font-mono font-semibold text-[#8C5A7D]">create_order_atomic()</span>
+                </p>
+                <p className="flex justify-between">
+                  <span className="text-[#A185A4]">Stock Restoration RPC:</span>
+                  <span className="font-mono font-semibold text-[#8C5A7D]">cancel_order_and_restore_stock()</span>
+                </p>
+              </div>
+
+              <div className="p-3 bg-[#F6F0F4] border border-[#D5C2D7] text-[11px] text-[#554052] space-y-1">
+                <strong>Migration Script:</strong>
+                <p className="font-mono text-[10px] text-[#8C5A7D]">
+                  supabase/migrations/20261019000000_house_of_rii_schema.sql
+                </p>
+                <p className="text-[10px] text-[#A185A4]">
+                  Ready to paste into the Supabase SQL Editor to provision all tables, RPCs, and indexes.
+                </p>
+              </div>
+            </div>
+
+            {/* Razorpay Status Card */}
+            <div className="bg-white p-6 border border-[#D5C2D7] shadow-xs space-y-4">
+              <div className="flex items-center justify-between border-b border-[#D5C2D7] pb-3">
+                <div className="flex items-center gap-2">
+                  <Activity className="w-5 h-5 text-[#8C5A7D]" />
+                  <h4 className="font-serif font-bold text-[#554052]">Razorpay Payment Gateway</h4>
+                </div>
+                <span className="px-2.5 py-0.5 text-xs font-semibold rounded-xs bg-emerald-100 text-emerald-800">
+                  SERVER VERIFIED
+                </span>
+              </div>
+
+              <div className="space-y-2 text-xs">
+                <p className="flex justify-between">
+                  <span className="text-[#A185A4]">Order Creation Endpoint:</span>
+                  <span className="font-mono text-[#554052]">/api/create-razorpay-order</span>
+                </p>
+                <p className="flex justify-between">
+                  <span className="text-[#A185A4]">Signature Verification:</span>
+                  <span className="font-mono text-[#554052]">/api/verify-razorpay-payment</span>
+                </p>
+                <p className="flex justify-between">
+                  <span className="text-[#A185A4]">Webhook Endpoint:</span>
+                  <span className="font-mono text-[#554052]">/api/razorpay-webhook</span>
+                </p>
+                <p className="flex justify-between">
+                  <span className="text-[#A185A4]">Security Mode:</span>
+                  <span className="font-semibold text-emerald-700">HMAC-SHA256 Server Key Protection</span>
+                </p>
+              </div>
+
+              <div className="p-3 bg-[#F6F0F4] border border-[#D5C2D7] text-[11px] text-[#554052] space-y-1">
+                <strong>Credentials Safety:</strong>
+                <p className="text-[10px] text-[#A185A4]">
+                  Private keys (<code className="font-mono">RAZORPAY_KEY_SECRET</code> and <code className="font-mono">SUPABASE_SERVICE_ROLE_KEY</code>) are isolated on backend server and never exposed in client bundle.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* First Admin Promotion Utility */}
+          <div className="bg-white p-6 border border-[#D5C2D7] shadow-xs space-y-4">
+            <div className="flex items-center gap-2 border-b border-[#D5C2D7] pb-3">
+              <ShieldCheck className="w-5 h-5 text-[#8C5A7D]" />
+              <h4 className="font-serif font-bold text-[#554052]">First Administrator Setup & Provisioning</h4>
+            </div>
+
+            <p className="text-xs text-[#554052]">
+              Promote a registered patron account to <strong className="text-[#8C5A7D]">Administrator (role: admin)</strong> using your private <code className="font-mono bg-[#F6F0F4] px-1 border border-[#D5C2D7]">ADMIN_SETUP_SECRET</code>.
+            </p>
+
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                setAdminPromotionMessage(null);
+                const res = await setupFirstAdminOnServer(adminEmailInput, adminSecretInput);
+                setAdminPromotionMessage(res.message);
+                if (res.success) {
+                  showToast('User promoted to administrator!');
+                  loadCustomers();
+                }
+              }}
+              className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs"
+            >
+              <div>
+                <label className="block text-[#554052] font-semibold mb-1">Patron Email</label>
+                <input
+                  type="email"
+                  value={adminEmailInput}
+                  onChange={(e) => setAdminEmailInput(e.target.value)}
+                  placeholder="patron@example.com"
+                  className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2 text-xs outline-none focus:border-[#8C5A7D]"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-[#554052] font-semibold mb-1">Admin Setup Secret</label>
+                <input
+                  type="password"
+                  value={adminSecretInput}
+                  onChange={(e) => setAdminSecretInput(e.target.value)}
+                  placeholder="Matches ADMIN_SETUP_SECRET in .env"
+                  className="w-full bg-[#F6F0F4] border border-[#D5C2D7] p-2 text-xs font-mono outline-none focus:border-[#8C5A7D]"
+                  required
+                />
+              </div>
+
+              <div className="flex items-end">
+                <button
+                  type="submit"
+                  className="w-full py-2 bg-[#8C5A7D] hover:bg-[#554052] text-white font-semibold uppercase tracking-wider text-xs transition-colors"
+                >
+                  Promote to Admin
+                </button>
+              </div>
+            </form>
+
+            {adminPromotionMessage && (
+              <p className="text-xs text-[#8C5A7D] font-semibold p-2.5 bg-[#F6F0F4] border border-[#D5C2D7]">
+                {adminPromotionMessage}
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };

@@ -89,7 +89,7 @@ export const CustomerAuthModal: React.FC = () => {
   };
 
   // 1. LOGIN SUBMIT
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError(null);
     setLoginSuccessMsg(null);
@@ -104,17 +104,21 @@ export const CustomerAuthModal: React.FC = () => {
       return;
     }
 
-    const res = loginCustomer(cleanId, loginPassword);
-    if (!res.success) {
-      setLoginError(res.message);
-    } else {
-      setLoginIdentifier('');
-      setLoginPassword('');
+    try {
+      const res = await loginCustomer(cleanId, loginPassword);
+      if (!res.success) {
+        setLoginError(res.message);
+      } else {
+        setLoginIdentifier('');
+        setLoginPassword('');
+      }
+    } catch (err: any) {
+      setLoginError(err?.message || 'Login failed. Please check credentials.');
     }
   };
 
   // 2. CREATE ACCOUNT (REGISTER) SUBMIT
-  const handleRegisterSubmit = (e: React.FormEvent) => {
+  const handleRegisterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setRegError(null);
 
@@ -143,35 +147,39 @@ export const CustomerAuthModal: React.FC = () => {
       return;
     }
 
-    const res = registerCustomer({
-      fullName: cleanName,
-      email: cleanEmail,
-      phone: cleanPhoneDigits,
-      password: regPassword,
-      addressLine: regAddress,
-      city: regCity,
-      state: regState,
-      pincode: regPincode,
-    });
+    try {
+      const res = await registerCustomer({
+        fullName: cleanName,
+        email: cleanEmail,
+        phone: cleanPhoneDigits,
+        password: regPassword,
+        addressLine: regAddress,
+        city: regCity,
+        state: regState,
+        pincode: regPincode,
+      });
 
-    if (!res.success) {
-      setRegError(res.message);
-    } else {
-      // Clear registration inputs
-      setRegName('');
-      setRegEmail('');
-      setRegPhone('');
-      setRegPassword('');
-      setRegConfirmPassword('');
-      setRegAddress('');
-      setRegCity('');
-      setRegPincode('');
+      if (!res.success) {
+        setRegError(res.message);
+      } else {
+        // Clear registration inputs
+        setRegName('');
+        setRegEmail('');
+        setRegPhone('');
+        setRegPassword('');
+        setRegConfirmPassword('');
+        setRegAddress('');
+        setRegCity('');
+        setRegPincode('');
 
-      // Guide user to login with their new credentials
-      setLoginIdentifier(cleanEmail);
-      setLoginPassword('');
-      setLoginSuccessMsg('Account created successfully! Please sign in with your password to continue.');
-      setAuthModalMode('login');
+        // Guide user to login with their new credentials
+        setLoginIdentifier(cleanEmail);
+        setLoginPassword('');
+        setLoginSuccessMsg('Account created successfully! Please sign in with your password to continue.');
+        setAuthModalMode('login');
+      }
+    } catch (err: any) {
+      setRegError(err?.message || 'Registration failed.');
     }
   };
 
@@ -214,7 +222,7 @@ export const CustomerAuthModal: React.FC = () => {
   };
 
   // 4. FORGOT PASSWORD: RESET WITH OTP
-  const handleVerifyOtpAndReset = (e: React.FormEvent) => {
+  const handleVerifyOtpAndReset = async (e: React.FormEvent) => {
     e.preventDefault();
     setForgotError(null);
 
@@ -231,7 +239,7 @@ export const CustomerAuthModal: React.FC = () => {
       return;
     }
 
-    const res = resetCustomerPassword(forgotIdentifier, newPassword);
+    const res = await resetCustomerPassword(forgotIdentifier, newPassword);
     if (!res.success) {
       setForgotError(res.message);
       return;

@@ -12,10 +12,12 @@ import {
   ShoppingBag,
   ExternalLink,
   ChevronRight,
+  RotateCw,
+  X,
 } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { BRAND_CONFIG } from '../config/brand';
-import { Order } from '../types';
+import { Order, KurtiSize } from '../types';
 
 export const OrdersPage: React.FC = () => {
   const {
@@ -26,6 +28,8 @@ export const OrdersPage: React.FC = () => {
     setIsAuthModalOpen,
     setAuthModalMode,
     openProductDetails,
+    requestExchange,
+    showToast,
   } = useStore();
 
   const [statusFilter, setStatusFilter] = useState<'ALL' | 'CONFIRMED' | 'DISPATCHED' | 'DELIVERED'>('ALL');
@@ -33,6 +37,13 @@ export const OrdersPage: React.FC = () => {
   const [lookupPhone, setLookupPhone] = useState('');
   const [guestLookupResult, setGuestLookupResult] = useState<Order | null>(null);
   const [lookupError, setLookupError] = useState<string | null>(null);
+
+  // Size Exchange Modal State
+  const [selectedExchangeOrder, setSelectedExchangeOrder] = useState<Order | null>(null);
+  const [requestedSize, setRequestedSize] = useState<KurtiSize>('M');
+  const [exchangeReason, setExchangeReason] = useState('Need an alternate size for better fit');
+  const [isSubmittingExchange, setIsSubmittingExchange] = useState(false);
+  const [exchangeSuccess, setExchangeSuccess] = useState(false);
 
   const customerOrders = currentUser ? getCustomerOrders() : [];
 
@@ -226,6 +237,18 @@ export const OrdersPage: React.FC = () => {
             >
               <Printer className="w-3.5 h-3.5 text-[#8C5A7D]" />
               <span>Print Invoice</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setSelectedExchangeOrder(order);
+                setExchangeSuccess(false);
+              }}
+              className="px-3 py-1.5 border border-[#8C5A7D] bg-[#F6F0F4] hover:bg-[#8C5A7D] hover:text-white text-[#8C5A7D] font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
+              title="Request alternate size within 7 days of delivery"
+            >
+              <RotateCw className="w-3.5 h-3.5" />
+              <span>Request Exchange</span>
             </button>
           </div>
 
@@ -441,6 +464,133 @@ export const OrdersPage: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* 7-DAY SIZE EXCHANGE REQUEST MODAL */}
+      {selectedExchangeOrder && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
+          <div className="bg-[#F3E9EB] max-w-lg w-full border border-[#D5C2D7] shadow-2xl p-6 sm:p-8 space-y-4">
+            <div className="flex items-center justify-between border-b border-[#D5C2D7] pb-3">
+              <div className="flex items-center gap-2">
+                <RotateCw className="w-5 h-5 text-[#8C5A7D]" />
+                <h3 className="font-serif text-lg font-bold text-[#554052]">
+                  Request Garment Size Exchange
+                </h3>
+              </div>
+              <button
+                onClick={() => setSelectedExchangeOrder(null)}
+                className="p-1 text-[#554052] hover:text-[#8C5A7D]"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-3 bg-white border border-[#D5C2D7] text-xs space-y-1">
+              <p className="flex justify-between">
+                <span className="text-[#A185A4]">Order Number:</span>
+                <strong className="font-mono text-[#8C5A7D]">#{selectedExchangeOrder.orderNumber}</strong>
+              </p>
+              <p className="flex justify-between">
+                <span className="text-[#A185A4]">Customer:</span>
+                <span className="font-semibold text-[#554052]">{selectedExchangeOrder.shippingAddress.fullName}</span>
+              </p>
+              <p className="flex justify-between">
+                <span className="text-[#A185A4]">Items in Order:</span>
+                <span className="text-[#554052]">{selectedExchangeOrder.items.length} garments</span>
+              </p>
+            </div>
+
+            {exchangeSuccess ? (
+              <div className="p-4 bg-emerald-50 border border-emerald-300 text-center space-y-2 rounded-xs">
+                <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto" />
+                <h4 className="font-serif text-base font-bold text-emerald-900">Exchange Logged Successfully!</h4>
+                <p className="text-xs text-emerald-800">
+                  Our Jaipur studio concierge will verify inventory and arrange reverse pickup within 24 hours.
+                </p>
+                <button
+                  onClick={() => setSelectedExchangeOrder(null)}
+                  className="mt-3 px-4 py-2 bg-[#8C5A7D] text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Close Window
+                </button>
+              </div>
+            ) : (
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  setIsSubmittingExchange(true);
+                  try {
+                    await requestExchange(selectedExchangeOrder.id, requestedSize, exchangeReason);
+                    setExchangeSuccess(true);
+                  } catch (err: any) {
+                    showToast(err?.message || 'Failed to submit exchange request');
+                  } finally {
+                    setIsSubmittingExchange(false);
+                  }
+                }}
+                className="space-y-4 text-xs"
+              >
+                <div>
+                  <label className="block text-[#554052] font-semibold mb-1">
+                    Select Replacement Size Needed *
+                  </label>
+                  <div className="flex gap-2">
+                    {(['XS', 'S', 'M', 'L', 'XL', 'XXL'] as KurtiSize[]).map((sz) => (
+                      <button
+                        key={sz}
+                        type="button"
+                        onClick={() => setRequestedSize(sz)}
+                        className={`flex-1 py-2 font-mono font-bold border transition-colors ${
+                          requestedSize === sz
+                            ? 'bg-[#8C5A7D] text-white border-[#8C5A7D]'
+                            : 'bg-white border-[#D5C2D7] text-[#554052] hover:border-[#8C5A7D]'
+                        }`}
+                      >
+                        {sz}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[#554052] font-semibold mb-1">
+                    Reason for Exchange & Fitting Notes *
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={exchangeReason}
+                    onChange={(e) => setExchangeReason(e.target.value)}
+                    placeholder="e.g. Sleeves feel slightly snug / prefer looser bust fitting for festive movement"
+                    className="w-full bg-white border border-[#D5C2D7] p-2.5 text-xs text-[#554052] outline-none focus:border-[#8C5A7D]"
+                    required
+                  />
+                </div>
+
+                <div className="p-2.5 bg-[#FAF7F5] border border-[#D5C2D7] text-[11px] text-[#A185A4] leading-relaxed">
+                  ✓ Valid within 7 calendar days of delivery.<br />
+                  ✓ Garment must remain unused with original House of Rii brand tags intact.
+                </div>
+
+                <div className="flex items-center justify-end gap-2 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedExchangeOrder(null)}
+                    className="px-4 py-2 border border-[#D5C2D7] text-[#554052] hover:bg-white"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmittingExchange}
+                    className="px-6 py-2 bg-[#8C5A7D] hover:bg-[#554052] text-white font-semibold uppercase tracking-wider disabled:opacity-50"
+                  >
+                    {isSubmittingExchange ? 'Submitting...' : 'Submit Exchange Request'}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
